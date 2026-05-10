@@ -382,9 +382,9 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
             return (
               <div 
                 key={slot.lineIndex}
-                className={`flex flex-wrap gap-x-2 sm:gap-x-3 gap-y-1 sm:gap-y-2 py-1 sm:py-2 w-full transition-all duration-500 ease-in-out ${
-                  slotIndex === 0 ? 'justify-start md:justify-center pr-4 md:pr-10' : 'justify-end md:justify-center pl-4 md:pl-10'
-                } ${isActive ? 'scale-[1.02] sm:scale-105 opacity-100' : 'scale-100 opacity-50'}`}
+                className={`flex flex-wrap gap-x-2 sm:gap-x-3 gap-y-1 sm:gap-y-2 py-1 w-full transition-all duration-500 ease-in-out ${
+                  slotIndex === 0 ? 'justify-start md:justify-center pr-2 md:pr-10' : 'justify-end md:justify-center pl-2 md:pl-10'
+                } ${isActive ? 'scale-[1.02] sm:scale-105 opacity-100 z-10' : 'scale-100 opacity-40 z-0'}`}
               >
                 {words.map((word, i) => {
                   let fillPercentage = 0;
@@ -410,18 +410,23 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
                     }
                   }
 
+                  const isLongText = lineData.text.length > 35 || words.length > 7;
+                  const textClass = isLongText 
+                    ? "text-xl sm:text-2xl md:text-3xl lg:text-4xl" 
+                    : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl";
+
                   return (
                     <span 
                       key={i}
-                      className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide"
+                      className={`${textClass} font-bold tracking-wide`}
                       style={{ 
                         fontFamily: "Arial, Helvetica, sans-serif",
                         backgroundImage: `linear-gradient(to right, ${song.color} ${fillPercentage}%, rgba(255,255,255,0.3) ${fillPercentage}%)`,
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
                         WebkitTextStroke: isActive && fillPercentage > 0 ? "1px white" : "2px rgba(255,255,255,0.2)",
-                        lineHeight: "1.2",
-                        paddingBottom: "4px"
+                        lineHeight: "1.3",
+                        paddingBottom: "2px"
                       }}
                     >
                       {word}
