@@ -4,6 +4,12 @@ import json
 import subprocess
 import whisper
 import argparse
+import difflib
+import string
+
+def clean_word(word):
+    """Chuẩn hóa từ để so sánh: bỏ dấu câu, viết thường"""
+    return word.translate(str.maketrans('', '', string.punctuation)).lower().strip()
 
 def get_songs(filepath, varname):
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -15,7 +21,6 @@ def get_songs(filepath, varname):
     
     if start_idx == -1 or end_idx == -1: return []
     
-    # Use Node to evaluate the array
     node_script = f"""
     const fs = require('fs');
     const code = fs.readFileSync('{filepath}', 'utf8');
@@ -69,6 +74,87 @@ def save_songs(filepath, varname, songs):
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(tsContent)
 
+
+def align_line_to_whisper(line_words_text, whisper_words, search_start, search_end):
+    """
+    Khớp các từ trong 1 CÂU với các từ Whisper trong khoảng thời gian [search_start, search_end].
+    Trả về list các match {text, start, end} cho từng từ trong câu.
+    """
+    # Lọc whisper words trong khoảng thời gian tìm kiếm
+    candidates = [w for w in whisper_words if w['start'] >= search_start - 1.0 and w['start'] <= search_end + 2.0]
+    
+    if not candidates:
+        return None
+    
+    line_clean = [clean_word(w) for w in line_words_text]
+    cand_clean = [clean_word(w['text']) for w in candidates]
+    
+    sm = difflib.SequenceMatcher(None, cand_clean, line_clean)
+    
+    results = [None] * len(line_words_text)
+    matched = 0
+    
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == 'equal':
+            for k in range(i2 - i1):
+                c_idx = i1 + k
+                l_idx = j1 + k
+                results[l_idx] = {
+                    'start': candidates[c_idx]['start'],
+                    'end': candidates[c_idx]['end']
+                }
+                matched += 1
+    
+    # Nội suy các từ bị miss
+    for i in range(len(results)):
+        if results[i] is not None:
+            continue
+        
+        # Tìm trước/sau
+        prev_end = None
+        for j in range(i - 1, -1, -1):
+            if results[j] is not None:
+                prev_end = results[j]['end']
+                break
+        
+        next_start = None
+        next_idx = len(results)
+        for j in range(i + 1, len(results)):
+            if results[j] is not None:
+                next_start = results[j]['start']
+                next_idx = j
+                break
+        
+        if prev_end is not None and next_start is not None:
+            gap = next_start - prev_end
+            count = next_idx - i
+            per_word = gap / (count + 0.5)
+            offset = i - (i - 1 if prev_end else 0)
+            
+            # Tìm lại vị trí chính xác
+            k = 0
+            for j in range(i, next_idx):
+                if results[j] is None:
+                    results[j] = {
+                        'start': prev_end + k * per_word,
+                        'end': prev_end + (k + 1) * per_word * 0.85
+                    }
+                    k += 1
+        elif prev_end is not None:
+            results[i] = {'start': prev_end + 0.05, 'end': prev_end + 0.45}
+        elif next_start is not None:
+            results[i] = {'start': max(0, next_start - 0.5), 'end': next_start - 0.05}
+        else:
+            # Hoàn toàn không có anchor -> dùng search_start
+            per_word = 0.4
+            results[i] = {
+                'start': search_start + i * per_word,
+                'end': search_start + (i + 1) * per_word * 0.85
+            }
+    
+    return results, matched
+
+
 def process_songs(lang, filepath, varname, model, target_ids=None):
     songs = get_songs(filepath, varname)
     if target_ids:
@@ -83,7 +169,7 @@ def process_songs(lang, filepath, varname, model, target_ids=None):
         title_safe = song['title'].encode('ascii', 'ignore').decode('ascii')
         print(f"\n[{lang.upper()}] Processing AI Sync for: {title_safe}")
         
-        # 1. Trích xuất Audio (Tối ưu hóa: Chỉ trích xuất audio có độ dài = thời gian câu cuối + 15 giây)
+        # 1. Trích xuất Audio
         last_lyric_time = song['lyrics'][-1]['time']
         audio_duration = last_lyric_time + 15
         temp_audio = f"temp_{song['id']}.wav"
@@ -103,8 +189,14 @@ def process_songs(lang, filepath, varname, model, target_ids=None):
         
         whisper_words = []
         for segment in result["segments"]:
-            for word in segment["words"]:
-                whisper_words.append(word)
+            if "words" in segment:
+                for word in segment["words"]:
+                    whisper_words.append({
+                        "text": word["word"].strip(),
+                        "clean": clean_word(word["word"]),
+                        "start": word["start"],
+                        "end": word["end"]
+                    })
                 
         print(f"  -> AI Found {len(whisper_words)} spoken words.")
         
@@ -112,44 +204,59 @@ def process_songs(lang, filepath, varname, model, target_ids=None):
         if os.path.exists(temp_audio):
             os.remove(temp_audio)
             
-        if len(whisper_words) < 5:
-            print("  -> WARNING: Not enough words detected (Instrumental beat?). Skipping sync.")
+        if len(whisper_words) < 3:
+            print("  -> WARNING: Not enough words detected. Skipping sync.")
             continue
 
-        # 3. Phân bổ thời gian (Word-level mapping)
-        our_words_flat = []
-        for line in song['lyrics']:
-            words_arr = line.get('words', [{'text': w} for w in line['text'].split()])
-            for w in words_arr:
-                our_words_flat.append(w)
-                
-        for i in range(len(our_words_flat)):
-            if i < len(whisper_words):
-                ww = whisper_words[i]
-                duration = ww['end'] - ww['start']
-                if i + 1 < len(whisper_words):
-                    gap = whisper_words[i+1]['start'] - ww['end']
-                    if 0 < gap < 1.0: duration += gap
-                if duration < 0.2: duration = 0.2
-                our_words_flat[i]['duration'] = round(duration, 2)
+        # 3. KHỚP TỪNG CÂU MỘT (Line-by-line alignment)
+        # Mỗi câu được khớp trong khoảng thời gian [line.time - 2s, next_line.time + 2s]
+        # Đảm bảo không bị nhảy sang đoạn lặp lại (repeating chorus)
+        total_matched = 0
+        total_words = 0
+        
+        for l_idx, line in enumerate(song['lyrics']):
+            words_text = line['text'].split()
+            total_words += len(words_text)
+            
+            # Xác định khoảng thời gian tìm kiếm cho câu này
+            search_start = line['time']
+            if l_idx + 1 < len(song['lyrics']):
+                search_end = song['lyrics'][l_idx + 1]['time']
             else:
-                our_words_flat[i]['duration'] = 0.5
-                
-        word_idx = 0
-        for line in song['lyrics']:
-            words_in_line = len(line.get('words', line['text'].split()))
+                search_end = line['time'] + 15  # Câu cuối: cho thêm 15 giây
             
-            # CORE FIX: Auto-correct the line's start time to Whisper's exact timing
-            if word_idx < len(whisper_words):
-                exact_start = whisper_words[word_idx]['start']
-                # Only update if the gap between manual and AI is reasonable (e.g. within 5 seconds)
-                # to prevent catastrophic sync if Whisper hallucinates
-                if abs(line['time'] - exact_start) < 5.0:
-                    line['time'] = round(exact_start, 2)
-                    
-            line['words'] = our_words_flat[word_idx:word_idx + words_in_line]
-            word_idx += words_in_line
+            result = align_line_to_whisper(words_text, whisper_words, search_start, search_end)
             
+            if result is None:
+                # Không tìm được gì -> giữ nguyên timing cũ
+                continue
+            
+            alignments, matched = result
+            total_matched += matched
+            
+            # Cập nhật thời gian bắt đầu câu = thời gian từ đầu tiên
+            if alignments[0] is not None:
+                new_start = alignments[0]['start']
+                # Chỉ cập nhật nếu sai lệch trong phạm vi hợp lý
+                if abs(line['time'] - new_start) < 5.0:
+                    line['time'] = round(new_start, 2)
+            
+            # Cập nhật duration từng từ
+            new_words = []
+            for w_idx, w_text in enumerate(words_text):
+                if alignments[w_idx] is not None:
+                    dur = alignments[w_idx]['end'] - alignments[w_idx]['start']
+                    dur = max(0.15, min(dur, 2.5))
+                else:
+                    dur = 0.4
+                new_words.append({
+                    "text": w_text,
+                    "duration": round(dur, 2)
+                })
+            line['words'] = new_words
+        
+        match_rate = total_matched / total_words * 100 if total_words > 0 else 0
+        print(f"  -> Aligned {total_matched}/{total_words} words ({match_rate:.0f}%)")
         print(f"  -> 100% Sync Completed for {song['id']}")
 
     # Save to file
@@ -158,7 +265,7 @@ def process_songs(lang, filepath, varname, model, target_ids=None):
         for processed_song in songs:
             if s['id'] == processed_song['id']:
                 songs_full[i] = processed_song
-                songs_full[i]['localVideo'] = f"/videos/{s['id']}.mp4" # Force offline playback
+                songs_full[i]['localVideo'] = f"/videos/{s['id']}.mp4"
                 
     save_songs(filepath, varname, songs_full)
 
@@ -168,15 +275,17 @@ if __name__ == "__main__":
     parser.add_argument("--ids", help="Comma separated list of song IDs")
     args = parser.parse_args()
     
-    print("Loading Whisper model (base)...")
-    model = whisper.load_model("base")
-    
     target_ids = args.ids.split(",") if args.ids else None
     
     if args.lang in ["en", "all"]:
-        process_songs("en", 'src/data/songs-en.ts', 'songsEnNew', model, target_ids)
+        print("Loading Whisper model (small.en) for English...")
+        model_en = whisper.load_model("small.en")
+        process_songs("en", 'src/data/songs-en.ts', 'songsEnNew', model_en, target_ids)
+        del model_en  # Free memory
         
     if args.lang in ["vi", "all"]:
-        process_songs("vi", 'src/data/songs-vi.ts', 'songsViNew', model, target_ids)
+        print("Loading Whisper model (base) for Vietnamese...")
+        model_vi = whisper.load_model("base")
+        process_songs("vi", 'src/data/songs-vi.ts', 'songsViNew', model_vi, target_ids)
         
     print("\n--- AI SYNC PROCESS COMPLETE ---")

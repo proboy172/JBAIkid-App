@@ -13,19 +13,19 @@
         "words": [
           {
             "text": "Twinkle,",
-            "duration": 0.84
+            "duration": 0.52
           },
           {
             "text": "twinkle,",
-            "duration": 0.84
+            "duration": 0.52
           },
           {
             "text": "little",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "star",
-            "duration": 1.02
+            "duration": 0.63
           }
         ]
       },
@@ -35,27 +35,27 @@
         "words": [
           {
             "text": "How",
-            "duration": 0.74
+            "duration": 0.39
           },
           {
             "text": "I",
-            "duration": 0.53
+            "duration": 0.28
           },
           {
             "text": "wonder",
-            "duration": 1.06
+            "duration": 0.55
           },
           {
             "text": "what",
-            "duration": 0.85
+            "duration": 0.44
           },
           {
             "text": "you",
-            "duration": 0.74
+            "duration": 0.39
           },
           {
             "text": "are",
-            "duration": 1.86
+            "duration": 0.96
           }
         ]
       },
@@ -65,27 +65,27 @@
         "words": [
           {
             "text": "Up",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "above",
-            "duration": 0.92
+            "duration": 0.47
           },
           {
             "text": "the",
-            "duration": 0.71
+            "duration": 0.37
           },
           {
             "text": "world",
-            "duration": 0.92
+            "duration": 0.47
           },
           {
             "text": "so",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "high",
-            "duration": 2.04
+            "duration": 1.05
           }
         ]
       },
@@ -95,27 +95,27 @@
         "words": [
           {
             "text": "Like",
-            "duration": 0.85
+            "duration": 0.44
           },
           {
             "text": "a",
-            "duration": 0.53
+            "duration": 0.28
           },
           {
             "text": "diamond",
-            "duration": 1.17
+            "duration": 0.61
           },
           {
             "text": "in",
-            "duration": 0.64
+            "duration": 0.33
           },
           {
             "text": "the",
-            "duration": 0.74
+            "duration": 0.39
           },
           {
             "text": "sky",
-            "duration": 1.86
+            "duration": 0.96
           }
         ]
       },
@@ -125,24 +125,188 @@
         "words": [
           {
             "text": "Twinkle,",
-            "duration": 1.52
+            "duration": 0.52
           },
           {
             "text": "twinkle,",
-            "duration": 1.52
+            "duration": 0.52
           },
           {
             "text": "little",
-            "duration": 0.92
+            "duration": 0.32
           },
           {
             "text": "star",
-            "duration": 1.84
+            "duration": 0.63
           }
         ]
       },
       {
         "time": 41,
+        "text": "How I wonder what you are",
+        "words": [
+          {
+            "text": "How",
+            "duration": 0.39
+          },
+          {
+            "text": "I",
+            "duration": 0.28
+          },
+          {
+            "text": "wonder",
+            "duration": 0.55
+          },
+          {
+            "text": "what",
+            "duration": 0.44
+          },
+          {
+            "text": "you",
+            "duration": 0.39
+          },
+          {
+            "text": "are",
+            "duration": 0.96
+          }
+        ]
+      },
+      {
+        "time": 52,
+        "text": "Twinkle, twinkle, little star",
+        "words": [
+          {
+            "text": "Twinkle,",
+            "duration": 0.52
+          },
+          {
+            "text": "twinkle,",
+            "duration": 0.52
+          },
+          {
+            "text": "little",
+            "duration": 0.32
+          },
+          {
+            "text": "star",
+            "duration": 0.63
+          }
+        ]
+      },
+      {
+        "time": 58,
+        "text": "How I wonder what you are",
+        "words": [
+          {
+            "text": "How",
+            "duration": 0.39
+          },
+          {
+            "text": "I",
+            "duration": 0.28
+          },
+          {
+            "text": "wonder",
+            "duration": 0.55
+          },
+          {
+            "text": "what",
+            "duration": 0.44
+          },
+          {
+            "text": "you",
+            "duration": 0.39
+          },
+          {
+            "text": "are",
+            "duration": 0.96
+          }
+        ]
+      },
+      {
+        "time": 64,
+        "text": "Up above the world so high",
+        "words": [
+          {
+            "text": "Up",
+            "duration": 0.32
+          },
+          {
+            "text": "above",
+            "duration": 0.47
+          },
+          {
+            "text": "the",
+            "duration": 0.37
+          },
+          {
+            "text": "world",
+            "duration": 0.47
+          },
+          {
+            "text": "so",
+            "duration": 0.32
+          },
+          {
+            "text": "high",
+            "duration": 1.05
+          }
+        ]
+      },
+      {
+        "time": 70,
+        "text": "Like a diamond in the sky",
+        "words": [
+          {
+            "text": "Like",
+            "duration": 0.44
+          },
+          {
+            "text": "a",
+            "duration": 0.28
+          },
+          {
+            "text": "diamond",
+            "duration": 0.61
+          },
+          {
+            "text": "in",
+            "duration": 0.33
+          },
+          {
+            "text": "the",
+            "duration": 0.39
+          },
+          {
+            "text": "sky",
+            "duration": 0.96
+          }
+        ]
+      },
+      {
+        "time": 76,
+        "text": "Twinkle, twinkle, little star",
+        "words": [
+          {
+            "text": "Twinkle,",
+            "duration": 0.52
+          },
+          {
+            "text": "twinkle,",
+            "duration": 0.52
+          },
+          {
+            "text": "little",
+            "duration": 0.32
+          },
+          {
+            "text": "star",
+            "duration": 0.63
+          }
+        ]
+      },
+      {
+        "time": 82,
         "text": "How I wonder what you are",
         "words": [
           {
@@ -168,170 +332,6 @@
           {
             "text": "are",
             "duration": 1.54
-          }
-        ]
-      },
-      {
-        "time": 52,
-        "text": "Twinkle, twinkle, little star",
-        "words": [
-          {
-            "text": "Twinkle,",
-            "duration": 1.52
-          },
-          {
-            "text": "twinkle,",
-            "duration": 1.52
-          },
-          {
-            "text": "little",
-            "duration": 0.92
-          },
-          {
-            "text": "star",
-            "duration": 1.84
-          }
-        ]
-      },
-      {
-        "time": 58,
-        "text": "How I wonder what you are",
-        "words": [
-          {
-            "text": "How",
-            "duration": 0.74
-          },
-          {
-            "text": "I",
-            "duration": 0.53
-          },
-          {
-            "text": "wonder",
-            "duration": 1.06
-          },
-          {
-            "text": "what",
-            "duration": 0.85
-          },
-          {
-            "text": "you",
-            "duration": 0.74
-          },
-          {
-            "text": "are",
-            "duration": 1.86
-          }
-        ]
-      },
-      {
-        "time": 64,
-        "text": "Up above the world so high",
-        "words": [
-          {
-            "text": "Up",
-            "duration": 0.61
-          },
-          {
-            "text": "above",
-            "duration": 0.92
-          },
-          {
-            "text": "the",
-            "duration": 0.71
-          },
-          {
-            "text": "world",
-            "duration": 0.92
-          },
-          {
-            "text": "so",
-            "duration": 0.61
-          },
-          {
-            "text": "high",
-            "duration": 2.04
-          }
-        ]
-      },
-      {
-        "time": 70,
-        "text": "Like a diamond in the sky",
-        "words": [
-          {
-            "text": "Like",
-            "duration": 0.85
-          },
-          {
-            "text": "a",
-            "duration": 0.53
-          },
-          {
-            "text": "diamond",
-            "duration": 1.17
-          },
-          {
-            "text": "in",
-            "duration": 0.64
-          },
-          {
-            "text": "the",
-            "duration": 0.74
-          },
-          {
-            "text": "sky",
-            "duration": 1.86
-          }
-        ]
-      },
-      {
-        "time": 76,
-        "text": "Twinkle, twinkle, little star",
-        "words": [
-          {
-            "text": "Twinkle,",
-            "duration": 1.52
-          },
-          {
-            "text": "twinkle,",
-            "duration": 1.52
-          },
-          {
-            "text": "little",
-            "duration": 0.92
-          },
-          {
-            "text": "star",
-            "duration": 1.84
-          }
-        ]
-      },
-      {
-        "time": 82,
-        "text": "How I wonder what you are",
-        "words": [
-          {
-            "text": "How",
-            "duration": 0.92
-          },
-          {
-            "text": "I",
-            "duration": 0.66
-          },
-          {
-            "text": "wonder",
-            "duration": 1.32
-          },
-          {
-            "text": "what",
-            "duration": 1.06
-          },
-          {
-            "text": "you",
-            "duration": 0.92
-          },
-          {
-            "text": "are",
-            "duration": 2.31
           }
         ]
       }
@@ -503,27 +503,27 @@
         "words": [
           {
             "text": "Old",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "MacDonald",
-            "duration": 0.94
+            "duration": 0.59
           },
           {
             "text": "had",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "a",
-            "duration": 0.36
+            "duration": 0.23
           },
           {
             "text": "farm,",
-            "duration": 0.87
+            "duration": 0.54
           },
           {
             "text": "E-I-E-I-O!",
-            "duration": 1.62
+            "duration": 1.02
           }
         ]
       },
@@ -533,27 +533,27 @@
         "words": [
           {
             "text": "Old",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "MacDonald",
-            "duration": 1.13
+            "duration": 0.59
           },
           {
             "text": "had",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "a",
-            "duration": 0.44
+            "duration": 0.23
           },
           {
             "text": "farm,",
-            "duration": 1.05
+            "duration": 0.54
           },
           {
             "text": "E-I-E-I-O!",
-            "duration": 1.96
+            "duration": 1.02
           }
         ]
       },
@@ -685,27 +685,27 @@
         "words": [
           {
             "text": "Old",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "MacDonald",
-            "duration": 0.94
+            "duration": 0.59
           },
           {
             "text": "had",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "a",
-            "duration": 0.36
+            "duration": 0.23
           },
           {
             "text": "farm,",
-            "duration": 0.87
+            "duration": 0.54
           },
           {
             "text": "E-I-E-I-O!",
-            "duration": 1.62
+            "duration": 1.02
           }
         ]
       },
@@ -715,27 +715,27 @@
         "words": [
           {
             "text": "Old",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "MacDonald",
-            "duration": 1.13
+            "duration": 0.59
           },
           {
             "text": "had",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "a",
-            "duration": 0.44
+            "duration": 0.23
           },
           {
             "text": "farm,",
-            "duration": 1.05
+            "duration": 0.54
           },
           {
             "text": "E-I-E-I-O!",
-            "duration": 1.96
+            "duration": 1.02
           }
         ]
       },
@@ -867,27 +867,27 @@
         "words": [
           {
             "text": "Old",
-            "duration": 0.76
+            "duration": 0.51
           },
           {
             "text": "MacDonald",
-            "duration": 1.41
+            "duration": 0.94
           },
           {
             "text": "had",
-            "duration": 0.76
+            "duration": 0.51
           },
           {
             "text": "a",
-            "duration": 0.54
+            "duration": 0.36
           },
           {
             "text": "farm,",
-            "duration": 1.3
+            "duration": 0.87
           },
           {
             "text": "E-I-E-I-O!",
-            "duration": 2.44
+            "duration": 1.62
           }
         ]
       }
@@ -985,11 +985,11 @@
         "words": [
           {
             "text": "Baby",
-            "duration": 0.73
+            "duration": 0.39
           },
           {
             "text": "shark!",
-            "duration": 2.07
+            "duration": 1.11
           }
         ]
       },
@@ -1077,11 +1077,11 @@
         "words": [
           {
             "text": "Mommy",
-            "duration": 0.8
+            "duration": 0.43
           },
           {
             "text": "shark!",
-            "duration": 2
+            "duration": 1.07
           }
         ]
       },
@@ -1169,11 +1169,11 @@
         "words": [
           {
             "text": "Daddy",
-            "duration": 0.8
+            "duration": 0.43
           },
           {
             "text": "shark!",
-            "duration": 2
+            "duration": 1.07
           }
         ]
       },
@@ -1261,11 +1261,11 @@
         "words": [
           {
             "text": "Grandma",
-            "duration": 0.92
+            "duration": 0.49
           },
           {
             "text": "shark!",
-            "duration": 1.88
+            "duration": 1.01
           }
         ]
       },
@@ -1365,15 +1365,15 @@
         "words": [
           {
             "text": "Let's",
-            "duration": 0.66
+            "duration": 0.35
           },
           {
             "text": "go",
-            "duration": 0.49
+            "duration": 0.26
           },
           {
             "text": "hunt!",
-            "duration": 1.65
+            "duration": 0.88
           }
         ]
       },
@@ -1461,11 +1461,11 @@
         "words": [
           {
             "text": "Run",
-            "duration": 0.73
+            "duration": 0.39
           },
           {
             "text": "away!",
-            "duration": 2.07
+            "duration": 1.11
           }
         ]
       },
@@ -1565,15 +1565,15 @@
         "words": [
           {
             "text": "Safe",
-            "duration": 0.85
+            "duration": 0.56
           },
           {
             "text": "at",
-            "duration": 0.64
+            "duration": 0.42
           },
           {
             "text": "last!",
-            "duration": 2.12
+            "duration": 1.41
           }
         ]
       }
@@ -1635,27 +1635,27 @@
         "words": [
           {
             "text": "Round",
-            "duration": 0.64
+            "duration": 0.4
           },
           {
             "text": "and",
-            "duration": 0.49
+            "duration": 0.31
           },
           {
             "text": "round,",
-            "duration": 0.95
+            "duration": 0.6
           },
           {
             "text": "round",
-            "duration": 0.64
+            "duration": 0.4
           },
           {
             "text": "and",
-            "duration": 0.49
+            "duration": 0.31
           },
           {
             "text": "round",
-            "duration": 1.59
+            "duration": 0.99
           }
         ]
       },
@@ -1707,19 +1707,19 @@
         "words": [
           {
             "text": "All",
-            "duration": 0.5
+            "duration": 0.31
           },
           {
             "text": "through",
-            "duration": 0.78
+            "duration": 0.49
           },
           {
             "text": "the",
-            "duration": 0.5
+            "duration": 0.31
           },
           {
             "text": "town!",
-            "duration": 1.42
+            "duration": 0.89
           }
         ]
       },
@@ -1771,27 +1771,27 @@
         "words": [
           {
             "text": "Open",
-            "duration": 0.62
+            "duration": 0.39
           },
           {
             "text": "and",
-            "duration": 0.54
+            "duration": 0.34
           },
           {
             "text": "shut,",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "open",
-            "duration": 0.62
+            "duration": 0.39
           },
           {
             "text": "and",
-            "duration": 0.54
+            "duration": 0.34
           },
           {
             "text": "shut",
-            "duration": 1.55
+            "duration": 0.97
           }
         ]
       },
@@ -1843,19 +1843,19 @@
         "words": [
           {
             "text": "All",
-            "duration": 0.5
+            "duration": 0.31
           },
           {
             "text": "through",
-            "duration": 0.78
+            "duration": 0.49
           },
           {
             "text": "the",
-            "duration": 0.5
+            "duration": 0.31
           },
           {
             "text": "town!",
-            "duration": 1.42
+            "duration": 0.89
           }
         ]
       },
@@ -1907,27 +1907,27 @@
         "words": [
           {
             "text": "Swish,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "swish,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "swish,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "swish,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "swish,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "swish",
-            "duration": 1.2
+            "duration": 0.75
           }
         ]
       },
@@ -1979,19 +1979,19 @@
         "words": [
           {
             "text": "All",
-            "duration": 0.5
+            "duration": 0.31
           },
           {
             "text": "through",
-            "duration": 0.78
+            "duration": 0.49
           },
           {
             "text": "the",
-            "duration": 0.5
+            "duration": 0.31
           },
           {
             "text": "town!",
-            "duration": 1.42
+            "duration": 0.89
           }
         ]
       },
@@ -2043,27 +2043,27 @@
         "words": [
           {
             "text": "Beep,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "beep,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "beep,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "beep,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "beep,",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "beep",
-            "duration": 1.2
+            "duration": 0.75
           }
         ]
       },
@@ -2115,19 +2115,19 @@
         "words": [
           {
             "text": "All",
-            "duration": 0.75
+            "duration": 0.5
           },
           {
             "text": "through",
-            "duration": 1.17
+            "duration": 0.78
           },
           {
             "text": "the",
-            "duration": 0.75
+            "duration": 0.5
           },
           {
             "text": "town!",
-            "duration": 2.13
+            "duration": 1.42
           }
         ]
       }
@@ -2299,15 +2299,15 @@
         "words": [
           {
             "text": "Knees",
-            "duration": 1.45
+            "duration": 0.38
           },
           {
             "text": "and",
-            "duration": 1.13
+            "duration": 0.29
           },
           {
             "text": "toes!",
-            "duration": 3.22
+            "duration": 0.83
           }
         ]
       },
@@ -2469,15 +2469,15 @@
         "words": [
           {
             "text": "Knees",
-            "duration": 0.9
+            "duration": 0.6
           },
           {
             "text": "and",
-            "duration": 0.7
+            "duration": 0.47
           },
           {
             "text": "toes!",
-            "duration": 2
+            "duration": 1.33
           }
         ]
       }
@@ -2497,35 +2497,35 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.48
+            "duration": 0.3
           },
           {
             "text": "itsy",
-            "duration": 0.55
+            "duration": 0.34
           },
           {
             "text": "bitsy",
-            "duration": 0.62
+            "duration": 0.39
           },
           {
             "text": "spider",
-            "duration": 0.69
+            "duration": 0.43
           },
           {
             "text": "climbed",
-            "duration": 0.76
+            "duration": 0.47
           },
           {
             "text": "up",
-            "duration": 0.41
+            "duration": 0.26
           },
           {
             "text": "the",
-            "duration": 0.48
+            "duration": 0.3
           },
           {
             "text": "waterspout",
-            "duration": 2.41
+            "duration": 1.51
           }
         ]
       },
@@ -2623,43 +2623,43 @@
         "words": [
           {
             "text": "And",
-            "duration": 0.58
+            "duration": 0.36
           },
           {
             "text": "the",
-            "duration": 0.58
+            "duration": 0.36
           },
           {
             "text": "itsy",
-            "duration": 0.66
+            "duration": 0.41
           },
           {
             "text": "bitsy",
-            "duration": 0.75
+            "duration": 0.47
           },
           {
             "text": "spider",
-            "duration": 0.83
+            "duration": 0.52
           },
           {
             "text": "climbed",
-            "duration": 0.91
+            "duration": 0.57
           },
           {
             "text": "up",
-            "duration": 0.5
+            "duration": 0.31
           },
           {
             "text": "the",
-            "duration": 0.58
+            "duration": 0.36
           },
           {
             "text": "spout",
-            "duration": 0.75
+            "duration": 0.47
           },
           {
             "text": "again",
-            "duration": 1.87
+            "duration": 1.17
           }
         ]
       },
@@ -2669,35 +2669,35 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.48
+            "duration": 0.3
           },
           {
             "text": "itsy",
-            "duration": 0.55
+            "duration": 0.34
           },
           {
             "text": "bitsy",
-            "duration": 0.62
+            "duration": 0.39
           },
           {
             "text": "spider",
-            "duration": 0.69
+            "duration": 0.43
           },
           {
             "text": "climbed",
-            "duration": 0.76
+            "duration": 0.47
           },
           {
             "text": "up",
-            "duration": 0.41
+            "duration": 0.26
           },
           {
             "text": "the",
-            "duration": 0.48
+            "duration": 0.3
           },
           {
             "text": "waterspout",
-            "duration": 2.41
+            "duration": 1.51
           }
         ]
       },
@@ -2707,39 +2707,39 @@
         "words": [
           {
             "text": "Down",
-            "duration": 0.7
+            "duration": 0.44
           },
           {
             "text": "came",
-            "duration": 0.7
+            "duration": 0.44
           },
           {
             "text": "the",
-            "duration": 0.61
+            "duration": 0.38
           },
           {
             "text": "rain",
-            "duration": 0.7
+            "duration": 0.44
           },
           {
             "text": "and",
-            "duration": 0.61
+            "duration": 0.38
           },
           {
             "text": "washed",
-            "duration": 0.87
+            "duration": 0.55
           },
           {
             "text": "the",
-            "duration": 0.61
+            "duration": 0.38
           },
           {
             "text": "spider",
-            "duration": 0.87
+            "duration": 0.55
           },
           {
             "text": "out",
-            "duration": 1.53
+            "duration": 0.95
           }
         ]
       },
@@ -2795,43 +2795,43 @@
         "words": [
           {
             "text": "And",
-            "duration": 0.87
+            "duration": 0.58
           },
           {
             "text": "the",
-            "duration": 0.87
+            "duration": 0.58
           },
           {
             "text": "itsy",
-            "duration": 0.99
+            "duration": 0.66
           },
           {
             "text": "bitsy",
-            "duration": 1.12
-          },
-          {
-            "text": "spider",
-            "duration": 1.24
-          },
-          {
-            "text": "climbed",
-            "duration": 1.37
-          },
-          {
-            "text": "up",
             "duration": 0.75
           },
           {
+            "text": "spider",
+            "duration": 0.83
+          },
+          {
+            "text": "climbed",
+            "duration": 0.91
+          },
+          {
+            "text": "up",
+            "duration": 0.5
+          },
+          {
             "text": "the",
-            "duration": 0.87
+            "duration": 0.58
           },
           {
             "text": "spout",
-            "duration": 1.12
+            "duration": 0.75
           },
           {
             "text": "again",
-            "duration": 2.8
+            "duration": 1.87
           }
         ]
       }
@@ -2957,31 +2957,31 @@
         "words": [
           {
             "text": "No",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "more",
-            "duration": 0.67
+            "duration": 0.42
           },
           {
             "text": "monkeys",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "jumping",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "on",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "the",
-            "duration": 0.59
+            "duration": 0.37
           },
           {
             "text": "bed!",
-            "duration": 1.47
+            "duration": 0.92
           }
         ]
       },
@@ -3097,31 +3097,31 @@
         "words": [
           {
             "text": "No",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "more",
-            "duration": 0.67
+            "duration": 0.42
           },
           {
             "text": "monkeys",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "jumping",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "on",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "the",
-            "duration": 0.59
+            "duration": 0.37
           },
           {
             "text": "bed!",
-            "duration": 1.47
+            "duration": 0.92
           }
         ]
       },
@@ -3237,31 +3237,31 @@
         "words": [
           {
             "text": "No",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "more",
-            "duration": 0.67
+            "duration": 0.42
           },
           {
             "text": "monkeys",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "jumping",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "on",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "the",
-            "duration": 0.59
+            "duration": 0.37
           },
           {
             "text": "bed!",
-            "duration": 1.47
+            "duration": 0.92
           }
         ]
       },
@@ -3377,31 +3377,31 @@
         "words": [
           {
             "text": "No",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "more",
-            "duration": 0.67
+            "duration": 0.42
           },
           {
             "text": "monkeys",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "jumping",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "on",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "the",
-            "duration": 0.59
+            "duration": 0.37
           },
           {
             "text": "bed!",
-            "duration": 1.47
+            "duration": 0.92
           }
         ]
       },
@@ -3517,31 +3517,31 @@
         "words": [
           {
             "text": "No",
-            "duration": 0.76
+            "duration": 0.51
           },
           {
             "text": "more",
-            "duration": 1.01
+            "duration": 0.67
           },
           {
             "text": "monkeys",
-            "duration": 1.39
+            "duration": 0.93
           },
           {
             "text": "jumping",
-            "duration": 1.39
+            "duration": 0.93
           },
           {
             "text": "on",
-            "duration": 0.76
+            "duration": 0.51
           },
           {
             "text": "the",
-            "duration": 0.88
+            "duration": 0.59
           },
           {
             "text": "bed!",
-            "duration": 2.21
+            "duration": 1.47
           }
         ]
       }
@@ -3556,40 +3556,40 @@
     "localVideo": "/videos/baa-baa-black-sheep.mp4",
     "lyrics": [
       {
-        "time": 3.58,
+        "time": 3.54,
         "text": "Baa, baa, black sheep, have you any wool?",
         "words": [
           {
             "text": "Baa,",
-            "duration": 0.79
+            "duration": 0.49
           },
           {
             "text": "baa,",
-            "duration": 0.79
+            "duration": 0.49
           },
           {
             "text": "black",
-            "duration": 0.67
+            "duration": 0.42
           },
           {
             "text": "sheep,",
-            "duration": 1.01
+            "duration": 0.63
           },
           {
             "text": "have",
-            "duration": 0.6
+            "duration": 0.37
           },
           {
             "text": "you",
-            "duration": 0.52
+            "duration": 0.33
           },
           {
             "text": "any",
-            "duration": 0.52
+            "duration": 0.33
           },
           {
             "text": "wool?",
-            "duration": 1.5
+            "duration": 0.94
           }
         ]
       },
@@ -3599,31 +3599,31 @@
         "words": [
           {
             "text": "Yes,",
-            "duration": 0.77
+            "duration": 0.47
           },
           {
             "text": "sir,",
-            "duration": 0.77
+            "duration": 0.47
           },
           {
             "text": "yes,",
-            "duration": 0.77
+            "duration": 0.47
           },
           {
             "text": "sir,",
-            "duration": 0.77
+            "duration": 0.47
           },
           {
             "text": "three",
-            "duration": 0.66
+            "duration": 0.4
           },
           {
             "text": "bags",
-            "duration": 0.59
+            "duration": 0.35
           },
           {
             "text": "full",
-            "duration": 1.47
+            "duration": 0.89
           }
         ]
       },
@@ -3797,39 +3797,39 @@
         "words": [
           {
             "text": "One",
-            "duration": 0.6
+            "duration": 0.38
           },
           {
             "text": "for",
-            "duration": 0.6
+            "duration": 0.38
           },
           {
             "text": "the",
-            "duration": 0.6
+            "duration": 0.38
           },
           {
             "text": "master,",
-            "duration": 1.29
+            "duration": 0.8
           },
           {
             "text": "and",
-            "duration": 0.6
+            "duration": 0.38
           },
           {
             "text": "one",
-            "duration": 0.6
+            "duration": 0.38
           },
           {
             "text": "for",
-            "duration": 0.6
+            "duration": 0.38
           },
           {
             "text": "the",
-            "duration": 0.6
+            "duration": 0.38
           },
           {
             "text": "dame",
-            "duration": 1.71
+            "duration": 1.07
           }
         ]
       },
@@ -3839,47 +3839,47 @@
         "words": [
           {
             "text": "And",
-            "duration": 0.96
+            "duration": 0.64
           },
           {
             "text": "one",
-            "duration": 0.96
+            "duration": 0.64
           },
           {
             "text": "for",
-            "duration": 0.96
+            "duration": 0.64
           },
           {
             "text": "the",
-            "duration": 0.96
+            "duration": 0.64
           },
           {
             "text": "little",
-            "duration": 1.38
+            "duration": 0.92
           },
           {
             "text": "boy",
-            "duration": 0.96
+            "duration": 0.64
           },
           {
             "text": "who",
-            "duration": 0.96
+            "duration": 0.64
           },
           {
             "text": "lives",
-            "duration": 1.24
+            "duration": 0.83
           },
           {
             "text": "down",
-            "duration": 1.1
+            "duration": 0.73
           },
           {
             "text": "the",
-            "duration": 0.96
+            "duration": 0.64
           },
           {
             "text": "lane",
-            "duration": 2.75
+            "duration": 1.83
           }
         ]
       }
@@ -4059,43 +4059,43 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.51
+            "duration": 0.32
           },
           {
             "text": "you're",
-            "duration": 0.77
+            "duration": 0.48
           },
           {
             "text": "happy",
-            "duration": 0.77
+            "duration": 0.48
           },
           {
             "text": "and",
-            "duration": 0.6
+            "duration": 0.37
           },
           {
             "text": "you",
-            "duration": 0.6
+            "duration": 0.37
           },
           {
             "text": "know",
-            "duration": 0.68
+            "duration": 0.43
           },
           {
             "text": "it,",
-            "duration": 0.77
+            "duration": 0.48
           },
           {
             "text": "clap",
-            "duration": 0.68
+            "duration": 0.43
           },
           {
             "text": "your",
-            "duration": 0.68
+            "duration": 0.43
           },
           {
             "text": "hands",
-            "duration": 1.93
+            "duration": 1.2
           }
         ]
       },
@@ -4265,43 +4265,43 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.52
+            "duration": 0.33
           },
           {
             "text": "you're",
-            "duration": 0.78
+            "duration": 0.49
           },
           {
             "text": "happy",
-            "duration": 0.78
+            "duration": 0.49
           },
           {
             "text": "and",
-            "duration": 0.61
+            "duration": 0.38
           },
           {
             "text": "you",
-            "duration": 0.61
+            "duration": 0.38
           },
           {
             "text": "know",
-            "duration": 0.7
+            "duration": 0.43
           },
           {
             "text": "it,",
-            "duration": 0.78
+            "duration": 0.49
           },
           {
             "text": "stomp",
-            "duration": 0.78
+            "duration": 0.49
           },
           {
             "text": "your",
-            "duration": 0.7
+            "duration": 0.43
           },
           {
             "text": "feet",
-            "duration": 1.74
+            "duration": 1.09
           }
         ]
       },
@@ -4463,39 +4463,39 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.73
+            "duration": 0.49
           },
           {
             "text": "you're",
-            "duration": 1.09
+            "duration": 0.73
           },
           {
             "text": "happy",
-            "duration": 1.09
+            "duration": 0.73
           },
           {
             "text": "and",
-            "duration": 0.85
+            "duration": 0.57
           },
           {
             "text": "you",
-            "duration": 0.85
+            "duration": 0.57
           },
           {
             "text": "know",
-            "duration": 0.97
+            "duration": 0.65
           },
           {
             "text": "it,",
-            "duration": 1.09
+            "duration": 0.73
           },
           {
             "text": "shout",
-            "duration": 1.09
+            "duration": 0.73
           },
           {
             "text": "hooray!",
-            "duration": 3.03
+            "duration": 2.02
           }
         ]
       }
@@ -4541,19 +4541,19 @@
         "words": [
           {
             "text": "Gently",
-            "duration": 0.76
+            "duration": 0.4
           },
           {
             "text": "down",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "the",
-            "duration": 0.53
+            "duration": 0.28
           },
           {
             "text": "stream",
-            "duration": 1.9
+            "duration": 1
           }
         ]
       },
@@ -4563,19 +4563,19 @@
         "words": [
           {
             "text": "Merrily,",
-            "duration": 0.81
+            "duration": 0.43
           },
           {
             "text": "merrily,",
-            "duration": 0.81
+            "duration": 0.43
           },
           {
             "text": "merrily,",
-            "duration": 0.81
+            "duration": 0.43
           },
           {
             "text": "merrily",
-            "duration": 1.36
+            "duration": 0.71
           }
         ]
       },
@@ -4585,23 +4585,23 @@
         "words": [
           {
             "text": "Life",
-            "duration": 0.96
+            "duration": 0.41
           },
           {
             "text": "is",
-            "duration": 0.72
+            "duration": 0.31
           },
           {
             "text": "but",
-            "duration": 0.84
+            "duration": 0.36
           },
           {
             "text": "a",
-            "duration": 0.6
+            "duration": 0.26
           },
           {
             "text": "dream",
-            "duration": 2.69
+            "duration": 1.16
           }
         ]
       },
@@ -4637,19 +4637,19 @@
         "words": [
           {
             "text": "Gently",
-            "duration": 0.76
+            "duration": 0.4
           },
           {
             "text": "down",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "the",
-            "duration": 0.53
+            "duration": 0.28
           },
           {
             "text": "stream",
-            "duration": 1.9
+            "duration": 1
           }
         ]
       },
@@ -4659,19 +4659,19 @@
         "words": [
           {
             "text": "Merrily,",
-            "duration": 0.81
+            "duration": 0.43
           },
           {
             "text": "merrily,",
-            "duration": 0.81
+            "duration": 0.43
           },
           {
             "text": "merrily,",
-            "duration": 0.81
+            "duration": 0.43
           },
           {
             "text": "merrily",
-            "duration": 1.36
+            "duration": 0.71
           }
         ]
       },
@@ -4681,23 +4681,23 @@
         "words": [
           {
             "text": "Life",
-            "duration": 0.96
+            "duration": 0.41
           },
           {
             "text": "is",
-            "duration": 0.72
+            "duration": 0.31
           },
           {
             "text": "but",
-            "duration": 0.84
+            "duration": 0.36
           },
           {
             "text": "a",
-            "duration": 0.6
+            "duration": 0.26
           },
           {
             "text": "dream",
-            "duration": 2.69
+            "duration": 1.16
           }
         ]
       },
@@ -4733,19 +4733,19 @@
         "words": [
           {
             "text": "Gently",
-            "duration": 0.76
+            "duration": 0.4
           },
           {
             "text": "down",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "the",
-            "duration": 0.53
+            "duration": 0.28
           },
           {
             "text": "stream",
-            "duration": 1.9
+            "duration": 1
           }
         ]
       },
@@ -4781,19 +4781,19 @@
         "words": [
           {
             "text": "Don't",
-            "duration": 0.78
+            "duration": 0.52
           },
           {
             "text": "forget",
-            "duration": 0.98
+            "duration": 0.65
           },
           {
             "text": "to",
-            "duration": 0.59
+            "duration": 0.39
           },
           {
             "text": "scream!",
-            "duration": 2.45
+            "duration": 1.63
           }
         ]
       }
@@ -4813,31 +4813,31 @@
         "words": [
           {
             "text": "There",
-            "duration": 0.83
+            "duration": 0.52
           },
           {
             "text": "was",
-            "duration": 0.65
+            "duration": 0.4
           },
           {
             "text": "a",
-            "duration": 0.46
+            "duration": 0.29
           },
           {
             "text": "farmer",
-            "duration": 0.93
+            "duration": 0.58
           },
           {
             "text": "had",
-            "duration": 0.65
+            "duration": 0.4
           },
           {
             "text": "a",
-            "duration": 0.46
+            "duration": 0.29
           },
           {
             "text": "dog",
-            "duration": 1.62
+            "duration": 1.01
           }
         ]
       },
@@ -4873,15 +4873,15 @@
         "words": [
           {
             "text": "B-I-N-G-O,",
-            "duration": 0.65
+            "duration": 0.41
           },
           {
             "text": "B-I-N-G-O,",
-            "duration": 0.65
+            "duration": 0.41
           },
           {
             "text": "B-I-N-G-O",
-            "duration": 1.09
+            "duration": 0.68
           }
         ]
       },
@@ -4891,23 +4891,23 @@
         "words": [
           {
             "text": "And",
-            "duration": 0.77
+            "duration": 0.33
           },
           {
             "text": "Bingo",
-            "duration": 0.99
+            "duration": 0.43
           },
           {
             "text": "was",
-            "duration": 0.77
+            "duration": 0.33
           },
           {
             "text": "his",
-            "duration": 0.77
+            "duration": 0.33
           },
           {
             "text": "name-o",
-            "duration": 2.49
+            "duration": 1.07
           }
         ]
       },
@@ -4977,15 +4977,15 @@
         "words": [
           {
             "text": "(clap)-I-N-G-O,",
-            "duration": 0.65
+            "duration": 0.41
           },
           {
             "text": "(clap)-I-N-G-O,",
-            "duration": 0.65
+            "duration": 0.41
           },
           {
             "text": "(clap)-I-N-G-O",
-            "duration": 1.09
+            "duration": 0.68
           }
         ]
       },
@@ -4995,23 +4995,23 @@
         "words": [
           {
             "text": "And",
-            "duration": 0.77
+            "duration": 0.33
           },
           {
             "text": "Bingo",
-            "duration": 0.99
+            "duration": 0.43
           },
           {
             "text": "was",
-            "duration": 0.77
+            "duration": 0.33
           },
           {
             "text": "his",
-            "duration": 0.77
+            "duration": 0.33
           },
           {
             "text": "name-o",
-            "duration": 2.49
+            "duration": 1.07
           }
         ]
       },
@@ -5081,37 +5081,37 @@
         "words": [
           {
             "text": "(clap-clap)-N-G-O,",
-            "duration": 0.75
+            "duration": 0.56
           },
           {
             "text": "(clap-clap)-N-G-O",
-            "duration": 1.25
+            "duration": 0.94
           }
         ]
       },
       {
-        "time": 67.68,
+        "time": 67.6,
         "text": "And Bingo was his name-o",
         "words": [
           {
             "text": "And",
-            "duration": 0.8
+            "duration": 0.53
           },
           {
             "text": "Bingo",
-            "duration": 1.03
+            "duration": 0.69
           },
           {
             "text": "was",
-            "duration": 0.8
+            "duration": 0.53
           },
           {
             "text": "his",
-            "duration": 0.8
+            "duration": 0.53
           },
           {
             "text": "name-o",
-            "duration": 2.57
+            "duration": 1.71
           }
         ]
       }
@@ -5207,27 +5207,27 @@
         "words": [
           {
             "text": "Q,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "R,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "S,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "T,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "U,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "V",
-            "duration": 1.45
+            "duration": 0.75
           }
         ]
       },
@@ -5237,23 +5237,23 @@
         "words": [
           {
             "text": "W,",
-            "duration": 1.1
+            "duration": 0.47
           },
           {
             "text": "X,",
-            "duration": 1.1
+            "duration": 0.47
           },
           {
             "text": "Y",
-            "duration": 0.73
+            "duration": 0.32
           },
           {
             "text": "and",
-            "duration": 1.03
+            "duration": 0.44
           },
           {
             "text": "Z",
-            "duration": 1.84
+            "duration": 0.79
           }
         ]
       },
@@ -5263,23 +5263,23 @@
         "words": [
           {
             "text": "Now",
-            "duration": 0.88
+            "duration": 0.38
           },
           {
             "text": "I",
-            "duration": 0.63
+            "duration": 0.27
           },
           {
             "text": "know",
-            "duration": 1.01
+            "duration": 0.43
           },
           {
             "text": "my",
-            "duration": 0.76
+            "duration": 0.33
           },
           {
             "text": "ABCs",
-            "duration": 2.52
+            "duration": 1.09
           }
         ]
       },
@@ -5289,31 +5289,31 @@
         "words": [
           {
             "text": "Next",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "time",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "won't",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "you",
-            "duration": 0.63
+            "duration": 0.4
           },
           {
             "text": "sing",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "with",
-            "duration": 0.72
+            "duration": 0.45
           },
           {
             "text": "me?",
-            "duration": 1.35
+            "duration": 0.85
           }
         ]
       },
@@ -5323,31 +5323,31 @@
         "words": [
           {
             "text": "A,",
-            "duration": 0.76
+            "duration": 0.46
           },
           {
             "text": "B,",
-            "duration": 0.76
+            "duration": 0.46
           },
           {
             "text": "C,",
-            "duration": 0.76
+            "duration": 0.46
           },
           {
             "text": "D,",
-            "duration": 0.76
+            "duration": 0.46
           },
           {
             "text": "E,",
-            "duration": 0.76
+            "duration": 0.46
           },
           {
             "text": "F,",
-            "duration": 0.76
+            "duration": 0.46
           },
           {
             "text": "G",
-            "duration": 1.26
+            "duration": 0.76
           }
         ]
       },
@@ -5399,27 +5399,27 @@
         "words": [
           {
             "text": "Q,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "R,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "S,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "T,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "U,",
-            "duration": 0.87
+            "duration": 0.45
           },
           {
             "text": "V",
-            "duration": 1.45
+            "duration": 0.75
           }
         ]
       },
@@ -5429,23 +5429,23 @@
         "words": [
           {
             "text": "W,",
-            "duration": 1.1
+            "duration": 0.47
           },
           {
             "text": "X,",
-            "duration": 1.1
+            "duration": 0.47
           },
           {
             "text": "Y",
-            "duration": 0.73
+            "duration": 0.32
           },
           {
             "text": "and",
-            "duration": 1.03
+            "duration": 0.44
           },
           {
             "text": "Z",
-            "duration": 1.84
+            "duration": 0.79
           }
         ]
       },
@@ -5455,57 +5455,57 @@
         "words": [
           {
             "text": "Now",
-            "duration": 0.61
+            "duration": 0.38
           },
           {
             "text": "I",
-            "duration": 0.43
+            "duration": 0.27
           },
           {
             "text": "know",
-            "duration": 0.7
+            "duration": 0.43
           },
           {
             "text": "my",
-            "duration": 0.52
+            "duration": 0.33
           },
           {
             "text": "ABCs",
-            "duration": 1.74
+            "duration": 1.09
           }
         ]
       },
       {
-        "time": 78.58,
+        "time": 83.42,
         "text": "Next time won't you sing with me?",
         "words": [
           {
             "text": "Next",
-            "duration": 1.08
+            "duration": 0.72
           },
           {
             "text": "time",
-            "duration": 1.08
+            "duration": 0.72
           },
           {
             "text": "won't",
-            "duration": 1.08
+            "duration": 0.72
           },
           {
             "text": "you",
-            "duration": 0.95
+            "duration": 0.63
           },
           {
             "text": "sing",
-            "duration": 1.08
+            "duration": 0.72
           },
           {
             "text": "with",
-            "duration": 1.08
+            "duration": 0.72
           },
           {
             "text": "me?",
-            "duration": 2.03
+            "duration": 1.35
           }
         ]
       }
@@ -5525,15 +5525,15 @@
         "words": [
           {
             "text": "Hickory",
-            "duration": 1
+            "duration": 0.39
           },
           {
             "text": "dickory",
-            "duration": 1
+            "duration": 0.39
           },
           {
             "text": "dock",
-            "duration": 1.81
+            "duration": 0.71
           }
         ]
       },
@@ -5617,15 +5617,15 @@
         "words": [
           {
             "text": "Hickory",
-            "duration": 1.52
+            "duration": 0.39
           },
           {
             "text": "dickory",
-            "duration": 1.52
+            "duration": 0.39
           },
           {
             "text": "dock",
-            "duration": 2.76
+            "duration": 0.71
           }
         ]
       },
@@ -5635,35 +5635,35 @@
         "words": [
           {
             "text": "Tick",
-            "duration": 0.58
+            "duration": 0.36
           },
           {
             "text": "tock,",
-            "duration": 0.87
+            "duration": 0.55
           },
           {
             "text": "tick",
-            "duration": 0.58
+            "duration": 0.36
           },
           {
             "text": "tock,",
-            "duration": 0.87
+            "duration": 0.55
           },
           {
             "text": "tick",
-            "duration": 0.58
+            "duration": 0.36
           },
           {
             "text": "tock,",
-            "duration": 0.87
+            "duration": 0.55
           },
           {
             "text": "tick",
-            "duration": 0.58
+            "duration": 0.36
           },
           {
             "text": "tock",
-            "duration": 1.45
+            "duration": 0.91
           }
         ]
       },
@@ -5673,15 +5673,15 @@
         "words": [
           {
             "text": "Hickory",
-            "duration": 1
+            "duration": 0.39
           },
           {
             "text": "dickory",
-            "duration": 1
+            "duration": 0.39
           },
           {
             "text": "dock",
-            "duration": 1.81
+            "duration": 0.71
           }
         ]
       },
@@ -5765,15 +5765,15 @@
         "words": [
           {
             "text": "Hickory",
-            "duration": 1.52
+            "duration": 0.39
           },
           {
             "text": "dickory",
-            "duration": 1.52
+            "duration": 0.39
           },
           {
             "text": "dock",
-            "duration": 2.76
+            "duration": 0.71
           }
         ]
       },
@@ -5783,35 +5783,35 @@
         "words": [
           {
             "text": "Tick",
-            "duration": 0.87
+            "duration": 0.58
           },
           {
             "text": "tock,",
-            "duration": 1.31
+            "duration": 0.87
           },
           {
             "text": "tick",
-            "duration": 0.87
+            "duration": 0.58
           },
           {
             "text": "tock,",
-            "duration": 1.31
+            "duration": 0.87
           },
           {
             "text": "tick",
-            "duration": 0.87
+            "duration": 0.58
           },
           {
             "text": "tock,",
-            "duration": 1.31
+            "duration": 0.87
           },
           {
             "text": "tick",
-            "duration": 0.87
+            "duration": 0.58
           },
           {
             "text": "tock",
-            "duration": 2.18
+            "duration": 1.45
           }
         ]
       }
@@ -5857,19 +5857,19 @@
         "words": [
           {
             "text": "Falling",
-            "duration": 0.77
+            "duration": 0.41
           },
           {
             "text": "down,",
-            "duration": 0.84
+            "duration": 0.44
           },
           {
             "text": "falling",
-            "duration": 0.77
+            "duration": 0.41
           },
           {
             "text": "down",
-            "duration": 1.41
+            "duration": 0.74
           }
         ]
       },
@@ -5905,15 +5905,15 @@
         "words": [
           {
             "text": "My",
-            "duration": 1.02
+            "duration": 0.26
           },
           {
             "text": "fair",
-            "duration": 1.36
+            "duration": 0.35
           },
           {
             "text": "lady",
-            "duration": 3.41
+            "duration": 0.88
           }
         ]
       },
@@ -5953,19 +5953,19 @@
         "words": [
           {
             "text": "Iron",
-            "duration": 0.63
+            "duration": 0.33
           },
           {
             "text": "bars,",
-            "duration": 0.95
+            "duration": 0.5
           },
           {
             "text": "iron",
-            "duration": 0.63
+            "duration": 0.33
           },
           {
             "text": "bars",
-            "duration": 1.58
+            "duration": 0.83
           }
         ]
       },
@@ -6005,15 +6005,15 @@
         "words": [
           {
             "text": "My",
-            "duration": 1.02
+            "duration": 0.26
           },
           {
             "text": "fair",
-            "duration": 1.36
+            "duration": 0.35
           },
           {
             "text": "lady",
-            "duration": 3.41
+            "duration": 0.88
           }
         ]
       },
@@ -6049,19 +6049,19 @@
         "words": [
           {
             "text": "Falling",
-            "duration": 0.77
+            "duration": 0.41
           },
           {
             "text": "down,",
-            "duration": 0.84
+            "duration": 0.44
           },
           {
             "text": "falling",
-            "duration": 0.77
+            "duration": 0.41
           },
           {
             "text": "down",
-            "duration": 1.41
+            "duration": 0.74
           }
         ]
       },
@@ -6097,15 +6097,15 @@
         "words": [
           {
             "text": "My",
-            "duration": 0.64
+            "duration": 0.42
           },
           {
             "text": "fair",
-            "duration": 0.85
+            "duration": 0.56
           },
           {
             "text": "lady",
-            "duration": 2.12
+            "duration": 1.41
           }
         ]
       }
@@ -6151,19 +6151,19 @@
         "words": [
           {
             "text": "Little",
-            "duration": 0.73
+            "duration": 0.38
           },
           {
             "text": "lamb,",
-            "duration": 0.88
+            "duration": 0.46
           },
           {
             "text": "little",
-            "duration": 0.73
+            "duration": 0.38
           },
           {
             "text": "lamb",
-            "duration": 1.46
+            "duration": 0.77
           }
         ]
       },
@@ -6199,27 +6199,27 @@
         "words": [
           {
             "text": "Its",
-            "duration": 0.69
+            "duration": 0.36
           },
           {
             "text": "fleece",
-            "duration": 0.98
+            "duration": 0.51
           },
           {
             "text": "was",
-            "duration": 0.69
+            "duration": 0.36
           },
           {
             "text": "white",
-            "duration": 0.88
+            "duration": 0.46
           },
           {
             "text": "as",
-            "duration": 0.59
+            "duration": 0.31
           },
           {
             "text": "snow",
-            "duration": 1.97
+            "duration": 1.02
           }
         ]
       },
@@ -6255,19 +6255,19 @@
         "words": [
           {
             "text": "Mary",
-            "duration": 0.53
+            "duration": 0.33
           },
           {
             "text": "went,",
-            "duration": 0.8
+            "duration": 0.5
           },
           {
             "text": "Mary",
-            "duration": 0.53
+            "duration": 0.33
           },
           {
             "text": "went",
-            "duration": 1.33
+            "duration": 0.83
           }
         ]
       },
@@ -6277,19 +6277,19 @@
         "words": [
           {
             "text": "Everywhere",
-            "duration": 1.06
+            "duration": 0.56
           },
           {
             "text": "that",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "Mary",
-            "duration": 0.61
+            "duration": 0.32
           },
           {
             "text": "went",
-            "duration": 1.52
+            "duration": 0.8
           }
         ]
       },
@@ -6299,27 +6299,27 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.8
+            "duration": 0.41
           },
           {
             "text": "lamb",
-            "duration": 0.91
+            "duration": 0.47
           },
           {
             "text": "was",
-            "duration": 0.8
+            "duration": 0.41
           },
           {
             "text": "sure",
-            "duration": 0.91
+            "duration": 0.47
           },
           {
             "text": "to",
-            "duration": 0.68
+            "duration": 0.35
           },
           {
             "text": "go",
-            "duration": 1.71
+            "duration": 0.88
           }
         ]
       },
@@ -6329,61 +6329,61 @@
         "words": [
           {
             "text": "It",
-            "duration": 0.35
+            "duration": 0.05
           },
           {
             "text": "followed",
-            "duration": 0.7
+            "duration": 0.09
           },
           {
             "text": "her",
-            "duration": 0.41
+            "duration": 0.05
           },
           {
             "text": "to",
-            "duration": 0.35
+            "duration": 0.05
           },
           {
             "text": "school",
-            "duration": 0.58
+            "duration": 0.08
           },
           {
             "text": "one",
-            "duration": 0.41
+            "duration": 0.05
           },
           {
             "text": "day",
-            "duration": 1.02
+            "duration": 0.13
           }
         ]
       },
       {
-        "time": 48,
+        "time": 43.5,
         "text": "School one day, school one day",
         "words": [
           {
             "text": "School",
-            "duration": 0.61
+            "duration": 0.48
           },
           {
             "text": "one",
-            "duration": 0.43
+            "duration": 0.34
           },
           {
             "text": "day,",
-            "duration": 0.64
+            "duration": 0.51
           },
           {
             "text": "school",
-            "duration": 0.61
+            "duration": 0.48
           },
           {
             "text": "one",
-            "duration": 0.43
+            "duration": 0.34
           },
           {
             "text": "day",
-            "duration": 1.07
+            "duration": 0.85
           }
         ]
       },
@@ -6393,57 +6393,57 @@
         "words": [
           {
             "text": "It",
-            "duration": 0.35
+            "duration": 0.05
           },
           {
             "text": "followed",
-            "duration": 0.7
+            "duration": 0.09
           },
           {
             "text": "her",
-            "duration": 0.41
+            "duration": 0.05
           },
           {
             "text": "to",
-            "duration": 0.35
+            "duration": 0.05
           },
           {
             "text": "school",
-            "duration": 0.58
+            "duration": 0.08
           },
           {
             "text": "one",
-            "duration": 0.41
+            "duration": 0.05
           },
           {
             "text": "day",
-            "duration": 1.02
+            "duration": 0.13
           }
         ]
       },
       {
-        "time": 56,
+        "time": 51.22,
         "text": "Which was against the rules",
         "words": [
           {
             "text": "Which",
-            "duration": 0.96
+            "duration": 0.64
           },
           {
             "text": "was",
-            "duration": 0.74
+            "duration": 0.5
           },
           {
             "text": "against",
-            "duration": 1.17
+            "duration": 0.78
           },
           {
             "text": "the",
-            "duration": 0.74
+            "duration": 0.5
           },
           {
             "text": "rules",
-            "duration": 2.39
+            "duration": 1.59
           }
         ]
       }
