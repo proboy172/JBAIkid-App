@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+/* ===== KIDSTAR DESIGN SYSTEM ===== */
+
+@theme {
+  --color-primary: #FF6B9D;
+  --color-primary-dark: #E8528A;
+  --color-secondary: #C084FC;
+  --color-secondary-dark: #A855F7;
+  --color-accent: #34D399;
+  --color-accent-dark: #10B981;
+  --color-warning: #FBBF24;
+  --color-warning-dark: #F59E0B;
+  --color-danger: #FB7185;
+  --color-sky: #38BDF8;
+  --color-card: rgba(255, 255, 255, 0.85);
+  --color-card-solid: #FFFFFF;
+  --color-text: #1E1B4B;
+  --color-text-light: #6B7280;
+  --color-bg-start: #FFF1F5;
+  --color-bg-mid: #F0E6FF;
+  --color-bg-end: #E0F7FA;
+
+  --font-heading: "Baloo 2", cursive;
+  --font-body: "Quicksand", sans-serif;
+}
+
+/* ===== BASE STYLES ===== */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: linear-gradient(145deg, var(--color-bg-start), var(--color-bg-mid), var(--color-bg-end));
+  min-height: 100dvh;
+}
+
+/* ===== SCROLLBAR ===== */
+
+.scroll-area {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== GLASSMORPHISM CARD ===== */
+
+.glass-card {
+  background: var(--color-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* ===== BUBBLE BUTTON ===== */
+
+.bubble-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.bubble-btn::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 15%;
+  width: 70%;
+  height: 35%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.5), transparent);
+  border-radius: 50%;
+}
+
+.bubble-btn:active {
+  transform: scale(0.92);
+}
+
+/* ===== MODE CARD GRADIENTS ===== */
+
+.gradient-learn {
+  background: linear-gradient(135deg, #FF6B9D, #FF8E53);
+}
+
+.gradient-sing {
+  background: linear-gradient(135deg, #C084FC, #818CF8);
+}
+
+.gradient-play {
+  background: linear-gradient(135deg, #34D399, #38BDF8);
+}
+
+.gradient-parent {
+  background: linear-gradient(135deg, #94A3B8, #64748B);
+}
+
+/* ===== FLOATING CLOUDS ===== */
+
+@keyframes float-cloud {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(12px) translateY(-8px); }
+  50% { transform: translateX(24px) translateY(0); }
+  75% { transform: translateX(12px) translateY(8px); }
+}
+
+.cloud {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+  filter: blur(1px);
+  z-index: 0;
+}
+
+.cloud-1 {
+  width: 100px;
+  height: 36px;
+  top: 5%;
+  left: -5%;
+  animation: float-cloud 12s ease-in-out infinite;
+}
+
+.cloud-2 {
+  width: 140px;
+  height: 44px;
+  top: 12%;
+  right: -8%;
+  animation: float-cloud 16s ease-in-out infinite 2s;
+}
+
+.cloud-3 {
+  width: 80px;
+  height: 28px;
+  top: 22%;
+  left: 30%;
+  animation: float-cloud 14s ease-in-out infinite 4s;
+}
+
+/* ===== SPARKLE ===== */
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-warning);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+/* ===== PROGRESS RING ===== */
+
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.5s ease;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* ===== SONG PLAYING PULSE ===== */
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(192, 132, 252, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(192, 132, 252, 0); }
+}
+
+.song-playing {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* ===== BOTTOM NAV ===== */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.05);
+  padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+/* ===== FLASH CARD ===== */
+
+.flash-card-container {
+  perspective: 1200px;
+}
+
+.flash-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flash-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flash-card-front,
+.flash-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.flash-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ===== CONFETTI ===== */
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  z-index: 100;
+  animation: confetti-fall 2.5s ease-in forwards;
+}
+
+/* ===== KARAOKE LYRICS ===== */
+
+.lyric-line {
+  transition: all 0.3s ease;
+  opacity: 0.35;
+  transform: scale(0.92);
+}
+
+.lyric-line.active {
+  opacity: 1;
+  transform: scale(1);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (min-width: 768px) {
+  html { font-size: 20px; }
+}

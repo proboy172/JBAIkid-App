@@ -1,0 +1,729 @@
+[
+  {
+    "text": "Mẹ hương có đi con nhau mẹ, mẹ hương có đi con nhau kè, kè nhẹ ta.",
+    "start": 15.379999999999999,
+    "end": 24.48,
+    "words": [
+      {
+        "text": " Mẹ",
+        "start": 15.379999999999999,
+        "end": 16.34
+      },
+      {
+        "text": " hương",
+        "start": 16.34,
+        "end": 17.3
+      },
+      {
+        "text": " có",
+        "start": 17.3,
+        "end": 17.3
+      },
+      {
+        "text": " đi",
+        "start": 17.3,
+        "end": 17.3
+      },
+      {
+        "text": " con",
+        "start": 17.3,
+        "end": 17.72
+      },
+      {
+        "text": " nhau",
+        "start": 17.72,
+        "end": 18.2
+      },
+      {
+        "text": " mẹ,",
+        "start": 18.2,
+        "end": 18.92
+      },
+      {
+        "text": " mẹ",
+        "start": 19.12,
+        "end": 19.72
+      },
+      {
+        "text": " hương",
+        "start": 19.72,
+        "end": 20.18
+      },
+      {
+        "text": " có",
+        "start": 20.18,
+        "end": 20.64
+      },
+      {
+        "text": " đi",
+        "start": 20.64,
+        "end": 21.12
+      },
+      {
+        "text": " con",
+        "start": 21.12,
+        "end": 21.54
+      },
+      {
+        "text": " nhau",
+        "start": 21.54,
+        "end": 22.02
+      },
+      {
+        "text": " kè,",
+        "start": 22.02,
+        "end": 22.62
+      },
+      {
+        "text": " kè",
+        "start": 23.0,
+        "end": 23.42
+      },
+      {
+        "text": " nhẹ",
+        "start": 23.42,
+        "end": 23.96
+      },
+      {
+        "text": " ta.",
+        "start": 23.96,
+        "end": 24.48
+      }
+    ]
+  },
+  {
+    "text": "Ông hôm hôm hôm, sao lại nhớ, nhau lại gần, mẹ hương có đi con nhau mẹ, mẹ hương có đi con nhau kè, kè nhẹ ta.",
+    "start": 24.48,
+    "end": 39.5,
+    "words": [
+      {
+        "text": " Ông",
+        "start": 24.48,
+        "end": 25.1
+      },
+      {
+        "text": " hôm",
+        "start": 25.1,
+        "end": 25.38
+      },
+      {
+        "text": " hôm",
+        "start": 25.38,
+        "end": 25.64
+      },
+      {
+        "text": " hôm,",
+        "start": 25.64,
+        "end": 25.98
+      },
+      {
+        "text": " sao",
+        "start": 26.72,
+        "end": 27.16
+      },
+      {
+        "text": " lại",
+        "start": 27.16,
+        "end": 27.72
+      },
+      {
+        "text": " nhớ,",
+        "start": 27.72,
+        "end": 28.28
+      },
+      {
+        "text": " nhau",
+        "start": 28.68,
+        "end": 29.24
+      },
+      {
+        "text": " lại",
+        "start": 29.24,
+        "end": 29.68
+      },
+      {
+        "text": " gần,",
+        "start": 29.68,
+        "end": 30.16
+      },
+      {
+        "text": " mẹ",
+        "start": 30.56,
+        "end": 31.22
+      },
+      {
+        "text": " hương",
+        "start": 31.22,
+        "end": 32.36
+      },
+      {
+        "text": " có",
+        "start": 32.36,
+        "end": 32.36
+      },
+      {
+        "text": " đi",
+        "start": 32.36,
+        "end": 32.44
+      },
+      {
+        "text": " con",
+        "start": 32.44,
+        "end": 32.94
+      },
+      {
+        "text": " nhau",
+        "start": 32.94,
+        "end": 33.42
+      },
+      {
+        "text": " mẹ,",
+        "start": 33.42,
+        "end": 34.06
+      },
+      {
+        "text": " mẹ",
+        "start": 34.56,
+        "end": 34.92
+      },
+      {
+        "text": " hương",
+        "start": 34.92,
+        "end": 35.38
+      },
+      {
+        "text": " có",
+        "start": 35.38,
+        "end": 35.88
+      },
+      {
+        "text": " đi",
+        "start": 35.88,
+        "end": 36.34
+      },
+      {
+        "text": " con",
+        "start": 36.34,
+        "end": 36.72
+      },
+      {
+        "text": " nhau",
+        "start": 36.72,
+        "end": 37.18
+      },
+      {
+        "text": " kè,",
+        "start": 37.18,
+        "end": 37.76
+      },
+      {
+        "text": " kè",
+        "start": 38.36,
+        "end": 38.66
+      },
+      {
+        "text": " nhẹ",
+        "start": 38.66,
+        "end": 39.2
+      },
+      {
+        "text": " ta.",
+        "start": 39.2,
+        "end": 39.5
+      }
+    ]
+  },
+  {
+    "text": "Ông hôm hôm hôm, sao lại nhớ, nhau lại gần.",
+    "start": 40.1,
+    "end": 45.4,
+    "words": [
+      {
+        "text": " Ông",
+        "start": 40.1,
+        "end": 40.36
+      },
+      {
+        "text": " hôm",
+        "start": 40.36,
+        "end": 40.62
+      },
+      {
+        "text": " hôm",
+        "start": 40.62,
+        "end": 40.8
+      },
+      {
+        "text": " hôm,",
+        "start": 40.8,
+        "end": 41.12
+      },
+      {
+        "text": " sao",
+        "start": 41.8,
+        "end": 42.34
+      },
+      {
+        "text": " lại",
+        "start": 42.34,
+        "end": 42.98
+      },
+      {
+        "text": " nhớ,",
+        "start": 42.98,
+        "end": 43.48
+      },
+      {
+        "text": " nhau",
+        "start": 44.04,
+        "end": 44.4
+      },
+      {
+        "text": " lại",
+        "start": 44.4,
+        "end": 44.94
+      },
+      {
+        "text": " gần.",
+        "start": 44.94,
+        "end": 45.4
+      }
+    ]
+  },
+  {
+    "text": "Mẹ hương có đi con nhau mẹ, mẹ hương có đi con nhau kè, kè nhẹ ta.",
+    "start": 61.099999999999994,
+    "end": 70.1,
+    "words": [
+      {
+        "text": " Mẹ",
+        "start": 61.099999999999994,
+        "end": 62.019999999999996
+      },
+      {
+        "text": " hương",
+        "start": 62.019999999999996,
+        "end": 62.94
+      },
+      {
+        "text": " có",
+        "start": 62.94,
+        "end": 63.0
+      },
+      {
+        "text": " đi",
+        "start": 63.0,
+        "end": 63.0
+      },
+      {
+        "text": " con",
+        "start": 63.0,
+        "end": 63.4
+      },
+      {
+        "text": " nhau",
+        "start": 63.4,
+        "end": 63.9
+      },
+      {
+        "text": " mẹ,",
+        "start": 63.9,
+        "end": 64.58
+      },
+      {
+        "text": " mẹ",
+        "start": 64.86,
+        "end": 65.4
+      },
+      {
+        "text": " hương",
+        "start": 65.4,
+        "end": 65.86
+      },
+      {
+        "text": " có",
+        "start": 65.86,
+        "end": 66.38
+      },
+      {
+        "text": " đi",
+        "start": 66.38,
+        "end": 66.82
+      },
+      {
+        "text": " con",
+        "start": 66.82,
+        "end": 67.26
+      },
+      {
+        "text": " nhau",
+        "start": 67.26,
+        "end": 67.7
+      },
+      {
+        "text": " kè,",
+        "start": 67.7,
+        "end": 68.3
+      },
+      {
+        "text": " kè",
+        "start": 68.66,
+        "end": 69.14
+      },
+      {
+        "text": " nhẹ",
+        "start": 69.14,
+        "end": 69.68
+      },
+      {
+        "text": " ta.",
+        "start": 69.68,
+        "end": 70.1
+      }
+    ]
+  },
+  {
+    "text": "Ông hôm hôm hôm, sao lại nhớ, nhau lại gần, mẹ hương có đi con nhau mẹ, mẹ hương có đi con nhau kè, kè nhẹ ta.",
+    "start": 70.54,
+    "end": 84.46,
+    "words": [
+      {
+        "text": " Ông",
+        "start": 70.54,
+        "end": 70.82
+      },
+      {
+        "text": " hôm",
+        "start": 70.82,
+        "end": 71.1
+      },
+      {
+        "text": " hôm",
+        "start": 71.1,
+        "end": 71.34
+      },
+      {
+        "text": " hôm,",
+        "start": 71.34,
+        "end": 71.74
+      },
+      {
+        "text": " sao",
+        "start": 72.48,
+        "end": 72.84
+      },
+      {
+        "text": " lại",
+        "start": 72.84,
+        "end": 73.44
+      },
+      {
+        "text": " nhớ,",
+        "start": 73.44,
+        "end": 74.06
+      },
+      {
+        "text": " nhau",
+        "start": 74.5,
+        "end": 74.92
+      },
+      {
+        "text": " lại",
+        "start": 74.92,
+        "end": 75.38
+      },
+      {
+        "text": " gần,",
+        "start": 75.38,
+        "end": 75.86
+      },
+      {
+        "text": " mẹ",
+        "start": 76.44,
+        "end": 76.9
+      },
+      {
+        "text": " hương",
+        "start": 76.9,
+        "end": 78.12
+      },
+      {
+        "text": " có",
+        "start": 78.12,
+        "end": 78.2
+      },
+      {
+        "text": " đi",
+        "start": 78.2,
+        "end": 78.2
+      },
+      {
+        "text": " con",
+        "start": 78.2,
+        "end": 78.64
+      },
+      {
+        "text": " nhau",
+        "start": 78.64,
+        "end": 79.1
+      },
+      {
+        "text": " mẹ,",
+        "start": 79.1,
+        "end": 79.8
+      },
+      {
+        "text": " mẹ",
+        "start": 80.28,
+        "end": 80.62
+      },
+      {
+        "text": " hương",
+        "start": 80.62,
+        "end": 81.08
+      },
+      {
+        "text": " có",
+        "start": 81.08,
+        "end": 81.58
+      },
+      {
+        "text": " đi",
+        "start": 81.58,
+        "end": 82.02
+      },
+      {
+        "text": " con",
+        "start": 82.02,
+        "end": 82.42
+      },
+      {
+        "text": " nhau",
+        "start": 82.42,
+        "end": 82.9
+      },
+      {
+        "text": " kè,",
+        "start": 82.9,
+        "end": 83.48
+      },
+      {
+        "text": " kè",
+        "start": 84.06,
+        "end": 84.34
+      },
+      {
+        "text": " nhẹ",
+        "start": 84.34,
+        "end": 84.46
+      },
+      {
+        "text": " ta.",
+        "start": 84.46,
+        "end": 84.46
+      }
+    ]
+  },
+  {
+    "text": "Ông hôm hôm hôm hôm, sao lại nhớ, nhau lại gần, mẹ hương có đi con nhau mẹ, mẹ hương có đi con nhau mẹ, mẹ hương có đi con nhau mẹ, mẹ hương có đi con nhau mẹ.",
+    "start": 84.46,
+    "end": 93.8,
+    "words": [
+      {
+        "text": " Ông",
+        "start": 84.46,
+        "end": 86.0
+      },
+      {
+        "text": " hôm",
+        "start": 86.0,
+        "end": 86.3
+      },
+      {
+        "text": " hôm",
+        "start": 86.3,
+        "end": 86.5
+      },
+      {
+        "text": " hôm",
+        "start": 86.5,
+        "end": 86.92
+      },
+      {
+        "text": " hôm,",
+        "start": 86.92,
+        "end": 87.54
+      },
+      {
+        "text": " sao",
+        "start": 87.68,
+        "end": 88.1
+      },
+      {
+        "text": " lại",
+        "start": 88.1,
+        "end": 88.64
+      },
+      {
+        "text": " nhớ,",
+        "start": 88.64,
+        "end": 89.24
+      },
+      {
+        "text": " nhau",
+        "start": 89.58,
+        "end": 90.12
+      },
+      {
+        "text": " lại",
+        "start": 90.12,
+        "end": 90.54
+      },
+      {
+        "text": " gần,",
+        "start": 90.54,
+        "end": 91.08
+      },
+      {
+        "text": " mẹ",
+        "start": 92.24,
+        "end": 92.28
+      },
+      {
+        "text": " hương",
+        "start": 92.28,
+        "end": 92.28
+      },
+      {
+        "text": " có",
+        "start": 92.28,
+        "end": 93.8
+      },
+      {
+        "text": " đi",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " con",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " nhau",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " mẹ,",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " mẹ",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " hương",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " có",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " đi",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " con",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " nhau",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " mẹ,",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " mẹ",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " hương",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " có",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " đi",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " con",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " nhau",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " mẹ,",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " mẹ",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " hương",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " có",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " đi",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " con",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " nhau",
+        "start": 93.8,
+        "end": 93.8
+      },
+      {
+        "text": " mẹ.",
+        "start": 93.8,
+        "end": 93.8
+      }
+    ]
+  }
+]
