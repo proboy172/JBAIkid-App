@@ -24,18 +24,16 @@ function processFile(filename, varName) {
             
             let availableDuration = 0;
             if (nextLine) {
-                // The duration of the line is exactly the time until the NEXT line starts, minus a tiny 0.2s pause for breath
                 const gap = nextLine.time - line.time;
-                if (gap > 6) {
-                    // Instrumental break detected! Cap the singing time to a realistic length
-                    availableDuration = Math.max(2, words.length * 0.8);
+                const maxRealisticDuration = words.length * 0.6;
+                if (gap > maxRealisticDuration + 1.0) {
+                    availableDuration = Math.max(1.5, words.length * 0.5);
                 } else {
                     availableDuration = gap - 0.2;
                     if (availableDuration < 0.5) availableDuration = 0.5;
                 }
             } else {
-                // Last line: usually ritardando (slowing down), so give it 1.2s per word
-                availableDuration = words.length * 1.2;
+                availableDuration = words.length * 0.8;
             }
             
             let weights = [];

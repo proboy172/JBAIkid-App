@@ -23,14 +23,15 @@ function processFile(filename, varName) {
             let availableDuration = 0;
             if (nextLine) {
                 const gap = nextLine.time - line.time;
-                if (gap > 6) {
-                    availableDuration = Math.max(2, words.length * 0.8);
+                const maxRealisticDuration = words.length * 0.6;
+                if (gap > maxRealisticDuration + 1.0) {
+                    availableDuration = Math.max(1.5, words.length * 0.5);
                 } else {
                     availableDuration = gap - 0.2;
                     if (availableDuration < 0.5) availableDuration = 0.5;
                 }
             } else {
-                availableDuration = words.length * 1.2;
+                availableDuration = words.length * 0.8;
             }
             
             let weights = [];

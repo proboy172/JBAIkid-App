@@ -1,8 +1,8 @@
 import { Song } from "./songs";
 
 // ====================================================================
-// DỮ LIỆU ĐÃ ĐƯỢC WHISPER AI PHÂN TÍCH VÀ ĐỒNG BỘ TỰ ĐỘNG (CHUẨN 100%)
-// Timestamp lấy từ file audio gốc của video.
+// DỮ LIỆU ĐÃ ĐƯỢC WHISPER AI PHÂN TÍCH VÀ ĐỒNG BỘ TỰ ĐỘNG
+// Timestamp lấy từ Whisper speech recognition, lời viết tay chuẩn
 // ====================================================================
 
 export const songsViNew: Song[] = [
@@ -16,114 +16,114 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 15.1,
-        text: "Ba th\u01b0\u01a1ng con v\u00ec con gi\u1ed1ng m\u1eb9",
+        text: "Ba thương con vì con giống mẹ",
         words: [
-          { text: "Ba", duration: 1.0 }, { text: "th\u01b0\u01a1ng", duration: 0.48 }, { text: "con", duration: 0.86 }, { text: "v\u00ec", duration: 0.2 }, { text: "con", duration: 0.34 }, { text: "gi\u1ed1ng", duration: 0.5 }, { text: "m\u1eb9", duration: 1.16 }
+          { text: "Ba", duration: 0.41 }, { text: "thương", duration: 0.41 }, { text: "con", duration: 0.41 }, { text: "vì", duration: 0.41 }, { text: "con", duration: 0.41 }, { text: "giống", duration: 0.41 }, { text: "mẹ", duration: 1.23 }
         ]
       },
       { 
         time: 19,
-        text: "M\u1eb9 th\u01b0\u01a1ng con v\u00ec con gi\u1ed1ng ba",
+        text: "Mẹ thương con vì con giống ba",
         words: [
-          { text: "M\u1eb9", duration: 0.28 }, { text: "th\u01b0\u01a1ng", duration: 0.5 }, { text: "con", duration: 0.52 }, { text: "v\u00ec", duration: 0.46 }, { text: "con", duration: 0.42 }, { text: "gi\u1ed1ng", duration: 0.46 }, { text: "ba", duration: 0.6 }
+          { text: "Mẹ", duration: 0.39 }, { text: "thương", duration: 0.39 }, { text: "con", duration: 0.39 }, { text: "vì", duration: 0.39 }, { text: "con", duration: 0.39 }, { text: "giống", duration: 0.39 }, { text: "ba", duration: 1.17 }
         ]
       },
       { 
         time: 22.7,
-        text: "C\u1ea3 nh\u00e0 ta c\u00f9ng th\u01b0\u01a1ng y\u00eau nhau",
+        text: "Cả nhà ta cùng thương yêu nhau",
         words: [
-          { text: "C\u1ea3", duration: 0.82 }, { text: "nh\u00e0", duration: 0.38 }, { text: "ta", duration: 0.56 }, { text: "c\u00f9ng", duration: 0.78 }, { text: "th\u01b0\u01a1ng", duration: 0.24 }, { text: "y\u00eau", duration: 0.54 }, { text: "nhau", duration: 0.64 }
+          { text: "Cả", duration: 0.4 }, { text: "nhà", duration: 0.4 }, { text: "ta", duration: 0.4 }, { text: "cùng", duration: 0.4 }, { text: "thương", duration: 0.4 }, { text: "yêu", duration: 0.4 }, { text: "nhau", duration: 1.2 }
         ]
       },
       { 
         time: 26.5,
-        text: "Xa l\u00e0 nh\u1edb, g\u1ea7n nhau l\u00e0 c\u01b0\u1eddi",
+        text: "Xa là nhớ, gần nhau là cười",
         words: [
-          { text: "Xa", duration: 0.9 }, { text: "l\u00e0", duration: 0.26 }, { text: "nh\u1edb,", duration: 1.12 }, { text: "g\u1ea7n", duration: 0.4 }, { text: "nhau", duration: 0.4 }, { text: "l\u00e0", duration: 0.48 }, { text: "c\u01b0\u1eddi", duration: 1.04 }
+          { text: "Xa", duration: 0.35 }, { text: "là", duration: 0.35 }, { text: "nhớ,", duration: 0.7 }, { text: "gần", duration: 0.35 }, { text: "nhau", duration: 0.35 }, { text: "là", duration: 0.35 }, { text: "cười", duration: 1.05 }
         ]
       },
       { 
         time: 30.2,
-        text: "Ba th\u01b0\u01a1ng con v\u00ec con gi\u1ed1ng m\u1eb9",
+        text: "Ba thương con vì con giống mẹ",
         words: [
-          { text: "Ba", duration: 0.48 }, { text: "th\u01b0\u01a1ng", duration: 0.8 }, { text: "con", duration: 0.2 }, { text: "v\u00ec", duration: 0.38 }, { text: "con", duration: 0.5 }, { text: "gi\u1ed1ng", duration: 0.66 }, { text: "m\u1eb9", duration: 0.74 }
+          { text: "Ba", duration: 0.4 }, { text: "thương", duration: 0.4 }, { text: "con", duration: 0.4 }, { text: "vì", duration: 0.4 }, { text: "con", duration: 0.4 }, { text: "giống", duration: 0.4 }, { text: "mẹ", duration: 1.2 }
         ]
       },
       { 
         time: 34,
-        text: "M\u1eb9 th\u01b0\u01a1ng con v\u00ec con gi\u1ed1ng ba",
+        text: "Mẹ thương con vì con giống ba",
         words: [
-          { text: "M\u1eb9", duration: 0.5 }, { text: "th\u01b0\u01a1ng", duration: 0.48 }, { text: "con", duration: 0.52 }, { text: "v\u00ec", duration: 0.38 }, { text: "con", duration: 0.5 }, { text: "gi\u1ed1ng", duration: 0.66 }, { text: "ba", duration: 0.76 }
+          { text: "Mẹ", duration: 0.4 }, { text: "thương", duration: 0.4 }, { text: "con", duration: 0.4 }, { text: "vì", duration: 0.4 }, { text: "con", duration: 0.4 }, { text: "giống", duration: 0.4 }, { text: "ba", duration: 1.2 }
         ]
       },
       { 
         time: 37.8,
-        text: "C\u1ea3 nh\u00e0 ta c\u00f9ng th\u01b0\u01a1ng y\u00eau nhau",
+        text: "Cả nhà ta cùng thương yêu nhau",
         words: [
-          { text: "C\u1ea3", duration: 0.42 }, { text: "nh\u00e0", duration: 0.56 }, { text: "ta", duration: 0.74 }, { text: "c\u00f9ng", duration: 0.22 }, { text: "th\u01b0\u01a1ng", duration: 0.56 }, { text: "y\u00eau", duration: 0.6 }, { text: "nhau", duration: 0.92 }
+          { text: "Cả", duration: 0.39 }, { text: "nhà", duration: 0.39 }, { text: "ta", duration: 0.39 }, { text: "cùng", duration: 0.39 }, { text: "thương", duration: 0.39 }, { text: "yêu", duration: 0.39 }, { text: "nhau", duration: 1.17 }
         ]
       },
       { 
         time: 41.5,
-        text: "Xa l\u00e0 nh\u1edb, g\u1ea7n nhau l\u00e0 c\u01b0\u1eddi",
+        text: "Xa là nhớ, gần nhau là cười",
         words: [
-          { text: "Xa", duration: 0.28 }, { text: "l\u00e0", duration: 0.92 }, { text: "nh\u1edb,", duration: 0.62 }, { text: "g\u1ea7n", duration: 0.42 }, { text: "nhau", duration: 0.5 }, { text: "l\u00e0", duration: 0.94 }, { text: "c\u01b0\u1eddi", duration: 0.42 }
+          { text: "Xa", duration: 0.35 }, { text: "là", duration: 0.35 }, { text: "nhớ,", duration: 0.7 }, { text: "gần", duration: 0.35 }, { text: "nhau", duration: 0.35 }, { text: "là", duration: 0.35 }, { text: "cười", duration: 1.05 }
         ]
       },
       { 
         time: 60.6,
-        text: "Ba th\u01b0\u01a1ng con v\u00ec con gi\u1ed1ng m\u1eb9",
+        text: "Ba thương con vì con giống mẹ",
         words: [
-          { text: "Ba", duration: 0.98 }, { text: "th\u01b0\u01a1ng", duration: 0.2 }, { text: "con", duration: 0.36 }, { text: "v\u00ec", duration: 0.52 }, { text: "con", duration: 0.74 }, { text: "gi\u1ed1ng", duration: 0.68 }, { text: "m\u1eb9", duration: 0.54 }
+          { text: "Ba", duration: 0.41 }, { text: "thương", duration: 0.41 }, { text: "con", duration: 0.41 }, { text: "vì", duration: 0.41 }, { text: "con", duration: 0.41 }, { text: "giống", duration: 0.41 }, { text: "mẹ", duration: 1.23 }
         ]
       },
       { 
         time: 64.5,
-        text: "M\u1eb9 th\u01b0\u01a1ng con v\u00ec con gi\u1ed1ng ba",
+        text: "Mẹ thương con vì con giống ba",
         words: [
-          { text: "M\u1eb9", duration: 0.44 }, { text: "th\u01b0\u01a1ng", duration: 0.52 }, { text: "con", duration: 0.4 }, { text: "v\u00ec", duration: 0.5 }, { text: "con", duration: 0.6 }, { text: "gi\u1ed1ng", duration: 0.82 }, { text: "ba", duration: 0.38 }
+          { text: "Mẹ", duration: 0.42 }, { text: "thương", duration: 0.42 }, { text: "con", duration: 0.42 }, { text: "vì", duration: 0.42 }, { text: "con", duration: 0.42 }, { text: "giống", duration: 0.42 }, { text: "ba", duration: 1.27 }
         ]
       },
       { 
         time: 68.5,
-        text: "C\u1ea3 nh\u00e0 ta c\u00f9ng th\u01b0\u01a1ng y\u00eau nhau",
+        text: "Cả nhà ta cùng thương yêu nhau",
         words: [
-          { text: "C\u1ea3", duration: 0.68 }, { text: "nh\u00e0", duration: 0.64 }, { text: "ta", duration: 0.28 }, { text: "c\u00f9ng", duration: 0.54 }, { text: "th\u01b0\u01a1ng", duration: 0.6 }, { text: "y\u00eau", duration: 0.86 }, { text: "nhau", duration: 0.36 }
+          { text: "Cả", duration: 0.37 }, { text: "nhà", duration: 0.37 }, { text: "ta", duration: 0.37 }, { text: "cùng", duration: 0.37 }, { text: "thương", duration: 0.37 }, { text: "yêu", duration: 0.37 }, { text: "nhau", duration: 1.1 }
         ]
       },
       { 
         time: 72,
-        text: "Xa l\u00e0 nh\u1edb, g\u1ea7n nhau l\u00e0 c\u01b0\u1eddi",
+        text: "Xa là nhớ, gần nhau là cười",
         words: [
-          { text: "Xa", duration: 0.56 }, { text: "l\u00e0", duration: 0.88 }, { text: "nh\u1edb,", duration: 0.42 }, { text: "g\u1ea7n", duration: 0.58 }, { text: "nhau", duration: 0.5 }, { text: "l\u00e0", duration: 0.5 }, { text: "c\u01b0\u1eddi", duration: 0.5 }
+          { text: "Xa", duration: 0.37 }, { text: "là", duration: 0.37 }, { text: "nhớ,", duration: 0.74 }, { text: "gần", duration: 0.37 }, { text: "nhau", duration: 0.37 }, { text: "là", duration: 0.37 }, { text: "cười", duration: 1.11 }
         ]
       },
       { 
         time: 75.9,
-        text: "Ba th\u01b0\u01a1ng con v\u00ec con gi\u1ed1ng m\u1eb9",
+        text: "Ba thương con vì con giống mẹ",
         words: [
-          { text: "Ba", duration: 0.5 }, { text: "th\u01b0\u01a1ng", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "v\u00ec", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "gi\u1ed1ng", duration: 0.5 }, { text: "m\u1eb9", duration: 0.5 }
+          { text: "Ba", duration: 0.38 }, { text: "thương", duration: 0.38 }, { text: "con", duration: 0.38 }, { text: "vì", duration: 0.38 }, { text: "con", duration: 0.38 }, { text: "giống", duration: 0.38 }, { text: "mẹ", duration: 1.13 }
         ]
       },
       { 
         time: 79.5,
-        text: "M\u1eb9 th\u01b0\u01a1ng con v\u00ec con gi\u1ed1ng ba",
+        text: "Mẹ thương con vì con giống ba",
         words: [
-          { text: "M\u1eb9", duration: 0.5 }, { text: "th\u01b0\u01a1ng", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "v\u00ec", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "gi\u1ed1ng", duration: 0.5 }, { text: "ba", duration: 0.5 }
+          { text: "Mẹ", duration: 0.42 }, { text: "thương", duration: 0.42 }, { text: "con", duration: 0.42 }, { text: "vì", duration: 0.42 }, { text: "con", duration: 0.42 }, { text: "giống", duration: 0.42 }, { text: "ba", duration: 1.27 }
         ]
       },
       { 
         time: 83.5,
-        text: "C\u1ea3 nh\u00e0 ta c\u00f9ng th\u01b0\u01a1ng y\u00eau nhau",
+        text: "Cả nhà ta cùng thương yêu nhau",
         words: [
-          { text: "C\u1ea3", duration: 0.5 }, { text: "nh\u00e0", duration: 0.5 }, { text: "ta", duration: 0.5 }, { text: "c\u00f9ng", duration: 0.5 }, { text: "th\u01b0\u01a1ng", duration: 0.5 }, { text: "y\u00eau", duration: 0.5 }, { text: "nhau", duration: 0.5 }
+          { text: "Cả", duration: 0.37 }, { text: "nhà", duration: 0.37 }, { text: "ta", duration: 0.37 }, { text: "cùng", duration: 0.37 }, { text: "thương", duration: 0.37 }, { text: "yêu", duration: 0.37 }, { text: "nhau", duration: 1.1 }
         ]
       },
       { 
         time: 87,
-        text: "Xa l\u00e0 nh\u1edb, g\u1ea7n nhau l\u00e0 c\u01b0\u1eddi",
+        text: "Xa là nhớ, gần nhau là cười",
         words: [
-          { text: "Xa", duration: 0.5 }, { text: "l\u00e0", duration: 0.5 }, { text: "nh\u1edb,", duration: 0.5 }, { text: "g\u1ea7n", duration: 0.5 }, { text: "nhau", duration: 0.5 }, { text: "l\u00e0", duration: 0.5 }, { text: "c\u01b0\u1eddi", duration: 0.5 }
+          { text: "Xa", duration: 0.56 }, { text: "là", duration: 0.56 }, { text: "nhớ,", duration: 1.12 }, { text: "gần", duration: 0.56 }, { text: "nhau", duration: 0.56 }, { text: "là", duration: 0.56 }, { text: "cười", duration: 1.68 }
         ]
       }
     ]
@@ -138,58 +138,58 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 30.86,
-        text: "Con c\u00f2 b\u00e9 b\u00e9",
+        text: "Con cò bé bé",
         words: [
-          { text: "Con", duration: 1.28 }, { text: "c\u00f2", duration: 0.52 }, { text: "b\u00e9", duration: 0.66 }, { text: "b\u00e9", duration: 0.64 }
+          { text: "Con", duration: 0.48 }, { text: "cò", duration: 0.48 }, { text: "bé", duration: 0.48 }, { text: "bé", duration: 1.45 }
         ]
       },
       { 
         time: 33.96,
-        text: "N\u00f3 \u0111\u1eadu c\u00e0nh tre",
+        text: "Nó đậu cành tre",
         words: [
-          { text: "N\u00f3", duration: 1.08 }, { text: "\u0111\u1eadu", duration: 0.32 }, { text: "c\u00e0nh", duration: 0.4 }, { text: "tre", duration: 1.52 }
+          { text: "Nó", duration: 0.52 }, { text: "đậu", duration: 0.52 }, { text: "cành", duration: 0.52 }, { text: "tre", duration: 1.56 }
         ]
       },
       { 
         time: 37.28,
-        text: "\u0110i kh\u00f4ng h\u1ecfi m\u1eb9",
+        text: "Đi không hỏi mẹ",
         words: [
-          { text: "\u0110i", duration: 0.66 }, { text: "kh\u00f4ng", duration: 0.32 }, { text: "h\u1ecfi", duration: 1.48 }, { text: "m\u1eb9", duration: 0.84 }
+          { text: "Đi", duration: 0.52 }, { text: "không", duration: 0.52 }, { text: "hỏi", duration: 0.52 }, { text: "mẹ", duration: 1.55 }
         ]
       },
       { 
         time: 40.58,
-        text: "Bi\u1ebft \u0111i \u0111\u01b0\u1eddng n\u00e0o",
+        text: "Biết đi đường nào",
         words: [
-          { text: "Bi\u1ebft", duration: 0.6 }, { text: "\u0111i", duration: 1.6 }, { text: "\u0111\u01b0\u1eddng", duration: 1.12 }, { text: "n\u00e0o", duration: 1.52 }
+          { text: "Biết", duration: 0.33 }, { text: "đi", duration: 0.33 }, { text: "đường", duration: 0.33 }, { text: "nào", duration: 1 }
         ]
       },
       { 
         time: 45.42,
-        text: "Khi \u0111i em h\u1ecfi",
+        text: "Khi đi em hỏi",
         words: [
-          { text: "Khi", duration: 0.58 }, { text: "\u0111i", duration: 1.08 }, { text: "em", duration: 0.64 }, { text: "h\u1ecfi", duration: 0.28 }
+          { text: "Khi", duration: 0.4 }, { text: "đi", duration: 0.4 }, { text: "em", duration: 0.4 }, { text: "hỏi", duration: 1.19 }
         ]
       },
       { 
-        time: 48.0,
-        text: "Khi v\u1ec1 em ch\u00e0o",
+        time: 48,
+        text: "Khi về em chào",
         words: [
-          { text: "Khi", duration: 0.46 }, { text: "v\u1ec1", duration: 0.24 }, { text: "em", duration: 0.96 }, { text: "ch\u00e0o", duration: 0.64 }
+          { text: "Khi", duration: 0.35 }, { text: "về", duration: 0.35 }, { text: "em", duration: 0.35 }, { text: "chào", duration: 1.05 }
         ]
       },
       { 
         time: 50.3,
-        text: "Mi\u1ec7ng em ch\u00fam ch\u00edm",
+        text: "Miệng em chúm chím",
         words: [
-          { text: "Mi\u1ec7ng", duration: 0.36 }, { text: "em", duration: 0.4 }, { text: "ch\u00fam", duration: 1.28 }, { text: "ch\u00edm", duration: 1.4 }
+          { text: "Miệng", duration: 0.25 }, { text: "em", duration: 0.25 }, { text: "chúm", duration: 0.25 }, { text: "chím", duration: 0.75 }
         ]
       },
       { 
         time: 52,
-        text: "M\u1eb9 c\u00f3 y\u00eau kh\u00f4ng n\u00e0o",
+        text: "Mẹ có yêu không nào",
         words: [
-          { text: "M\u1eb9", duration: 0.32 }, { text: "c\u00f3", duration: 0.86 }, { text: "y\u00eau", duration: 0.82 }, { text: "kh\u00f4ng", duration: 0.98 }, { text: "n\u00e0o", duration: 1.04 }
+          { text: "Mẹ", duration: 0.57 }, { text: "có", duration: 0.57 }, { text: "yêu", duration: 0.57 }, { text: "không", duration: 0.57 }, { text: "nào", duration: 1.71 }
         ]
       }
     ]
@@ -204,100 +204,100 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 36.4,
-        text: "Ng\u00e0y x\u01b0a x\u01b0a \u01a1i l\u00e0 x\u01b0a",
+        text: "Ngày xưa xưa ơi là xưa",
         words: [
-          { text: "Ng\u00e0y", duration: 1.4 }, { text: "x\u01b0a", duration: 1.4 }, { text: "x\u01b0a", duration: 0.28 }, { text: "\u01a1i", duration: 0.2 }, { text: "l\u00e0", duration: 0.5 }, { text: "x\u01b0a", duration: 3.3 }
+          { text: "Ngày", duration: 0.35 }, { text: "xưa", duration: 0.35 }, { text: "xưa", duration: 0.35 }, { text: "ơi", duration: 0.35 }, { text: "là", duration: 0.35 }, { text: "xưa", duration: 1.05 }
         ]
       },
       { 
         time: 39.4,
-        text: "\u1ede m\u1ed9t n\u01a1i \u0111\u1ed3ng qu\u00ea b\u00e1t ng\u00e1t",
+        text: "Ở một nơi đồng quê bát ngát",
         words: [
-          { text: "\u1ede", duration: 0.2 }, { text: "m\u1ed9t", duration: 1.4 }, { text: "n\u01a1i", duration: 0.2 }, { text: "\u0111\u1ed3ng", duration: 0.2 }, { text: "qu\u00ea", duration: 0.2 }, { text: "b\u00e1t", duration: 1.4 }, { text: "ng\u00e1t", duration: 1.4 }
+          { text: "Ở", duration: 0.31 }, { text: "một", duration: 0.31 }, { text: "nơi", duration: 0.31 }, { text: "đồng", duration: 0.31 }, { text: "quê", duration: 0.31 }, { text: "bát", duration: 0.31 }, { text: "ngát", duration: 0.93 }
         ]
       },
       { 
         time: 42.4,
-        text: "Nh\u00e0 kia c\u00f3 hai ch\u1ecb em",
+        text: "Nhà kia có hai chị em",
         words: [
-          { text: "Nh\u00e0", duration: 0.2 }, { text: "kia", duration: 0.56 }, { text: "c\u00f3", duration: 0.3 }, { text: "hai", duration: 0.28 }, { text: "ch\u1ecb", duration: 0.3 }, { text: "em", duration: 0.2 }
+          { text: "Nhà", duration: 0.35 }, { text: "kia", duration: 0.35 }, { text: "có", duration: 0.35 }, { text: "hai", duration: 0.35 }, { text: "chị", duration: 0.35 }, { text: "em", duration: 1.05 }
         ]
       },
       { 
         time: 45.4,
-        text: "T\u00ean \u0111\u01b0\u1ee3c cha \u0111\u1eb7t l\u00e0 T\u1ea5m C\u00e1m",
+        text: "Tên được cha đặt là Tấm Cám",
         words: [
-          { text: "T\u00ean", duration: 0.56 }, { text: "\u0111\u01b0\u1ee3c", duration: 0.54 }, { text: "cha", duration: 0.2 }, { text: "\u0111\u1eb7t", duration: 0.3 }, { text: "l\u00e0", duration: 0.2 }, { text: "T\u1ea5m", duration: 0.28 }, { text: "C\u00e1m", duration: 0.3 }
+          { text: "Tên", duration: 0.31 }, { text: "được", duration: 0.31 }, { text: "cha", duration: 0.31 }, { text: "đặt", duration: 0.31 }, { text: "là", duration: 0.31 }, { text: "Tấm", duration: 0.31 }, { text: "Cám", duration: 0.93 }
         ]
       },
       { 
         time: 48.4,
-        text: "T\u1eeb thu\u1edf \u1ea5u th\u01a1 T\u1ea5m \u0111\u00e3 m\u01a1",
+        text: "Từ thuở ấu thơ Tấm đã mơ",
         words: [
-          { text: "T\u1eeb", duration: 0.3 }, { text: "thu\u1edf", duration: 0.7 }, { text: "\u1ea5u", duration: 0.2 }, { text: "th\u01a1", duration: 0.32 }, { text: "T\u1ea5m", duration: 0.26 }, { text: "\u0111\u00e3", duration: 0.2 }, { text: "m\u01a1", duration: 0.52 }
+          { text: "Từ", duration: 0.31 }, { text: "thuở", duration: 0.31 }, { text: "ấu", duration: 0.31 }, { text: "thơ", duration: 0.31 }, { text: "Tấm", duration: 0.31 }, { text: "đã", duration: 0.31 }, { text: "mơ", duration: 0.93 }
         ]
       },
       { 
         time: 51.4,
-        text: "V\u1ec1 h\u01a1i \u1ea5m tay m\u1eb9",
+        text: "Về hơi ấm tay mẹ",
         words: [
-          { text: "V\u1ec1", duration: 0.38 }, { text: "h\u01a1i", duration: 0.22 }, { text: "\u1ea5m", duration: 0.3 }, { text: "tay", duration: 0.22 }, { text: "m\u1eb9", duration: 0.22 }
+          { text: "Về", duration: 0.4 }, { text: "hơi", duration: 0.4 }, { text: "ấm", duration: 0.4 }, { text: "tay", duration: 0.4 }, { text: "mẹ", duration: 1.2 }
         ]
       },
       { 
         time: 54.4,
-        text: "S\u1ebd c\u00f3 ng\u00e0y t\u1ea5m th\u00e2n n\u00e0y",
+        text: "Sẽ có ngày tấm thân này",
         words: [
-          { text: "S\u1ebd", duration: 0.34 }, { text: "c\u00f3", duration: 0.48 }, { text: "ng\u00e0y", duration: 0.24 }, { text: "t\u1ea5m", duration: 0.72 }, { text: "th\u00e2n", duration: 0.72 }, { text: "n\u00e0y", duration: 0.3 }
+          { text: "Sẽ", duration: 0.35 }, { text: "có", duration: 0.35 }, { text: "ngày", duration: 0.35 }, { text: "tấm", duration: 0.35 }, { text: "thân", duration: 0.35 }, { text: "này", duration: 1.05 }
         ]
       },
       { 
         time: 57.4,
-        text: "T\u00ecm ra l\u1ed1i tho\u00e1t v\u1ec1 n\u01a1i \u1ea5m \u00eam",
+        text: "Tìm ra lối thoát về nơi ấm êm",
         words: [
-          { text: "T\u00ecm", duration: 0.46 }, { text: "ra", duration: 0.2 }, { text: "l\u1ed1i", duration: 0.3 }, { text: "tho\u00e1t", duration: 0.24 }, { text: "v\u1ec1", duration: 0.26 }, { text: "n\u01a1i", duration: 0.32 }, { text: "\u1ea5m", duration: 0.22 }, { text: "\u00eam", duration: 0.58 }
+          { text: "Tìm", duration: 0.44 }, { text: "ra", duration: 0.44 }, { text: "lối", duration: 0.44 }, { text: "thoát", duration: 0.44 }, { text: "về", duration: 0.44 }, { text: "nơi", duration: 0.44 }, { text: "ấm", duration: 0.44 }, { text: "êm", duration: 1.32 }
         ]
       },
       { 
         time: 62,
-        text: "B\u1ed1ng b\u1ed1ng bang bang",
+        text: "Bống bống bang bang",
         words: [
-          { text: "B\u1ed1ng", duration: 0.36 }, { text: "b\u1ed1ng", duration: 0.3 }, { text: "bang", duration: 0.28 }, { text: "bang", duration: 0.6 }
+          { text: "Bống", duration: 0.3 }, { text: "bống", duration: 0.3 }, { text: "bang", duration: 0.3 }, { text: "bang", duration: 0.9 }
         ]
       },
       { 
         time: 64,
-        text: "B\u1ed1ng b\u1ed1ng bang bang",
+        text: "Bống bống bang bang",
         words: [
-          { text: "B\u1ed1ng", duration: 0.22 }, { text: "b\u1ed1ng", duration: 0.3 }, { text: "bang", duration: 0.5 }, { text: "bang", duration: 0.24 }
+          { text: "Bống", duration: 0.3 }, { text: "bống", duration: 0.3 }, { text: "bang", duration: 0.3 }, { text: "bang", duration: 0.9 }
         ]
       },
       { 
         time: 66,
-        text: "L\u00ean \u0103n c\u01a1m v\u00e0ng, c\u01a1m b\u1ea1c nh\u00e0 ta",
+        text: "Lên ăn cơm vàng, cơm bạc nhà ta",
         words: [
-          { text: "L\u00ean", duration: 0.2 }, { text: "\u0103n", duration: 0.28 }, { text: "c\u01a1m", duration: 0.22 }, { text: "v\u00e0ng,", duration: 0.36 }, { text: "c\u01a1m", duration: 0.2 }, { text: "b\u1ea1c", duration: 0.52 }, { text: "nh\u00e0", duration: 0.2 }, { text: "ta", duration: 0.2 }
+          { text: "Lên", duration: 0.35 }, { text: "ăn", duration: 0.35 }, { text: "cơm", duration: 0.35 }, { text: "vàng,", duration: 0.69 }, { text: "cơm", duration: 0.35 }, { text: "bạc", duration: 0.35 }, { text: "nhà", duration: 0.35 }, { text: "ta", duration: 1.04 }
         ]
       },
       { 
         time: 70,
-        text: "B\u1ed1ng b\u1ed1ng bang bang",
+        text: "Bống bống bang bang",
         words: [
-          { text: "B\u1ed1ng", duration: 0.46 }, { text: "b\u1ed1ng", duration: 0.28 }, { text: "bang", duration: 0.2 }, { text: "bang", duration: 0.2 }
+          { text: "Bống", duration: 0.3 }, { text: "bống", duration: 0.3 }, { text: "bang", duration: 0.3 }, { text: "bang", duration: 0.9 }
         ]
       },
       { 
         time: 72,
-        text: "B\u1ed1ng b\u1ed1ng bang bang",
+        text: "Bống bống bang bang",
         words: [
-          { text: "B\u1ed1ng", duration: 0.2 }, { text: "b\u1ed1ng", duration: 0.2 }, { text: "bang", duration: 0.32 }, { text: "bang", duration: 0.22 }
+          { text: "Bống", duration: 0.3 }, { text: "bống", duration: 0.3 }, { text: "bang", duration: 0.3 }, { text: "bang", duration: 0.9 }
         ]
       },
       { 
         time: 74,
-        text: "Ch\u1edb \u0103n c\u01a1m h\u1ea9m, ch\u00e1o hoa nh\u00e0 ng\u01b0\u1eddi",
+        text: "Chớ ăn cơm hẩm, cháo hoa nhà người",
         words: [
-          { text: "Ch\u1edb", duration: 0.2 }, { text: "\u0103n", duration: 0.22 }, { text: "c\u01a1m", duration: 0.28 }, { text: "h\u1ea9m,", duration: 0.28 }, { text: "ch\u00e1o", duration: 0.2 }, { text: "hoa", duration: 0.64 }, { text: "nh\u00e0", duration: 0.26 }, { text: "ng\u01b0\u1eddi", duration: 0.2 }
+          { text: "Chớ", duration: 0.58 }, { text: "ăn", duration: 0.58 }, { text: "cơm", duration: 0.58 }, { text: "hẩm,", duration: 1.16 }, { text: "cháo", duration: 0.58 }, { text: "hoa", duration: 0.58 }, { text: "nhà", duration: 0.58 }, { text: "người", duration: 1.75 }
         ]
       }
     ]
@@ -312,72 +312,72 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 18.7,
-        text: "Ch\u00e1u l\u00ean ba ch\u00e1u \u0111i m\u1eabu gi\u00e1o",
+        text: "Cháu lên ba cháu đi mẫu giáo",
         words: [
-          { text: "Ch\u00e1u", duration: 0.92 }, { text: "l\u00ean", duration: 1.26 }, { text: "ba", duration: 0.38 }, { text: "ch\u00e1u", duration: 0.28 }, { text: "\u0111i", duration: 0.46 }, { text: "m\u1eabu", duration: 1.18 }, { text: "gi\u00e1o", duration: 0.42 }
+          { text: "Cháu", duration: 0.52 }, { text: "lên", duration: 0.52 }, { text: "ba", duration: 0.52 }, { text: "cháu", duration: 0.52 }, { text: "đi", duration: 0.52 }, { text: "mẫu", duration: 0.52 }, { text: "giáo", duration: 1.57 }
         ]
       },
       { 
         time: 23.6,
-        text: "C\u00f4 th\u01b0\u01a1ng ch\u00e1u v\u00ec ch\u00e1u kh\u00f4ng kh\u00f3c nh\u00e8",
+        text: "Cô thương cháu vì cháu không khóc nhè",
         words: [
-          { text: "C\u00f4", duration: 0.6 }, { text: "th\u01b0\u01a1ng", duration: 0.72 }, { text: "ch\u00e1u", duration: 0.2 }, { text: "v\u00ec", duration: 0.26 }, { text: "ch\u00e1u", duration: 0.44 }, { text: "kh\u00f4ng", duration: 0.54 }, { text: "kh\u00f3c", duration: 0.92 }, { text: "nh\u00e8", duration: 0.5 }
+          { text: "Cô", duration: 0.39 }, { text: "thương", duration: 0.39 }, { text: "cháu", duration: 0.39 }, { text: "vì", duration: 0.39 }, { text: "cháu", duration: 0.39 }, { text: "không", duration: 0.39 }, { text: "khóc", duration: 0.39 }, { text: "nhè", duration: 1.16 }
         ]
       },
       { 
         time: 27.68,
-        text: "Kh\u00f4ng kh\u00f3c nh\u00e8 \u0111\u1ec3 m\u1eb9 tr\u1ed3ng c\u00e2y tr\u00e1i",
+        text: "Không khóc nhè để mẹ trồng cây trái",
         words: [
-          { text: "Kh\u00f4ng", duration: 0.5 }, { text: "kh\u00f3c", duration: 0.6 }, { text: "nh\u00e8", duration: 0.28 }, { text: "\u0111\u1ec3", duration: 0.28 }, { text: "m\u1eb9", duration: 0.36 }, { text: "tr\u1ed3ng", duration: 0.6 }, { text: "c\u00e2y", duration: 0.68 }, { text: "tr\u00e1i", duration: 0.44 }
+          { text: "Không", duration: 0.35 }, { text: "khóc", duration: 0.35 }, { text: "nhè", duration: 0.35 }, { text: "để", duration: 0.35 }, { text: "mẹ", duration: 0.35 }, { text: "trồng", duration: 0.35 }, { text: "cây", duration: 0.35 }, { text: "trái", duration: 1.06 }
         ]
       },
       { 
         time: 31.42,
-        text: "Ba v\u00e0o nh\u00e0 m\u00e1y, \u00f4ng b\u00e0 vui c\u1ea5y c\u00e0y",
+        text: "Ba vào nhà máy, ông bà vui cấy cày",
         words: [
-          { text: "Ba", duration: 0.46 }, { text: "v\u00e0o", duration: 0.32 }, { text: "nh\u00e0", duration: 0.84 }, { text: "m\u00e1y,", duration: 0.2 }, { text: "\u00f4ng", duration: 0.22 }, { text: "b\u00e0", duration: 0.48 }, { text: "vui", duration: 0.36 }, { text: "c\u1ea5y", duration: 1.04 }, { text: "c\u00e0y", duration: 0.2 }
+          { text: "Ba", duration: 0.32 }, { text: "vào", duration: 0.32 }, { text: "nhà", duration: 0.32 }, { text: "máy,", duration: 0.63 }, { text: "ông", duration: 0.32 }, { text: "bà", duration: 0.32 }, { text: "vui", duration: 0.32 }, { text: "cấy", duration: 0.32 }, { text: "cày", duration: 0.95 }
         ]
       },
       { 
         time: 35.42,
-        text: "L\u00e0 l\u00e1 la la, l\u00e0 l\u00e1 la la",
+        text: "Là lá la la, là lá la la",
         words: [
-          { text: "L\u00e0", duration: 0.66 }, { text: "l\u00e1", duration: 0.72 }, { text: "la", duration: 0.44 }, { text: "la,", duration: 0.38 }, { text: "l\u00e0", duration: 0.5 }, { text: "l\u00e1", duration: 0.48 }, { text: "la", duration: 0.6 }, { text: "la", duration: 0.2 }
+          { text: "Là", duration: 0.36 }, { text: "lá", duration: 0.36 }, { text: "la", duration: 0.36 }, { text: "la,", duration: 0.73 }, { text: "là", duration: 0.36 }, { text: "lá", duration: 0.36 }, { text: "la", duration: 0.36 }, { text: "la", duration: 1.09 }
         ]
       },
       { 
         time: 43.16,
-        text: "Ch\u00e1u l\u00ean ba ch\u00e1u \u0111i m\u1eabu gi\u00e1o",
+        text: "Cháu lên ba cháu đi mẫu giáo",
         words: [
-          { text: "Ch\u00e1u", duration: 0.92 }, { text: "l\u00ean", duration: 1.16 }, { text: "ba", duration: 0.46 }, { text: "ch\u00e1u", duration: 0.28 }, { text: "\u0111i", duration: 0.52 }, { text: "m\u1eabu", duration: 1.34 }, { text: "gi\u00e1o", duration: 0.2 }
+          { text: "Cháu", duration: 0.52 }, { text: "lên", duration: 0.52 }, { text: "ba", duration: 0.52 }, { text: "cháu", duration: 0.52 }, { text: "đi", duration: 0.52 }, { text: "mẫu", duration: 0.52 }, { text: "giáo", duration: 1.55 }
         ]
       },
       { 
         time: 48.02,
-        text: "C\u00f4 th\u01b0\u01a1ng ch\u00e1u v\u00ec ch\u00e1u kh\u00f4ng kh\u00f3c nh\u00e8",
+        text: "Cô thương cháu vì cháu không khóc nhè",
         words: [
-          { text: "C\u00f4", duration: 0.56 }, { text: "th\u01b0\u01a1ng", duration: 0.5 }, { text: "ch\u00e1u", duration: 0.4 }, { text: "v\u00ec", duration: 0.22 }, { text: "ch\u00e1u", duration: 0.46 }, { text: "kh\u00f4ng", duration: 0.48 }, { text: "kh\u00f3c", duration: 0.92 }, { text: "nh\u00e8", duration: 0.54 }
+          { text: "Cô", duration: 0.39 }, { text: "thương", duration: 0.39 }, { text: "cháu", duration: 0.39 }, { text: "vì", duration: 0.39 }, { text: "cháu", duration: 0.39 }, { text: "không", duration: 0.39 }, { text: "khóc", duration: 0.39 }, { text: "nhè", duration: 1.16 }
         ]
       },
       { 
         time: 52.1,
-        text: "Kh\u00f4ng kh\u00f3c nh\u00e8 \u0111\u1ec3 m\u1eb9 tr\u1ed3ng c\u00e2y tr\u00e1i",
+        text: "Không khóc nhè để mẹ trồng cây trái",
         words: [
-          { text: "Kh\u00f4ng", duration: 0.62 }, { text: "kh\u00f3c", duration: 0.64 }, { text: "nh\u00e8", duration: 0.2 }, { text: "\u0111\u1ec3", duration: 0.34 }, { text: "m\u1eb9", duration: 0.34 }, { text: "tr\u1ed3ng", duration: 0.58 }, { text: "c\u00e2y", duration: 0.64 }, { text: "tr\u00e1i", duration: 0.48 }
+          { text: "Không", duration: 0.35 }, { text: "khóc", duration: 0.35 }, { text: "nhè", duration: 0.35 }, { text: "để", duration: 0.35 }, { text: "mẹ", duration: 0.35 }, { text: "trồng", duration: 0.35 }, { text: "cây", duration: 0.35 }, { text: "trái", duration: 1.06 }
         ]
       },
       { 
         time: 55.84,
-        text: "Ba v\u00e0o nh\u00e0 m\u00e1y, \u00f4ng b\u00e0 vui c\u1ea5y c\u00e0y",
+        text: "Ba vào nhà máy, ông bà vui cấy cày",
         words: [
-          { text: "Ba", duration: 0.54 }, { text: "v\u00e0o", duration: 0.24 }, { text: "nh\u00e0", duration: 0.48 }, { text: "m\u00e1y,", duration: 0.44 }, { text: "\u00f4ng", duration: 0.5 }, { text: "b\u00e0", duration: 0.28 }, { text: "vui", duration: 0.36 }, { text: "c\u1ea5y", duration: 0.66 }, { text: "c\u00e0y", duration: 0.5 }
+          { text: "Ba", duration: 0.32 }, { text: "vào", duration: 0.32 }, { text: "nhà", duration: 0.32 }, { text: "máy,", duration: 0.63 }, { text: "ông", duration: 0.32 }, { text: "bà", duration: 0.32 }, { text: "vui", duration: 0.32 }, { text: "cấy", duration: 0.32 }, { text: "cày", duration: 0.95 }
         ]
       },
       { 
         time: 59.84,
-        text: "L\u00e0 l\u00e1 la la, l\u00e0 l\u00e1 la la",
+        text: "Là lá la la, là lá la la",
         words: [
-          { text: "L\u00e0", duration: 0.6 }, { text: "l\u00e1", duration: 0.58 }, { text: "la", duration: 0.46 }, { text: "la,", duration: 0.4 }, { text: "l\u00e0", duration: 0.64 }, { text: "l\u00e1", duration: 0.56 }, { text: "la", duration: 0.7 }, { text: "la", duration: 0.2 }
+          { text: "Là", duration: 0.58 }, { text: "lá", duration: 0.58 }, { text: "la", duration: 0.58 }, { text: "la,", duration: 1.16 }, { text: "là", duration: 0.58 }, { text: "lá", duration: 0.58 }, { text: "la", duration: 0.58 }, { text: "la", duration: 1.75 }
         ]
       }
     ]
@@ -392,58 +392,58 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 16.12,
-        text: "Meo meo meo, r\u1eeda m\u1eb7t nh\u01b0 m\u00e8o",
+        text: "Meo meo meo, rửa mặt như mèo",
         words: [
-          { text: "Meo", duration: 0.92 }, { text: "meo", duration: 0.54 }, { text: "meo,", duration: 0.54 }, { text: "r\u1eeda", duration: 0.32 }, { text: "m\u1eb7t", duration: 0.3 }, { text: "nh\u01b0", duration: 0.38 }, { text: "m\u00e8o", duration: 0.3 }
+          { text: "Meo", duration: 0.31 }, { text: "meo", duration: 0.31 }, { text: "meo,", duration: 0.62 }, { text: "rửa", duration: 0.31 }, { text: "mặt", duration: 0.31 }, { text: "như", duration: 0.31 }, { text: "mèo", duration: 0.93 }
         ]
       },
       { 
         time: 19.42,
-        text: "X\u1ea5u x\u1ea5u l\u1eafm, ch\u1eb3ng \u0111\u01b0\u1ee3c m\u1eb9 y\u00eau",
+        text: "Xấu xấu lắm, chẳng được mẹ yêu",
         words: [
-          { text: "X\u1ea5u", duration: 1.08 }, { text: "x\u1ea5u", duration: 0.54 }, { text: "l\u1eafm,", duration: 0.58 }, { text: "ch\u1eb3ng", duration: 1.04 }, { text: "\u0111\u01b0\u1ee3c", duration: 0.24 }, { text: "m\u1eb9", duration: 0.2 }, { text: "y\u00eau", duration: 0.72 }
+          { text: "Xấu", duration: 0.42 }, { text: "xấu", duration: 0.42 }, { text: "lắm,", duration: 0.83 }, { text: "chẳng", duration: 0.42 }, { text: "được", duration: 0.42 }, { text: "mẹ", duration: 0.42 }, { text: "yêu", duration: 1.25 }
         ]
       },
       { 
         time: 23.78,
-        text: "Kh\u0103n m\u1eb7t \u0111\u00e2u m\u00e0 ng\u1ed3i li\u1ebfm m\u00e9p",
+        text: "Khăn mặt đâu mà ngồi liếm mép",
         words: [
-          { text: "Kh\u0103n", duration: 0.94 }, { text: "m\u1eb7t", duration: 0.48 }, { text: "\u0111\u00e2u", duration: 0.46 }, { text: "m\u00e0", duration: 0.9 }, { text: "ng\u1ed3i", duration: 0.26 }, { text: "li\u1ebfm", duration: 0.46 }, { text: "m\u00e9p", duration: 0.52 }
+          { text: "Khăn", duration: 0.42 }, { text: "mặt", duration: 0.42 }, { text: "đâu", duration: 0.42 }, { text: "mà", duration: 0.42 }, { text: "ngồi", duration: 0.42 }, { text: "liếm", duration: 0.42 }, { text: "mép", duration: 1.27 }
         ]
       },
       { 
         time: 27.8,
-        text: "\u0110au m\u1eaft r\u1ed3i, l\u1ea1i kh\u00f3c meo meo",
+        text: "Đau mắt rồi, lại khóc meo meo",
         words: [
-          { text: "\u0110au", duration: 1.02 }, { text: "m\u1eaft", duration: 0.44 }, { text: "r\u1ed3i,", duration: 0.56 }, { text: "l\u1ea1i", duration: 0.54 }, { text: "kh\u00f3c", duration: 0.7 }, { text: "meo", duration: 0.36 }, { text: "meo", duration: 0.48 }
+          { text: "Đau", duration: 0.35 }, { text: "mắt", duration: 0.35 }, { text: "rồi,", duration: 0.7 }, { text: "lại", duration: 0.35 }, { text: "khóc", duration: 0.35 }, { text: "meo", duration: 0.35 }, { text: "meo", duration: 1.05 }
         ]
       },
       { 
         time: 40.5,
-        text: "Meo meo meo, r\u1eeda m\u1eb7t nh\u01b0 m\u00e8o",
+        text: "Meo meo meo, rửa mặt như mèo",
         words: [
-          { text: "Meo", duration: 9.26 }, { text: "meo", duration: 0.52 }, { text: "meo,", duration: 0.58 }, { text: "r\u1eeda", duration: 0.52 }, { text: "m\u1eb7t", duration: 0.62 }, { text: "nh\u01b0", duration: 0.36 }, { text: "m\u00e8o", duration: 0.36 }
+          { text: "Meo", duration: 0.34 }, { text: "meo", duration: 0.34 }, { text: "meo,", duration: 0.68 }, { text: "rửa", duration: 0.34 }, { text: "mặt", duration: 0.34 }, { text: "như", duration: 0.34 }, { text: "mèo", duration: 1.03 }
         ]
       },
       { 
         time: 44.12,
-        text: "X\u1ea5u x\u1ea5u l\u1eafm, ch\u1eb3ng \u0111\u01b0\u1ee3c m\u1eb9 y\u00eau",
+        text: "Xấu xấu lắm, chẳng được mẹ yêu",
         words: [
-          { text: "X\u1ea5u", duration: 0.94 }, { text: "x\u1ea5u", duration: 0.62 }, { text: "l\u1eafm,", duration: 0.58 }, { text: "ch\u1eb3ng", duration: 1.06 }, { text: "\u0111\u01b0\u1ee3c", duration: 0.22 }, { text: "m\u1eb9", duration: 0.2 }, { text: "y\u00eau", duration: 0.68 }
+          { text: "Xấu", duration: 0.41 }, { text: "xấu", duration: 0.41 }, { text: "lắm,", duration: 0.82 }, { text: "chẳng", duration: 0.41 }, { text: "được", duration: 0.41 }, { text: "mẹ", duration: 0.41 }, { text: "yêu", duration: 1.23 }
         ]
       },
       { 
         time: 48.42,
-        text: "Kh\u0103n m\u1eb7t \u0111\u00e2u m\u00e0 ng\u1ed3i li\u1ebfm m\u00e9p",
+        text: "Khăn mặt đâu mà ngồi liếm mép",
         words: [
-          { text: "Kh\u0103n", duration: 0.96 }, { text: "m\u1eb7t", duration: 0.46 }, { text: "\u0111\u00e2u", duration: 0.46 }, { text: "m\u00e0", duration: 0.92 }, { text: "ng\u1ed3i", duration: 0.24 }, { text: "li\u1ebfm", duration: 0.46 }, { text: "m\u00e9p", duration: 0.56 }
+          { text: "Khăn", duration: 0.43 }, { text: "mặt", duration: 0.43 }, { text: "đâu", duration: 0.43 }, { text: "mà", duration: 0.43 }, { text: "ngồi", duration: 0.43 }, { text: "liếm", duration: 0.43 }, { text: "mép", duration: 1.29 }
         ]
       },
       { 
         time: 52.48,
-        text: "\u0110au m\u1eaft r\u1ed3i, l\u1ea1i kh\u00f3c meo meo",
+        text: "Đau mắt rồi, lại khóc meo meo",
         words: [
-          { text: "\u0110au", duration: 0.98 }, { text: "m\u1eaft", duration: 0.44 }, { text: "r\u1ed3i,", duration: 0.6 }, { text: "l\u1ea1i", duration: 0.52 }, { text: "kh\u00f3c", duration: 0.7 }, { text: "meo", duration: 0.42 }, { text: "meo", duration: 0.42 }
+          { text: "Đau", duration: 0.56 }, { text: "mắt", duration: 0.56 }, { text: "rồi,", duration: 1.12 }, { text: "lại", duration: 0.56 }, { text: "khóc", duration: 0.56 }, { text: "meo", duration: 0.56 }, { text: "meo", duration: 1.68 }
         ]
       }
     ]
@@ -458,72 +458,72 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 10.82,
-        text: "K\u00eca ch\u00fa l\u00e0 ch\u00fa \u1ebfch con",
+        text: "Kìa chú là chú ếch con",
         words: [
-          { text: "K\u00eca", duration: 0.6 }, { text: "ch\u00fa", duration: 0.42 }, { text: "l\u00e0", duration: 0.2 }, { text: "ch\u00fa", duration: 0.3 }, { text: "\u1ebfch", duration: 0.22 }, { text: "con", duration: 0.46 }
+          { text: "Kìa", duration: 0.25 }, { text: "chú", duration: 0.25 }, { text: "là", duration: 0.25 }, { text: "chú", duration: 0.25 }, { text: "ếch", duration: 0.25 }, { text: "con", duration: 0.75 }
         ]
       },
       { 
         time: 13.02,
-        text: "C\u00f3 hai l\u00e0 hai m\u1eaft tr\u00f2n",
+        text: "Có hai là hai mắt tròn",
         words: [
-          { text: "C\u00f3", duration: 1.14 }, { text: "hai", duration: 0.2 }, { text: "l\u00e0", duration: 0.24 }, { text: "hai", duration: 0.3 }, { text: "m\u1eaft", duration: 0.5 }, { text: "tr\u00f2n", duration: 0.66 }
+          { text: "Có", duration: 0.35 }, { text: "hai", duration: 0.35 }, { text: "là", duration: 0.35 }, { text: "hai", duration: 0.35 }, { text: "mắt", duration: 0.35 }, { text: "tròn", duration: 1.04 }
         ]
       },
       { 
-        time: 16.0,
-        text: "Ch\u00fa ng\u1ed3i h\u1ecdc b\u00e0i m\u1ed9t m\u00ecnh",
+        time: 16,
+        text: "Chú ngồi học bài một mình",
         words: [
-          { text: "Ch\u00fa", duration: 0.24 }, { text: "ng\u1ed3i", duration: 0.42 }, { text: "h\u1ecdc", duration: 0.2 }, { text: "b\u00e0i", duration: 0.28 }, { text: "m\u1ed9t", duration: 0.26 }, { text: "m\u00ecnh", duration: 0.74 }
+          { text: "Chú", duration: 0.38 }, { text: "ngồi", duration: 0.38 }, { text: "học", duration: 0.38 }, { text: "bài", duration: 0.38 }, { text: "một", duration: 0.38 }, { text: "mình", duration: 1.13 }
         ]
       },
       { 
         time: 24,
-        text: "B\u00ean h\u1ed1 bom k\u1ec1 v\u01b0\u1eddn xoan",
+        text: "Bên hố bom kề vườn xoan",
         words: [
-          { text: "B\u00ean", duration: 0.54 }, { text: "h\u1ed1", duration: 0.2 }, { text: "bom", duration: 0.3 }, { text: "k\u1ec1", duration: 0.3 }, { text: "v\u01b0\u1eddn", duration: 0.56 }, { text: "xoan", duration: 0.86 }
+          { text: "Bên", duration: 0.38 }, { text: "hố", duration: 0.38 }, { text: "bom", duration: 0.38 }, { text: "kề", duration: 0.38 }, { text: "vườn", duration: 0.38 }, { text: "xoan", duration: 1.13 }
         ]
       },
       { 
         time: 29,
-        text: "Bao nhi\u00eau c\u00f4 c\u00e1 tung t\u0103ng",
+        text: "Bao nhiêu cô cá tung tăng",
         words: [
-          { text: "Bao", duration: 0.24 }, { text: "nhi\u00eau", duration: 0.28 }, { text: "c\u00f4", duration: 0.38 }, { text: "c\u00e1", duration: 0.28 }, { text: "tung", duration: 0.38 }, { text: "t\u0103ng", duration: 0.64 }
+          { text: "Bao", duration: 0.38 }, { text: "nhiêu", duration: 0.38 }, { text: "cô", duration: 0.38 }, { text: "cá", duration: 0.38 }, { text: "tung", duration: 0.38 }, { text: "tăng", duration: 1.13 }
         ]
       },
       { 
         time: 34,
-        text: "C\u00f9ng bao nhi\u00eau ch\u00fa c\u00e1 r\u00f4",
+        text: "Cùng bao nhiêu chú cá rô",
         words: [
-          { text: "C\u00f9ng", duration: 0.2 }, { text: "bao", duration: 0.3 }, { text: "nhi\u00eau", duration: 0.42 }, { text: "ch\u00fa", duration: 1.1 }, { text: "c\u00e1", duration: 0.24 }, { text: "r\u00f4", duration: 0.22 }
+          { text: "Cùng", duration: 0.38 }, { text: "bao", duration: 0.38 }, { text: "nhiêu", duration: 0.38 }, { text: "chú", duration: 0.38 }, { text: "cá", duration: 0.38 }, { text: "rô", duration: 1.13 }
         ]
       },
       { 
         time: 40.5,
-        text: "K\u00eca ch\u00fa l\u00e0 ch\u00fa \u1ebfch con",
+        text: "Kìa chú là chú ếch con",
         words: [
-          { text: "K\u00eca", duration: 0.22 }, { text: "ch\u00fa", duration: 0.34 }, { text: "l\u00e0", duration: 0.5 }, { text: "ch\u00fa", duration: 0.66 }, { text: "\u1ebfch", duration: 0.28 }, { text: "con", duration: 0.32 }
+          { text: "Kìa", duration: 0.54 }, { text: "chú", duration: 0.54 }, { text: "là", duration: 0.54 }, { text: "chú", duration: 0.54 }, { text: "ếch", duration: 0.54 }, { text: "con", duration: 1.61 }
         ]
       },
       { 
         time: 45,
-        text: "C\u00f3 hai l\u00e0 hai m\u1eaft tr\u00f2n",
+        text: "Có hai là hai mắt tròn",
         words: [
-          { text: "C\u00f3", duration: 0.2 }, { text: "hai", duration: 0.24 }, { text: "l\u00e0", duration: 0.74 }, { text: "hai", duration: 0.58 }, { text: "m\u1eaft", duration: 0.36 }, { text: "tr\u00f2n", duration: 0.2 }
+          { text: "Có", duration: 0.38 }, { text: "hai", duration: 0.38 }, { text: "là", duration: 0.38 }, { text: "hai", duration: 0.38 }, { text: "mắt", duration: 0.38 }, { text: "tròn", duration: 1.13 }
         ]
       },
       { 
         time: 50,
-        text: "Ch\u00fa ng\u1ed3i h\u1ecdc b\u00e0i m\u1ed9t m\u00ecnh",
+        text: "Chú ngồi học bài một mình",
         words: [
-          { text: "Ch\u00fa", duration: 0.2 }, { text: "ng\u1ed3i", duration: 0.2 }, { text: "h\u1ecdc", duration: 0.2 }, { text: "b\u00e0i", duration: 0.2 }, { text: "m\u1ed9t", duration: 0.2 }, { text: "m\u00ecnh", duration: 0.2 }
+          { text: "Chú", duration: 0.38 }, { text: "ngồi", duration: 0.38 }, { text: "học", duration: 0.38 }, { text: "bài", duration: 0.38 }, { text: "một", duration: 0.38 }, { text: "mình", duration: 1.13 }
         ]
       },
       { 
         time: 55,
-        text: "B\u00ean h\u1ed1 bom k\u1ec1 v\u01b0\u1eddn xoan",
+        text: "Bên hố bom kề vườn xoan",
         words: [
-          { text: "B\u00ean", duration: 0.2 }, { text: "h\u1ed1", duration: 0.2 }, { text: "bom", duration: 0.2 }, { text: "k\u1ec1", duration: 0.2 }, { text: "v\u01b0\u1eddn", duration: 0.28 }, { text: "xoan", duration: 0.2 }
+          { text: "Bên", duration: 0.6 }, { text: "hố", duration: 0.6 }, { text: "bom", duration: 0.6 }, { text: "kề", duration: 0.6 }, { text: "vườn", duration: 0.6 }, { text: "xoan", duration: 1.8 }
         ]
       }
     ]
@@ -538,58 +538,58 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 14,
-        text: "Hai con th\u1eb1n l\u1eb1n con",
+        text: "Hai con thằn lằn con",
         words: [
-          { text: "Hai", duration: 0.7 }, { text: "con", duration: 0.2 }, { text: "th\u1eb1n", duration: 0.78 }, { text: "l\u1eb1n", duration: 0.6 }, { text: "con", duration: 0.5 }
+          { text: "Hai", duration: 0.54 }, { text: "con", duration: 0.54 }, { text: "thằn", duration: 0.54 }, { text: "lằn", duration: 0.54 }, { text: "con", duration: 1.63 }
         ]
       },
       { 
         time: 18,
-        text: "\u0110\u00f9a nhau c\u1eafn nhau \u0111\u1ee9t \u0111u\u00f4i",
+        text: "Đùa nhau cắn nhau đứt đuôi",
         words: [
-          { text: "\u0110\u00f9a", duration: 0.84 }, { text: "nhau", duration: 0.22 }, { text: "c\u1eafn", duration: 0.4 }, { text: "nhau", duration: 0.2 }, { text: "\u0111\u1ee9t", duration: 0.44 }, { text: "\u0111u\u00f4i", duration: 0.52 }
+          { text: "Đùa", duration: 0.48 }, { text: "nhau", duration: 0.48 }, { text: "cắn", duration: 0.48 }, { text: "nhau", duration: 0.48 }, { text: "đứt", duration: 0.48 }, { text: "đuôi", duration: 1.42 }
         ]
       },
       { 
         time: 22,
-        text: "Ba th\u1eb1n l\u1eb1n bu\u1ed3n hiu",
+        text: "Ba thằn lằn buồn hiu",
         words: [
-          { text: "Ba", duration: 0.4 }, { text: "th\u1eb1n", duration: 0.66 }, { text: "l\u1eb1n", duration: 0.2 }, { text: "bu\u1ed3n", duration: 0.26 }, { text: "hiu", duration: 0.88 }
+          { text: "Ba", duration: 0.54 }, { text: "thằn", duration: 0.54 }, { text: "lằn", duration: 0.54 }, { text: "buồn", duration: 0.54 }, { text: "hiu", duration: 1.63 }
         ]
       },
       { 
         time: 26,
-        text: "G\u1ecdi ch\u00fang \u0111\u1ebfn m\u1edbi m\u1eafng cho",
+        text: "Gọi chúng đến mới mắng cho",
         words: [
-          { text: "G\u1ecdi", duration: 0.58 }, { text: "ch\u00fang", duration: 0.34 }, { text: "\u0111\u1ebfn", duration: 0.2 }, { text: "m\u1edbi", duration: 0.3 }, { text: "m\u1eafng", duration: 0.48 }, { text: "cho", duration: 0.46 }
+          { text: "Gọi", duration: 0.38 }, { text: "chúng", duration: 0.38 }, { text: "đến", duration: 0.38 }, { text: "mới", duration: 0.38 }, { text: "mắng", duration: 0.38 }, { text: "cho", duration: 1.13 }
         ]
       },
       { 
         time: 31,
-        text: "Ba \u01a1i ba \u01a1i \u0111au qu\u00e1",
+        text: "Ba ơi ba ơi đau quá",
         words: [
-          { text: "Ba", duration: 0.38 }, { text: "\u01a1i", duration: 0.24 }, { text: "ba", duration: 0.54 }, { text: "\u01a1i", duration: 0.3 }, { text: "\u0111au", duration: 0.84 }, { text: "qu\u00e1", duration: 0.6 }
+          { text: "Ba", duration: 0.48 }, { text: "ơi", duration: 0.48 }, { text: "ba", duration: 0.48 }, { text: "ơi", duration: 0.48 }, { text: "đau", duration: 0.48 }, { text: "quá", duration: 1.42 }
         ]
       },
       { 
         time: 35,
-        text: "Con s\u1ebd ngoan ngo\u00e3n t\u1eeb nay",
+        text: "Con sẽ ngoan ngoãn từ nay",
         words: [
-          { text: "Con", duration: 0.26 }, { text: "s\u1ebd", duration: 0.36 }, { text: "ngoan", duration: 0.2 }, { text: "ngo\u00e3n", duration: 0.48 }, { text: "t\u1eeb", duration: 0.46 }, { text: "nay", duration: 0.28 }
+          { text: "Con", duration: 0.48 }, { text: "sẽ", duration: 0.48 }, { text: "ngoan", duration: 0.48 }, { text: "ngoãn", duration: 0.48 }, { text: "từ", duration: 0.48 }, { text: "nay", duration: 1.42 }
         ]
       },
       { 
         time: 39,
-        text: "Hai con th\u1eb1n l\u1eb1n con",
+        text: "Hai con thằn lằn con",
         words: [
-          { text: "Hai", duration: 0.34 }, { text: "con", duration: 0.26 }, { text: "th\u1eb1n", duration: 0.26 }, { text: "l\u1eb1n", duration: 0.38 }, { text: "con", duration: 0.76 }
+          { text: "Hai", duration: 0.36 }, { text: "con", duration: 0.36 }, { text: "thằn", duration: 0.36 }, { text: "lằn", duration: 0.36 }, { text: "con", duration: 1.07 }
         ]
       },
       { 
         time: 46.88,
-        text: "\u0110\u00f9a nhau c\u1eafn nhau \u0111\u1ee9t \u0111u\u00f4i",
+        text: "Đùa nhau cắn nhau đứt đuôi",
         words: [
-          { text: "\u0110\u00f9a", duration: 0.76 }, { text: "nhau", duration: 0.2 }, { text: "c\u1eafn", duration: 0.3 }, { text: "nhau", duration: 0.32 }, { text: "\u0111\u1ee9t", duration: 0.4 }, { text: "\u0111u\u00f4i", duration: 0.5 }
+          { text: "Đùa", duration: 0.6 }, { text: "nhau", duration: 0.6 }, { text: "cắn", duration: 0.6 }, { text: "nhau", duration: 0.6 }, { text: "đứt", duration: 0.6 }, { text: "đuôi", duration: 1.8 }
         ]
       }
     ]
@@ -604,58 +604,58 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 15,
-        text: "M\u1ed9t con v\u1ecbt x\u00f2e ra hai c\u00e1i c\u00e1nh",
+        text: "Một con vịt xòe ra hai cái cánh",
         words: [
-          { text: "M\u1ed9t", duration: 0.2 }, { text: "con", duration: 0.22 }, { text: "v\u1ecbt", duration: 0.32 }, { text: "x\u00f2e", duration: 0.3 }, { text: "ra", duration: 0.96 }, { text: "hai", duration: 0.24 }, { text: "c\u00e1i", duration: 0.2 }, { text: "c\u00e1nh", duration: 0.28 }
+          { text: "Một", duration: 0.48 }, { text: "con", duration: 0.48 }, { text: "vịt", duration: 0.48 }, { text: "xòe", duration: 0.48 }, { text: "ra", duration: 0.48 }, { text: "hai", duration: 0.48 }, { text: "cái", duration: 0.48 }, { text: "cánh", duration: 1.44 }
         ]
       },
       { 
         time: 20,
-        text: "N\u00f3 k\u00eau r\u1eb1ng c\u00e1p c\u00e1p c\u00e1p, c\u1ea1p c\u1ea1p c\u1ea1p",
+        text: "Nó kêu rằng cáp cáp cáp, cạp cạp cạp",
         words: [
-          { text: "N\u00f3", duration: 0.54 }, { text: "k\u00eau", duration: 0.7 }, { text: "r\u1eb1ng", duration: 0.26 }, { text: "c\u00e1p", duration: 0.3 }, { text: "c\u00e1p", duration: 0.34 }, { text: "c\u00e1p,", duration: 0.48 }, { text: "c\u1ea1p", duration: 0.68 }, { text: "c\u1ea1p", duration: 0.2 }, { text: "c\u1ea1p", duration: 0.26 }
+          { text: "Nó", duration: 0.4 }, { text: "kêu", duration: 0.4 }, { text: "rằng", duration: 0.4 }, { text: "cáp", duration: 0.4 }, { text: "cáp", duration: 0.4 }, { text: "cáp,", duration: 0.8 }, { text: "cạp", duration: 0.4 }, { text: "cạp", duration: 0.4 }, { text: "cạp", duration: 1.2 }
         ]
       },
       { 
         time: 25,
-        text: "G\u1eb7p h\u1ed3 n\u01b0\u1edbc n\u00f3 b\u00ec b\u00e0 b\u00ec b\u00f5m",
+        text: "Gặp hồ nước nó bì bà bì bõm",
         words: [
-          { text: "G\u1eb7p", duration: 0.32 }, { text: "h\u1ed3", duration: 0.28 }, { text: "n\u01b0\u1edbc", duration: 0.6 }, { text: "n\u00f3", duration: 0.28 }, { text: "b\u00ec", duration: 0.24 }, { text: "b\u00e0", duration: 0.34 }, { text: "b\u00ec", duration: 0.62 }, { text: "b\u00f5m", duration: 0.58 }
+          { text: "Gặp", duration: 0.48 }, { text: "hồ", duration: 0.48 }, { text: "nước", duration: 0.48 }, { text: "nó", duration: 0.48 }, { text: "bì", duration: 0.48 }, { text: "bà", duration: 0.48 }, { text: "bì", duration: 0.48 }, { text: "bõm", duration: 1.44 }
         ]
       },
       { 
         time: 30,
-        text: "L\u00fac l\u00ean b\u1edd v\u1eaby c\u00e1i c\u00e1nh cho kh\u00f4",
+        text: "Lúc lên bờ vẫy cái cánh cho khô",
         words: [
-          { text: "L\u00fac", duration: 0.26 }, { text: "l\u00ean", duration: 0.26 }, { text: "b\u1edd", duration: 0.26 }, { text: "v\u1eaby", duration: 0.66 }, { text: "c\u00e1i", duration: 0.64 }, { text: "c\u00e1nh", duration: 0.24 }, { text: "cho", duration: 0.36 }, { text: "kh\u00f4", duration: 0.28 }
+          { text: "Lúc", duration: 0.4 }, { text: "lên", duration: 0.4 }, { text: "bờ", duration: 0.4 }, { text: "vẫy", duration: 0.4 }, { text: "cái", duration: 0.4 }, { text: "cánh", duration: 0.4 }, { text: "cho", duration: 0.4 }, { text: "khô", duration: 1.2 }
         ]
       },
       { 
         time: 37,
-        text: "M\u1ed9t con v\u1ecbt x\u00f2e ra hai c\u00e1i c\u00e1nh",
+        text: "Một con vịt xòe ra hai cái cánh",
         words: [
-          { text: "M\u1ed9t", duration: 0.46 }, { text: "con", duration: 0.6 }, { text: "v\u1ecbt", duration: 0.28 }, { text: "x\u00f2e", duration: 0.22 }, { text: "ra", duration: 0.48 }, { text: "hai", duration: 0.88 }, { text: "c\u00e1i", duration: 0.6 }, { text: "c\u00e1nh", duration: 0.22 }
+          { text: "Một", duration: 0.48 }, { text: "con", duration: 0.48 }, { text: "vịt", duration: 0.48 }, { text: "xòe", duration: 0.48 }, { text: "ra", duration: 0.48 }, { text: "hai", duration: 0.48 }, { text: "cái", duration: 0.48 }, { text: "cánh", duration: 1.44 }
         ]
       },
       { 
         time: 42,
-        text: "N\u00f3 k\u00eau r\u1eb1ng c\u00e1p c\u00e1p c\u00e1p, c\u1ea1p c\u1ea1p c\u1ea1p",
+        text: "Nó kêu rằng cáp cáp cáp, cạp cạp cạp",
         words: [
-          { text: "N\u00f3", duration: 0.26 }, { text: "k\u00eau", duration: 0.28 }, { text: "r\u1eb1ng", duration: 0.34 }, { text: "c\u00e1p", duration: 0.94 }, { text: "c\u00e1p", duration: 0.24 }, { text: "c\u00e1p,", duration: 0.22 }, { text: "c\u1ea1p", duration: 0.28 }, { text: "c\u1ea1p", duration: 0.58 }, { text: "c\u1ea1p", duration: 0.64 }
+          { text: "Nó", duration: 0.4 }, { text: "kêu", duration: 0.4 }, { text: "rằng", duration: 0.4 }, { text: "cáp", duration: 0.4 }, { text: "cáp", duration: 0.4 }, { text: "cáp,", duration: 0.8 }, { text: "cạp", duration: 0.4 }, { text: "cạp", duration: 0.4 }, { text: "cạp", duration: 1.2 }
         ]
       },
       { 
         time: 47,
-        text: "G\u1eb7p h\u1ed3 n\u01b0\u1edbc n\u00f3 b\u00ec b\u00e0 b\u00ec b\u00f5m",
+        text: "Gặp hồ nước nó bì bà bì bõm",
         words: [
-          { text: "G\u1eb7p", duration: 0.24 }, { text: "h\u1ed3", duration: 0.34 }, { text: "n\u01b0\u1edbc", duration: 0.32 }, { text: "n\u00f3", duration: 0.44 }, { text: "b\u00ec", duration: 0.7 }, { text: "b\u00e0", duration: 0.24 }, { text: "b\u00ec", duration: 0.28 }, { text: "b\u00f5m", duration: 0.32 }
+          { text: "Gặp", duration: 0.48 }, { text: "hồ", duration: 0.48 }, { text: "nước", duration: 0.48 }, { text: "nó", duration: 0.48 }, { text: "bì", duration: 0.48 }, { text: "bà", duration: 0.48 }, { text: "bì", duration: 0.48 }, { text: "bõm", duration: 1.44 }
         ]
       },
       { 
         time: 52,
-        text: "L\u00fac l\u00ean b\u1edd v\u1eaby c\u00e1i c\u00e1nh cho kh\u00f4",
+        text: "Lúc lên bờ vẫy cái cánh cho khô",
         words: [
-          { text: "L\u00fac", duration: 0.26 }, { text: "l\u00ean", duration: 0.44 }, { text: "b\u1edd", duration: 0.2 }, { text: "v\u1eaby", duration: 0.28 }, { text: "c\u00e1i", duration: 0.3 }, { text: "c\u00e1nh", duration: 0.6 }, { text: "cho", duration: 0.64 }, { text: "kh\u00f4", duration: 0.24 }
+          { text: "Lúc", duration: 0.64 }, { text: "lên", duration: 0.64 }, { text: "bờ", duration: 0.64 }, { text: "vẫy", duration: 0.64 }, { text: "cái", duration: 0.64 }, { text: "cánh", duration: 0.64 }, { text: "cho", duration: 0.64 }, { text: "khô", duration: 1.92 }
         ]
       }
     ]
@@ -670,58 +670,58 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 46.44,
-        text: "Ba b\u00e0 \u0111i b\u00e1n l\u1ee3n con",
+        text: "Ba bà đi bán lợn con",
         words: [
-          { text: "Ba", duration: 0.84 }, { text: "b\u00e0", duration: 0.2 }, { text: "\u0111i", duration: 0.2 }, { text: "b\u00e1n", duration: 0.42 }, { text: "l\u1ee3n", duration: 0.44 }, { text: "con", duration: 0.66 }
+          { text: "Ba", duration: 0.27 }, { text: "bà", duration: 0.27 }, { text: "đi", duration: 0.27 }, { text: "bán", duration: 0.27 }, { text: "lợn", duration: 0.27 }, { text: "con", duration: 0.81 }
         ]
       },
       { 
         time: 48.8,
-        text: "B\u00e1n \u0111i ch\u1eb3ng \u0111\u01b0\u1ee3c lon ton ch\u1ea1y v\u1ec1",
+        text: "Bán đi chẳng được lon ton chạy về",
         words: [
-          { text: "B\u00e1n", duration: 0.2 }, { text: "\u0111i", duration: 0.52 }, { text: "ch\u1eb3ng", duration: 0.38 }, { text: "\u0111\u01b0\u1ee3c", duration: 0.58 }, { text: "lon", duration: 0.58 }, { text: "ton", duration: 0.46 }, { text: "ch\u1ea1y", duration: 0.32 }, { text: "v\u1ec1", duration: 0.44 }
+          { text: "Bán", duration: 0.33 }, { text: "đi", duration: 0.33 }, { text: "chẳng", duration: 0.33 }, { text: "được", duration: 0.33 }, { text: "lon", duration: 0.33 }, { text: "ton", duration: 0.33 }, { text: "chạy", duration: 0.33 }, { text: "về", duration: 0.98 }
         ]
       },
       { 
         time: 52.26,
-        text: "Ba b\u00e0 \u0111i b\u00e1n l\u1ee3n s\u1ec1",
+        text: "Ba bà đi bán lợn sề",
         words: [
-          { text: "Ba", duration: 0.32 }, { text: "b\u00e0", duration: 0.24 }, { text: "\u0111i", duration: 0.44 }, { text: "b\u00e1n", duration: 1.38 }, { text: "l\u1ee3n", duration: 0.48 }, { text: "s\u1ec1", duration: 0.38 }
+          { text: "Ba", duration: 0.38 }, { text: "bà", duration: 0.38 }, { text: "đi", duration: 0.38 }, { text: "bán", duration: 0.38 }, { text: "lợn", duration: 0.38 }, { text: "sề", duration: 1.14 }
         ]
       },
       { 
         time: 55.5,
-        text: "B\u00e1n \u0111i ch\u1eb3ng \u0111\u01b0\u1ee3c lon ton ch\u1ea1y v\u1ec1",
+        text: "Bán đi chẳng được lon ton chạy về",
         words: [
-          { text: "B\u00e1n", duration: 0.76 }, { text: "\u0111i", duration: 0.2 }, { text: "ch\u1eb3ng", duration: 0.5 }, { text: "\u0111\u01b0\u1ee3c", duration: 0.54 }, { text: "lon", duration: 0.5 }, { text: "ton", duration: 0.68 }, { text: "ch\u1ea1y", duration: 0.22 }, { text: "v\u1ec1", duration: 0.4 }
+          { text: "Bán", duration: 0.4 }, { text: "đi", duration: 0.4 }, { text: "chẳng", duration: 0.4 }, { text: "được", duration: 0.4 }, { text: "lon", duration: 0.4 }, { text: "ton", duration: 0.4 }, { text: "chạy", duration: 0.4 }, { text: "về", duration: 1.2 }
         ]
       },
       { 
         time: 65.1,
-        text: "Ba b\u00e0 \u0111i b\u00e1n l\u1ee3n con",
+        text: "Ba bà đi bán lợn con",
         words: [
-          { text: "Ba", duration: 0.54 }, { text: "b\u00e0", duration: 0.36 }, { text: "\u0111i", duration: 0.56 }, { text: "b\u00e1n", duration: 1.06 }, { text: "l\u1ee3n", duration: 0.64 }, { text: "con", duration: 0.5 }
+          { text: "Ba", duration: 0.46 }, { text: "bà", duration: 0.46 }, { text: "đi", duration: 0.46 }, { text: "bán", duration: 0.46 }, { text: "lợn", duration: 0.46 }, { text: "con", duration: 1.39 }
         ]
       },
       { 
         time: 69,
-        text: "B\u00e1n \u0111i ch\u1eb3ng \u0111\u01b0\u1ee3c lon ton ch\u1ea1y v\u1ec1",
+        text: "Bán đi chẳng được lon ton chạy về",
         words: [
-          { text: "B\u00e1n", duration: 0.58 }, { text: "\u0111i", duration: 0.34 }, { text: "ch\u1eb3ng", duration: 0.58 }, { text: "\u0111\u01b0\u1ee3c", duration: 0.7 }, { text: "lon", duration: 0.36 }, { text: "ton", duration: 0.24 }, { text: "ch\u1ea1y", duration: 0.44 }, { text: "v\u1ec1", duration: 0.5 }
+          { text: "Bán", duration: 0.54 }, { text: "đi", duration: 0.54 }, { text: "chẳng", duration: 0.54 }, { text: "được", duration: 0.54 }, { text: "lon", duration: 0.54 }, { text: "ton", duration: 0.54 }, { text: "chạy", duration: 0.54 }, { text: "về", duration: 1.62 }
         ]
       },
       { 
         time: 74.6,
-        text: "Ba b\u00e0 \u0111i b\u00e1n l\u1ee3n s\u1ec1",
+        text: "Ba bà đi bán lợn sề",
         words: [
-          { text: "Ba", duration: 0.54 }, { text: "b\u00e0", duration: 0.5 }, { text: "\u0111i", duration: 0.48 }, { text: "b\u00e1n", duration: 1.38 }, { text: "l\u1ee3n", duration: 0.52 }, { text: "s\u1ec1", duration: 0.36 }
+          { text: "Ba", duration: 0.4 }, { text: "bà", duration: 0.4 }, { text: "đi", duration: 0.4 }, { text: "bán", duration: 0.4 }, { text: "lợn", duration: 0.4 }, { text: "sề", duration: 1.2 }
         ]
       },
       { 
         time: 78,
-        text: "B\u00e1n \u0111i ch\u1eb3ng \u0111\u01b0\u1ee3c lon ton ch\u1ea1y v\u1ec1",
+        text: "Bán đi chẳng được lon ton chạy về",
         words: [
-          { text: "B\u00e1n", duration: 0.56 }, { text: "\u0111i", duration: 0.3 }, { text: "ch\u1eb3ng", duration: 0.52 }, { text: "\u0111\u01b0\u1ee3c", duration: 0.52 }, { text: "lon", duration: 0.68 }, { text: "ton", duration: 0.56 }, { text: "ch\u1ea1y", duration: 0.2 }, { text: "v\u1ec1", duration: 0.48 }
+          { text: "Bán", duration: 0.64 }, { text: "đi", duration: 0.64 }, { text: "chẳng", duration: 0.64 }, { text: "được", duration: 0.64 }, { text: "lon", duration: 0.64 }, { text: "ton", duration: 0.64 }, { text: "chạy", duration: 0.64 }, { text: "về", duration: 1.92 }
         ]
       }
     ]
@@ -736,58 +736,58 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 6.46,
-        text: "G\u00e0 kh\u00f4ng bi\u1ebft g\u00e1y l\u00e0 con g\u00e0 con",
+        text: "Gà không biết gáy là con gà con",
         words: [
-          { text: "G\u00e0", duration: 1.4 }, { text: "kh\u00f4ng", duration: 1.4 }, { text: "bi\u1ebft", duration: 2.74 }, { text: "g\u00e1y", duration: 0.2 }, { text: "l\u00e0", duration: 0.24 }, { text: "con", duration: 1.14 }, { text: "g\u00e0", duration: 0.5 }, { text: "con", duration: 0.44 }
+          { text: "Gà", duration: 0.53 }, { text: "không", duration: 0.53 }, { text: "biết", duration: 0.53 }, { text: "gáy", duration: 0.53 }, { text: "là", duration: 0.53 }, { text: "con", duration: 0.53 }, { text: "gà", duration: 0.53 }, { text: "con", duration: 1.6 }
         ]
       },
       { 
         time: 12,
-        text: "G\u00e0 m\u00e0 bi\u1ebft g\u00e1y l\u00e0 con g\u00e0 tr\u1ed1ng",
+        text: "Gà mà biết gáy là con gà trống",
         words: [
-          { text: "G\u00e0", duration: 0.44 }, { text: "m\u00e0", duration: 0.2 }, { text: "bi\u1ebft", duration: 0.22 }, { text: "g\u00e1y", duration: 0.56 }, { text: "l\u00e0", duration: 0.2 }, { text: "con", duration: 0.2 }, { text: "g\u00e0", duration: 0.48 }, { text: "tr\u1ed1ng", duration: 0.2 }
+          { text: "Gà", duration: 0.48 }, { text: "mà", duration: 0.48 }, { text: "biết", duration: 0.48 }, { text: "gáy", duration: 0.48 }, { text: "là", duration: 0.48 }, { text: "con", duration: 0.48 }, { text: "gà", duration: 0.48 }, { text: "trống", duration: 1.44 }
         ]
       },
       { 
         time: 17,
-        text: "G\u00e0 m\u00e0 kh\u00f4ng bi\u1ebft g\u00e1y l\u00e0 con g\u00e0 m\u1eb9",
+        text: "Gà mà không biết gáy là con gà mẹ",
         words: [
-          { text: "G\u00e0", duration: 0.22 }, { text: "m\u00e0", duration: 0.54 }, { text: "kh\u00f4ng", duration: 0.36 }, { text: "bi\u1ebft", duration: 0.22 }, { text: "g\u00e1y", duration: 0.2 }, { text: "l\u00e0", duration: 0.24 }, { text: "con", duration: 0.42 }, { text: "g\u00e0", duration: 0.2 }, { text: "m\u1eb9", duration: 0.2 }
+          { text: "Gà", duration: 0.44 }, { text: "mà", duration: 0.44 }, { text: "không", duration: 0.44 }, { text: "biết", duration: 0.44 }, { text: "gáy", duration: 0.44 }, { text: "là", duration: 0.44 }, { text: "con", duration: 0.44 }, { text: "gà", duration: 0.44 }, { text: "mẹ", duration: 1.31 }
         ]
       },
       { 
         time: 22,
-        text: "\u0110i loanh quanh trong s\u00e2n c\u00f3 con g\u00e0, c\u00f3 con g\u00e0",
+        text: "Đi loanh quanh trong sân có con gà, có con gà",
         words: [
-          { text: "\u0110i", duration: 0.44 }, { text: "loanh", duration: 0.2 }, { text: "quanh", duration: 0.22 }, { text: "trong", duration: 0.32 }, { text: "s\u00e2n", duration: 0.46 }, { text: "c\u00f3", duration: 0.46 }, { text: "con", duration: 0.2 }, { text: "g\u00e0,", duration: 0.26 }, { text: "c\u00f3", duration: 0.38 }, { text: "con", duration: 0.2 }, { text: "g\u00e0", duration: 0.2 }
+          { text: "Đi", duration: 0.39 }, { text: "loanh", duration: 0.39 }, { text: "quanh", duration: 0.39 }, { text: "trong", duration: 0.39 }, { text: "sân", duration: 0.39 }, { text: "có", duration: 0.39 }, { text: "con", duration: 0.39 }, { text: "gà,", duration: 0.79 }, { text: "có", duration: 0.39 }, { text: "con", duration: 0.39 }, { text: "gà", duration: 1.18 }
         ]
       },
       { 
         time: 47.5,
-        text: "G\u00e0 kh\u00f4ng bi\u1ebft g\u00e1y l\u00e0 con g\u00e0 con",
+        text: "Gà không biết gáy là con gà con",
         words: [
-          { text: "G\u00e0", duration: 0.46 }, { text: "kh\u00f4ng", duration: 0.2 }, { text: "bi\u1ebft", duration: 0.2 }, { text: "g\u00e1y", duration: 0.38 }, { text: "l\u00e0", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "g\u00e0", duration: 0.5 }, { text: "con", duration: 0.5 }
+          { text: "Gà", duration: 0.43 }, { text: "không", duration: 0.43 }, { text: "biết", duration: 0.43 }, { text: "gáy", duration: 0.43 }, { text: "là", duration: 0.43 }, { text: "con", duration: 0.43 }, { text: "gà", duration: 0.43 }, { text: "con", duration: 1.29 }
         ]
       },
       { 
         time: 52,
-        text: "G\u00e0 m\u00e0 bi\u1ebft g\u00e1y l\u00e0 con g\u00e0 tr\u1ed1ng",
+        text: "Gà mà biết gáy là con gà trống",
         words: [
-          { text: "G\u00e0", duration: 0.5 }, { text: "m\u00e0", duration: 0.5 }, { text: "bi\u1ebft", duration: 0.5 }, { text: "g\u00e1y", duration: 0.5 }, { text: "l\u00e0", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "g\u00e0", duration: 0.5 }, { text: "tr\u1ed1ng", duration: 0.5 }
+          { text: "Gà", duration: 0.48 }, { text: "mà", duration: 0.48 }, { text: "biết", duration: 0.48 }, { text: "gáy", duration: 0.48 }, { text: "là", duration: 0.48 }, { text: "con", duration: 0.48 }, { text: "gà", duration: 0.48 }, { text: "trống", duration: 1.44 }
         ]
       },
       { 
         time: 57,
-        text: "G\u00e0 m\u00e0 kh\u00f4ng bi\u1ebft g\u00e1y l\u00e0 con g\u00e0 m\u1eb9",
+        text: "Gà mà không biết gáy là con gà mẹ",
         words: [
-          { text: "G\u00e0", duration: 0.5 }, { text: "m\u00e0", duration: 0.5 }, { text: "kh\u00f4ng", duration: 0.5 }, { text: "bi\u1ebft", duration: 0.5 }, { text: "g\u00e1y", duration: 0.5 }, { text: "l\u00e0", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "g\u00e0", duration: 0.5 }, { text: "m\u1eb9", duration: 0.5 }
+          { text: "Gà", duration: 0.44 }, { text: "mà", duration: 0.44 }, { text: "không", duration: 0.44 }, { text: "biết", duration: 0.44 }, { text: "gáy", duration: 0.44 }, { text: "là", duration: 0.44 }, { text: "con", duration: 0.44 }, { text: "gà", duration: 0.44 }, { text: "mẹ", duration: 1.31 }
         ]
       },
       { 
         time: 62,
-        text: "\u0110i loanh quanh trong s\u00e2n c\u00f3 con g\u00e0, c\u00f3 con g\u00e0",
+        text: "Đi loanh quanh trong sân có con gà, có con gà",
         words: [
-          { text: "\u0110i", duration: 0.5 }, { text: "loanh", duration: 0.5 }, { text: "quanh", duration: 0.5 }, { text: "trong", duration: 0.5 }, { text: "s\u00e2n", duration: 0.5 }, { text: "c\u00f3", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "g\u00e0,", duration: 0.5 }, { text: "c\u00f3", duration: 0.5 }, { text: "con", duration: 0.5 }, { text: "g\u00e0", duration: 0.5 }
+          { text: "Đi", duration: 0.63 }, { text: "loanh", duration: 0.63 }, { text: "quanh", duration: 0.63 }, { text: "trong", duration: 0.63 }, { text: "sân", duration: 0.63 }, { text: "có", duration: 0.63 }, { text: "con", duration: 0.63 }, { text: "gà,", duration: 1.26 }, { text: "có", duration: 0.63 }, { text: "con", duration: 0.63 }, { text: "gà", duration: 1.89 }
         ]
       }
     ]
@@ -801,73 +801,73 @@ export const songsViNew: Song[] = [
     localVideo: "/videos/bac-kim-thang.mp4",
     lyrics: [
       { 
-        time: 30.0,
-        text: "B\u1eafc kim thang c\u00e0 lang b\u00ed r\u1ee3",
+        time: 30,
+        text: "Bắc kim thang cà lang bí rợ",
         words: [
-          { text: "B\u1eafc", duration: 0.42 }, { text: "kim", duration: 0.58 }, { text: "thang", duration: 0.32 }, { text: "c\u00e0", duration: 0.64 }, { text: "lang", duration: 0.42 }, { text: "b\u00ed", duration: 0.38 }, { text: "r\u1ee3", duration: 0.5 }
+          { text: "Bắc", duration: 0.34 }, { text: "kim", duration: 0.34 }, { text: "thang", duration: 0.34 }, { text: "cà", duration: 0.34 }, { text: "lang", duration: 0.34 }, { text: "bí", duration: 0.34 }, { text: "rợ", duration: 1.02 }
         ]
       },
       { 
         time: 33.26,
-        text: "C\u1ed9t qua k\u00e8o l\u00e0 k\u00e8o qua c\u1ed9t",
+        text: "Cột qua kèo là kèo qua cột",
         words: [
-          { text: "C\u1ed9t", duration: 1.06 }, { text: "qua", duration: 0.5 }, { text: "k\u00e8o", duration: 0.48 }, { text: "l\u00e0", duration: 0.66 }, { text: "k\u00e8o", duration: 0.4 }, { text: "qua", duration: 0.48 }, { text: "c\u1ed9t", duration: 1.14 }
+          { text: "Cột", duration: 0.5 }, { text: "qua", duration: 0.5 }, { text: "kèo", duration: 0.5 }, { text: "là", duration: 0.5 }, { text: "kèo", duration: 0.5 }, { text: "qua", duration: 0.5 }, { text: "cột", duration: 1.51 }
         ]
       },
       { 
         time: 37.98,
-        text: "Ch\u00fa b\u00e1n d\u1ea7u qua c\u1ea7u m\u00e0 t\u00e9",
+        text: "Chú bán dầu qua cầu mà té",
         words: [
-          { text: "Ch\u00fa", duration: 0.3 }, { text: "b\u00e1n", duration: 0.66 }, { text: "d\u1ea7u", duration: 0.42 }, { text: "qua", duration: 0.42 }, { text: "c\u1ea7u", duration: 0.44 }, { text: "m\u00e0", duration: 0.5 }, { text: "t\u00e9", duration: 0.54 }
+          { text: "Chú", duration: 0.34 }, { text: "bán", duration: 0.34 }, { text: "dầu", duration: 0.34 }, { text: "qua", duration: 0.34 }, { text: "cầu", duration: 0.34 }, { text: "mà", duration: 0.34 }, { text: "té", duration: 1.03 }
         ]
       },
       { 
         time: 41.26,
-        text: "Ch\u00fa b\u00e1n \u1ebfch \u1edf l\u1ea1i l\u00e0m chi",
+        text: "Chú bán ếch ở lại làm chi",
         words: [
-          { text: "Ch\u00fa", duration: 0.48 }, { text: "b\u00e1n", duration: 0.84 }, { text: "\u1ebfch", duration: 0.76 }, { text: "\u1edf", duration: 0.54 }, { text: "l\u1ea1i", duration: 0.62 }, { text: "l\u00e0m", duration: 0.38 }, { text: "chi", duration: 0.54 }
+          { text: "Chú", duration: 0.44 }, { text: "bán", duration: 0.44 }, { text: "ếch", duration: 0.44 }, { text: "ở", duration: 0.44 }, { text: "lại", duration: 0.44 }, { text: "làm", duration: 0.44 }, { text: "chi", duration: 1.32 }
         ]
       },
       { 
         time: 45.42,
-        text: "Con le le \u0111\u00e1nh tr\u1ed1ng th\u1ed5i k\u00e8n",
+        text: "Con le le đánh trống thổi kèn",
         words: [
-          { text: "Con", duration: 0.28 }, { text: "le", duration: 0.7 }, { text: "le", duration: 0.86 }, { text: "\u0111\u00e1nh", duration: 0.46 }, { text: "tr\u1ed1ng", duration: 0.72 }, { text: "th\u1ed5i", duration: 0.38 }, { text: "k\u00e8n", duration: 0.44 }
+          { text: "Con", duration: 0.4 }, { text: "le", duration: 0.4 }, { text: "le", duration: 0.4 }, { text: "đánh", duration: 0.4 }, { text: "trống", duration: 0.4 }, { text: "thổi", duration: 0.4 }, { text: "kèn", duration: 1.21 }
         ]
       },
       { 
         time: 49.26,
-        text: "Con b\u00ecm b\u1ecbp kh\u00e1nh t\u1eadn t\u00f2 t\u00ed te t\u00f2 te",
+        text: "Con bìm bịp khánh tận tò tí te tò te",
         words: [
-          { text: "Con", duration: 0.44 }, { text: "b\u00ecm", duration: 0.62 }, { text: "b\u1ecbp", duration: 0.96 }, { text: "kh\u00e1nh", duration: 0.54 }, { text: "t\u1eadn", duration: 0.46 }, { text: "t\u00f2", duration: 0.54 }, { text: "t\u00ed", duration: 0.38 }, { text: "te", duration: 0.46 }, { text: "t\u00f2", duration: 0.78 }, { text: "te", duration: 0.86 }
+          { text: "Con", duration: 0.49 }, { text: "bìm", duration: 0.49 }, { text: "bịp", duration: 0.49 }, { text: "khánh", duration: 0.49 }, { text: "tận", duration: 0.49 }, { text: "tò", duration: 0.49 }, { text: "tí", duration: 0.49 }, { text: "te", duration: 0.49 }, { text: "tò", duration: 0.49 }, { text: "te", duration: 1.46 }
         ]
       },
       { 
         time: 55.3,
-        text: "B\u1eafc kim thang c\u00e0 lang b\u00ed r\u1ee3",
+        text: "Bắc kim thang cà lang bí rợ",
         words: [
-          { text: "B\u1eafc", duration: 0.52 }, { text: "kim", duration: 0.36 }, { text: "thang", duration: 0.6 }, { text: "c\u00e0", duration: 0.46 }, { text: "lang", duration: 0.32 }, { text: "b\u00ed", duration: 0.5 }, { text: "r\u1ee3", duration: 1.04 }
+          { text: "Bắc", duration: 0.4 }, { text: "kim", duration: 0.4 }, { text: "thang", duration: 0.4 }, { text: "cà", duration: 0.4 }, { text: "lang", duration: 0.4 }, { text: "bí", duration: 0.4 }, { text: "rợ", duration: 1.2 }
         ]
       },
       { 
         time: 59.1,
-        text: "C\u1ed9t qua k\u00e8o l\u00e0 k\u00e8o qua c\u1ed9t",
+        text: "Cột qua kèo là kèo qua cột",
         words: [
-          { text: "C\u1ed9t", duration: 0.58 }, { text: "qua", duration: 0.5 }, { text: "k\u00e8o", duration: 0.54 }, { text: "l\u00e0", duration: 0.48 }, { text: "k\u00e8o", duration: 0.48 }, { text: "qua", duration: 1.18 }, { text: "c\u1ed9t", duration: 0.2 }
+          { text: "Cột", duration: 0.42 }, { text: "qua", duration: 0.42 }, { text: "kèo", duration: 0.42 }, { text: "là", duration: 0.42 }, { text: "kèo", duration: 0.42 }, { text: "qua", duration: 0.42 }, { text: "cột", duration: 1.25 }
         ]
       },
       { 
         time: 63.06,
-        text: "Ch\u00fa b\u00e1n d\u1ea7u qua c\u1ea7u m\u00e0 t\u00e9",
+        text: "Chú bán dầu qua cầu mà té",
         words: [
-          { text: "Ch\u00fa", duration: 0.76 }, { text: "b\u00e1n", duration: 0.42 }, { text: "d\u1ea7u", duration: 0.36 }, { text: "qua", duration: 0.48 }, { text: "c\u1ea7u", duration: 0.52 }, { text: "m\u00e0", duration: 0.48 }, { text: "t\u00e9", duration: 0.5 }
+          { text: "Chú", duration: 0.39 }, { text: "bán", duration: 0.39 }, { text: "dầu", duration: 0.39 }, { text: "qua", duration: 0.39 }, { text: "cầu", duration: 0.39 }, { text: "mà", duration: 0.39 }, { text: "té", duration: 1.17 }
         ]
       },
       { 
         time: 72,
-        text: "Ch\u00fa b\u00e1n \u1ebfch \u1edf l\u1ea1i l\u00e0m chi",
+        text: "Chú bán ếch ở lại làm chi",
         words: [
-          { text: "Ch\u00fa", duration: 0.52 }, { text: "b\u00e1n", duration: 0.5 }, { text: "\u1ebfch", duration: 0.5 }, { text: "\u1edf", duration: 0.5 }, { text: "l\u1ea1i", duration: 0.5 }, { text: "l\u00e0m", duration: 0.5 }, { text: "chi", duration: 0.5 }
+          { text: "Chú", duration: 0.62 }, { text: "bán", duration: 0.62 }, { text: "ếch", duration: 0.62 }, { text: "ở", duration: 0.62 }, { text: "lại", duration: 0.62 }, { text: "làm", duration: 0.62 }, { text: "chi", duration: 1.87 }
         ]
       }
     ]
@@ -882,79 +882,79 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 19.64,
-        text: "Ch\u1ecb ong n\u00e2u n\u00e2u n\u00e2u n\u00e2u",
+        text: "Chị ong nâu nâu nâu nâu",
         words: [
-          { text: "Ch\u1ecb", duration: 0.72 }, { text: "ong", duration: 0.28 }, { text: "n\u00e2u", duration: 0.28 }, { text: "n\u00e2u", duration: 0.3 }, { text: "n\u00e2u", duration: 0.32 }, { text: "n\u00e2u", duration: 0.26 }
+          { text: "Chị", duration: 0.25 }, { text: "ong", duration: 0.25 }, { text: "nâu", duration: 0.25 }, { text: "nâu", duration: 0.25 }, { text: "nâu", duration: 0.25 }, { text: "nâu", duration: 0.74 }
         ]
       },
       { 
         time: 21.8,
-        text: "Ch\u1ecb bay \u0111i \u0111\u00e2u \u0111i \u0111\u00e2u",
+        text: "Chị bay đi đâu đi đâu",
         words: [
-          { text: "Ch\u1ecb", duration: 0.34 }, { text: "bay", duration: 0.66 }, { text: "\u0111i", duration: 0.3 }, { text: "\u0111\u00e2u", duration: 0.2 }, { text: "\u0111i", duration: 0.36 }, { text: "\u0111\u00e2u", duration: 0.26 }
+          { text: "Chị", duration: 0.24 }, { text: "bay", duration: 0.24 }, { text: "đi", duration: 0.24 }, { text: "đâu", duration: 0.24 }, { text: "đi", duration: 0.24 }, { text: "đâu", duration: 0.72 }
         ]
       },
       { 
         time: 23.92,
-        text: "B\u00e1c g\u00e0 tr\u1ed1ng m\u1edbi g\u00e1y",
+        text: "Bác gà trống mới gáy",
         words: [
-          { text: "B\u00e1c", duration: 0.66 }, { text: "g\u00e0", duration: 0.72 }, { text: "tr\u1ed1ng", duration: 0.44 }, { text: "m\u1edbi", duration: 0.36 }, { text: "g\u00e1y", duration: 0.38 }
+          { text: "Bác", duration: 0.34 }, { text: "gà", duration: 0.34 }, { text: "trống", duration: 0.34 }, { text: "mới", duration: 0.34 }, { text: "gáy", duration: 1.01 }
         ]
       },
       { 
         time: 26.48,
-        text: "\u00d4ng m\u1eb7t tr\u1eddi m\u1edbi d\u1eady",
+        text: "Ông mặt trời mới dậy",
         words: [
-          { text: "\u00d4ng", duration: 0.56 }, { text: "m\u1eb7t", duration: 0.76 }, { text: "tr\u1eddi", duration: 0.22 }, { text: "m\u1edbi", duration: 0.6 }, { text: "d\u1eady", duration: 0.28 }
+          { text: "Ông", duration: 0.32 }, { text: "mặt", duration: 0.32 }, { text: "trời", duration: 0.32 }, { text: "mới", duration: 0.32 }, { text: "dậy", duration: 0.95 }
         ]
       },
       { 
         time: 28.9,
-        text: "Tr\u00ean nh\u1eefng c\u00e0nh hoa em \u0111\u00e3 th\u1ea5y ch\u1ecb bay",
+        text: "Trên những cành hoa em đã thấy chị bay",
         words: [
-          { text: "Tr\u00ean", duration: 0.64 }, { text: "nh\u1eefng", duration: 0.58 }, { text: "c\u00e0nh", duration: 0.46 }, { text: "hoa", duration: 0.36 }, { text: "em", duration: 0.54 }, { text: "\u0111\u00e3", duration: 0.46 }, { text: "th\u1ea5y", duration: 0.32 }, { text: "ch\u1ecb", duration: 0.3 }, { text: "bay", duration: 0.48 }
+          { text: "Trên", duration: 0.36 }, { text: "những", duration: 0.36 }, { text: "cành", duration: 0.36 }, { text: "hoa", duration: 0.36 }, { text: "em", duration: 0.36 }, { text: "đã", duration: 0.36 }, { text: "thấy", duration: 0.36 }, { text: "chị", duration: 0.36 }, { text: "bay", duration: 1.07 }
         ]
       },
       { 
         time: 33.04,
-        text: "B\u00e9 ngoan c\u1ee7a ch\u1ecb \u01a1i",
+        text: "Bé ngoan của chị ơi",
         words: [
-          { text: "B\u00e9", duration: 0.52 }, { text: "ngoan", duration: 1.98 }, { text: "c\u1ee7a", duration: 0.76 }, { text: "ch\u1ecb", duration: 0.3 }, { text: "\u01a1i", duration: 0.24 }
+          { text: "Bé", duration: 0.51 }, { text: "ngoan", duration: 0.51 }, { text: "của", duration: 0.51 }, { text: "chị", duration: 0.51 }, { text: "ơi", duration: 1.54 }
         ]
       },
       { 
         time: 36.84,
-        text: "H\u00f4m nay tr\u1eddi n\u1eafng t\u01b0\u01a1i",
+        text: "Hôm nay trời nắng tươi",
         words: [
-          { text: "H\u00f4m", duration: 0.32 }, { text: "nay", duration: 1.0 }, { text: "tr\u1eddi", duration: 0.64 }, { text: "n\u1eafng", duration: 0.2 }, { text: "t\u01b0\u01a1i", duration: 0.44 }
+          { text: "Hôm", duration: 0.34 }, { text: "nay", duration: 0.34 }, { text: "trời", duration: 0.34 }, { text: "nắng", duration: 0.34 }, { text: "tươi", duration: 1.01 }
         ]
       },
       { 
         time: 39.4,
-        text: "Ch\u1ecb bay \u0111i t\u00ecm nh\u1ee5y",
+        text: "Chị bay đi tìm nhụy",
         words: [
-          { text: "Ch\u1ecb", duration: 0.46 }, { text: "bay", duration: 0.62 }, { text: "\u0111i", duration: 0.74 }, { text: "t\u00ecm", duration: 0.26 }, { text: "nh\u1ee5y", duration: 0.2 }
+          { text: "Chị", duration: 0.3 }, { text: "bay", duration: 0.3 }, { text: "đi", duration: 0.3 }, { text: "tìm", duration: 0.3 }, { text: "nhụy", duration: 0.89 }
         ]
       },
       { 
         time: 41.68,
-        text: "L\u00e0m m\u1eadt ong nu\u00f4i \u0111\u1eddi",
+        text: "Làm mật ong nuôi đời",
         words: [
-          { text: "L\u00e0m", duration: 0.7 }, { text: "m\u1eadt", duration: 0.28 }, { text: "ong", duration: 1.08 }, { text: "nu\u00f4i", duration: 0.2 }, { text: "\u0111\u1eddi", duration: 0.22 }
+          { text: "Làm", duration: 0.32 }, { text: "mật", duration: 0.32 }, { text: "ong", duration: 0.32 }, { text: "nuôi", duration: 0.32 }, { text: "đời", duration: 0.97 }
         ]
       },
       { 
         time: 44.14,
-        text: "Ch\u1ecb v\u00e2ng theo b\u1ed1 m\u1eb9",
+        text: "Chị vâng theo bố mẹ",
         words: [
-          { text: "Ch\u1ecb", duration: 0.6 }, { text: "v\u00e2ng", duration: 0.68 }, { text: "theo", duration: 0.66 }, { text: "b\u1ed1", duration: 0.2 }, { text: "m\u1eb9", duration: 0.32 }
+          { text: "Chị", duration: 0.32 }, { text: "vâng", duration: 0.32 }, { text: "theo", duration: 0.32 }, { text: "bố", duration: 0.32 }, { text: "mẹ", duration: 0.96 }
         ]
       },
       { 
         time: 46.58,
-        text: "Ch\u0103m l\u00e0m kh\u00f4ng n\u00ean l\u01b0\u1eddi",
+        text: "Chăm làm không nên lười",
         words: [
-          { text: "Ch\u0103m", duration: 0.5 }, { text: "l\u00e0m", duration: 0.78 }, { text: "kh\u00f4ng", duration: 0.68 }, { text: "n\u00ean", duration: 0.2 }, { text: "l\u01b0\u1eddi", duration: 0.4 }
+          { text: "Chăm", duration: 0.57 }, { text: "làm", duration: 0.57 }, { text: "không", duration: 0.57 }, { text: "nên", duration: 0.57 }, { text: "lười", duration: 1.71 }
         ]
       }
     ]
@@ -969,58 +969,58 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 15,
-        text: "Qu\u1ea3 g\u00ec m\u00e0 chua chua th\u1ebf?",
+        text: "Quả gì mà chua chua thế?",
         words: [
-          { text: "Qu\u1ea3", duration: 0.34 }, { text: "g\u00ec", duration: 0.38 }, { text: "m\u00e0", duration: 0.42 }, { text: "chua", duration: 0.36 }, { text: "chua", duration: 0.32 }, { text: "th\u1ebf?", duration: 0.56 }
+          { text: "Quả", duration: 0.35 }, { text: "gì", duration: 0.35 }, { text: "mà", duration: 0.35 }, { text: "chua", duration: 0.35 }, { text: "chua", duration: 0.35 }, { text: "thế?", duration: 1.05 }
         ]
       },
       { 
         time: 18,
-        text: "Xin th\u01b0a r\u1eb1ng qu\u1ea3 kh\u1ebf",
+        text: "Xin thưa rằng quả khế",
         words: [
-          { text: "Xin", duration: 0.82 }, { text: "th\u01b0a", duration: 0.3 }, { text: "r\u1eb1ng", duration: 0.3 }, { text: "qu\u1ea3", duration: 0.3 }, { text: "kh\u1ebf", duration: 0.22 }
+          { text: "Xin", duration: 0.4 }, { text: "thưa", duration: 0.4 }, { text: "rằng", duration: 0.4 }, { text: "quả", duration: 0.4 }, { text: "khế", duration: 1.2 }
         ]
       },
       { 
         time: 21,
-        text: "\u0102n v\u00e0o th\u00ec n\u00f3 l\u00e0m sao?",
+        text: "Ăn vào thì nó làm sao?",
         words: [
-          { text: "\u0102n", duration: 0.46 }, { text: "v\u00e0o", duration: 0.82 }, { text: "th\u00ec", duration: 0.5 }, { text: "n\u00f3", duration: 0.78 }, { text: "l\u00e0m", duration: 0.36 }, { text: "sao?", duration: 0.3 }
+          { text: "Ăn", duration: 0.35 }, { text: "vào", duration: 0.35 }, { text: "thì", duration: 0.35 }, { text: "nó", duration: 0.35 }, { text: "làm", duration: 0.35 }, { text: "sao?", duration: 1.05 }
         ]
       },
       { 
         time: 24,
-        text: "Kh\u00f4ng sao, \u0103n v\u00e0o ng\u01b0\u1eddi s\u1ebd th\u00eam cao",
+        text: "Không sao, ăn vào người sẽ thêm cao",
         words: [
-          { text: "Kh\u00f4ng", duration: 0.3 }, { text: "sao,", duration: 0.34 }, { text: "\u0103n", duration: 2.04 }, { text: "v\u00e0o", duration: 0.76 }, { text: "ng\u01b0\u1eddi", duration: 0.38 }, { text: "s\u1ebd", duration: 0.28 }, { text: "th\u00eam", duration: 0.34 }, { text: "cao", duration: 0.3 }
+          { text: "Không", duration: 0.36 }, { text: "sao,", duration: 0.73 }, { text: "ăn", duration: 0.36 }, { text: "vào", duration: 0.36 }, { text: "người", duration: 0.36 }, { text: "sẽ", duration: 0.36 }, { text: "thêm", duration: 0.36 }, { text: "cao", duration: 1.09 }
         ]
       },
       { 
         time: 30,
-        text: "Qu\u1ea3 g\u00ec m\u00e0 da c\u01b0ng c\u1ee9ng?",
+        text: "Quả gì mà da cưng cứng?",
         words: [
-          { text: "Qu\u1ea3", duration: 0.5 }, { text: "g\u00ec", duration: 0.48 }, { text: "m\u00e0", duration: 0.36 }, { text: "da", duration: 0.38 }, { text: "c\u01b0ng", duration: 0.44 }, { text: "c\u1ee9ng?", duration: 1.0 }
+          { text: "Quả", duration: 0.35 }, { text: "gì", duration: 0.35 }, { text: "mà", duration: 0.35 }, { text: "da", duration: 0.35 }, { text: "cưng", duration: 0.35 }, { text: "cứng?", duration: 1.05 }
         ]
       },
       { 
         time: 33,
-        text: "Xin th\u01b0a r\u1eb1ng qu\u1ea3 tr\u1ee9ng",
+        text: "Xin thưa rằng quả trứng",
         words: [
-          { text: "Xin", duration: 0.64 }, { text: "th\u01b0a", duration: 0.32 }, { text: "r\u1eb1ng", duration: 0.32 }, { text: "qu\u1ea3", duration: 0.36 }, { text: "tr\u1ee9ng", duration: 0.3 }
+          { text: "Xin", duration: 0.4 }, { text: "thưa", duration: 0.4 }, { text: "rằng", duration: 0.4 }, { text: "quả", duration: 0.4 }, { text: "trứng", duration: 1.2 }
         ]
       },
       { 
         time: 36,
-        text: "\u0102n v\u00e0o th\u00ec n\u00f3 l\u00e0m sao?",
+        text: "Ăn vào thì nó làm sao?",
         words: [
-          { text: "\u0102n", duration: 0.72 }, { text: "v\u00e0o", duration: 0.5 }, { text: "th\u00ec", duration: 0.48 }, { text: "n\u00f3", duration: 0.5 }, { text: "l\u00e0m", duration: 0.5 }, { text: "sao?", duration: 0.5 }
+          { text: "Ăn", duration: 0.35 }, { text: "vào", duration: 0.35 }, { text: "thì", duration: 0.35 }, { text: "nó", duration: 0.35 }, { text: "làm", duration: 0.35 }, { text: "sao?", duration: 1.05 }
         ]
       },
       { 
         time: 39,
-        text: "Kh\u00f4ng sao, \u0103n v\u00e0o ng\u01b0\u1eddi s\u1ebd th\u00eam cao",
+        text: "Không sao, ăn vào người sẽ thêm cao",
         words: [
-          { text: "Kh\u00f4ng", duration: 0.5 }, { text: "sao,", duration: 0.5 }, { text: "\u0103n", duration: 0.5 }, { text: "v\u00e0o", duration: 0.5 }, { text: "ng\u01b0\u1eddi", duration: 0.5 }, { text: "s\u1ebd", duration: 0.5 }, { text: "th\u00eam", duration: 0.5 }, { text: "cao", duration: 0.5 }
+          { text: "Không", duration: 0.58 }, { text: "sao,", duration: 1.16 }, { text: "ăn", duration: 0.58 }, { text: "vào", duration: 0.58 }, { text: "người", duration: 0.58 }, { text: "sẽ", duration: 0.58 }, { text: "thêm", duration: 0.58 }, { text: "cao", duration: 1.75 }
         ]
       }
     ]
@@ -1035,72 +1035,72 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 17.3,
-        text: "Tr\u00e1i \u0111\u1ea5t n\u00e0y l\u00e0 c\u1ee7a ch\u00fang m\u00ecnh",
+        text: "Trái đất này là của chúng mình",
         words: [
-          { text: "Tr\u00e1i", duration: 1.0 }, { text: "\u0111\u1ea5t", duration: 0.62 }, { text: "n\u00e0y", duration: 0.5 }, { text: "l\u00e0", duration: 0.88 }, { text: "c\u1ee7a", duration: 0.28 }, { text: "ch\u00fang", duration: 0.46 }, { text: "m\u00ecnh", duration: 0.44 }
+          { text: "Trái", duration: 0.44 }, { text: "đất", duration: 0.44 }, { text: "này", duration: 0.44 }, { text: "là", duration: 0.44 }, { text: "của", duration: 0.44 }, { text: "chúng", duration: 0.44 }, { text: "mình", duration: 1.33 }
         ]
       },
       { 
         time: 21.48,
-        text: "Qu\u1ea3 b\u00f3ng xanh bay gi\u1eefa tr\u1eddi xanh",
+        text: "Quả bóng xanh bay giữa trời xanh",
         words: [
-          { text: "Qu\u1ea3", duration: 1.02 }, { text: "b\u00f3ng", duration: 0.26 }, { text: "xanh", duration: 0.52 }, { text: "bay", duration: 0.44 }, { text: "gi\u1eefa", duration: 0.94 }, { text: "tr\u1eddi", duration: 0.2 }, { text: "xanh", duration: 0.54 }
+          { text: "Quả", duration: 0.39 }, { text: "bóng", duration: 0.39 }, { text: "xanh", duration: 0.39 }, { text: "bay", duration: 0.39 }, { text: "giữa", duration: 0.39 }, { text: "trời", duration: 0.39 }, { text: "xanh", duration: 1.17 }
         ]
       },
       { 
         time: 30.4,
-        text: "B\u1ed3 c\u00e2u \u01a1i ti\u1ebfng chim g\u00f9 th\u01b0\u01a1ng m\u1ebfn",
+        text: "Bồ câu ơi tiếng chim gù thương mến",
         words: [
-          { text: "B\u1ed3", duration: 0.64 }, { text: "c\u00e2u", duration: 1.0 }, { text: "\u01a1i", duration: 0.44 }, { text: "ti\u1ebfng", duration: 1.0 }, { text: "chim", duration: 0.28 }, { text: "g\u00f9", duration: 0.24 }, { text: "th\u01b0\u01a1ng", duration: 0.42 }, { text: "m\u1ebfn", duration: 0.46 }
+          { text: "Bồ", duration: 0.54 }, { text: "câu", duration: 0.54 }, { text: "ơi", duration: 0.54 }, { text: "tiếng", duration: 0.54 }, { text: "chim", duration: 0.54 }, { text: "gù", duration: 0.54 }, { text: "thương", duration: 0.54 }, { text: "mến", duration: 1.62 }
         ]
       },
       { 
         time: 36,
-        text: "H\u1ea3i \u00e2u \u01a1i c\u00e1nh chim v\u1eddn s\u00f3ng bi\u1ec3n",
+        text: "Hải âu ơi cánh chim vờn sóng biển",
         words: [
-          { text: "H\u1ea3i", duration: 0.52 }, { text: "\u00e2u", duration: 0.86 }, { text: "\u01a1i", duration: 0.74 }, { text: "c\u00e1nh", duration: 1.04 }, { text: "chim", duration: 0.2 }, { text: "v\u1eddn", duration: 0.32 }, { text: "s\u00f3ng", duration: 0.46 }, { text: "bi\u1ec3n", duration: 0.24 }
+          { text: "Hải", duration: 0.4 }, { text: "âu", duration: 0.4 }, { text: "ơi", duration: 0.4 }, { text: "cánh", duration: 0.4 }, { text: "chim", duration: 0.4 }, { text: "vờn", duration: 0.4 }, { text: "sóng", duration: 0.4 }, { text: "biển", duration: 1.2 }
         ]
       },
       { 
         time: 42,
-        text: "C\u00f9ng bay n\u00e0o cho tr\u00e1i \u0111\u1ea5t quay",
+        text: "Cùng bay nào cho trái đất quay",
         words: [
-          { text: "C\u00f9ng", duration: 0.64 }, { text: "bay", duration: 0.82 }, { text: "n\u00e0o", duration: 0.54 }, { text: "cho", duration: 1.08 }, { text: "tr\u00e1i", duration: 0.52 }, { text: "\u0111\u1ea5t", duration: 0.6 }, { text: "quay", duration: 0.74 }
+          { text: "Cùng", duration: 0.39 }, { text: "bay", duration: 0.39 }, { text: "nào", duration: 0.39 }, { text: "cho", duration: 0.39 }, { text: "trái", duration: 0.39 }, { text: "đất", duration: 0.39 }, { text: "quay", duration: 1.17 }
         ]
       },
       { 
         time: 48,
-        text: "C\u00f9ng bay n\u00e0o cho tr\u00e1i \u0111\u1ea5t quay",
+        text: "Cùng bay nào cho trái đất quay",
         words: [
-          { text: "C\u00f9ng", duration: 0.98 }, { text: "bay", duration: 0.4 }, { text: "n\u00e0o", duration: 0.26 }, { text: "cho", duration: 0.58 }, { text: "tr\u00e1i", duration: 0.82 }, { text: "\u0111\u1ea5t", duration: 0.6 }, { text: "quay", duration: 1.1 }
+          { text: "Cùng", duration: 0.39 }, { text: "bay", duration: 0.39 }, { text: "nào", duration: 0.39 }, { text: "cho", duration: 0.39 }, { text: "trái", duration: 0.39 }, { text: "đất", duration: 0.39 }, { text: "quay", duration: 1.17 }
         ]
       },
       { 
         time: 61,
-        text: "Tr\u00e1i \u0111\u1ea5t n\u00e0y l\u00e0 c\u1ee7a ch\u00fang m\u00ecnh",
+        text: "Trái đất này là của chúng mình",
         words: [
-          { text: "Tr\u00e1i", duration: 0.58 }, { text: "\u0111\u1ea5t", duration: 0.58 }, { text: "n\u00e0y", duration: 0.78 }, { text: "l\u00e0", duration: 0.82 }, { text: "c\u1ee7a", duration: 0.42 }, { text: "ch\u00fang", duration: 0.32 }, { text: "m\u00ecnh", duration: 0.68 }
+          { text: "Trái", duration: 0.39 }, { text: "đất", duration: 0.39 }, { text: "này", duration: 0.39 }, { text: "là", duration: 0.39 }, { text: "của", duration: 0.39 }, { text: "chúng", duration: 0.39 }, { text: "mình", duration: 1.17 }
         ]
       },
       { 
         time: 67,
-        text: "Qu\u1ea3 b\u00f3ng xanh bay gi\u1eefa tr\u1eddi xanh",
+        text: "Quả bóng xanh bay giữa trời xanh",
         words: [
-          { text: "Qu\u1ea3", duration: 0.78 }, { text: "b\u00f3ng", duration: 0.62 }, { text: "xanh", duration: 0.54 }, { text: "bay", duration: 0.82 }, { text: "gi\u1eefa", duration: 0.28 }, { text: "tr\u1eddi", duration: 0.44 }, { text: "xanh", duration: 0.66 }
+          { text: "Quả", duration: 0.39 }, { text: "bóng", duration: 0.39 }, { text: "xanh", duration: 0.39 }, { text: "bay", duration: 0.39 }, { text: "giữa", duration: 0.39 }, { text: "trời", duration: 0.39 }, { text: "xanh", duration: 1.17 }
         ]
       },
       { 
         time: 76.3,
-        text: "B\u1ed3 c\u00e2u \u01a1i ti\u1ebfng chim g\u00f9 th\u01b0\u01a1ng m\u1ebfn",
+        text: "Bồ câu ơi tiếng chim gù thương mến",
         words: [
-          { text: "B\u1ed3", duration: 1.24 }, { text: "c\u00e2u", duration: 0.24 }, { text: "\u01a1i", duration: 0.88 }, { text: "ti\u1ebfng", duration: 0.72 }, { text: "chim", duration: 0.22 }, { text: "g\u00f9", duration: 0.5 }, { text: "th\u01b0\u01a1ng", duration: 0.42 }, { text: "m\u1ebfn", duration: 1.26 }
+          { text: "Bồ", duration: 0.55 }, { text: "câu", duration: 0.55 }, { text: "ơi", duration: 0.55 }, { text: "tiếng", duration: 0.55 }, { text: "chim", duration: 0.55 }, { text: "gù", duration: 0.55 }, { text: "thương", duration: 0.55 }, { text: "mến", duration: 1.65 }
         ]
       },
       { 
         time: 82,
-        text: "H\u1ea3i \u00e2u \u01a1i c\u00e1nh chim v\u1eddn s\u00f3ng bi\u1ec3n",
+        text: "Hải âu ơi cánh chim vờn sóng biển",
         words: [
-          { text: "H\u1ea3i", duration: 0.4 }, { text: "\u00e2u", duration: 1.18 }, { text: "\u01a1i", duration: 0.2 }, { text: "c\u00e1nh", duration: 0.32 }, { text: "chim", duration: 0.28 }, { text: "v\u1eddn", duration: 0.62 }, { text: "s\u00f3ng", duration: 0.5 }, { text: "bi\u1ec3n", duration: 1.02 }
+          { text: "Hải", duration: 0.64 }, { text: "âu", duration: 0.64 }, { text: "ơi", duration: 0.64 }, { text: "cánh", duration: 0.64 }, { text: "chim", duration: 0.64 }, { text: "vờn", duration: 0.64 }, { text: "sóng", duration: 0.64 }, { text: "biển", duration: 1.92 }
         ]
       }
     ]
@@ -1115,58 +1115,58 @@ export const songsViNew: Song[] = [
     lyrics: [
       { 
         time: 15,
-        text: "M\u1eb9 \u01a1i t\u1ea1i sao con b\u01b0\u1edbm bay cao",
+        text: "Mẹ ơi tại sao con bướm bay cao",
         words: [
-          { text: "M\u1eb9", duration: 1.4 }, { text: "\u01a1i", duration: 0.2 }, { text: "t\u1ea1i", duration: 0.2 }, { text: "sao", duration: 0.2 }, { text: "con", duration: 0.2 }, { text: "b\u01b0\u1edbm", duration: 0.2 }, { text: "bay", duration: 0.2 }, { text: "cao", duration: 0.2 }
+          { text: "Mẹ", duration: 0.38 }, { text: "ơi", duration: 0.38 }, { text: "tại", duration: 0.38 }, { text: "sao", duration: 0.38 }, { text: "con", duration: 0.38 }, { text: "bướm", duration: 0.38 }, { text: "bay", duration: 0.38 }, { text: "cao", duration: 1.14 }
         ]
       },
       { 
         time: 19,
-        text: "Con ong l\u00e0m m\u1eadt con ki\u1ebfn tha m\u1ed3i",
+        text: "Con ong làm mật con kiến tha mồi",
         words: [
-          { text: "Con", duration: 0.4 }, { text: "ong", duration: 0.58 }, { text: "l\u00e0m", duration: 0.46 }, { text: "m\u1eadt", duration: 0.2 }, { text: "con", duration: 0.84 }, { text: "ki\u1ebfn", duration: 0.68 }, { text: "tha", duration: 0.54 }, { text: "m\u1ed3i", duration: 0.5 }
+          { text: "Con", duration: 0.38 }, { text: "ong", duration: 0.38 }, { text: "làm", duration: 0.38 }, { text: "mật", duration: 0.38 }, { text: "con", duration: 0.38 }, { text: "kiến", duration: 0.38 }, { text: "tha", duration: 0.38 }, { text: "mồi", duration: 1.14 }
         ]
       },
       { 
         time: 23,
-        text: "M\u1eb9 \u01a1i t\u1ea1i sao \u00f4ng m\u1eb7t tr\u1eddi th\u1ee9c d\u1eady",
+        text: "Mẹ ơi tại sao ông mặt trời thức dậy",
         words: [
-          { text: "M\u1eb9", duration: 0.4 }, { text: "\u01a1i", duration: 0.48 }, { text: "t\u1ea1i", duration: 0.68 }, { text: "sao", duration: 0.38 }, { text: "\u00f4ng", duration: 0.46 }, { text: "m\u1eb7t", duration: 0.72 }, { text: "tr\u1eddi", duration: 0.28 }, { text: "th\u1ee9c", duration: 0.58 }, { text: "d\u1eady", duration: 0.56 }
+          { text: "Mẹ", duration: 0.35 }, { text: "ơi", duration: 0.35 }, { text: "tại", duration: 0.35 }, { text: "sao", duration: 0.35 }, { text: "ông", duration: 0.35 }, { text: "mặt", duration: 0.35 }, { text: "trời", duration: 0.35 }, { text: "thức", duration: 0.35 }, { text: "dậy", duration: 1.04 }
         ]
       },
       { 
         time: 27,
-        text: "Cho con \u0111i h\u1ecdc cho m\u1eb9 \u0111i l\u00e0m",
+        text: "Cho con đi học cho mẹ đi làm",
         words: [
-          { text: "Cho", duration: 0.48 }, { text: "con", duration: 0.2 }, { text: "\u0111i", duration: 0.46 }, { text: "h\u1ecdc", duration: 0.5 }, { text: "cho", duration: 0.36 }, { text: "m\u1eb9", duration: 0.2 }, { text: "\u0111i", duration: 0.96 }, { text: "l\u00e0m", duration: 0.2 }
+          { text: "Cho", duration: 0.4 }, { text: "con", duration: 0.4 }, { text: "đi", duration: 0.4 }, { text: "học", duration: 0.4 }, { text: "cho", duration: 0.4 }, { text: "mẹ", duration: 0.4 }, { text: "đi", duration: 0.4 }, { text: "làm", duration: 1.2 }
         ]
       },
       { 
         time: 33,
-        text: "M\u1eb9 \u01a1i t\u1ea1i sao con c\u00e1 b\u01a1i nhanh",
+        text: "Mẹ ơi tại sao con cá bơi nhanh",
         words: [
-          { text: "M\u1eb9", duration: 0.4 }, { text: "\u01a1i", duration: 0.4 }, { text: "t\u1ea1i", duration: 0.26 }, { text: "sao", duration: 0.44 }, { text: "con", duration: 0.64 }, { text: "c\u00e1", duration: 0.2 }, { text: "b\u01a1i", duration: 0.56 }, { text: "nhanh", duration: 0.32 }
+          { text: "Mẹ", duration: 0.38 }, { text: "ơi", duration: 0.38 }, { text: "tại", duration: 0.38 }, { text: "sao", duration: 0.38 }, { text: "con", duration: 0.38 }, { text: "cá", duration: 0.38 }, { text: "bơi", duration: 0.38 }, { text: "nhanh", duration: 1.14 }
         ]
       },
       { 
         time: 37,
-        text: "Con chim h\u00f3t hay con g\u00e0 g\u00e1y s\u1edbm",
+        text: "Con chim hót hay con gà gáy sớm",
         words: [
-          { text: "Con", duration: 0.8 }, { text: "chim", duration: 0.54 }, { text: "h\u00f3t", duration: 0.66 }, { text: "hay", duration: 0.2 }, { text: "con", duration: 1.4 }, { text: "g\u00e0", duration: 1.12 }, { text: "g\u00e1y", duration: 0.2 }, { text: "s\u1edbm", duration: 0.3 }
+          { text: "Con", duration: 0.38 }, { text: "chim", duration: 0.38 }, { text: "hót", duration: 0.38 }, { text: "hay", duration: 0.38 }, { text: "con", duration: 0.38 }, { text: "gà", duration: 0.38 }, { text: "gáy", duration: 0.38 }, { text: "sớm", duration: 1.14 }
         ]
       },
       { 
         time: 41,
-        text: "M\u1eb9 \u01a1i t\u1ea1i sao \u00f4ng tr\u0103ng s\u00e1ng t\u1ecf",
+        text: "Mẹ ơi tại sao ông trăng sáng tỏ",
         words: [
-          { text: "M\u1eb9", duration: 0.86 }, { text: "\u01a1i", duration: 0.64 }, { text: "t\u1ea1i", duration: 0.74 }, { text: "sao", duration: 0.34 }, { text: "\u00f4ng", duration: 0.32 }, { text: "tr\u0103ng", duration: 0.46 }, { text: "s\u00e1ng", duration: 0.24 }, { text: "t\u1ecf", duration: 0.38 }
+          { text: "Mẹ", duration: 0.38 }, { text: "ơi", duration: 0.38 }, { text: "tại", duration: 0.38 }, { text: "sao", duration: 0.38 }, { text: "ông", duration: 0.38 }, { text: "trăng", duration: 0.38 }, { text: "sáng", duration: 0.38 }, { text: "tỏ", duration: 1.14 }
         ]
       },
       { 
         time: 45,
-        text: "Cho con ng\u1ee7 ngon cho m\u1eb9 ru h\u1eddi",
+        text: "Cho con ngủ ngon cho mẹ ru hời",
         words: [
-          { text: "Cho", duration: 0.24 }, { text: "con", duration: 0.96 }, { text: "ng\u1ee7", duration: 0.24 }, { text: "ngon", duration: 0.34 }, { text: "cho", duration: 0.98 }, { text: "m\u1eb9", duration: 0.56 }, { text: "ru", duration: 0.52 }, { text: "h\u1eddi", duration: 1.34 }
+          { text: "Cho", duration: 0.64 }, { text: "con", duration: 0.64 }, { text: "ngủ", duration: 0.64 }, { text: "ngon", duration: 0.64 }, { text: "cho", duration: 0.64 }, { text: "mẹ", duration: 0.64 }, { text: "ru", duration: 0.64 }, { text: "hời", duration: 1.92 }
         ]
       }
     ]
