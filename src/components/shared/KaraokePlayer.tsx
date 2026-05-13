@@ -343,7 +343,7 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
                       key={i}
                       className={`${textClass} font-black tracking-wide leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]`}
                       style={{ 
-                        fontFamily: "var(--font-heading), Arial, sans-serif",
+                        fontFamily: "system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif",
                         backgroundImage: `linear-gradient(to right, ${song.color} ${fillPercentage}%, white ${fillPercentage}%)`,
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
