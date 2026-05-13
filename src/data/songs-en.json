@@ -207,19 +207,19 @@
           },
           {
             "text": "wonder",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "what",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "are",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -229,27 +229,27 @@
         "words": [
           {
             "text": "Up",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "above",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "the",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "world",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "so",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "high",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -259,27 +259,27 @@
         "words": [
           {
             "text": "Like",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "a",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "diamond",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "in",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "the",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "sky",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -289,19 +289,19 @@
         "words": [
           {
             "text": "Twinkle,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "twinkle,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "little",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "star",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -311,31 +311,32 @@
         "words": [
           {
             "text": "How",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "I",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "wonder",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "what",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "are",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "old-macdonald",
@@ -423,7 +424,7 @@
         "words": [
           {
             "text": "With",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "a",
@@ -647,31 +648,31 @@
           },
           {
             "text": "an",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "oink,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "there",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "an",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "oink,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "everywhere",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "an",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "oink-oink",
@@ -685,7 +686,7 @@
         "words": [
           {
             "text": "Old",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "MacDonald",
@@ -705,7 +706,7 @@
           },
           {
             "text": "E-I-E-I-O!",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -715,7 +716,7 @@
         "words": [
           {
             "text": "Old",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "MacDonald",
@@ -787,7 +788,7 @@
         "words": [
           {
             "text": "With",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "a",
@@ -845,7 +846,7 @@
           },
           {
             "text": "quack,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "everywhere",
@@ -853,11 +854,11 @@
           },
           {
             "text": "a",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "quack-quack",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -867,7 +868,7 @@
         "words": [
           {
             "text": "Old",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "MacDonald",
@@ -891,7 +892,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "baby-shark",
@@ -959,7 +961,7 @@
         "words": [
           {
             "text": "Baby",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark,",
@@ -971,11 +973,11 @@
           },
           {
             "text": "doo-doo,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "doo-doo",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -985,7 +987,7 @@
         "words": [
           {
             "text": "Baby",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark!",
@@ -1051,7 +1053,7 @@
         "words": [
           {
             "text": "Mommy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark,",
@@ -1077,11 +1079,11 @@
         "words": [
           {
             "text": "Mommy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark!",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -1091,7 +1093,7 @@
         "words": [
           {
             "text": "Daddy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark,",
@@ -1107,7 +1109,7 @@
           },
           {
             "text": "doo-doo",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -1117,7 +1119,7 @@
         "words": [
           {
             "text": "Daddy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark,",
@@ -1133,7 +1135,7 @@
           },
           {
             "text": "doo-doo",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -1143,7 +1145,7 @@
         "words": [
           {
             "text": "Daddy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark,",
@@ -1155,11 +1157,11 @@
           },
           {
             "text": "doo-doo,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "doo-doo",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -1169,7 +1171,7 @@
         "words": [
           {
             "text": "Daddy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark!",
@@ -1230,12 +1232,12 @@
         ]
       },
       {
-        "time": 60.0,
+        "time": 60,
         "text": "Grandma shark, doo-doo, doo-doo, doo-doo",
         "words": [
           {
             "text": "Grandma",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shark,",
@@ -1347,29 +1349,29 @@
           },
           {
             "text": "doo-doo,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "doo-doo,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "doo-doo",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
       {
-        "time": 78.0,
+        "time": 78,
         "text": "Let's go hunt!",
         "words": [
           {
             "text": "Let's",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "go",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "hunt!",
@@ -1439,15 +1441,15 @@
           },
           {
             "text": "away!",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "Doo-doo,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "doo-doo,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "doo-doo",
@@ -1461,11 +1463,11 @@
         "words": [
           {
             "text": "Run",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "away!",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -1475,7 +1477,7 @@
         "words": [
           {
             "text": "Safe",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "at",
@@ -1521,11 +1523,11 @@
           },
           {
             "text": "doo-doo,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "doo-doo",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -1535,11 +1537,11 @@
         "words": [
           {
             "text": "Safe",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "at",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "last,",
@@ -1577,7 +1579,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "wheels-on-bus",
@@ -1593,7 +1596,7 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "wheels",
@@ -1647,7 +1650,7 @@
           },
           {
             "text": "round",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "and",
@@ -1729,7 +1732,7 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "doors",
@@ -1865,7 +1868,7 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "wipers",
@@ -1923,7 +1926,7 @@
           },
           {
             "text": "swish,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "swish",
@@ -2047,7 +2050,7 @@
           },
           {
             "text": "beep,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "beep,",
@@ -2063,7 +2066,7 @@
           },
           {
             "text": "beep",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -2105,7 +2108,7 @@
           },
           {
             "text": "beep",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -2131,7 +2134,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "head-shoulders",
@@ -2151,7 +2155,7 @@
           },
           {
             "text": "shoulders,",
-            "duration": 1.0
+            "duration": 1
           },
           {
             "text": "knees",
@@ -2307,7 +2311,7 @@
           },
           {
             "text": "toes!",
-            "duration": 1.0
+            "duration": 1
           }
         ]
       },
@@ -2325,7 +2329,7 @@
           },
           {
             "text": "knees",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "and",
@@ -2413,7 +2417,7 @@
           },
           {
             "text": "and",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "ears,",
@@ -2481,7 +2485,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "itsy-bitsy-spider",
@@ -2811,31 +2816,32 @@
           },
           {
             "text": "spider",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "climbed",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "up",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "the",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "spout",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "again",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "five-little-monkeys",
@@ -3131,7 +3137,7 @@
         "words": [
           {
             "text": "Three",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "little",
@@ -3271,7 +3277,7 @@
         "words": [
           {
             "text": "Two",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "little",
@@ -3411,7 +3417,7 @@
         "words": [
           {
             "text": "One",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "little",
@@ -3545,7 +3551,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "baa-baa-black-sheep",
@@ -3569,7 +3576,7 @@
           },
           {
             "text": "black",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "sheep,",
@@ -3733,7 +3740,7 @@
           },
           {
             "text": "black",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "sheep,",
@@ -3779,7 +3786,7 @@
           },
           {
             "text": "three",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "bags",
@@ -3883,7 +3890,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "if-youre-happy",
@@ -3923,11 +3931,11 @@
           },
           {
             "text": "it,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "clap",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "your",
@@ -3973,7 +3981,7 @@
           },
           {
             "text": "clap",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "your",
@@ -4011,11 +4019,11 @@
           },
           {
             "text": "know",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4025,31 +4033,31 @@
         "words": [
           {
             "text": "And",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "really",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "want",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "to",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "show",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4059,35 +4067,35 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you're",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "happy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "and",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "know",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "clap",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "your",
@@ -4175,7 +4183,7 @@
           },
           {
             "text": "it,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "stomp",
@@ -4239,11 +4247,11 @@
           },
           {
             "text": "really",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "want",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "to",
@@ -4251,7 +4259,7 @@
           },
           {
             "text": "show",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it",
@@ -4297,11 +4305,11 @@
           },
           {
             "text": "your",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "feet",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4311,7 +4319,7 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you're",
@@ -4331,7 +4339,7 @@
           },
           {
             "text": "know",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it,",
@@ -4343,7 +4351,7 @@
           },
           {
             "text": "hooray!",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4353,35 +4361,35 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you're",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "happy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "and",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "know",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shout",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "hooray!",
@@ -4395,7 +4403,7 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you're",
@@ -4415,11 +4423,11 @@
           },
           {
             "text": "know",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4429,31 +4437,31 @@
         "words": [
           {
             "text": "And",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "really",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "want",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "to",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "show",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4463,43 +4471,44 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you're",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "happy",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "and",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "know",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "shout",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "hooray!",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "row-your-boat",
@@ -4527,7 +4536,7 @@
           },
           {
             "text": "your",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "boat",
@@ -4549,11 +4558,11 @@
           },
           {
             "text": "the",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "stream",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4593,11 +4602,11 @@
           },
           {
             "text": "but",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "a",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "dream",
@@ -4637,7 +4646,7 @@
         "words": [
           {
             "text": "Gently",
-            "duration": 1.0
+            "duration": 1
           },
           {
             "text": "down",
@@ -4693,11 +4702,11 @@
           },
           {
             "text": "a",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "dream",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4737,7 +4746,7 @@
           },
           {
             "text": "down",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "the",
@@ -4745,7 +4754,7 @@
           },
           {
             "text": "stream",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4755,23 +4764,23 @@
         "words": [
           {
             "text": "If",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "see",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "a",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "crocodile",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -4781,23 +4790,24 @@
         "words": [
           {
             "text": "Don't",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "forget",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "to",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "scream!",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "bingo",
@@ -5115,7 +5125,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "abc-song",
@@ -5232,7 +5243,7 @@
         ]
       },
       {
-        "time": 44.0,
+        "time": 44,
         "text": "W, X, Y and Z",
         "words": [
           {
@@ -5263,23 +5274,23 @@
         "words": [
           {
             "text": "Now",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "I",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "know",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "my",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "ABCs",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5289,31 +5300,31 @@
         "words": [
           {
             "text": "Next",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "time",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "won't",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "you",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "sing",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "with",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "me?",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5419,7 +5430,7 @@
           },
           {
             "text": "V",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5509,7 +5520,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "hickory-dickory",
@@ -5533,7 +5545,7 @@
           },
           {
             "text": "dock",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5543,27 +5555,27 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "mouse",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "ran",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "up",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "the",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "clock",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5573,19 +5585,19 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "clock",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "struck",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "one",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5595,19 +5607,19 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "mouse",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "ran",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "down",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5617,15 +5629,15 @@
         "words": [
           {
             "text": "Hickory",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "dickory",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "dock",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5635,15 +5647,15 @@
         "words": [
           {
             "text": "Tick",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "tock,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "tick",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "tock,",
@@ -5651,7 +5663,7 @@
           },
           {
             "text": "tick",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "tock,",
@@ -5663,7 +5675,7 @@
           },
           {
             "text": "tock",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5686,7 +5698,7 @@
         ]
       },
       {
-        "time": 10.0,
+        "time": 10,
         "text": "The mouse ran up the clock",
         "words": [
           {
@@ -5699,19 +5711,19 @@
           },
           {
             "text": "ran",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "up",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "the",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "clock",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5721,11 +5733,11 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "clock",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "struck",
@@ -5783,7 +5795,7 @@
         "words": [
           {
             "text": "Tick",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "tock,",
@@ -5799,7 +5811,7 @@
           },
           {
             "text": "tick",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "tock,",
@@ -5807,7 +5819,7 @@
           },
           {
             "text": "tick",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "tock",
@@ -5815,7 +5827,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "london-bridge",
@@ -5831,7 +5844,7 @@
         "words": [
           {
             "text": "London",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "Bridge",
@@ -5861,11 +5874,11 @@
           },
           {
             "text": "down,",
-            "duration": 1.0
+            "duration": 1
           },
           {
             "text": "falling",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "down",
@@ -5927,23 +5940,23 @@
           },
           {
             "text": "it",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "up",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "with",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "iron",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "bars",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5953,19 +5966,19 @@
         "words": [
           {
             "text": "Iron",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "bars,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "iron",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "bars",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -5975,27 +5988,27 @@
         "words": [
           {
             "text": "Build",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "it",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "up",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "with",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "iron",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "bars",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -6005,15 +6018,15 @@
         "words": [
           {
             "text": "My",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "fair",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "lady",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -6023,7 +6036,7 @@
         "words": [
           {
             "text": "London",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "Bridge",
@@ -6109,7 +6122,8 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   },
   {
     "id": "mary-had-lamb",
@@ -6125,7 +6139,7 @@
         "words": [
           {
             "text": "Mary",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "had",
@@ -6159,11 +6173,11 @@
           },
           {
             "text": "little",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "lamb",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -6177,19 +6191,19 @@
           },
           {
             "text": "had",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "a",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "little",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "lamb",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -6199,7 +6213,7 @@
         "words": [
           {
             "text": "Its",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "fleece",
@@ -6215,7 +6229,7 @@
           },
           {
             "text": "as",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "snow",
@@ -6229,23 +6243,23 @@
         "words": [
           {
             "text": "And",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "everywhere",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "that",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "Mary",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "went",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -6255,19 +6269,19 @@
         "words": [
           {
             "text": "Mary",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "went,",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "Mary",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "went",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -6281,7 +6295,7 @@
           },
           {
             "text": "that",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "Mary",
@@ -6289,7 +6303,7 @@
           },
           {
             "text": "went",
-            "duration": 0.0
+            "duration": 0
           }
         ]
       },
@@ -6299,11 +6313,11 @@
         "words": [
           {
             "text": "The",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "lamb",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "was",
@@ -6311,7 +6325,7 @@
           },
           {
             "text": "sure",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "to",
@@ -6375,7 +6389,7 @@
           },
           {
             "text": "school",
-            "duration": 0.0
+            "duration": 0
           },
           {
             "text": "one",
@@ -6447,6 +6461,7 @@
           }
         ]
       }
-    ]
+    ],
+    "aiSynced": true
   }
 ]

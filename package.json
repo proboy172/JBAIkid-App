@@ -7,7 +7,8 @@
     "build": "next build",
     "build-webpack": "cross-env NEXT_TURBOPACK=false next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync": "node auto-sync.js"
   },
   "dependencies": {
     "@capacitor-community/speech-recognition": "^7.0.1",

@@ -90,6 +90,9 @@ def main():
                     "duration": 0.5
                 })
 
+    # Mark as synced so we don't re-process in the future
+    target_song["aiSynced"] = True
+
     # Save back to JSON
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(songs, f, ensure_ascii=False, indent=2)
