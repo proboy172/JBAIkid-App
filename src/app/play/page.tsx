@@ -21,7 +21,7 @@ const games = [
     href: "/play/memory",
     title: "Lật Thẻ Nhớ",
     desc: "Tìm và ghép 2 hình giống nhau.",
-    emoji: "🃏",
+    emoji: "❓",
     color: "#C084FC", // purple
     bg: "bg-purple-50",
   },

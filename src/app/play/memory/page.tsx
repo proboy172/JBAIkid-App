@@ -109,7 +109,7 @@ export default function MemoryGamePage() {
         </div>
         <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center">
-            <span className="text-8xl block mb-4">🃏</span>
+            <span className="text-8xl block mb-4">❓</span>
             <h1 className="text-3xl font-extrabold mb-2" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
               Lật Thẻ Nhớ
             </h1>
@@ -189,24 +189,35 @@ export default function MemoryGamePage() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <motion.div
-                    className="w-full h-full preserve-3d"
+                    className="w-full h-full"
+                    style={{ transformStyle: "preserve-3d" }}
                     animate={{ rotateY: isFlipped ? 180 : 0 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20 }}
                   >
                     {/* Front (Hidden) */}
                     <div
-                      className="absolute inset-0 backface-hidden rounded-2xl shadow-md border-2 border-purple-200 bg-purple-100 flex items-center justify-center"
-                      style={{ background: "radial-gradient(circle, #f3e8ff 0%, #e9d5ff 100%)" }}
+                      className="absolute inset-0 rounded-2xl shadow-md border-2 border-purple-300 flex items-center justify-center overflow-hidden"
+                      style={{ 
+                        background: "repeating-linear-gradient(45deg, #f3e8ff, #f3e8ff 10px, #e9d5ff 10px, #e9d5ff 20px)",
+                        backfaceVisibility: "hidden", 
+                        WebkitBackfaceVisibility: "hidden" 
+                      }}
                     >
-                      <span className="text-3xl opacity-50">🃏</span>
+                      <div className="bg-white/80 p-2 rounded-full shadow-sm backdrop-blur-sm w-16 h-16 flex items-center justify-center">
+                        <span className="text-5xl md:text-6xl text-purple-500 drop-shadow-md font-black">?</span>
+                      </div>
                     </div>
 
                     {/* Back (Revealed) */}
                     <div
-                      className={`absolute inset-0 backface-hidden rounded-2xl shadow-md border-2 bg-white flex flex-col items-center justify-center p-2 ${
+                      className={`absolute inset-0 rounded-2xl shadow-md border-2 bg-white flex flex-col items-center justify-center p-2 ${
                         card.isMatched ? "border-green-400 bg-green-50" : "border-purple-400"
                       }`}
-                      style={{ transform: "rotateY(180deg)" }}
+                      style={{ 
+                        transform: "rotateY(180deg)", 
+                        backfaceVisibility: "hidden", 
+                        WebkitBackfaceVisibility: "hidden" 
+                      }}
                     >
                       {card.type === "emoji" ? (
                         <span className="text-5xl">{card.item.emoji}</span>
