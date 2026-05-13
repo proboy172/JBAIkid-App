@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Play, Pause, RefreshCcw, Music } from "lucide-react";
+import { X, Play, Pause, RefreshCcw } from "lucide-react";
 import { Song } from "@/data/songs";
 import { useAppStore } from "@/stores/appStore";
 
@@ -21,10 +21,8 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
   
   const [isPlayerReady, setIsPlayerReady] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
-  const [beatPulse, setBeatPulse] = useState(0);
 
   const handleClose = () => {
-    // Reward 5 stars if watched for at least 10 seconds
     if (currentTime > 10 && !hasAwardedStars) {
       addStars(5);
       setHasAwardedStars(true);
@@ -35,31 +33,6 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
   const playerRef = useRef<any>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  // BPM-Based Pulsing (Simulates "listening" to the music)
-  useEffect(() => {
-    if (!isPlaying || !song.bpm) {
-      setBeatPulse(0);
-      return;
-    }
-
-    const interval = 60 / song.bpm; // seconds per beat
-    let rafId: number;
-
-    const pulseLoop = () => {
-      const now = Date.now() / 1000;
-      const phase = (now % interval) / interval;
-      // Exponential decay pulse for a "kick drum" feel
-      const pulse = Math.pow(1 - phase, 4); 
-      setBeatPulse(pulse);
-      rafId = requestAnimationFrame(pulseLoop);
-    };
-
-    rafId = requestAnimationFrame(pulseLoop);
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [isPlaying, song.bpm]);
 
   useEffect(() => {
     const loadAPI = () => {
@@ -89,7 +62,10 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
           rel: 0,
           modestbranding: 1,
           enablejsapi: 1,
-          origin: window.location.origin
+          origin: window.location.origin,
+          showinfo: 0,
+          fs: 0,
+          iv_load_policy: 3
         },
         events: {
           onReady: (event: any) => {
@@ -101,7 +77,6 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
               setIsPlaying(true);
               startProgressTracker();
             } else if (event.data === window.YT.PlayerState.ENDED) {
-              // Auto-loop when YouTube video naturally ends
               if (playerRef.current && typeof playerRef.current.seekTo === 'function') {
                 playerRef.current.seekTo(0);
                 playerRef.current.playVideo();
@@ -115,12 +90,9 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
       });
     };
 
-    // Nếu có video local, không cần YouTube API
     if (song.localVideo) {
-      // Video local tự phát qua autoPlay attr, theo dõi thời gian qua onTimeUpdate
       setIsPlayerReady(true);
       return () => {
-        // Cleanup: pause video and reset state on unmount to prevent memory leak
         if (videoRef.current) {
           videoRef.current.pause();
           videoRef.current.removeAttribute('src');
@@ -144,7 +116,6 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
         const time = playerRef.current.getCurrentTime();
         setCurrentTime(time);
         
-        // AUTO-SYNC: Calculate countdown
         const firstLineTime = smartLyrics.length > 0 ? smartLyrics[0].time : 3;
         const targetTime = song.introDuration || firstLineTime;
         const timeToStart = targetTime - time;
@@ -155,7 +126,6 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
           setCountdown(null);
         }
 
-        // Auto-loop logic: restart video after last lyric finishes
         if (smartLyrics.length > 0) {
           const lastLyric = smartLyrics[smartLyrics.length - 1];
           if (time > lastLyric.time + 12) {
@@ -172,7 +142,6 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
   };
 
   const handleTogglePlay = () => {
-    // Local video
     if (song.localVideo && videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -183,7 +152,6 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
       }
       return;
     }
-    // YouTube
     if (!playerRef.current || typeof playerRef.current.playVideo !== 'function') return;
     if (isPlaying) {
       playerRef.current.pauseVideo();
@@ -192,24 +160,18 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
     }
   };
 
-  // --- SMART AUTO-SYNC ALGORITHM ---
-  // Tự động nội suy thời gian hát dựa trên số lượng chữ và tốc độ nhạc thiếu nhi chuẩn
   const smartLyrics = useMemo(() => {
-    // Nếu bài hát không thiết lập bpm, có nghĩa là đang sử dụng thời gian chèn tay chuẩn xác
     if (!song.bpm) {
       return song.lyrics;
     }
-
-    const intro = song.introDuration || 3; // Nhạc dạo trung bình 3 giây
+    const intro = song.introDuration || 3;
     const wordsPerMinute = song.bpm * 0.8;
     
     let currentT = intro;
     return song.lyrics.map(line => {
       const wordCount = line.text.split(" ").length;
       const lineDuration = (wordCount / wordsPerMinute) * 60;
-      
       const newLine = { ...line, time: currentT };
-      // Cộng dồn thời gian hát và thời gian nghỉ (1.5s) cho câu tiếp theo
       currentT += lineDuration + 1.5; 
       return newLine;
     });
@@ -217,133 +179,85 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
 
   const effectiveTime = currentTime;
   const currentLineIndex = smartLyrics.findLastIndex(l => l.time <= effectiveTime);
-  const currentLine = currentLineIndex >= 0 ? smartLyrics[currentLineIndex] : null;
-  const nextLine = currentLineIndex + 1 < smartLyrics.length ? smartLyrics[currentLineIndex + 1] : null;
-
-  const currentWords = currentLine ? currentLine.text.split(" ") : [];
-
-  const getWordFillPercentage = (wordIndex: number, totalWords: number) => {
-    if (!currentLine) return 0;
-    const elapsed = effectiveTime - currentLine.time;
-    if (elapsed < 0) return 0;
-
-    // 100% SYNC: Nếu bài hát có cấu hình độ dài từng chữ
-    if (currentLine.words && currentLine.words.length === totalWords) {
-      let wordStartTime = 0;
-      for (let i = 0; i < wordIndex; i++) {
-        wordStartTime += currentLine.words[i].duration;
-      }
-      const wordDuration = currentLine.words[wordIndex].duration;
-      const wordEndTime = wordStartTime + wordDuration;
-
-      if (elapsed >= wordEndTime) return 100;
-      if (elapsed <= wordStartTime) return 0;
-      return ((elapsed - wordStartTime) / wordDuration) * 100;
-    }
-
-    // FALLBACK (Auto Sync): Tính tổng thời gian để hát hết 1 câu
-    const gap = nextLine ? nextLine.time - currentLine.time : 4;
-    // Tối đa 4 giây hoặc 0.45s mỗi chữ, tránh hát quá chậm khi có đoạn nhạc dạo
-    const duration = Math.min(gap, Math.max(2, totalWords * 0.45)); 
-    
-    const timePerWord = duration / totalWords;
-    const wordStartTime = wordIndex * timePerWord;
-    const wordEndTime = wordStartTime + timePerWord;
-    
-    if (elapsed >= wordEndTime) return 100;
-    if (elapsed <= wordStartTime) return 0;
-    
-    return ((elapsed - wordStartTime) / timePerWord) * 100;
-  };
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[1000] flex flex-col bg-black overflow-hidden"
+      className="fixed inset-0 z-[1000] bg-black overflow-hidden flex flex-col"
     >
-      {/* Smart Pulse Background (Simulated via BPM) */}
-      <motion.div 
-        className="absolute inset-0 bg-[#0F172A]"
-        animate={{ opacity: 0.1 + (beatPulse * 0.15) }}
-        transition={{ duration: 0.1 }}
-      />
-      
-      {/* Header */}
-      <div className="flex items-center justify-between px-6 pt-10 pb-2 relative z-10">
-        <div className="flex flex-col">
-          <h2 className="text-white text-xl font-bold truncate flex items-center gap-2">
+      {/* FULLSCREEN VIDEO BACKGROUND */}
+      <div className="absolute inset-0 z-0 bg-black pointer-events-none">
+        {song.localVideo ? (
+          <video
+            ref={videoRef}
+            src={song.localVideo}
+            autoPlay
+            playsInline
+            onTimeUpdate={(e) => {
+              const time = e.currentTarget.currentTime;
+              setCurrentTime(time);
+              setIsPlaying(true);
+              
+              const firstLineTime = smartLyrics.length > 0 ? smartLyrics[0].time : 3;
+              const targetTime = song.introDuration || firstLineTime;
+              const timeToStart = targetTime - time;
+              if (timeToStart > 0 && timeToStart <= 4) {
+                setCountdown(Math.ceil(timeToStart));
+              } else {
+                setCountdown(null);
+              }
+
+              if (smartLyrics.length > 0) {
+                const lastLyric = smartLyrics[smartLyrics.length - 1];
+                if (time > lastLyric.time + 12) {
+                  e.currentTarget.currentTime = 0;
+                  e.currentTarget.play();
+                }
+              }
+            }}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onEnded={(e) => {
+              e.currentTarget.currentTime = 0;
+              e.currentTarget.play();
+              setIsPlaying(true);
+            }}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div 
+            id={`youtube-player-${song.id}`} 
+            className="w-full h-full object-cover scale-[1.3] md:scale-[1.15]" 
+          />
+        )}
+      </div>
+
+      {/* TOP GRADIENT & HEADER */}
+      <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/80 to-transparent z-10" />
+      <div className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-6 pt-[max(env(safe-area-inset-top),32px)] pb-2">
+        <div className="flex flex-col drop-shadow-md">
+          <h2 className="text-white text-xl md:text-2xl font-bold truncate flex items-center gap-2">
             <span className="text-3xl">{song.emoji}</span>
             {song.title}
           </h2>
-          <div className="flex items-center gap-2 mt-1">
-             <span className="text-[10px] text-primary flex items-center gap-1 bg-primary/10 px-2 py-0.5 rounded-full border border-primary/20">
-                <Music size={10} /> Đang khớp nhạc tự động...
-              </span>
-          </div>
         </div>
-        <button onClick={handleClose} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-          <X className="text-white" />
+        <button 
+          onClick={handleClose} 
+          className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center hover:bg-white/30 transition-colors"
+        >
+          <X className="text-white" strokeWidth={3} />
         </button>
       </div>
 
-      {/* Video */}
-      <div className="flex justify-center px-4 relative z-10 flex-shrink-0">
-        <motion.div 
-          className="w-full max-w-2xl max-h-[25vh] md:max-h-[35vh] aspect-video rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl bg-black border-2 md:border-4 border-white/5"
-          animate={{ scale: 1 + (beatPulse * 0.02) }}
-          transition={{ duration: 0.1 }}
-        >
-          {song.localVideo ? (
-            <video
-              ref={videoRef}
-              src={song.localVideo}
-              autoPlay
-              playsInline
-              onTimeUpdate={(e) => {
-                const time = e.currentTarget.currentTime;
-                setCurrentTime(time);
-                setIsPlaying(true);
-                
-                // Countdown logic - align with first lyric line
-                const firstLineTime = smartLyrics.length > 0 ? smartLyrics[0].time : 3;
-                const targetTime = song.introDuration || firstLineTime;
-                const timeToStart = targetTime - time;
-                if (timeToStart > 0 && timeToStart <= 4) {
-                  setCountdown(Math.ceil(timeToStart));
-                } else {
-                  setCountdown(null);
-                }
+      {/* BOTTOM GRADIENT FOR LYRICS READABILITY */}
+      <div className="absolute bottom-0 inset-x-0 h-[60%] bg-gradient-to-t from-black via-black/70 to-transparent z-10 pointer-events-none" />
 
-                // Auto-loop logic: restart video after last lyric finishes
-                if (smartLyrics.length > 0) {
-                  const lastLyric = smartLyrics[smartLyrics.length - 1];
-                  // If video has played 12 seconds past the final lyric, auto-restart!
-                  if (time > lastLyric.time + 12) {
-                    e.currentTarget.currentTime = 0;
-                    e.currentTarget.play();
-                  }
-                }
-              }}
-              onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
-              onEnded={(e) => {
-                e.currentTarget.currentTime = 0;
-                e.currentTarget.play();
-                setIsPlaying(true);
-              }}
-              className="w-full h-full object-contain bg-black"
-            />
-          ) : (
-            <div id={`youtube-player-${song.id}`} className="pointer-events-none" />
-          )}
-        </motion.div>
-      </div>
-
-      {/* Lyrics Area - Classic 2-line Alternating KTV Style */}
-      <div className="flex-1 w-full flex flex-col items-center justify-center px-2 md:px-4 relative z-10 text-center overflow-hidden min-h-[160px]">
-        {/* Countdown Indicator (3-2-1) */}
+      {/* LYRICS AREA - CLASSIC KTV 2-LINE FULLSCREEN */}
+      <div className="absolute bottom-28 md:bottom-32 inset-x-0 z-20 px-4 md:px-12 flex flex-col items-center pointer-events-none">
+        
+        {/* COUNTDOWN 3-2-1 */}
         <AnimatePresence>
           {countdown !== null && countdown > 0 && countdown < 4 && (
             <motion.div
@@ -351,14 +265,14 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1.2, opacity: 1 }}
               exit={{ scale: 2, opacity: 0 }}
-              className="absolute top-4 flex items-center justify-center"
+              className="absolute -top-32 md:-top-40 flex items-center justify-center"
             >
               <span 
-                className="text-6xl md:text-8xl font-black"
+                className="text-7xl md:text-9xl font-black"
                 style={{ 
                   color: song.color,
                   WebkitTextStroke: "2px white",
-                  textShadow: `0 0 20px ${song.color}`
+                  textShadow: `0 0 30px ${song.color}`
                 }}
               >
                 {countdown}
@@ -367,24 +281,32 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
           )}
         </AnimatePresence>
 
-        <div className="relative w-full max-w-5xl flex flex-col items-center justify-center gap-2 sm:gap-4 md:gap-8 mt-2">
+        {/* 2-LINE LYRICS BLOCK */}
+        <div className="w-full max-w-6xl flex flex-col gap-4 md:gap-8">
           {[
-            { lineIndex: Math.ceil(Math.max(0, currentLineIndex) / 2) * 2 }, // Slot 0: Top Line (Even)
-            { lineIndex: Math.floor(Math.max(0, currentLineIndex) / 2) * 2 + 1 } // Slot 1: Bottom Line (Odd)
+            { lineIndex: Math.ceil(Math.max(0, currentLineIndex) / 2) * 2 }, // TOP LINE (EVEN)
+            { lineIndex: Math.floor(Math.max(0, currentLineIndex) / 2) * 2 + 1 } // BOTTOM LINE (ODD)
           ].map((slot, slotIndex) => {
             const lineData = smartLyrics[slot.lineIndex];
-            if (!lineData) return <div key={slotIndex} className="h-[40px] sm:h-[60px] md:h-[80px] w-full" />; // Spacer for empty slots
+            // Spacer if no line
+            if (!lineData) return <div key={slotIndex} className="h-[48px] md:h-[72px] w-full" />; 
             
             const isActive = currentLineIndex === slot.lineIndex;
             const words = lineData.words ? lineData.words.map(w => w.text) : lineData.text.split(" ");
             const nextLineData = smartLyrics[slot.lineIndex + 1];
 
+            // Adjust layout based on slot
+            const alignmentClass = slotIndex === 0 
+              ? "justify-start md:pr-24" // Line 1: Left
+              : "justify-end md:pl-24";  // Line 2: Right
+
             return (
               <div 
                 key={slot.lineIndex}
-                className={`flex flex-wrap gap-x-2 sm:gap-x-3 gap-y-1 sm:gap-y-2 py-1 w-full transition-all duration-500 ease-in-out ${
-                  slotIndex === 0 ? 'justify-start md:justify-center pr-2 md:pr-10' : 'justify-end md:justify-center pl-2 md:pl-10'
-                } ${isActive ? 'scale-[1.02] sm:scale-105 opacity-100 z-10' : 'scale-100 opacity-40 z-0'}`}
+                className={`flex flex-wrap gap-x-2 md:gap-x-4 gap-y-2 w-full transition-all duration-300 ${alignmentClass} ${
+                  isActive ? "opacity-100 scale-100" : "opacity-50 scale-95"
+                }`}
+                style={{ transformOrigin: slotIndex === 0 ? "left center" : "right center" }}
               >
                 {words.map((word, i) => {
                   let fillPercentage = 0;
@@ -410,23 +332,23 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
                     }
                   }
 
-                  const isLongText = lineData.text.length > 35 || words.length > 7;
+                  // Determine font size
+                  const isLongText = lineData.text.length > 40 || words.length > 8;
                   const textClass = isLongText 
-                    ? "text-xl sm:text-2xl md:text-3xl lg:text-4xl" 
-                    : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl";
+                    ? "text-3xl md:text-5xl lg:text-6xl" 
+                    : "text-4xl md:text-6xl lg:text-7xl";
 
                   return (
                     <span 
                       key={i}
-                      className={`${textClass} font-bold tracking-wide`}
+                      className={`${textClass} font-black tracking-wide leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]`}
                       style={{ 
-                        fontFamily: "Arial, Helvetica, sans-serif",
-                        backgroundImage: `linear-gradient(to right, ${song.color} ${fillPercentage}%, rgba(255,255,255,0.3) ${fillPercentage}%)`,
+                        fontFamily: "var(--font-heading), Arial, sans-serif",
+                        backgroundImage: `linear-gradient(to right, ${song.color} ${fillPercentage}%, white ${fillPercentage}%)`,
                         WebkitBackgroundClip: "text",
                         WebkitTextFillColor: "transparent",
-                        WebkitTextStroke: isActive && fillPercentage > 0 ? "1px white" : "2px rgba(255,255,255,0.2)",
-                        lineHeight: "1.3",
-                        paddingBottom: "2px"
+                        WebkitTextStroke: isActive && fillPercentage > 0 ? "2px white" : "2px black",
+                        paddingBottom: "4px"
                       }}
                     >
                       {word}
@@ -439,31 +361,31 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
         </div>
       </div>
 
-      {/* Footer Controls */}
-      <div className="relative z-20 flex-shrink-0 pt-4 pb-4 flex justify-center items-center gap-10 w-full bg-gradient-to-t from-black via-black to-transparent">
-          <button onClick={() => {
-            setCurrentTime(0);
-            setCountdown(null);
-            if (song.localVideo && videoRef.current) {
-              videoRef.current.currentTime = 0;
-              videoRef.current.play();
-              setIsPlaying(true);
-            } else if (playerRef.current?.seekTo) {
-              playerRef.current.seekTo(0);
-              if (typeof playerRef.current.playVideo === 'function') {
-                playerRef.current.playVideo();
-              }
+      {/* BOTTOM CONTROLS */}
+      <div className="absolute bottom-6 inset-x-0 z-30 flex justify-center items-center gap-10 w-full px-6 pb-[env(safe-area-inset-bottom)]">
+        <button onClick={() => {
+          setCurrentTime(0);
+          setCountdown(null);
+          if (song.localVideo && videoRef.current) {
+            videoRef.current.currentTime = 0;
+            videoRef.current.play();
+            setIsPlaying(true);
+          } else if (playerRef.current?.seekTo) {
+            playerRef.current.seekTo(0);
+            if (typeof playerRef.current.playVideo === 'function') {
+              playerRef.current.playVideo();
             }
-          }} className="w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">
-            <RefreshCcw size={22} />
-          </button>
-          
-          <button 
-            onClick={handleTogglePlay}
-            className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 active:scale-95 transition-all"
-          >
-            {isPlaying ? <Pause size={32} fill="black" /> : <Play size={32} fill="black" className="ml-1" />}
-          </button>
+          }
+        }} className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:bg-white/30 hover:scale-105 transition-all">
+          <RefreshCcw size={24} />
+        </button>
+        
+        <button 
+          onClick={handleTogglePlay}
+          className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105 active:scale-95 transition-all"
+        >
+          {isPlaying ? <Pause size={28} fill="black" /> : <Play size={28} fill="black" className="ml-1" />}
+        </button>
       </div>
     </motion.div>
   );
