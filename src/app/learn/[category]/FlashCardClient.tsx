@@ -142,13 +142,6 @@ export default function FlashCardClient() {
     }
   }, [index]);
 
-  const handleLearn = useCallback(() => {
-    if (!current || isLearned) return;
-    markWordLearned(category, current.en);
-    addStars(1);
-    fire();
-  }, [current, isLearned, category, markWordLearned, addStars, fire]);
-
   // Prevent hydration mismatch
   if (!isMounted) {
     return <div className="min-h-dvh flex flex-col bg-white" />;
@@ -278,7 +271,14 @@ export default function FlashCardClient() {
 
           <motion.button
             whileTap={{ scale: 0.85 }}
-            onClick={() => speak(current.en, "en-US")}
+            onClick={() => {
+              speak(current.en, "en-US");
+              if (!isLearned && current) {
+                markWordLearned(category, current.en);
+                addStars(1);
+                fire();
+              }
+            }}
             className="bubble-btn w-16 h-16 shadow-lg"
             style={{ background: `linear-gradient(135deg, ${cat.color}, ${cat.color}CC)` }}
             id="btn-speak"
@@ -296,15 +296,6 @@ export default function FlashCardClient() {
             id="btn-record"
           >
             <Mic size={30} className="text-white relative z-10" />
-          </motion.button>
-
-          <motion.button
-            whileTap={{ scale: 0.85 }}
-            onClick={handleLearn}
-            className={`bubble-btn w-16 h-16 shadow-lg ${isLearned ? "bg-accent" : "bg-warning"}`}
-            id="btn-learn"
-          >
-            <span className="text-2xl relative z-10">{isLearned ? "✅" : "⭐"}</span>
           </motion.button>
 
           <motion.button

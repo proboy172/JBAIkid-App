@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import BottomNav from "@/components/layout/BottomNav";
-import DailyRewardPopup from "@/components/shared/DailyRewardPopup";
 import Mascot from "@/components/shared/Mascot";
 import { useAppStore } from "@/stores/appStore";
 
@@ -46,9 +45,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-dvh flex flex-col">
-      {/* Daily Reward Popup */}
-      <DailyRewardPopup />
-
       {/* Header */}
       <div className="pt-12 pb-4 px-6 text-center relative z-10">
         {/* Mascot Greeting */}
@@ -73,10 +69,10 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-3xl font-bold mb-1"
+          className="text-4xl font-bold mb-1"
           style={{ fontFamily: "var(--font-heading)", color: "var(--color-primary)" }}
         >
-          Kid
+          JBAIkid
         </motion.h1>
 
         <motion.p
