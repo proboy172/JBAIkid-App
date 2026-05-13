@@ -62,10 +62,26 @@ def main():
         
         for i in range(len(intended_words)):
             if w_idx < len(all_words):
-                duration = all_words[w_idx]["duration"]
+                curr_word = all_words[w_idx]
+                
+                # Calculate duration to perfectly bridge to the next word
+                if i < len(intended_words) - 1 and (w_idx + 1) < len(all_words):
+                    next_word = all_words[w_idx + 1]
+                    duration = next_word["start"] - curr_word["start"]
+                else:
+                    # Last word in the line
+                    duration = curr_word["end"] - curr_word["start"]
+                    
+                    # Bridge to next line if gap is small
+                    if (w_idx + 1) < len(all_words):
+                        next_line_word = all_words[w_idx + 1]
+                        gap = next_line_word["start"] - curr_word["end"]
+                        if 0 < gap < 2:
+                            duration += gap
+                            
                 line["words"].append({
                     "text": intended_words[i],
-                    "duration": duration
+                    "duration": round(duration, 2)
                 })
                 w_idx += 1
             else:
@@ -73,12 +89,6 @@ def main():
                     "text": intended_words[i],
                     "duration": 0.5
                 })
-                
-        # Fix last word duration to bridge gap
-        if len(line["words"]) > 0 and w_idx < len(all_words) and w_idx > 0:
-            gap = all_words[w_idx]["start"] - all_words[w_idx - 1]["end"]
-            if 0 < gap < 2:
-                line["words"][-1]["duration"] = round(line["words"][-1]["duration"] + gap, 2)
 
     # Save back to JSON
     with open(file_path, "w", encoding="utf-8") as f:
