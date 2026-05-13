@@ -21,9 +21,9 @@ export interface Song {
   bpm?: number; // Beats per minute for the song
 }
 
-// Import từ các file đã được nghiên cứu và đồng bộ thủ công
-import { songsEnNew } from "./songs-en";
-import { songsViNew } from "./songs-vi";
+import songsEnData from "./songs-en.json";
+import songsViData from "./songs-vi.json";
 
-export const songsEn: Song[] = songsEnNew;
-export const songsVi: Song[] = songsViNew;
+export const songsEn: Song[] = songsEnData as Song[];
+export const songsVi: Song[] = songsViData as Song[];
+

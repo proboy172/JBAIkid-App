@@ -1,0 +1,6452 @@
+[
+  {
+    "id": "twinkle",
+    "title": "Twinkle Twinkle Little Star",
+    "emoji": "⭐",
+    "color": "#FBBF24",
+    "youtubeId": "yCjJyiqpAuU",
+    "localVideo": "/videos/twinkle.mp4",
+    "lyrics": [
+      {
+        "time": 20.22,
+        "text": "Twinkle, twinkle, little star",
+        "words": [
+          {
+            "text": "Twinkle,",
+            "duration": 1.08
+          },
+          {
+            "text": "twinkle,",
+            "duration": 1.5
+          },
+          {
+            "text": "little",
+            "duration": 0.32
+          },
+          {
+            "text": "star",
+            "duration": 0.92
+          }
+        ]
+      },
+      {
+        "time": 24.58,
+        "text": "How I wonder what you are",
+        "words": [
+          {
+            "text": "How",
+            "duration": 1.28
+          },
+          {
+            "text": "I",
+            "duration": 0.84
+          },
+          {
+            "text": "wonder",
+            "duration": 0.92
+          },
+          {
+            "text": "what",
+            "duration": 0.92
+          },
+          {
+            "text": "you",
+            "duration": 0.82
+          },
+          {
+            "text": "are",
+            "duration": 1.62
+          }
+        ]
+      },
+      {
+        "time": 30.98,
+        "text": "Up above the world so high",
+        "words": [
+          {
+            "text": "Up",
+            "duration": 0.44
+          },
+          {
+            "text": "above",
+            "duration": 1.02
+          },
+          {
+            "text": "the",
+            "duration": 0.66
+          },
+          {
+            "text": "world",
+            "duration": 0.74
+          },
+          {
+            "text": "so",
+            "duration": 0.76
+          },
+          {
+            "text": "high",
+            "duration": 1.22
+          }
+        ]
+      },
+      {
+        "time": 35.98,
+        "text": "Like a diamond in the sky",
+        "words": [
+          {
+            "text": "Like",
+            "duration": 0.8
+          },
+          {
+            "text": "a",
+            "duration": 0.84
+          },
+          {
+            "text": "diamond",
+            "duration": 0.92
+          },
+          {
+            "text": "in",
+            "duration": 1.12
+          },
+          {
+            "text": "the",
+            "duration": 0.52
+          },
+          {
+            "text": "sky",
+            "duration": 1.12
+          }
+        ]
+      },
+      {
+        "time": 41.3,
+        "text": "Twinkle, twinkle, little star",
+        "words": [
+          {
+            "text": "Twinkle,",
+            "duration": 1.9
+          },
+          {
+            "text": "twinkle,",
+            "duration": 0.62
+          },
+          {
+            "text": "little",
+            "duration": 0.1
+          },
+          {
+            "text": "star",
+            "duration": 1.18
+          }
+        ]
+      },
+      {
+        "time": 46.6,
+        "text": "How I wonder what you are",
+        "words": [
+          {
+            "text": "How",
+            "duration": 1.2
+          },
+          {
+            "text": "I",
+            "duration": 0.18
+          },
+          {
+            "text": "wonder",
+            "duration": 0.94
+          },
+          {
+            "text": "what",
+            "duration": 0.84
+          },
+          {
+            "text": "you",
+            "duration": 0.42
+          },
+          {
+            "text": "are",
+            "duration": 0.16
+          }
+        ]
+      },
+      {
+        "time": 85.74,
+        "text": "Twinkle, twinkle, little star",
+        "words": [
+          {
+            "text": "Twinkle,",
+            "duration": 0.46
+          },
+          {
+            "text": "twinkle,",
+            "duration": 1.28
+          },
+          {
+            "text": "little",
+            "duration": 0.76
+          },
+          {
+            "text": "star",
+            "duration": 1.16
+          }
+        ]
+      },
+      {
+        "time": 90.18,
+        "text": "How I wonder what you are",
+        "words": [
+          {
+            "text": "How",
+            "duration": 1.14
+          },
+          {
+            "text": "I",
+            "duration": 0.56
+          },
+          {
+            "text": "wonder",
+            "duration": 0
+          },
+          {
+            "text": "what",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "are",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 92.06,
+        "text": "Up above the world so high",
+        "words": [
+          {
+            "text": "Up",
+            "duration": 0
+          },
+          {
+            "text": "above",
+            "duration": 0
+          },
+          {
+            "text": "the",
+            "duration": 0
+          },
+          {
+            "text": "world",
+            "duration": 0
+          },
+          {
+            "text": "so",
+            "duration": 0
+          },
+          {
+            "text": "high",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 92.06,
+        "text": "Like a diamond in the sky",
+        "words": [
+          {
+            "text": "Like",
+            "duration": 0
+          },
+          {
+            "text": "a",
+            "duration": 0
+          },
+          {
+            "text": "diamond",
+            "duration": 0
+          },
+          {
+            "text": "in",
+            "duration": 0
+          },
+          {
+            "text": "the",
+            "duration": 0
+          },
+          {
+            "text": "sky",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 92.06,
+        "text": "Twinkle, twinkle, little star",
+        "words": [
+          {
+            "text": "Twinkle,",
+            "duration": 0
+          },
+          {
+            "text": "twinkle,",
+            "duration": 0
+          },
+          {
+            "text": "little",
+            "duration": 0
+          },
+          {
+            "text": "star",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 92.06,
+        "text": "How I wonder what you are",
+        "words": [
+          {
+            "text": "How",
+            "duration": 0
+          },
+          {
+            "text": "I",
+            "duration": 0
+          },
+          {
+            "text": "wonder",
+            "duration": 0
+          },
+          {
+            "text": "what",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "are",
+            "duration": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "old-macdonald",
+    "title": "Old MacDonald Had a Farm",
+    "emoji": "🐄",
+    "color": "#34D399",
+    "youtubeId": "_6HzoUcx3eo",
+    "localVideo": "/videos/old-macdonald.mp4",
+    "lyrics": [
+      {
+        "time": 15.24,
+        "text": "Old MacDonald had a farm, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "Old",
+            "duration": 0.02
+          },
+          {
+            "text": "MacDonald",
+            "duration": 0.78
+          },
+          {
+            "text": "had",
+            "duration": 0.54
+          },
+          {
+            "text": "a",
+            "duration": 0.26
+          },
+          {
+            "text": "farm,",
+            "duration": 0.74
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 1.09
+          }
+        ]
+      },
+      {
+        "time": 19.72,
+        "text": "And on his farm he had a cow, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.26
+          },
+          {
+            "text": "on",
+            "duration": 0.26
+          },
+          {
+            "text": "his",
+            "duration": 0.24
+          },
+          {
+            "text": "farm",
+            "duration": 0.42
+          },
+          {
+            "text": "he",
+            "duration": 0.28
+          },
+          {
+            "text": "had",
+            "duration": 0.38
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "cow,",
+            "duration": 0.5
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 1.28
+          }
+        ]
+      },
+      {
+        "time": 24.86,
+        "text": "With a moo-moo here and a moo-moo there",
+        "words": [
+          {
+            "text": "With",
+            "duration": 0
+          },
+          {
+            "text": "a",
+            "duration": 0.1
+          },
+          {
+            "text": "moo-moo",
+            "duration": 0.48
+          },
+          {
+            "text": "here",
+            "duration": 0.3
+          },
+          {
+            "text": "and",
+            "duration": 0.36
+          },
+          {
+            "text": "a",
+            "duration": 0.1
+          },
+          {
+            "text": "moo-moo",
+            "duration": 0.36
+          },
+          {
+            "text": "there",
+            "duration": 0.44
+          }
+        ]
+      },
+      {
+        "time": 27.1,
+        "text": "Here a moo, there a moo, everywhere a moo-moo",
+        "words": [
+          {
+            "text": "Here",
+            "duration": 0.54
+          },
+          {
+            "text": "a",
+            "duration": 0.14
+          },
+          {
+            "text": "moo,",
+            "duration": 0.36
+          },
+          {
+            "text": "there",
+            "duration": 0.14
+          },
+          {
+            "text": "a",
+            "duration": 0.08
+          },
+          {
+            "text": "moo,",
+            "duration": 0.3
+          },
+          {
+            "text": "everywhere",
+            "duration": 0.36
+          },
+          {
+            "text": "a",
+            "duration": 0.22
+          },
+          {
+            "text": "moo-moo",
+            "duration": 0.4
+          }
+        ]
+      },
+      {
+        "time": 29.8,
+        "text": "Old MacDonald had a farm, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "Old",
+            "duration": 0.5
+          },
+          {
+            "text": "MacDonald",
+            "duration": 0.66
+          },
+          {
+            "text": "had",
+            "duration": 0.52
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "farm,",
+            "duration": 0.58
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 2.42
+          }
+        ]
+      },
+      {
+        "time": 39.98,
+        "text": "Old MacDonald had a farm, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "Old",
+            "duration": 0.26
+          },
+          {
+            "text": "MacDonald",
+            "duration": 0.8
+          },
+          {
+            "text": "had",
+            "duration": 0.48
+          },
+          {
+            "text": "a",
+            "duration": 0.32
+          },
+          {
+            "text": "farm,",
+            "duration": 0.74
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 0.75
+          }
+        ]
+      },
+      {
+        "time": 44.76,
+        "text": "And on his farm he had a pig, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.2
+          },
+          {
+            "text": "on",
+            "duration": 0.3
+          },
+          {
+            "text": "his",
+            "duration": 0.26
+          },
+          {
+            "text": "farm",
+            "duration": 0.38
+          },
+          {
+            "text": "he",
+            "duration": 0.28
+          },
+          {
+            "text": "had",
+            "duration": 0.42
+          },
+          {
+            "text": "a",
+            "duration": 0.22
+          },
+          {
+            "text": "pig,",
+            "duration": 0.64
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 1.15
+          }
+        ]
+      },
+      {
+        "time": 49.76,
+        "text": "With an oink-oink here and an oink-oink there",
+        "words": [
+          {
+            "text": "With",
+            "duration": 0.1
+          },
+          {
+            "text": "an",
+            "duration": 0.14
+          },
+          {
+            "text": "oink-oink",
+            "duration": 0.46
+          },
+          {
+            "text": "here",
+            "duration": 0.42
+          },
+          {
+            "text": "and",
+            "duration": 0.85
+          },
+          {
+            "text": "an",
+            "duration": 0.04
+          },
+          {
+            "text": "oink-oink",
+            "duration": 0.64
+          },
+          {
+            "text": "there",
+            "duration": 0.34
+          }
+        ]
+      },
+      {
+        "time": 54.66,
+        "text": "Here an oink, there an oink, everywhere an oink-oink",
+        "words": [
+          {
+            "text": "Here",
+            "duration": 0.58
+          },
+          {
+            "text": "an",
+            "duration": 0
+          },
+          {
+            "text": "oink,",
+            "duration": 0
+          },
+          {
+            "text": "there",
+            "duration": 0
+          },
+          {
+            "text": "an",
+            "duration": 0
+          },
+          {
+            "text": "oink,",
+            "duration": 0
+          },
+          {
+            "text": "everywhere",
+            "duration": 0
+          },
+          {
+            "text": "an",
+            "duration": 0
+          },
+          {
+            "text": "oink-oink",
+            "duration": 0.14
+          }
+        ]
+      },
+      {
+        "time": 55.38,
+        "text": "Old MacDonald had a farm, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "Old",
+            "duration": 0
+          },
+          {
+            "text": "MacDonald",
+            "duration": 0.62
+          },
+          {
+            "text": "had",
+            "duration": 0.52
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "farm,",
+            "duration": 0.75
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 65.26,
+        "text": "Old MacDonald had a farm, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "Old",
+            "duration": 0
+          },
+          {
+            "text": "MacDonald",
+            "duration": 0.78
+          },
+          {
+            "text": "had",
+            "duration": 0.5
+          },
+          {
+            "text": "a",
+            "duration": 0.26
+          },
+          {
+            "text": "farm,",
+            "duration": 0.76
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 0.77
+          }
+        ]
+      },
+      {
+        "time": 69.76,
+        "text": "And on his farm he had a duck, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.18
+          },
+          {
+            "text": "on",
+            "duration": 0.34
+          },
+          {
+            "text": "his",
+            "duration": 0.2
+          },
+          {
+            "text": "farm",
+            "duration": 0.42
+          },
+          {
+            "text": "he",
+            "duration": 0.3
+          },
+          {
+            "text": "had",
+            "duration": 0.38
+          },
+          {
+            "text": "a",
+            "duration": 0.22
+          },
+          {
+            "text": "duck,",
+            "duration": 0.2
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 1.43
+          }
+        ]
+      },
+      {
+        "time": 74.86,
+        "text": "With a quack-quack here and a quack-quack there",
+        "words": [
+          {
+            "text": "With",
+            "duration": 0
+          },
+          {
+            "text": "a",
+            "duration": 0.16
+          },
+          {
+            "text": "quack-quack",
+            "duration": 0.42
+          },
+          {
+            "text": "here",
+            "duration": 0.42
+          },
+          {
+            "text": "and",
+            "duration": 1.4
+          },
+          {
+            "text": "a",
+            "duration": 0.08
+          },
+          {
+            "text": "quack-quack",
+            "duration": 0.56
+          },
+          {
+            "text": "there",
+            "duration": 0.34
+          }
+        ]
+      },
+      {
+        "time": 79.58,
+        "text": "Here a quack, there a quack, everywhere a quack-quack",
+        "words": [
+          {
+            "text": "Here",
+            "duration": 0.6
+          },
+          {
+            "text": "a",
+            "duration": 0.96
+          },
+          {
+            "text": "quack,",
+            "duration": 0.48
+          },
+          {
+            "text": "there",
+            "duration": 0.14
+          },
+          {
+            "text": "a",
+            "duration": 0.48
+          },
+          {
+            "text": "quack,",
+            "duration": 0
+          },
+          {
+            "text": "everywhere",
+            "duration": 0.02
+          },
+          {
+            "text": "a",
+            "duration": 0
+          },
+          {
+            "text": "quack-quack",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 82.62,
+        "text": "Old MacDonald had a farm, E-I-E-I-O!",
+        "words": [
+          {
+            "text": "Old",
+            "duration": 0
+          },
+          {
+            "text": "MacDonald",
+            "duration": 0.82
+          },
+          {
+            "text": "had",
+            "duration": 0.54
+          },
+          {
+            "text": "a",
+            "duration": 0.05
+          },
+          {
+            "text": "farm,",
+            "duration": 1.26
+          },
+          {
+            "text": "E-I-E-I-O!",
+            "duration": 0.52
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "baby-shark",
+    "title": "Baby Shark",
+    "emoji": "🦈",
+    "color": "#38BDF8",
+    "youtubeId": "XqZsoesa55w",
+    "localVideo": "/videos/baby-shark.mp4",
+    "lyrics": [
+      {
+        "time": 0.3,
+        "text": "Baby shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Baby",
+            "duration": 0.2
+          },
+          {
+            "text": "shark,",
+            "duration": 0.78
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.24
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.56
+          },
+          {
+            "text": "doo-doo",
+            "duration": 1.8
+          }
+        ]
+      },
+      {
+        "time": 32.48,
+        "text": "Baby shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Baby",
+            "duration": 0.3
+          },
+          {
+            "text": "shark,",
+            "duration": 0.52
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.34
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.26
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.04
+          }
+        ]
+      },
+      {
+        "time": 34.92,
+        "text": "Baby shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Baby",
+            "duration": 0
+          },
+          {
+            "text": "shark,",
+            "duration": 0.5
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.24
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 36.2,
+        "text": "Baby shark!",
+        "words": [
+          {
+            "text": "Baby",
+            "duration": 0
+          },
+          {
+            "text": "shark!",
+            "duration": 0.3
+          }
+        ]
+      },
+      {
+        "time": 36.5,
+        "text": "Mommy shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Mommy",
+            "duration": 0.38
+          },
+          {
+            "text": "shark,",
+            "duration": 0.62
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.46
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.12
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.12
+          }
+        ]
+      },
+      {
+        "time": 38.88,
+        "text": "Mommy shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Mommy",
+            "duration": 0.22
+          },
+          {
+            "text": "shark,",
+            "duration": 0.55
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.68
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.02
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.24
+          }
+        ]
+      },
+      {
+        "time": 43.18,
+        "text": "Mommy shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Mommy",
+            "duration": 0
+          },
+          {
+            "text": "shark,",
+            "duration": 0.6
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 2.18
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.5
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.62
+          }
+        ]
+      },
+      {
+        "time": 47.58,
+        "text": "Mommy shark!",
+        "words": [
+          {
+            "text": "Mommy",
+            "duration": 0
+          },
+          {
+            "text": "shark!",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 47.58,
+        "text": "Daddy shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Daddy",
+            "duration": 0
+          },
+          {
+            "text": "shark,",
+            "duration": 0.3
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.26
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.78
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 49.64,
+        "text": "Daddy shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Daddy",
+            "duration": 0
+          },
+          {
+            "text": "shark,",
+            "duration": 0.34
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.14
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.18
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 51.62,
+        "text": "Daddy shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Daddy",
+            "duration": 0
+          },
+          {
+            "text": "shark,",
+            "duration": 0.45
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.16
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 52.92,
+        "text": "Daddy shark!",
+        "words": [
+          {
+            "text": "Daddy",
+            "duration": 0
+          },
+          {
+            "text": "shark!",
+            "duration": 0.06
+          }
+        ]
+      },
+      {
+        "time": 52.98,
+        "text": "Grandma shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Grandma",
+            "duration": 0.26
+          },
+          {
+            "text": "shark,",
+            "duration": 0.92
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.64
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.5
+          },
+          {
+            "text": "doo-doo",
+            "duration": 1.31
+          }
+        ]
+      },
+      {
+        "time": 57.82,
+        "text": "Grandma shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Grandma",
+            "duration": 0.2
+          },
+          {
+            "text": "shark,",
+            "duration": 0.42
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.46
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.54
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.14
+          }
+        ]
+      },
+      {
+        "time": 60,
+        "text": "Grandma shark, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Grandma",
+            "duration": 0
+          },
+          {
+            "text": "shark,",
+            "duration": 0.35
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 1.08
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.3
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.18
+          }
+        ]
+      },
+      {
+        "time": 65.96,
+        "text": "Grandma shark!",
+        "words": [
+          {
+            "text": "Grandma",
+            "duration": 0.22
+          },
+          {
+            "text": "shark!",
+            "duration": 2.92
+          }
+        ]
+      },
+      {
+        "time": 69.76,
+        "text": "Let's go hunt, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Let's",
+            "duration": 0.42
+          },
+          {
+            "text": "go",
+            "duration": 0.32
+          },
+          {
+            "text": "hunt,",
+            "duration": 0.56
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.18
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 1.8
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.14
+          }
+        ]
+      },
+      {
+        "time": 74.34,
+        "text": "Let's go hunt, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Let's",
+            "duration": 0.3
+          },
+          {
+            "text": "go",
+            "duration": 0.16
+          },
+          {
+            "text": "hunt,",
+            "duration": 0.28
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.4
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.08
+          }
+        ]
+      },
+      {
+        "time": 76.58,
+        "text": "Let's go hunt, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Let's",
+            "duration": 0.16
+          },
+          {
+            "text": "go",
+            "duration": 0.14
+          },
+          {
+            "text": "hunt,",
+            "duration": 0.3
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 78,
+        "text": "Let's go hunt!",
+        "words": [
+          {
+            "text": "Let's",
+            "duration": 0
+          },
+          {
+            "text": "go",
+            "duration": 0
+          },
+          {
+            "text": "hunt!",
+            "duration": 0.28
+          }
+        ]
+      },
+      {
+        "time": 78.28,
+        "text": "Run away! Doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Run",
+            "duration": 0.02
+          },
+          {
+            "text": "away!",
+            "duration": 1.2
+          },
+          {
+            "text": "Doo-doo,",
+            "duration": 0.72
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.1
+          },
+          {
+            "text": "doo-doo",
+            "duration": 1.66
+          }
+        ]
+      },
+      {
+        "time": 82.38,
+        "text": "Run away! Doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Run",
+            "duration": 0.16
+          },
+          {
+            "text": "away!",
+            "duration": 2.84
+          },
+          {
+            "text": "Doo-doo,",
+            "duration": 0.1
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.24
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.3
+          }
+        ]
+      },
+      {
+        "time": 92.24,
+        "text": "Run away! Doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Run",
+            "duration": 0.36
+          },
+          {
+            "text": "away!",
+            "duration": 0
+          },
+          {
+            "text": "Doo-doo,",
+            "duration": 0
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.08
+          }
+        ]
+      },
+      {
+        "time": 92.68,
+        "text": "Run away!",
+        "words": [
+          {
+            "text": "Run",
+            "duration": 0
+          },
+          {
+            "text": "away!",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 92.68,
+        "text": "Safe at last, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Safe",
+            "duration": 0
+          },
+          {
+            "text": "at",
+            "duration": 0.28
+          },
+          {
+            "text": "last,",
+            "duration": 0.2
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.52
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.36
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0.16
+          }
+        ]
+      },
+      {
+        "time": 94.54,
+        "text": "Safe at last, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Safe",
+            "duration": 0.12
+          },
+          {
+            "text": "at",
+            "duration": 0.32
+          },
+          {
+            "text": "last,",
+            "duration": 0.26
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.08
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0
+          },
+          {
+            "text": "doo-doo",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 95.32,
+        "text": "Safe at last, doo-doo, doo-doo, doo-doo",
+        "words": [
+          {
+            "text": "Safe",
+            "duration": 0
+          },
+          {
+            "text": "at",
+            "duration": 0
+          },
+          {
+            "text": "last,",
+            "duration": 0.42
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.84
+          },
+          {
+            "text": "doo-doo,",
+            "duration": 0.26
+          },
+          {
+            "text": "doo-doo",
+            "duration": 2.6
+          }
+        ]
+      },
+      {
+        "time": 100.78,
+        "text": "Safe at last!",
+        "words": [
+          {
+            "text": "Safe",
+            "duration": 0.2
+          },
+          {
+            "text": "at",
+            "duration": 1.24
+          },
+          {
+            "text": "last!",
+            "duration": 0.6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "wheels-on-bus",
+    "title": "Wheels On The Bus",
+    "emoji": "🚌",
+    "color": "#FB923C",
+    "youtubeId": "yKcRU0gmdt4",
+    "localVideo": "/videos/wheels-on-bus.mp4",
+    "lyrics": [
+      {
+        "time": 27.86,
+        "text": "The wheels on the bus go round and round",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0
+          },
+          {
+            "text": "wheels",
+            "duration": 0.62
+          },
+          {
+            "text": "on",
+            "duration": 0.34
+          },
+          {
+            "text": "the",
+            "duration": 0.18
+          },
+          {
+            "text": "bus",
+            "duration": 0.26
+          },
+          {
+            "text": "go",
+            "duration": 0.5
+          },
+          {
+            "text": "round",
+            "duration": 0.58
+          },
+          {
+            "text": "and",
+            "duration": 0.42
+          },
+          {
+            "text": "round",
+            "duration": 0.6
+          }
+        ]
+      },
+      {
+        "time": 31.36,
+        "text": "Round and round, round and round",
+        "words": [
+          {
+            "text": "Round",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.5
+          },
+          {
+            "text": "round,",
+            "duration": 0.84
+          },
+          {
+            "text": "round",
+            "duration": 0
+          },
+          {
+            "text": "and",
+            "duration": 0.44
+          },
+          {
+            "text": "round",
+            "duration": 0.54
+          }
+        ]
+      },
+      {
+        "time": 35.12,
+        "text": "The wheels on the bus go round and round",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0.4
+          },
+          {
+            "text": "wheels",
+            "duration": 0.6
+          },
+          {
+            "text": "on",
+            "duration": 0.34
+          },
+          {
+            "text": "the",
+            "duration": 0.2
+          },
+          {
+            "text": "bus",
+            "duration": 0.28
+          },
+          {
+            "text": "go",
+            "duration": 0.52
+          },
+          {
+            "text": "round",
+            "duration": 0.62
+          },
+          {
+            "text": "and",
+            "duration": 0.36
+          },
+          {
+            "text": "round",
+            "duration": 0.86
+          }
+        ]
+      },
+      {
+        "time": 39.3,
+        "text": "All through the town!",
+        "words": [
+          {
+            "text": "All",
+            "duration": 0.64
+          },
+          {
+            "text": "through",
+            "duration": 0.8
+          },
+          {
+            "text": "the",
+            "duration": 0.72
+          },
+          {
+            "text": "town!",
+            "duration": 1.84
+          }
+        ]
+      },
+      {
+        "time": 43.3,
+        "text": "The doors on the bus go open and shut",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0
+          },
+          {
+            "text": "doors",
+            "duration": 0.54
+          },
+          {
+            "text": "on",
+            "duration": 0.3
+          },
+          {
+            "text": "the",
+            "duration": 0.22
+          },
+          {
+            "text": "bus",
+            "duration": 0.32
+          },
+          {
+            "text": "go",
+            "duration": 0.48
+          },
+          {
+            "text": "open",
+            "duration": 0.68
+          },
+          {
+            "text": "and",
+            "duration": 0.34
+          },
+          {
+            "text": "shut",
+            "duration": 0.32
+          }
+        ]
+      },
+      {
+        "time": 46.5,
+        "text": "Open and shut, open and shut",
+        "words": [
+          {
+            "text": "Open",
+            "duration": 1.1
+          },
+          {
+            "text": "and",
+            "duration": 0.42
+          },
+          {
+            "text": "shut,",
+            "duration": 0.4
+          },
+          {
+            "text": "open",
+            "duration": 0.42
+          },
+          {
+            "text": "and",
+            "duration": 0.48
+          },
+          {
+            "text": "shut",
+            "duration": 0.52
+          }
+        ]
+      },
+      {
+        "time": 50.5,
+        "text": "The doors on the bus go open and shut",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0.38
+          },
+          {
+            "text": "doors",
+            "duration": 0.7
+          },
+          {
+            "text": "on",
+            "duration": 0.24
+          },
+          {
+            "text": "the",
+            "duration": 0.2
+          },
+          {
+            "text": "bus",
+            "duration": 0.32
+          },
+          {
+            "text": "go",
+            "duration": 0.48
+          },
+          {
+            "text": "open",
+            "duration": 0.68
+          },
+          {
+            "text": "and",
+            "duration": 0.42
+          },
+          {
+            "text": "shut",
+            "duration": 0.26
+          }
+        ]
+      },
+      {
+        "time": 54.18,
+        "text": "All through the town!",
+        "words": [
+          {
+            "text": "All",
+            "duration": 1.12
+          },
+          {
+            "text": "through",
+            "duration": 0.82
+          },
+          {
+            "text": "the",
+            "duration": 0.7
+          },
+          {
+            "text": "town!",
+            "duration": 1.82
+          }
+        ]
+      },
+      {
+        "time": 58.64,
+        "text": "The wipers on the bus go swish, swish, swish",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0
+          },
+          {
+            "text": "wipers",
+            "duration": 0.64
+          },
+          {
+            "text": "on",
+            "duration": 0.2
+          },
+          {
+            "text": "the",
+            "duration": 0.22
+          },
+          {
+            "text": "bus",
+            "duration": 0.26
+          },
+          {
+            "text": "go",
+            "duration": 0.5
+          },
+          {
+            "text": "swish,",
+            "duration": 0.76
+          },
+          {
+            "text": "swish,",
+            "duration": 0.3
+          },
+          {
+            "text": "swish",
+            "duration": 0.35
+          }
+        ]
+      },
+      {
+        "time": 62.98,
+        "text": "Swish, swish, swish, swish, swish, swish",
+        "words": [
+          {
+            "text": "Swish,",
+            "duration": 0.04
+          },
+          {
+            "text": "swish,",
+            "duration": 0.14
+          },
+          {
+            "text": "swish,",
+            "duration": 0.52
+          },
+          {
+            "text": "swish,",
+            "duration": 0.16
+          },
+          {
+            "text": "swish,",
+            "duration": 0
+          },
+          {
+            "text": "swish",
+            "duration": 0.18
+          }
+        ]
+      },
+      {
+        "time": 65.82,
+        "text": "The wipers on the bus go swish, swish, swish",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0.4
+          },
+          {
+            "text": "wipers",
+            "duration": 0.72
+          },
+          {
+            "text": "on",
+            "duration": 0.22
+          },
+          {
+            "text": "the",
+            "duration": 0.22
+          },
+          {
+            "text": "bus",
+            "duration": 0.28
+          },
+          {
+            "text": "go",
+            "duration": 0.48
+          },
+          {
+            "text": "swish,",
+            "duration": 0.84
+          },
+          {
+            "text": "swish,",
+            "duration": 0.36
+          },
+          {
+            "text": "swish",
+            "duration": 0.8
+          }
+        ]
+      },
+      {
+        "time": 70.28,
+        "text": "All through the town!",
+        "words": [
+          {
+            "text": "All",
+            "duration": 0.3
+          },
+          {
+            "text": "through",
+            "duration": 0.88
+          },
+          {
+            "text": "the",
+            "duration": 0.7
+          },
+          {
+            "text": "town!",
+            "duration": 1.56
+          }
+        ]
+      },
+      {
+        "time": 73.72,
+        "text": "The horn on the bus goes beep, beep, beep",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0.26
+          },
+          {
+            "text": "horn",
+            "duration": 0.44
+          },
+          {
+            "text": "on",
+            "duration": 0.3
+          },
+          {
+            "text": "the",
+            "duration": 0.32
+          },
+          {
+            "text": "bus",
+            "duration": 0.32
+          },
+          {
+            "text": "goes",
+            "duration": 0.5
+          },
+          {
+            "text": "beep,",
+            "duration": 1.25
+          },
+          {
+            "text": "beep,",
+            "duration": 0.48
+          },
+          {
+            "text": "beep",
+            "duration": 0.32
+          }
+        ]
+      },
+      {
+        "time": 78.18,
+        "text": "Beep, beep, beep, beep, beep, beep",
+        "words": [
+          {
+            "text": "Beep,",
+            "duration": 2.36
+          },
+          {
+            "text": "beep,",
+            "duration": 0
+          },
+          {
+            "text": "beep,",
+            "duration": 0
+          },
+          {
+            "text": "beep,",
+            "duration": 0
+          },
+          {
+            "text": "beep,",
+            "duration": 0
+          },
+          {
+            "text": "beep",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 81.1,
+        "text": "The horn on the bus goes beep, beep, beep",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0.48
+          },
+          {
+            "text": "horn",
+            "duration": 0.52
+          },
+          {
+            "text": "on",
+            "duration": 0.42
+          },
+          {
+            "text": "the",
+            "duration": 0.22
+          },
+          {
+            "text": "bus",
+            "duration": 0.2
+          },
+          {
+            "text": "goes",
+            "duration": 2.94
+          },
+          {
+            "text": "beep,",
+            "duration": 1.54
+          },
+          {
+            "text": "beep,",
+            "duration": 0
+          },
+          {
+            "text": "beep",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 98.96,
+        "text": "All through the town!",
+        "words": [
+          {
+            "text": "All",
+            "duration": 2.42
+          },
+          {
+            "text": "through",
+            "duration": 0.84
+          },
+          {
+            "text": "the",
+            "duration": 0.68
+          },
+          {
+            "text": "town!",
+            "duration": 1.05
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "head-shoulders",
+    "title": "Head, Shoulders, Knees & Toes",
+    "emoji": "🧒",
+    "color": "#C084FC",
+    "youtubeId": "WX8HmogNyCY",
+    "localVideo": "/videos/head-shoulders.mp4",
+    "lyrics": [
+      {
+        "time": 9.9,
+        "text": "Head, shoulders, knees and toes",
+        "words": [
+          {
+            "text": "Head,",
+            "duration": 0.24
+          },
+          {
+            "text": "shoulders,",
+            "duration": 0.1
+          },
+          {
+            "text": "knees",
+            "duration": 0.14
+          },
+          {
+            "text": "and",
+            "duration": 0.28
+          },
+          {
+            "text": "toes",
+            "duration": 0.36
+          }
+        ]
+      },
+      {
+        "time": 12.3,
+        "text": "Knees and toes",
+        "words": [
+          {
+            "text": "Knees",
+            "duration": 0.62
+          },
+          {
+            "text": "and",
+            "duration": 0.2
+          },
+          {
+            "text": "toes",
+            "duration": 0.48
+          }
+        ]
+      },
+      {
+        "time": 13.6,
+        "text": "Head, shoulders, knees and toes",
+        "words": [
+          {
+            "text": "Head,",
+            "duration": 0.9
+          },
+          {
+            "text": "shoulders,",
+            "duration": 0.62
+          },
+          {
+            "text": "knees",
+            "duration": 0.02
+          },
+          {
+            "text": "and",
+            "duration": 0.3
+          },
+          {
+            "text": "toes",
+            "duration": 0.44
+          }
+        ]
+      },
+      {
+        "time": 17.2,
+        "text": "Knees and toes",
+        "words": [
+          {
+            "text": "Knees",
+            "duration": 0.54
+          },
+          {
+            "text": "and",
+            "duration": 0.22
+          },
+          {
+            "text": "toes",
+            "duration": 0.58
+          }
+        ]
+      },
+      {
+        "time": 18.54,
+        "text": "And eyes, and ears, and mouth, and nose",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.44
+          },
+          {
+            "text": "eyes,",
+            "duration": 0.96
+          },
+          {
+            "text": "and",
+            "duration": 0.22
+          },
+          {
+            "text": "ears,",
+            "duration": 0.74
+          },
+          {
+            "text": "and",
+            "duration": 0.2
+          },
+          {
+            "text": "mouth,",
+            "duration": 0.92
+          },
+          {
+            "text": "and",
+            "duration": 0.14
+          },
+          {
+            "text": "nose",
+            "duration": 0.44
+          }
+        ]
+      },
+      {
+        "time": 23.18,
+        "text": "Head, shoulders, knees and toes",
+        "words": [
+          {
+            "text": "Head,",
+            "duration": 1.1
+          },
+          {
+            "text": "shoulders,",
+            "duration": 0.9
+          },
+          {
+            "text": "knees",
+            "duration": 0.12
+          },
+          {
+            "text": "and",
+            "duration": 0.3
+          },
+          {
+            "text": "toes",
+            "duration": 0.4
+          }
+        ]
+      },
+      {
+        "time": 26.76,
+        "text": "Knees and toes!",
+        "words": [
+          {
+            "text": "Knees",
+            "duration": 0.6
+          },
+          {
+            "text": "and",
+            "duration": 0.2
+          },
+          {
+            "text": "toes!",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 31.46,
+        "text": "Head, shoulders, knees and toes",
+        "words": [
+          {
+            "text": "Head,",
+            "duration": 2.44
+          },
+          {
+            "text": "shoulders,",
+            "duration": 0.78
+          },
+          {
+            "text": "knees",
+            "duration": 0
+          },
+          {
+            "text": "and",
+            "duration": 0.3
+          },
+          {
+            "text": "toes",
+            "duration": 0.34
+          }
+        ]
+      },
+      {
+        "time": 35.7,
+        "text": "Knees and toes",
+        "words": [
+          {
+            "text": "Knees",
+            "duration": 0.5
+          },
+          {
+            "text": "and",
+            "duration": 0.22
+          },
+          {
+            "text": "toes",
+            "duration": 0.36
+          }
+        ]
+      },
+      {
+        "time": 36.78,
+        "text": "Head, shoulders, knees and toes",
+        "words": [
+          {
+            "text": "Head,",
+            "duration": 0.85
+          },
+          {
+            "text": "shoulders,",
+            "duration": 0.04
+          },
+          {
+            "text": "knees",
+            "duration": 0.06
+          },
+          {
+            "text": "and",
+            "duration": 0.26
+          },
+          {
+            "text": "toes",
+            "duration": 0.4
+          }
+        ]
+      },
+      {
+        "time": 39.98,
+        "text": "Knees and toes",
+        "words": [
+          {
+            "text": "Knees",
+            "duration": 0.54
+          },
+          {
+            "text": "and",
+            "duration": 0.12
+          },
+          {
+            "text": "toes",
+            "duration": 0.52
+          }
+        ]
+      },
+      {
+        "time": 41.16,
+        "text": "And eyes, and ears, and mouth, and nose",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.42
+          },
+          {
+            "text": "eyes,",
+            "duration": 0.96
+          },
+          {
+            "text": "and",
+            "duration": 0
+          },
+          {
+            "text": "ears,",
+            "duration": 0.78
+          },
+          {
+            "text": "and",
+            "duration": 0.18
+          },
+          {
+            "text": "mouth,",
+            "duration": 0.48
+          },
+          {
+            "text": "and",
+            "duration": 0.72
+          },
+          {
+            "text": "nose",
+            "duration": 0.4
+          }
+        ]
+      },
+      {
+        "time": 45.38,
+        "text": "Head, shoulders, knees and toes",
+        "words": [
+          {
+            "text": "Head,",
+            "duration": 1.2
+          },
+          {
+            "text": "shoulders,",
+            "duration": 0.72
+          },
+          {
+            "text": "knees",
+            "duration": 0.02
+          },
+          {
+            "text": "and",
+            "duration": 0.3
+          },
+          {
+            "text": "toes",
+            "duration": 0.42
+          }
+        ]
+      },
+      {
+        "time": 48.58,
+        "text": "Knees and toes!",
+        "words": [
+          {
+            "text": "Knees",
+            "duration": 0.44
+          },
+          {
+            "text": "and",
+            "duration": 0.2
+          },
+          {
+            "text": "toes!",
+            "duration": 0.98
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "itsy-bitsy-spider",
+    "title": "Itsy Bitsy Spider",
+    "emoji": "🕷️",
+    "color": "#60A5FA",
+    "youtubeId": "TbKI-jjpPx8",
+    "localVideo": "/videos/itsy-bitsy-spider.mp4",
+    "lyrics": [
+      {
+        "time": 13.82,
+        "text": "The itsy bitsy spider climbed up the waterspout",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0.24
+          },
+          {
+            "text": "itsy",
+            "duration": 0.86
+          },
+          {
+            "text": "bitsy",
+            "duration": 0.68
+          },
+          {
+            "text": "spider",
+            "duration": 0.7
+          },
+          {
+            "text": "climbed",
+            "duration": 0.94
+          },
+          {
+            "text": "up",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.44
+          },
+          {
+            "text": "waterspout",
+            "duration": 2.52
+          }
+        ]
+      },
+      {
+        "time": 20.6,
+        "text": "Down came the rain and washed the spider out",
+        "words": [
+          {
+            "text": "Down",
+            "duration": 0.36
+          },
+          {
+            "text": "came",
+            "duration": 0.68
+          },
+          {
+            "text": "the",
+            "duration": 0.46
+          },
+          {
+            "text": "rain",
+            "duration": 0.42
+          },
+          {
+            "text": "and",
+            "duration": 0.8
+          },
+          {
+            "text": "washed",
+            "duration": 0.94
+          },
+          {
+            "text": "the",
+            "duration": 0.28
+          },
+          {
+            "text": "spider",
+            "duration": 0.68
+          },
+          {
+            "text": "out",
+            "duration": 1.84
+          }
+        ]
+      },
+      {
+        "time": 27.06,
+        "text": "Out came the sun and dried up all the rain",
+        "words": [
+          {
+            "text": "Out",
+            "duration": 0.26
+          },
+          {
+            "text": "came",
+            "duration": 0.66
+          },
+          {
+            "text": "the",
+            "duration": 0.56
+          },
+          {
+            "text": "sun",
+            "duration": 0.68
+          },
+          {
+            "text": "and",
+            "duration": 0.7
+          },
+          {
+            "text": "dried",
+            "duration": 0.34
+          },
+          {
+            "text": "up",
+            "duration": 0.5
+          },
+          {
+            "text": "all",
+            "duration": 0.5
+          },
+          {
+            "text": "the",
+            "duration": 0.32
+          },
+          {
+            "text": "rain",
+            "duration": 0.94
+          }
+        ]
+      },
+      {
+        "time": 32.86,
+        "text": "And the itsy bitsy spider climbed up the spout again",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.18
+          },
+          {
+            "text": "the",
+            "duration": 0.52
+          },
+          {
+            "text": "itsy",
+            "duration": 0.86
+          },
+          {
+            "text": "bitsy",
+            "duration": 0.76
+          },
+          {
+            "text": "spider",
+            "duration": 0.9
+          },
+          {
+            "text": "climbed",
+            "duration": 0.86
+          },
+          {
+            "text": "up",
+            "duration": 0.52
+          },
+          {
+            "text": "the",
+            "duration": 0.38
+          },
+          {
+            "text": "spout",
+            "duration": 0.66
+          },
+          {
+            "text": "again",
+            "duration": 2.24
+          }
+        ]
+      },
+      {
+        "time": 40.74,
+        "text": "The itsy bitsy spider climbed up the waterspout",
+        "words": [
+          {
+            "text": "The",
+            "duration": 1.82
+          },
+          {
+            "text": "itsy",
+            "duration": 1.12
+          },
+          {
+            "text": "bitsy",
+            "duration": 0.58
+          },
+          {
+            "text": "spider",
+            "duration": 1.16
+          },
+          {
+            "text": "climbed",
+            "duration": 1.42
+          },
+          {
+            "text": "up",
+            "duration": 0.34
+          },
+          {
+            "text": "the",
+            "duration": 0.36
+          },
+          {
+            "text": "waterspout",
+            "duration": 1.74
+          }
+        ]
+      },
+      {
+        "time": 56.94,
+        "text": "Down came the rain and washed the spider out",
+        "words": [
+          {
+            "text": "Down",
+            "duration": 0.78
+          },
+          {
+            "text": "came",
+            "duration": 0.6
+          },
+          {
+            "text": "the",
+            "duration": 0.38
+          },
+          {
+            "text": "rain",
+            "duration": 0.54
+          },
+          {
+            "text": "and",
+            "duration": 0.56
+          },
+          {
+            "text": "washed",
+            "duration": 0.64
+          },
+          {
+            "text": "the",
+            "duration": 0.28
+          },
+          {
+            "text": "spider",
+            "duration": 0.66
+          },
+          {
+            "text": "out",
+            "duration": 0.76
+          }
+        ]
+      },
+      {
+        "time": 62.14,
+        "text": "Out came the sun and dried up all the rain",
+        "words": [
+          {
+            "text": "Out",
+            "duration": 1.18
+          },
+          {
+            "text": "came",
+            "duration": 0.5
+          },
+          {
+            "text": "the",
+            "duration": 0.4
+          },
+          {
+            "text": "sun",
+            "duration": 0.64
+          },
+          {
+            "text": "and",
+            "duration": 0.72
+          },
+          {
+            "text": "dried",
+            "duration": 0.48
+          },
+          {
+            "text": "up",
+            "duration": 0.38
+          },
+          {
+            "text": "all",
+            "duration": 0.28
+          },
+          {
+            "text": "the",
+            "duration": 0.26
+          },
+          {
+            "text": "rain",
+            "duration": 0.42
+          }
+        ]
+      },
+      {
+        "time": 67.52,
+        "text": "And the itsy bitsy spider climbed up the spout again",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.52
+          },
+          {
+            "text": "the",
+            "duration": 0.44
+          },
+          {
+            "text": "itsy",
+            "duration": 0.78
+          },
+          {
+            "text": "bitsy",
+            "duration": 0.64
+          },
+          {
+            "text": "spider",
+            "duration": 0
+          },
+          {
+            "text": "climbed",
+            "duration": 0
+          },
+          {
+            "text": "up",
+            "duration": 0
+          },
+          {
+            "text": "the",
+            "duration": 0
+          },
+          {
+            "text": "spout",
+            "duration": 0
+          },
+          {
+            "text": "again",
+            "duration": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "five-little-monkeys",
+    "title": "Five Little Monkeys",
+    "emoji": "🐒",
+    "color": "#F472B6",
+    "youtubeId": "b0NHrFNZWh0",
+    "localVideo": "/videos/five-little-monkeys.mp4",
+    "lyrics": [
+      {
+        "time": 12.7,
+        "text": "Five little monkeys jumping on the bed",
+        "words": [
+          {
+            "text": "Five",
+            "duration": 0.56
+          },
+          {
+            "text": "little",
+            "duration": 0.64
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.66
+          },
+          {
+            "text": "jumping",
+            "duration": 0.82
+          },
+          {
+            "text": "on",
+            "duration": 0.42
+          },
+          {
+            "text": "the",
+            "duration": 0.2
+          },
+          {
+            "text": "bed",
+            "duration": 0.34
+          }
+        ]
+      },
+      {
+        "time": 16.34,
+        "text": "One fell off and bumped his head",
+        "words": [
+          {
+            "text": "One",
+            "duration": 1.02
+          },
+          {
+            "text": "fell",
+            "duration": 0.4
+          },
+          {
+            "text": "off",
+            "duration": 0.84
+          },
+          {
+            "text": "and",
+            "duration": 0.36
+          },
+          {
+            "text": "bumped",
+            "duration": 0.46
+          },
+          {
+            "text": "his",
+            "duration": 0.58
+          },
+          {
+            "text": "head",
+            "duration": 0.46
+          }
+        ]
+      },
+      {
+        "time": 20.46,
+        "text": "Mama called the doctor and the doctor said",
+        "words": [
+          {
+            "text": "Mama",
+            "duration": 0.72
+          },
+          {
+            "text": "called",
+            "duration": 0.5
+          },
+          {
+            "text": "the",
+            "duration": 0.28
+          },
+          {
+            "text": "doctor",
+            "duration": 0.42
+          },
+          {
+            "text": "and",
+            "duration": 0.46
+          },
+          {
+            "text": "the",
+            "duration": 0.18
+          },
+          {
+            "text": "doctor",
+            "duration": 0.6
+          },
+          {
+            "text": "said",
+            "duration": 1.32
+          }
+        ]
+      },
+      {
+        "time": 24.94,
+        "text": "No more monkeys jumping on the bed!",
+        "words": [
+          {
+            "text": "No",
+            "duration": 0.34
+          },
+          {
+            "text": "more",
+            "duration": 0.66
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.66
+          },
+          {
+            "text": "jumping",
+            "duration": 0.8
+          },
+          {
+            "text": "on",
+            "duration": 0.3
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "bed!",
+            "duration": 1.16
+          }
+        ]
+      },
+      {
+        "time": 31.66,
+        "text": "Four little monkeys jumping on the bed",
+        "words": [
+          {
+            "text": "Four",
+            "duration": 1.6
+          },
+          {
+            "text": "little",
+            "duration": 0.64
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.68
+          },
+          {
+            "text": "jumping",
+            "duration": 0.84
+          },
+          {
+            "text": "on",
+            "duration": 0.34
+          },
+          {
+            "text": "the",
+            "duration": 0.22
+          },
+          {
+            "text": "bed",
+            "duration": 0.56
+          }
+        ]
+      },
+      {
+        "time": 36.54,
+        "text": "One fell off and bumped his head",
+        "words": [
+          {
+            "text": "One",
+            "duration": 0.76
+          },
+          {
+            "text": "fell",
+            "duration": 0.56
+          },
+          {
+            "text": "off",
+            "duration": 0.58
+          },
+          {
+            "text": "and",
+            "duration": 0.46
+          },
+          {
+            "text": "bumped",
+            "duration": 0.42
+          },
+          {
+            "text": "his",
+            "duration": 0.62
+          },
+          {
+            "text": "head",
+            "duration": 0.64
+          }
+        ]
+      },
+      {
+        "time": 40.58,
+        "text": "Mama called the doctor and the doctor said",
+        "words": [
+          {
+            "text": "Mama",
+            "duration": 0.6
+          },
+          {
+            "text": "called",
+            "duration": 0.54
+          },
+          {
+            "text": "the",
+            "duration": 0.16
+          },
+          {
+            "text": "doctor",
+            "duration": 0.36
+          },
+          {
+            "text": "and",
+            "duration": 0.44
+          },
+          {
+            "text": "the",
+            "duration": 0.16
+          },
+          {
+            "text": "doctor",
+            "duration": 0.46
+          },
+          {
+            "text": "said",
+            "duration": 1.48
+          }
+        ]
+      },
+      {
+        "time": 44.92,
+        "text": "No more monkeys jumping on the bed!",
+        "words": [
+          {
+            "text": "No",
+            "duration": 0.38
+          },
+          {
+            "text": "more",
+            "duration": 0.6
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.7
+          },
+          {
+            "text": "jumping",
+            "duration": 0.78
+          },
+          {
+            "text": "on",
+            "duration": 0.32
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "bed!",
+            "duration": 1.5
+          }
+        ]
+      },
+      {
+        "time": 57.24,
+        "text": "Three little monkeys jumping on the bed",
+        "words": [
+          {
+            "text": "Three",
+            "duration": 0
+          },
+          {
+            "text": "little",
+            "duration": 0.72
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.6
+          },
+          {
+            "text": "jumping",
+            "duration": 0.82
+          },
+          {
+            "text": "on",
+            "duration": 0.38
+          },
+          {
+            "text": "the",
+            "duration": 0.22
+          },
+          {
+            "text": "bed",
+            "duration": 0.4
+          }
+        ]
+      },
+      {
+        "time": 60.38,
+        "text": "One fell off and bumped his head",
+        "words": [
+          {
+            "text": "One",
+            "duration": 0.9
+          },
+          {
+            "text": "fell",
+            "duration": 0.46
+          },
+          {
+            "text": "off",
+            "duration": 0.78
+          },
+          {
+            "text": "and",
+            "duration": 0.48
+          },
+          {
+            "text": "bumped",
+            "duration": 0.44
+          },
+          {
+            "text": "his",
+            "duration": 0.68
+          },
+          {
+            "text": "head",
+            "duration": 0.64
+          }
+        ]
+      },
+      {
+        "time": 64.76,
+        "text": "Mama called the doctor and the doctor said",
+        "words": [
+          {
+            "text": "Mama",
+            "duration": 0.5
+          },
+          {
+            "text": "called",
+            "duration": 0.52
+          },
+          {
+            "text": "the",
+            "duration": 0.32
+          },
+          {
+            "text": "doctor",
+            "duration": 0.36
+          },
+          {
+            "text": "and",
+            "duration": 0.48
+          },
+          {
+            "text": "the",
+            "duration": 0.16
+          },
+          {
+            "text": "doctor",
+            "duration": 0.62
+          },
+          {
+            "text": "said",
+            "duration": 1.22
+          }
+        ]
+      },
+      {
+        "time": 68.94,
+        "text": "No more monkeys jumping on the bed!",
+        "words": [
+          {
+            "text": "No",
+            "duration": 0.44
+          },
+          {
+            "text": "more",
+            "duration": 0.62
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.7
+          },
+          {
+            "text": "jumping",
+            "duration": 0.76
+          },
+          {
+            "text": "on",
+            "duration": 0.32
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "bed!",
+            "duration": 1.1
+          }
+        ]
+      },
+      {
+        "time": 77.4,
+        "text": "Two little monkeys jumping on the bed",
+        "words": [
+          {
+            "text": "Two",
+            "duration": 0
+          },
+          {
+            "text": "little",
+            "duration": 0.7
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.62
+          },
+          {
+            "text": "jumping",
+            "duration": 0.76
+          },
+          {
+            "text": "on",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.18
+          },
+          {
+            "text": "bed",
+            "duration": 0.34
+          }
+        ]
+      },
+      {
+        "time": 80.4,
+        "text": "One fell off and bumped his head",
+        "words": [
+          {
+            "text": "One",
+            "duration": 0.94
+          },
+          {
+            "text": "fell",
+            "duration": 0.54
+          },
+          {
+            "text": "off",
+            "duration": 0.62
+          },
+          {
+            "text": "and",
+            "duration": 0.56
+          },
+          {
+            "text": "bumped",
+            "duration": 0.5
+          },
+          {
+            "text": "his",
+            "duration": 0.56
+          },
+          {
+            "text": "head",
+            "duration": 0.56
+          }
+        ]
+      },
+      {
+        "time": 84.68,
+        "text": "Mama called the doctor and the doctor said",
+        "words": [
+          {
+            "text": "Mama",
+            "duration": 0.54
+          },
+          {
+            "text": "called",
+            "duration": 0.56
+          },
+          {
+            "text": "the",
+            "duration": 0.32
+          },
+          {
+            "text": "doctor",
+            "duration": 0.36
+          },
+          {
+            "text": "and",
+            "duration": 0.46
+          },
+          {
+            "text": "the",
+            "duration": 0.14
+          },
+          {
+            "text": "doctor",
+            "duration": 0.68
+          },
+          {
+            "text": "said",
+            "duration": 1.28
+          }
+        ]
+      },
+      {
+        "time": 89.02,
+        "text": "No more monkeys jumping on the bed!",
+        "words": [
+          {
+            "text": "No",
+            "duration": 0.34
+          },
+          {
+            "text": "more",
+            "duration": 0.64
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.7
+          },
+          {
+            "text": "jumping",
+            "duration": 0.8
+          },
+          {
+            "text": "on",
+            "duration": 0.28
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "bed!",
+            "duration": 0.94
+          }
+        ]
+      },
+      {
+        "time": 101.44,
+        "text": "One little monkey jumping on the bed",
+        "words": [
+          {
+            "text": "One",
+            "duration": 0
+          },
+          {
+            "text": "little",
+            "duration": 0.62
+          },
+          {
+            "text": "monkey",
+            "duration": 0.58
+          },
+          {
+            "text": "jumping",
+            "duration": 0.8
+          },
+          {
+            "text": "on",
+            "duration": 0.38
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "bed",
+            "duration": 0.44
+          }
+        ]
+      },
+      {
+        "time": 104.5,
+        "text": "He fell off and bumped his head",
+        "words": [
+          {
+            "text": "He",
+            "duration": 0.86
+          },
+          {
+            "text": "fell",
+            "duration": 0.58
+          },
+          {
+            "text": "off",
+            "duration": 0.56
+          },
+          {
+            "text": "and",
+            "duration": 0.48
+          },
+          {
+            "text": "bumped",
+            "duration": 0.38
+          },
+          {
+            "text": "his",
+            "duration": 0.62
+          },
+          {
+            "text": "head",
+            "duration": 0.66
+          }
+        ]
+      },
+      {
+        "time": 108.64,
+        "text": "Mama called the doctor and the doctor said",
+        "words": [
+          {
+            "text": "Mama",
+            "duration": 0.68
+          },
+          {
+            "text": "called",
+            "duration": 0.5
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "doctor",
+            "duration": 0.42
+          },
+          {
+            "text": "and",
+            "duration": 0.42
+          },
+          {
+            "text": "the",
+            "duration": 0.18
+          },
+          {
+            "text": "doctor",
+            "duration": 0.44
+          },
+          {
+            "text": "said",
+            "duration": 1.44
+          }
+        ]
+      },
+      {
+        "time": 112.96,
+        "text": "No more monkeys jumping on the bed!",
+        "words": [
+          {
+            "text": "No",
+            "duration": 0.44
+          },
+          {
+            "text": "more",
+            "duration": 0.48
+          },
+          {
+            "text": "monkeys",
+            "duration": 0.82
+          },
+          {
+            "text": "jumping",
+            "duration": 0.78
+          },
+          {
+            "text": "on",
+            "duration": 0.3
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "bed!",
+            "duration": 1.2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "baa-baa-black-sheep",
+    "title": "Baa Baa Black Sheep",
+    "emoji": "🐑",
+    "color": "#9CA3AF",
+    "youtubeId": "gT1m4G19Vj8",
+    "localVideo": "/videos/baa-baa-black-sheep.mp4",
+    "lyrics": [
+      {
+        "time": 4.14,
+        "text": "Baa, baa, black sheep, have you any wool?",
+        "words": [
+          {
+            "text": "Baa,",
+            "duration": 0.5
+          },
+          {
+            "text": "baa,",
+            "duration": 0.46
+          },
+          {
+            "text": "black",
+            "duration": 0
+          },
+          {
+            "text": "sheep,",
+            "duration": 0.74
+          },
+          {
+            "text": "have",
+            "duration": 0.06
+          },
+          {
+            "text": "you",
+            "duration": 0.28
+          },
+          {
+            "text": "any",
+            "duration": 0.36
+          },
+          {
+            "text": "wool?",
+            "duration": 1.24
+          }
+        ]
+      },
+      {
+        "time": 8.12,
+        "text": "Yes, sir, yes, sir, three bags full",
+        "words": [
+          {
+            "text": "Yes,",
+            "duration": 0.48
+          },
+          {
+            "text": "sir,",
+            "duration": 0.32
+          },
+          {
+            "text": "yes,",
+            "duration": 0.5
+          },
+          {
+            "text": "sir,",
+            "duration": 0.38
+          },
+          {
+            "text": "three",
+            "duration": 0.34
+          },
+          {
+            "text": "bags",
+            "duration": 0.38
+          },
+          {
+            "text": "full",
+            "duration": 0.54
+          }
+        ]
+      },
+      {
+        "time": 11.3,
+        "text": "One for the master, and one for the dame",
+        "words": [
+          {
+            "text": "One",
+            "duration": 1.02
+          },
+          {
+            "text": "for",
+            "duration": 0.38
+          },
+          {
+            "text": "the",
+            "duration": 0.2
+          },
+          {
+            "text": "master,",
+            "duration": 0.95
+          },
+          {
+            "text": "and",
+            "duration": 0.02
+          },
+          {
+            "text": "one",
+            "duration": 0.26
+          },
+          {
+            "text": "for",
+            "duration": 0.44
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "dame",
+            "duration": 0.48
+          }
+        ]
+      },
+      {
+        "time": 15.44,
+        "text": "And one for the little boy who lives down the lane",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.5
+          },
+          {
+            "text": "one",
+            "duration": 0.36
+          },
+          {
+            "text": "for",
+            "duration": 0.36
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "little",
+            "duration": 0.42
+          },
+          {
+            "text": "boy",
+            "duration": 0.32
+          },
+          {
+            "text": "who",
+            "duration": 0.32
+          },
+          {
+            "text": "lives",
+            "duration": 0.34
+          },
+          {
+            "text": "down",
+            "duration": 0.36
+          },
+          {
+            "text": "the",
+            "duration": 0.22
+          },
+          {
+            "text": "lane",
+            "duration": 0.2
+          }
+        ]
+      },
+      {
+        "time": 32.24,
+        "text": "Baa, baa, black sheep, have you any wool?",
+        "words": [
+          {
+            "text": "Baa,",
+            "duration": 0.4
+          },
+          {
+            "text": "baa,",
+            "duration": 0.44
+          },
+          {
+            "text": "black",
+            "duration": 0
+          },
+          {
+            "text": "sheep,",
+            "duration": 0.76
+          },
+          {
+            "text": "have",
+            "duration": 0.06
+          },
+          {
+            "text": "you",
+            "duration": 0.24
+          },
+          {
+            "text": "any",
+            "duration": 0.4
+          },
+          {
+            "text": "wool?",
+            "duration": 1.24
+          }
+        ]
+      },
+      {
+        "time": 36.12,
+        "text": "Yes, sir, yes, sir, three bags full",
+        "words": [
+          {
+            "text": "Yes,",
+            "duration": 0.5
+          },
+          {
+            "text": "sir,",
+            "duration": 0.34
+          },
+          {
+            "text": "yes,",
+            "duration": 0.48
+          },
+          {
+            "text": "sir,",
+            "duration": 0.48
+          },
+          {
+            "text": "three",
+            "duration": 0
+          },
+          {
+            "text": "bags",
+            "duration": 0.46
+          },
+          {
+            "text": "full",
+            "duration": 0.54
+          }
+        ]
+      },
+      {
+        "time": 39.34,
+        "text": "One for the master, and one for the dame",
+        "words": [
+          {
+            "text": "One",
+            "duration": 0.9
+          },
+          {
+            "text": "for",
+            "duration": 0.44
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "master,",
+            "duration": 0.38
+          },
+          {
+            "text": "and",
+            "duration": 0.74
+          },
+          {
+            "text": "one",
+            "duration": 0.24
+          },
+          {
+            "text": "for",
+            "duration": 0.44
+          },
+          {
+            "text": "the",
+            "duration": 0.24
+          },
+          {
+            "text": "dame",
+            "duration": 0.5
+          }
+        ]
+      },
+      {
+        "time": 43.46,
+        "text": "And one for the little boy who lives down the lane",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.5
+          },
+          {
+            "text": "one",
+            "duration": 0.36
+          },
+          {
+            "text": "for",
+            "duration": 0.36
+          },
+          {
+            "text": "the",
+            "duration": 0.28
+          },
+          {
+            "text": "little",
+            "duration": 0.44
+          },
+          {
+            "text": "boy",
+            "duration": 0.32
+          },
+          {
+            "text": "who",
+            "duration": 0.3
+          },
+          {
+            "text": "lives",
+            "duration": 0.34
+          },
+          {
+            "text": "down",
+            "duration": 0.36
+          },
+          {
+            "text": "the",
+            "duration": 0.22
+          },
+          {
+            "text": "lane",
+            "duration": 0.62
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "if-youre-happy",
+    "title": "If You're Happy and You Know It",
+    "emoji": "😊",
+    "color": "#34D399",
+    "youtubeId": "l4WNrvVjiTw",
+    "localVideo": "/videos/if-youre-happy.mp4",
+    "lyrics": [
+      {
+        "time": 8.78,
+        "text": "If you're happy and you know it, clap your hands",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0.22
+          },
+          {
+            "text": "you're",
+            "duration": 0.32
+          },
+          {
+            "text": "happy",
+            "duration": 0.34
+          },
+          {
+            "text": "and",
+            "duration": 0.26
+          },
+          {
+            "text": "you",
+            "duration": 0.9
+          },
+          {
+            "text": "know",
+            "duration": 0.16
+          },
+          {
+            "text": "it,",
+            "duration": 0
+          },
+          {
+            "text": "clap",
+            "duration": 0
+          },
+          {
+            "text": "your",
+            "duration": 0.32
+          },
+          {
+            "text": "hands",
+            "duration": 0.6
+          }
+        ]
+      },
+      {
+        "time": 11.9,
+        "text": "If you're happy and you know it, clap your hands",
+        "words": [
+          {
+            "text": "If",
+            "duration": 1.14
+          },
+          {
+            "text": "you're",
+            "duration": 0.36
+          },
+          {
+            "text": "happy",
+            "duration": 0.4
+          },
+          {
+            "text": "and",
+            "duration": 0.34
+          },
+          {
+            "text": "you",
+            "duration": 0.82
+          },
+          {
+            "text": "know",
+            "duration": 0.2
+          },
+          {
+            "text": "it,",
+            "duration": 0.02
+          },
+          {
+            "text": "clap",
+            "duration": 0
+          },
+          {
+            "text": "your",
+            "duration": 0.26
+          },
+          {
+            "text": "hands",
+            "duration": 0.58
+          }
+        ]
+      },
+      {
+        "time": 16.04,
+        "text": "If you're happy and you know it",
+        "words": [
+          {
+            "text": "If",
+            "duration": 1.22
+          },
+          {
+            "text": "you're",
+            "duration": 0.36
+          },
+          {
+            "text": "happy",
+            "duration": 0.42
+          },
+          {
+            "text": "and",
+            "duration": 1.94
+          },
+          {
+            "text": "you",
+            "duration": 0.32
+          },
+          {
+            "text": "know",
+            "duration": 0
+          },
+          {
+            "text": "it",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 20.38,
+        "text": "And you really want to show it",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "really",
+            "duration": 0
+          },
+          {
+            "text": "want",
+            "duration": 0
+          },
+          {
+            "text": "to",
+            "duration": 0
+          },
+          {
+            "text": "show",
+            "duration": 0
+          },
+          {
+            "text": "it",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 20.38,
+        "text": "If you're happy and you know it, clap your hands",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0
+          },
+          {
+            "text": "you're",
+            "duration": 0
+          },
+          {
+            "text": "happy",
+            "duration": 0
+          },
+          {
+            "text": "and",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "know",
+            "duration": 0
+          },
+          {
+            "text": "it,",
+            "duration": 0
+          },
+          {
+            "text": "clap",
+            "duration": 0
+          },
+          {
+            "text": "your",
+            "duration": 0.32
+          },
+          {
+            "text": "hands",
+            "duration": 0.46
+          }
+        ]
+      },
+      {
+        "time": 21.16,
+        "text": "If you're happy and you know it, stomp your feet",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0.26
+          },
+          {
+            "text": "you're",
+            "duration": 0.36
+          },
+          {
+            "text": "happy",
+            "duration": 0.38
+          },
+          {
+            "text": "and",
+            "duration": 0.3
+          },
+          {
+            "text": "you",
+            "duration": 0.82
+          },
+          {
+            "text": "know",
+            "duration": 0.24
+          },
+          {
+            "text": "it,",
+            "duration": 0.82
+          },
+          {
+            "text": "stomp",
+            "duration": 0.95
+          },
+          {
+            "text": "your",
+            "duration": 0.22
+          },
+          {
+            "text": "feet",
+            "duration": 0.32
+          }
+        ]
+      },
+      {
+        "time": 32.46,
+        "text": "If you're happy and you know it, stomp your feet",
+        "words": [
+          {
+            "text": "If",
+            "duration": 1.48
+          },
+          {
+            "text": "you're",
+            "duration": 0.38
+          },
+          {
+            "text": "happy",
+            "duration": 2.22
+          },
+          {
+            "text": "and",
+            "duration": 0.28
+          },
+          {
+            "text": "you",
+            "duration": 3.04
+          },
+          {
+            "text": "know",
+            "duration": 0.08
+          },
+          {
+            "text": "it,",
+            "duration": 0
+          },
+          {
+            "text": "stomp",
+            "duration": 0.16
+          },
+          {
+            "text": "your",
+            "duration": 0.24
+          },
+          {
+            "text": "feet",
+            "duration": 0.3
+          }
+        ]
+      },
+      {
+        "time": 40.78,
+        "text": "If you're happy and you know it",
+        "words": [
+          {
+            "text": "If",
+            "duration": 1.5
+          },
+          {
+            "text": "you're",
+            "duration": 0.38
+          },
+          {
+            "text": "happy",
+            "duration": 0.2
+          },
+          {
+            "text": "and",
+            "duration": 1.04
+          },
+          {
+            "text": "you",
+            "duration": 0.2
+          },
+          {
+            "text": "know",
+            "duration": 0.3
+          },
+          {
+            "text": "it",
+            "duration": 0.58
+          }
+        ]
+      },
+      {
+        "time": 66.11,
+        "text": "And you really want to show it",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.65
+          },
+          {
+            "text": "you",
+            "duration": 0.26
+          },
+          {
+            "text": "really",
+            "duration": 0
+          },
+          {
+            "text": "want",
+            "duration": 0
+          },
+          {
+            "text": "to",
+            "duration": 0.08
+          },
+          {
+            "text": "show",
+            "duration": 0
+          },
+          {
+            "text": "it",
+            "duration": 2.86
+          }
+        ]
+      },
+      {
+        "time": 69.96,
+        "text": "If you're happy and you know it, stomp your feet",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0.3
+          },
+          {
+            "text": "you're",
+            "duration": 0.44
+          },
+          {
+            "text": "happy",
+            "duration": 0.26
+          },
+          {
+            "text": "and",
+            "duration": 0.76
+          },
+          {
+            "text": "you",
+            "duration": 0.06
+          },
+          {
+            "text": "know",
+            "duration": 1.16
+          },
+          {
+            "text": "it,",
+            "duration": 1.24
+          },
+          {
+            "text": "stomp",
+            "duration": 0.1
+          },
+          {
+            "text": "your",
+            "duration": 0
+          },
+          {
+            "text": "feet",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 75.62,
+        "text": "If you're happy and you know it, shout hooray!",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0
+          },
+          {
+            "text": "you're",
+            "duration": 0.38
+          },
+          {
+            "text": "happy",
+            "duration": 0.2
+          },
+          {
+            "text": "and",
+            "duration": 1.5
+          },
+          {
+            "text": "you",
+            "duration": 0.58
+          },
+          {
+            "text": "know",
+            "duration": 0
+          },
+          {
+            "text": "it,",
+            "duration": 0.28
+          },
+          {
+            "text": "shout",
+            "duration": 0.1
+          },
+          {
+            "text": "hooray!",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 79.7,
+        "text": "If you're happy and you know it, shout hooray!",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0
+          },
+          {
+            "text": "you're",
+            "duration": 0
+          },
+          {
+            "text": "happy",
+            "duration": 0
+          },
+          {
+            "text": "and",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "know",
+            "duration": 0
+          },
+          {
+            "text": "it,",
+            "duration": 0
+          },
+          {
+            "text": "shout",
+            "duration": 0
+          },
+          {
+            "text": "hooray!",
+            "duration": 0.1
+          }
+        ]
+      },
+      {
+        "time": 79.8,
+        "text": "If you're happy and you know it",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0
+          },
+          {
+            "text": "you're",
+            "duration": 0.7
+          },
+          {
+            "text": "happy",
+            "duration": 0.08
+          },
+          {
+            "text": "and",
+            "duration": 0.74
+          },
+          {
+            "text": "you",
+            "duration": 0.46
+          },
+          {
+            "text": "know",
+            "duration": 0
+          },
+          {
+            "text": "it",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 82.05,
+        "text": "And you really want to show it",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "really",
+            "duration": 0
+          },
+          {
+            "text": "want",
+            "duration": 0
+          },
+          {
+            "text": "to",
+            "duration": 0
+          },
+          {
+            "text": "show",
+            "duration": 0
+          },
+          {
+            "text": "it",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 82.05,
+        "text": "If you're happy and you know it, shout hooray!",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0
+          },
+          {
+            "text": "you're",
+            "duration": 0
+          },
+          {
+            "text": "happy",
+            "duration": 0
+          },
+          {
+            "text": "and",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "know",
+            "duration": 0
+          },
+          {
+            "text": "it,",
+            "duration": 0
+          },
+          {
+            "text": "shout",
+            "duration": 0
+          },
+          {
+            "text": "hooray!",
+            "duration": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "row-your-boat",
+    "title": "Row, Row, Row Your Boat",
+    "emoji": "🛶",
+    "color": "#38BDF8",
+    "youtubeId": "Gzf0cTOAMPo",
+    "localVideo": "/videos/row-your-boat.mp4",
+    "lyrics": [
+      {
+        "time": 1.38,
+        "text": "Row, row, row your boat",
+        "words": [
+          {
+            "text": "Row,",
+            "duration": 0.7
+          },
+          {
+            "text": "row,",
+            "duration": 0.22
+          },
+          {
+            "text": "row",
+            "duration": 0.05
+          },
+          {
+            "text": "your",
+            "duration": 0
+          },
+          {
+            "text": "boat",
+            "duration": 1.92
+          }
+        ]
+      },
+      {
+        "time": 5.5,
+        "text": "Gently down the stream",
+        "words": [
+          {
+            "text": "Gently",
+            "duration": 0.7
+          },
+          {
+            "text": "down",
+            "duration": 0.02
+          },
+          {
+            "text": "the",
+            "duration": 0
+          },
+          {
+            "text": "stream",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 12.96,
+        "text": "Merrily, merrily, merrily, merrily",
+        "words": [
+          {
+            "text": "Merrily,",
+            "duration": 0.34
+          },
+          {
+            "text": "merrily,",
+            "duration": 2.02
+          },
+          {
+            "text": "merrily,",
+            "duration": 2.78
+          },
+          {
+            "text": "merrily",
+            "duration": 0.5
+          }
+        ]
+      },
+      {
+        "time": 35.6,
+        "text": "Life is but a dream",
+        "words": [
+          {
+            "text": "Life",
+            "duration": 0.38
+          },
+          {
+            "text": "is",
+            "duration": 0.1
+          },
+          {
+            "text": "but",
+            "duration": 0
+          },
+          {
+            "text": "a",
+            "duration": 0
+          },
+          {
+            "text": "dream",
+            "duration": 1.8
+          }
+        ]
+      },
+      {
+        "time": 37.96,
+        "text": "Row, row, row your boat",
+        "words": [
+          {
+            "text": "Row,",
+            "duration": 0.95
+          },
+          {
+            "text": "row,",
+            "duration": 0.3
+          },
+          {
+            "text": "row",
+            "duration": 0.24
+          },
+          {
+            "text": "your",
+            "duration": 0.54
+          },
+          {
+            "text": "boat",
+            "duration": 0.7
+          }
+        ]
+      },
+      {
+        "time": 42.44,
+        "text": "Gently down the stream",
+        "words": [
+          {
+            "text": "Gently",
+            "duration": 1
+          },
+          {
+            "text": "down",
+            "duration": 0.66
+          },
+          {
+            "text": "the",
+            "duration": 0.54
+          },
+          {
+            "text": "stream",
+            "duration": 1.66
+          }
+        ]
+      },
+      {
+        "time": 46.3,
+        "text": "Merrily, merrily, merrily, merrily",
+        "words": [
+          {
+            "text": "Merrily,",
+            "duration": 1.34
+          },
+          {
+            "text": "merrily,",
+            "duration": 1.16
+          },
+          {
+            "text": "merrily,",
+            "duration": 0.88
+          },
+          {
+            "text": "merrily",
+            "duration": 0.08
+          }
+        ]
+      },
+      {
+        "time": 51.16,
+        "text": "Life is but a dream",
+        "words": [
+          {
+            "text": "Life",
+            "duration": 0.12
+          },
+          {
+            "text": "is",
+            "duration": 0.1
+          },
+          {
+            "text": "but",
+            "duration": 0.5
+          },
+          {
+            "text": "a",
+            "duration": 0
+          },
+          {
+            "text": "dream",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 51.92,
+        "text": "Row, row, row your boat",
+        "words": [
+          {
+            "text": "Row,",
+            "duration": 0.68
+          },
+          {
+            "text": "row,",
+            "duration": 0.08
+          },
+          {
+            "text": "row",
+            "duration": 2.9
+          },
+          {
+            "text": "your",
+            "duration": 0
+          },
+          {
+            "text": "boat",
+            "duration": 2.14
+          }
+        ]
+      },
+      {
+        "time": 61.84,
+        "text": "Gently down the stream",
+        "words": [
+          {
+            "text": "Gently",
+            "duration": 1.34
+          },
+          {
+            "text": "down",
+            "duration": 0
+          },
+          {
+            "text": "the",
+            "duration": 0.28
+          },
+          {
+            "text": "stream",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 64.08,
+        "text": "If you see a crocodile",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "see",
+            "duration": 0
+          },
+          {
+            "text": "a",
+            "duration": 0
+          },
+          {
+            "text": "crocodile",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 64.08,
+        "text": "Don't forget to scream!",
+        "words": [
+          {
+            "text": "Don't",
+            "duration": 0
+          },
+          {
+            "text": "forget",
+            "duration": 0
+          },
+          {
+            "text": "to",
+            "duration": 0
+          },
+          {
+            "text": "scream!",
+            "duration": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bingo",
+    "title": "BINGO",
+    "emoji": "🐶",
+    "color": "#FBBF24",
+    "youtubeId": "9o0_7s2N2_E",
+    "localVideo": "/videos/bingo.mp4",
+    "lyrics": [
+      {
+        "time": 10.52,
+        "text": "There was a farmer had a dog",
+        "words": [
+          {
+            "text": "There",
+            "duration": 0.32
+          },
+          {
+            "text": "was",
+            "duration": 0.48
+          },
+          {
+            "text": "a",
+            "duration": 0.36
+          },
+          {
+            "text": "farmer",
+            "duration": 0.58
+          },
+          {
+            "text": "had",
+            "duration": 0.58
+          },
+          {
+            "text": "a",
+            "duration": 0.52
+          },
+          {
+            "text": "dog",
+            "duration": 0.22
+          }
+        ]
+      },
+      {
+        "time": 13.58,
+        "text": "And Bingo was his name-o",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.44
+          },
+          {
+            "text": "Bingo",
+            "duration": 0.54
+          },
+          {
+            "text": "was",
+            "duration": 0.52
+          },
+          {
+            "text": "his",
+            "duration": 0.38
+          },
+          {
+            "text": "name-o",
+            "duration": 0.1
+          }
+        ]
+      },
+      {
+        "time": 16.7,
+        "text": "B-I-N-G-O, B-I-N-G-O, B-I-N-G-O",
+        "words": [
+          {
+            "text": "B-I-N-G-O,",
+            "duration": 2.92
+          },
+          {
+            "text": "B-I-N-G-O,",
+            "duration": 2.34
+          },
+          {
+            "text": "B-I-N-G-O",
+            "duration": 1.4
+          }
+        ]
+      },
+      {
+        "time": 25.6,
+        "text": "And Bingo was his name-o",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.38
+          },
+          {
+            "text": "Bingo",
+            "duration": 0.56
+          },
+          {
+            "text": "was",
+            "duration": 0.52
+          },
+          {
+            "text": "his",
+            "duration": 0.38
+          },
+          {
+            "text": "name-o",
+            "duration": 1.22
+          }
+        ]
+      },
+      {
+        "time": 33.83,
+        "text": "There was a farmer had a dog",
+        "words": [
+          {
+            "text": "There",
+            "duration": 1.05
+          },
+          {
+            "text": "was",
+            "duration": 0.4
+          },
+          {
+            "text": "a",
+            "duration": 0.4
+          },
+          {
+            "text": "farmer",
+            "duration": 0.42
+          },
+          {
+            "text": "had",
+            "duration": 0.56
+          },
+          {
+            "text": "a",
+            "duration": 0.1
+          },
+          {
+            "text": "dog",
+            "duration": 0.22
+          }
+        ]
+      },
+      {
+        "time": 37.56,
+        "text": "And Bingo was his name-o",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.46
+          },
+          {
+            "text": "Bingo",
+            "duration": 0.5
+          },
+          {
+            "text": "was",
+            "duration": 0.62
+          },
+          {
+            "text": "his",
+            "duration": 0.36
+          },
+          {
+            "text": "name-o",
+            "duration": 0.12
+          }
+        ]
+      },
+      {
+        "time": 42.16,
+        "text": "(clap)-I-N-G-O, (clap)-I-N-G-O, (clap)-I-N-G-O",
+        "words": [
+          {
+            "text": "(clap)-I-N-G-O,",
+            "duration": 1.62
+          },
+          {
+            "text": "(clap)-I-N-G-O,",
+            "duration": 2.62
+          },
+          {
+            "text": "(clap)-I-N-G-O",
+            "duration": 1.4
+          }
+        ]
+      },
+      {
+        "time": 49.58,
+        "text": "And Bingo was his name-o",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.4
+          },
+          {
+            "text": "Bingo",
+            "duration": 0.52
+          },
+          {
+            "text": "was",
+            "duration": 0.56
+          },
+          {
+            "text": "his",
+            "duration": 0.38
+          },
+          {
+            "text": "name-o",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 57.65,
+        "text": "There was a farmer had a dog",
+        "words": [
+          {
+            "text": "There",
+            "duration": 1.25
+          },
+          {
+            "text": "was",
+            "duration": 0.4
+          },
+          {
+            "text": "a",
+            "duration": 0.4
+          },
+          {
+            "text": "farmer",
+            "duration": 0.56
+          },
+          {
+            "text": "had",
+            "duration": 0.56
+          },
+          {
+            "text": "a",
+            "duration": 0.48
+          },
+          {
+            "text": "dog",
+            "duration": 0.22
+          }
+        ]
+      },
+      {
+        "time": 61.56,
+        "text": "And Bingo was his name-o",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.5
+          },
+          {
+            "text": "Bingo",
+            "duration": 0.5
+          },
+          {
+            "text": "was",
+            "duration": 0.6
+          },
+          {
+            "text": "his",
+            "duration": 0.32
+          },
+          {
+            "text": "name-o",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 69.64,
+        "text": "(clap-clap)-N-G-O, (clap-clap)-N-G-O",
+        "words": [
+          {
+            "text": "(clap-clap)-N-G-O,",
+            "duration": 1.12
+          },
+          {
+            "text": "(clap-clap)-N-G-O",
+            "duration": 1.55
+          }
+        ]
+      },
+      {
+        "time": 73.6,
+        "text": "And Bingo was his name-o",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0.42
+          },
+          {
+            "text": "Bingo",
+            "duration": 0.62
+          },
+          {
+            "text": "was",
+            "duration": 0.52
+          },
+          {
+            "text": "his",
+            "duration": 0.22
+          },
+          {
+            "text": "name-o",
+            "duration": 1.18
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "abc-song",
+    "title": "ABC Song",
+    "emoji": "🔤",
+    "color": "#A78BFA",
+    "youtubeId": "sa0RUmHcFGc",
+    "localVideo": "/videos/abc-song.mp4",
+    "lyrics": [
+      {
+        "time": 26.66,
+        "text": "A, B, C, D, E, F, G",
+        "words": [
+          {
+            "text": "A,",
+            "duration": 0.58
+          },
+          {
+            "text": "B,",
+            "duration": 0.28
+          },
+          {
+            "text": "C,",
+            "duration": 0.66
+          },
+          {
+            "text": "D,",
+            "duration": 0.22
+          },
+          {
+            "text": "E,",
+            "duration": 0.32
+          },
+          {
+            "text": "F,",
+            "duration": 0.22
+          },
+          {
+            "text": "G",
+            "duration": 0.28
+          }
+        ]
+      },
+      {
+        "time": 31.3,
+        "text": "H, I, J, K, L, M, N, O, P",
+        "words": [
+          {
+            "text": "H,",
+            "duration": 2.18
+          },
+          {
+            "text": "I,",
+            "duration": 0.58
+          },
+          {
+            "text": "J,",
+            "duration": 0.56
+          },
+          {
+            "text": "K,",
+            "duration": 1.06
+          },
+          {
+            "text": "L,",
+            "duration": 0.32
+          },
+          {
+            "text": "M,",
+            "duration": 0.42
+          },
+          {
+            "text": "N,",
+            "duration": 0.22
+          },
+          {
+            "text": "O,",
+            "duration": 0.36
+          },
+          {
+            "text": "P",
+            "duration": 0.34
+          }
+        ]
+      },
+      {
+        "time": 37.54,
+        "text": "Q, R, S, T, U, V",
+        "words": [
+          {
+            "text": "Q,",
+            "duration": 2.26
+          },
+          {
+            "text": "R,",
+            "duration": 0.46
+          },
+          {
+            "text": "S,",
+            "duration": 0.44
+          },
+          {
+            "text": "T,",
+            "duration": 0.8
+          },
+          {
+            "text": "U,",
+            "duration": 0.58
+          },
+          {
+            "text": "V",
+            "duration": 0.24
+          }
+        ]
+      },
+      {
+        "time": 44,
+        "text": "W, X, Y and Z",
+        "words": [
+          {
+            "text": "W,",
+            "duration": 1.96
+          },
+          {
+            "text": "X,",
+            "duration": 0.76
+          },
+          {
+            "text": "Y",
+            "duration": 0.18
+          },
+          {
+            "text": "and",
+            "duration": 0.86
+          },
+          {
+            "text": "Z",
+            "duration": 0.4
+          }
+        ]
+      },
+      {
+        "time": 51.64,
+        "text": "Now I know my ABCs",
+        "words": [
+          {
+            "text": "Now",
+            "duration": 0
+          },
+          {
+            "text": "I",
+            "duration": 0
+          },
+          {
+            "text": "know",
+            "duration": 0
+          },
+          {
+            "text": "my",
+            "duration": 0
+          },
+          {
+            "text": "ABCs",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 51.64,
+        "text": "Next time won't you sing with me?",
+        "words": [
+          {
+            "text": "Next",
+            "duration": 0
+          },
+          {
+            "text": "time",
+            "duration": 0
+          },
+          {
+            "text": "won't",
+            "duration": 0
+          },
+          {
+            "text": "you",
+            "duration": 0
+          },
+          {
+            "text": "sing",
+            "duration": 0
+          },
+          {
+            "text": "with",
+            "duration": 0
+          },
+          {
+            "text": "me?",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 51.64,
+        "text": "A, B, C, D, E, F, G",
+        "words": [
+          {
+            "text": "A,",
+            "duration": 0.06
+          },
+          {
+            "text": "B,",
+            "duration": 0.14
+          },
+          {
+            "text": "C,",
+            "duration": 0.3
+          },
+          {
+            "text": "D,",
+            "duration": 0
+          },
+          {
+            "text": "E,",
+            "duration": 0.44
+          },
+          {
+            "text": "F,",
+            "duration": 0.36
+          },
+          {
+            "text": "G",
+            "duration": 0.18
+          }
+        ]
+      },
+      {
+        "time": 56.2,
+        "text": "H, I, J, K, L, M, N, O, P",
+        "words": [
+          {
+            "text": "H,",
+            "duration": 2.22
+          },
+          {
+            "text": "I,",
+            "duration": 0.54
+          },
+          {
+            "text": "J,",
+            "duration": 0.46
+          },
+          {
+            "text": "K,",
+            "duration": 0.02
+          },
+          {
+            "text": "L,",
+            "duration": 0.54
+          },
+          {
+            "text": "M,",
+            "duration": 0.4
+          },
+          {
+            "text": "N,",
+            "duration": 0.18
+          },
+          {
+            "text": "O,",
+            "duration": 0.34
+          },
+          {
+            "text": "P",
+            "duration": 0.38
+          }
+        ]
+      },
+      {
+        "time": 62.48,
+        "text": "Q, R, S, T, U, V",
+        "words": [
+          {
+            "text": "Q,",
+            "duration": 2.26
+          },
+          {
+            "text": "R,",
+            "duration": 0.48
+          },
+          {
+            "text": "S,",
+            "duration": 0.48
+          },
+          {
+            "text": "T,",
+            "duration": 0.86
+          },
+          {
+            "text": "U,",
+            "duration": 0.42
+          },
+          {
+            "text": "V",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 68.7,
+        "text": "W, X, Y and Z",
+        "words": [
+          {
+            "text": "W,",
+            "duration": 2.18
+          },
+          {
+            "text": "X,",
+            "duration": 0.72
+          },
+          {
+            "text": "Y",
+            "duration": 0.16
+          },
+          {
+            "text": "and",
+            "duration": 0.8
+          },
+          {
+            "text": "Z",
+            "duration": 0.52
+          }
+        ]
+      },
+      {
+        "time": 79.8,
+        "text": "Now I know my ABCs",
+        "words": [
+          {
+            "text": "Now",
+            "duration": 2.66
+          },
+          {
+            "text": "I",
+            "duration": 0.58
+          },
+          {
+            "text": "know",
+            "duration": 0.36
+          },
+          {
+            "text": "my",
+            "duration": 0.46
+          },
+          {
+            "text": "ABCs",
+            "duration": 1.68
+          }
+        ]
+      },
+      {
+        "time": 85.54,
+        "text": "Next time won't you sing with me?",
+        "words": [
+          {
+            "text": "Next",
+            "duration": 0.2
+          },
+          {
+            "text": "time",
+            "duration": 0.52
+          },
+          {
+            "text": "won't",
+            "duration": 0.42
+          },
+          {
+            "text": "you",
+            "duration": 0.22
+          },
+          {
+            "text": "sing",
+            "duration": 0.58
+          },
+          {
+            "text": "with",
+            "duration": 0.74
+          },
+          {
+            "text": "me?",
+            "duration": 0.34
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hickory-dickory",
+    "title": "Hickory Dickory Dock",
+    "emoji": "🕰️",
+    "color": "#F87171",
+    "youtubeId": "RXJ9pET9Zzw",
+    "localVideo": "/videos/hickory-dickory.mp4",
+    "lyrics": [
+      {
+        "time": 0.36,
+        "text": "Hickory dickory dock",
+        "words": [
+          {
+            "text": "Hickory",
+            "duration": 0.66
+          },
+          {
+            "text": "dickory",
+            "duration": 1.48
+          },
+          {
+            "text": "dock",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 2.5,
+        "text": "The mouse ran up the clock",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0
+          },
+          {
+            "text": "mouse",
+            "duration": 0
+          },
+          {
+            "text": "ran",
+            "duration": 0
+          },
+          {
+            "text": "up",
+            "duration": 0
+          },
+          {
+            "text": "the",
+            "duration": 0
+          },
+          {
+            "text": "clock",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 2.5,
+        "text": "The clock struck one",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0
+          },
+          {
+            "text": "clock",
+            "duration": 0
+          },
+          {
+            "text": "struck",
+            "duration": 0
+          },
+          {
+            "text": "one",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 2.5,
+        "text": "The mouse ran down",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0
+          },
+          {
+            "text": "mouse",
+            "duration": 0
+          },
+          {
+            "text": "ran",
+            "duration": 0
+          },
+          {
+            "text": "down",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 2.5,
+        "text": "Hickory dickory dock",
+        "words": [
+          {
+            "text": "Hickory",
+            "duration": 0
+          },
+          {
+            "text": "dickory",
+            "duration": 0
+          },
+          {
+            "text": "dock",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 2.5,
+        "text": "Tick tock, tick tock, tick tock, tick tock",
+        "words": [
+          {
+            "text": "Tick",
+            "duration": 0
+          },
+          {
+            "text": "tock,",
+            "duration": 0
+          },
+          {
+            "text": "tick",
+            "duration": 0
+          },
+          {
+            "text": "tock,",
+            "duration": 0
+          },
+          {
+            "text": "tick",
+            "duration": 0
+          },
+          {
+            "text": "tock,",
+            "duration": 0
+          },
+          {
+            "text": "tick",
+            "duration": 1.2
+          },
+          {
+            "text": "tock",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 6.82,
+        "text": "Hickory dickory dock",
+        "words": [
+          {
+            "text": "Hickory",
+            "duration": 2.26
+          },
+          {
+            "text": "dickory",
+            "duration": 0.48
+          },
+          {
+            "text": "dock",
+            "duration": 0.44
+          }
+        ]
+      },
+      {
+        "time": 10,
+        "text": "The mouse ran up the clock",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0.18
+          },
+          {
+            "text": "mouse",
+            "duration": 0.24
+          },
+          {
+            "text": "ran",
+            "duration": 0
+          },
+          {
+            "text": "up",
+            "duration": 0
+          },
+          {
+            "text": "the",
+            "duration": 0
+          },
+          {
+            "text": "clock",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 10.42,
+        "text": "The clock struck two",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0
+          },
+          {
+            "text": "clock",
+            "duration": 0
+          },
+          {
+            "text": "struck",
+            "duration": 0
+          },
+          {
+            "text": "two",
+            "duration": 0.28
+          }
+        ]
+      },
+      {
+        "time": 61.84,
+        "text": "The mouse said boo!",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0.1
+          },
+          {
+            "text": "mouse",
+            "duration": 0.3
+          },
+          {
+            "text": "said",
+            "duration": 0.26
+          },
+          {
+            "text": "boo!",
+            "duration": 0.78
+          }
+        ]
+      },
+      {
+        "time": 64.7,
+        "text": "Hickory dickory dock",
+        "words": [
+          {
+            "text": "Hickory",
+            "duration": 0.78
+          },
+          {
+            "text": "dickory",
+            "duration": 0.76
+          },
+          {
+            "text": "dock",
+            "duration": 0.02
+          }
+        ]
+      },
+      {
+        "time": 66.26,
+        "text": "Tick tock, tick tock, tick tock, tick tock",
+        "words": [
+          {
+            "text": "Tick",
+            "duration": 0
+          },
+          {
+            "text": "tock,",
+            "duration": 0.06
+          },
+          {
+            "text": "tick",
+            "duration": 0.06
+          },
+          {
+            "text": "tock,",
+            "duration": 0.8
+          },
+          {
+            "text": "tick",
+            "duration": 0
+          },
+          {
+            "text": "tock,",
+            "duration": 0.5
+          },
+          {
+            "text": "tick",
+            "duration": 0
+          },
+          {
+            "text": "tock",
+            "duration": 1.7
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "london-bridge",
+    "title": "London Bridge Is Falling Down",
+    "emoji": "🌉",
+    "color": "#60A5FA",
+    "youtubeId": "kO_P-6c8B6c",
+    "localVideo": "/videos/london-bridge.mp4",
+    "lyrics": [
+      {
+        "time": 12.72,
+        "text": "London Bridge is falling down",
+        "words": [
+          {
+            "text": "London",
+            "duration": 0
+          },
+          {
+            "text": "Bridge",
+            "duration": 0.3
+          },
+          {
+            "text": "is",
+            "duration": 0.34
+          },
+          {
+            "text": "falling",
+            "duration": 0.44
+          },
+          {
+            "text": "down",
+            "duration": 0.42
+          }
+        ]
+      },
+      {
+        "time": 14.22,
+        "text": "Falling down, falling down",
+        "words": [
+          {
+            "text": "Falling",
+            "duration": 0.88
+          },
+          {
+            "text": "down,",
+            "duration": 0.3
+          },
+          {
+            "text": "falling",
+            "duration": 0
+          },
+          {
+            "text": "down",
+            "duration": 0.44
+          }
+        ]
+      },
+      {
+        "time": 16.54,
+        "text": "London Bridge is falling down",
+        "words": [
+          {
+            "text": "London",
+            "duration": 0.66
+          },
+          {
+            "text": "Bridge",
+            "duration": 0.4
+          },
+          {
+            "text": "is",
+            "duration": 0.34
+          },
+          {
+            "text": "falling",
+            "duration": 0.42
+          },
+          {
+            "text": "down",
+            "duration": 0.46
+          }
+        ]
+      },
+      {
+        "time": 18.82,
+        "text": "My fair lady",
+        "words": [
+          {
+            "text": "My",
+            "duration": 0.56
+          },
+          {
+            "text": "fair",
+            "duration": 0.66
+          },
+          {
+            "text": "lady",
+            "duration": 0.7
+          }
+        ]
+      },
+      {
+        "time": 20.74,
+        "text": "Build it up with iron bars",
+        "words": [
+          {
+            "text": "Build",
+            "duration": 0.96
+          },
+          {
+            "text": "it",
+            "duration": 0
+          },
+          {
+            "text": "up",
+            "duration": 0
+          },
+          {
+            "text": "with",
+            "duration": 0
+          },
+          {
+            "text": "iron",
+            "duration": 0
+          },
+          {
+            "text": "bars",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 21.7,
+        "text": "Iron bars, iron bars",
+        "words": [
+          {
+            "text": "Iron",
+            "duration": 0
+          },
+          {
+            "text": "bars,",
+            "duration": 0
+          },
+          {
+            "text": "iron",
+            "duration": 0
+          },
+          {
+            "text": "bars",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 21.7,
+        "text": "Build it up with iron bars",
+        "words": [
+          {
+            "text": "Build",
+            "duration": 0
+          },
+          {
+            "text": "it",
+            "duration": 0
+          },
+          {
+            "text": "up",
+            "duration": 0
+          },
+          {
+            "text": "with",
+            "duration": 0
+          },
+          {
+            "text": "iron",
+            "duration": 0
+          },
+          {
+            "text": "bars",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 21.7,
+        "text": "My fair lady",
+        "words": [
+          {
+            "text": "My",
+            "duration": 0
+          },
+          {
+            "text": "fair",
+            "duration": 0
+          },
+          {
+            "text": "lady",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 21.7,
+        "text": "London Bridge is falling down",
+        "words": [
+          {
+            "text": "London",
+            "duration": 0
+          },
+          {
+            "text": "Bridge",
+            "duration": 0.46
+          },
+          {
+            "text": "is",
+            "duration": 0.36
+          },
+          {
+            "text": "falling",
+            "duration": 0.38
+          },
+          {
+            "text": "down",
+            "duration": 0.46
+          }
+        ]
+      },
+      {
+        "time": 23.42,
+        "text": "Falling down, falling down",
+        "words": [
+          {
+            "text": "Falling",
+            "duration": 0.82
+          },
+          {
+            "text": "down,",
+            "duration": 0.3
+          },
+          {
+            "text": "falling",
+            "duration": 0.24
+          },
+          {
+            "text": "down",
+            "duration": 0.56
+          }
+        ]
+      },
+      {
+        "time": 25.8,
+        "text": "London Bridge is falling down",
+        "words": [
+          {
+            "text": "London",
+            "duration": 0.48
+          },
+          {
+            "text": "Bridge",
+            "duration": 0.44
+          },
+          {
+            "text": "is",
+            "duration": 0.38
+          },
+          {
+            "text": "falling",
+            "duration": 0.26
+          },
+          {
+            "text": "down",
+            "duration": 0.56
+          }
+        ]
+      },
+      {
+        "time": 27.98,
+        "text": "My fair lady",
+        "words": [
+          {
+            "text": "My",
+            "duration": 0.52
+          },
+          {
+            "text": "fair",
+            "duration": 0.58
+          },
+          {
+            "text": "lady",
+            "duration": 0.84
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mary-had-lamb",
+    "title": "Mary Had a Little Lamb",
+    "emoji": "🐑",
+    "color": "#34D399",
+    "youtubeId": "s1R1YpxV3MU",
+    "localVideo": "/videos/mary-had-lamb.mp4",
+    "lyrics": [
+      {
+        "time": 9.52,
+        "text": "Mary had a little lamb",
+        "words": [
+          {
+            "text": "Mary",
+            "duration": 0
+          },
+          {
+            "text": "had",
+            "duration": 0.36
+          },
+          {
+            "text": "a",
+            "duration": 0.12
+          },
+          {
+            "text": "little",
+            "duration": 0.2
+          },
+          {
+            "text": "lamb",
+            "duration": 0.24
+          }
+        ]
+      },
+      {
+        "time": 10.44,
+        "text": "Little lamb, little lamb",
+        "words": [
+          {
+            "text": "Little",
+            "duration": 0.48
+          },
+          {
+            "text": "lamb,",
+            "duration": 0.6
+          },
+          {
+            "text": "little",
+            "duration": 0
+          },
+          {
+            "text": "lamb",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 11.96,
+        "text": "Mary had a little lamb",
+        "words": [
+          {
+            "text": "Mary",
+            "duration": 0.32
+          },
+          {
+            "text": "had",
+            "duration": 0
+          },
+          {
+            "text": "a",
+            "duration": 0
+          },
+          {
+            "text": "little",
+            "duration": 0
+          },
+          {
+            "text": "lamb",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 12.28,
+        "text": "Its fleece was white as snow",
+        "words": [
+          {
+            "text": "Its",
+            "duration": 0
+          },
+          {
+            "text": "fleece",
+            "duration": 0.18
+          },
+          {
+            "text": "was",
+            "duration": 0.38
+          },
+          {
+            "text": "white",
+            "duration": 0.76
+          },
+          {
+            "text": "as",
+            "duration": 0
+          },
+          {
+            "text": "snow",
+            "duration": 0.2
+          }
+        ]
+      },
+      {
+        "time": 13.8,
+        "text": "And everywhere that Mary went",
+        "words": [
+          {
+            "text": "And",
+            "duration": 0
+          },
+          {
+            "text": "everywhere",
+            "duration": 0
+          },
+          {
+            "text": "that",
+            "duration": 0
+          },
+          {
+            "text": "Mary",
+            "duration": 0
+          },
+          {
+            "text": "went",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 13.8,
+        "text": "Mary went, Mary went",
+        "words": [
+          {
+            "text": "Mary",
+            "duration": 0
+          },
+          {
+            "text": "went,",
+            "duration": 0
+          },
+          {
+            "text": "Mary",
+            "duration": 0
+          },
+          {
+            "text": "went",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 13.8,
+        "text": "Everywhere that Mary went",
+        "words": [
+          {
+            "text": "Everywhere",
+            "duration": 0.1
+          },
+          {
+            "text": "that",
+            "duration": 0
+          },
+          {
+            "text": "Mary",
+            "duration": 0.42
+          },
+          {
+            "text": "went",
+            "duration": 0
+          }
+        ]
+      },
+      {
+        "time": 14.32,
+        "text": "The lamb was sure to go",
+        "words": [
+          {
+            "text": "The",
+            "duration": 0
+          },
+          {
+            "text": "lamb",
+            "duration": 0
+          },
+          {
+            "text": "was",
+            "duration": 0.24
+          },
+          {
+            "text": "sure",
+            "duration": 0
+          },
+          {
+            "text": "to",
+            "duration": 0.1
+          },
+          {
+            "text": "go",
+            "duration": 0.12
+          }
+        ]
+      },
+      {
+        "time": 14.78,
+        "text": "It followed her to school one day",
+        "words": [
+          {
+            "text": "It",
+            "duration": 0.4
+          },
+          {
+            "text": "followed",
+            "duration": 0
+          },
+          {
+            "text": "her",
+            "duration": 0.92
+          },
+          {
+            "text": "to",
+            "duration": 0.66
+          },
+          {
+            "text": "school",
+            "duration": 0.46
+          },
+          {
+            "text": "one",
+            "duration": 0.42
+          },
+          {
+            "text": "day",
+            "duration": 0.4
+          }
+        ]
+      },
+      {
+        "time": 54.78,
+        "text": "School one day, school one day",
+        "words": [
+          {
+            "text": "School",
+            "duration": 0.64
+          },
+          {
+            "text": "one",
+            "duration": 0.48
+          },
+          {
+            "text": "day,",
+            "duration": 0.44
+          },
+          {
+            "text": "school",
+            "duration": 0
+          },
+          {
+            "text": "one",
+            "duration": 0.56
+          },
+          {
+            "text": "day",
+            "duration": 0.38
+          }
+        ]
+      },
+      {
+        "time": 57.74,
+        "text": "It followed her to school one day",
+        "words": [
+          {
+            "text": "It",
+            "duration": 0.32
+          },
+          {
+            "text": "followed",
+            "duration": 0.56
+          },
+          {
+            "text": "her",
+            "duration": 0.6
+          },
+          {
+            "text": "to",
+            "duration": 0.28
+          },
+          {
+            "text": "school",
+            "duration": 0.44
+          },
+          {
+            "text": "one",
+            "duration": 0.42
+          },
+          {
+            "text": "day",
+            "duration": 0.36
+          }
+        ]
+      },
+      {
+        "time": 60.72,
+        "text": "Which was against the rules",
+        "words": [
+          {
+            "text": "Which",
+            "duration": 0.42
+          },
+          {
+            "text": "was",
+            "duration": 0.32
+          },
+          {
+            "text": "against",
+            "duration": 0.7
+          },
+          {
+            "text": "the",
+            "duration": 0.44
+          },
+          {
+            "text": "rules",
+            "duration": 0.6
+          }
+        ]
+      }
+    ]
+  }
+]
