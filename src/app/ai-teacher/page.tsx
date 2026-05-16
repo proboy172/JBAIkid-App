@@ -71,8 +71,8 @@ export default function AITeacherPage() {
   const [chatHistory, setChatHistory] = useState<{role: string, text: string}[]>([]);
   const [hasJoined, setHasJoined] = useState(false);
   
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const recognitionRef = useRef<any>(null);
-  const synthRef = useRef<SpeechSynthesis | null>(null);
   const localVideoRef = useRef<HTMLVideoElement>(null);
 
   // Call Timer
@@ -128,12 +128,7 @@ export default function AITeacherPage() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      synthRef.current = window.speechSynthesis;
-      // Preload voices for faster response
-      if (synthRef.current.onvoiceschanged !== undefined) {
-        synthRef.current.onvoiceschanged = () => synthRef.current?.getVoices();
-      }
-      synthRef.current.getVoices();
+      audioRef.current = new Audio();
     }
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -174,7 +169,10 @@ export default function AITeacherPage() {
 
     return () => {
       if (recognitionRef.current) recognitionRef.current.stop();
-      if (synthRef.current) synthRef.current.cancel();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+      }
     };
   }, []);
 
@@ -189,8 +187,8 @@ export default function AITeacherPage() {
       return;
     }
 
-    if (synthRef.current?.speaking) {
-      synthRef.current.cancel(); 
+    if (audioRef.current) {
+      audioRef.current.pause();
       setIsTalking(false);
     }
     setTranscript("");
@@ -244,36 +242,45 @@ export default function AITeacherPage() {
     }
   };
 
-  const speakText = (text: string) => {
-    if (!synthRef.current) return;
-    synthRef.current.cancel(); 
+  const speakText = async (text: string) => {
+    if (!audioRef.current) return;
+    
+    // Dừng âm thanh hiện tại nếu đang phát
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
     
     // Strip emojis to prevent TTS from reading them aloud
     const cleanText = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
 
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = "vi-VN";
+    setIsTalking(true);
     
-    // Prevent Safari Garbage Collection bug
-    window.utterances = window.utterances || [];
-    window.utterances.push(utterance);
-    utterance.rate = 0.95;
-    utterance.pitch = 1.1; 
-    
-    // Core Optimization: Premium Voice Selection
-    const voices = synthRef.current.getVoices();
-    const viVoices = voices.filter(v => v.lang.includes('vi'));
-    // Prioritize Premium or Google/Microsoft female voices
-    const bestVoice = viVoices.find(v => v.name.includes('Premium') || v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Online')) || viVoices[0];
-    if (bestVoice) {
-      utterance.voice = bestVoice;
+    try {
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: cleanText })
+      });
+
+      if (!response.ok) throw new Error("TTS API failed");
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      
+      audioRef.current.src = url;
+      audioRef.current.onended = () => {
+        setIsTalking(false);
+        URL.revokeObjectURL(url);
+      };
+      audioRef.current.onerror = () => {
+        setIsTalking(false);
+        URL.revokeObjectURL(url);
+      };
+      
+      await audioRef.current.play();
+    } catch (e) {
+      console.error("Audio playback failed", e);
+      setIsTalking(false);
     }
-    
-    utterance.onstart = () => setIsTalking(true);
-    utterance.onend = () => setIsTalking(false);
-    utterance.onerror = () => setIsTalking(false);
-    
-    synthRef.current.speak(utterance);
   };
 
   const handleSendMessage = async (text: string) => {
