@@ -59,6 +59,7 @@ export default function AITeacherPage() {
   const [giftSticker, setGiftSticker] = useState<Sticker | null>(null);
   const [callDuration, setCallDuration] = useState(0);
   const [chatHistory, setChatHistory] = useState<{role: string, text: string}[]>([]);
+  const [hasJoined, setHasJoined] = useState(false);
   
   const recognitionRef = useRef<any>(null);
   const synthRef = useRef<SpeechSynthesis | null>(null);
@@ -66,9 +67,10 @@ export default function AITeacherPage() {
 
   // Call Timer
   useEffect(() => {
+    if (!hasJoined) return;
     const timer = setInterval(() => setCallDuration(p => p + 1), 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [hasJoined]);
 
   const formatTime = (sec: number) => {
     const m = Math.floor(sec / 60).toString().padStart(2, '0');
@@ -114,13 +116,14 @@ export default function AITeacherPage() {
 
   // Auto-listen loop handler
   useEffect(() => {
+    if (!hasJoined) return;
     if (autoListenMode && !isTalking && !isThinking && !isListening) {
       try {
         recognitionRef.current?.start();
         setIsListening(true);
       } catch (e) {}
     }
-  }, [autoListenMode, isTalking, isThinking, isListening]);
+  }, [autoListenMode, isTalking, isThinking, isListening, hasJoined]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -295,6 +298,68 @@ export default function AITeacherPage() {
       speakText(errorReply);
     }
   };
+
+  const handleAcceptCall = () => {
+    // Unlock SpeechSynthesis on mobile
+    if (typeof window !== "undefined" && window.speechSynthesis) {
+      const unlockUtterance = new SpeechSynthesisUtterance("");
+      window.speechSynthesis.speak(unlockUtterance);
+    }
+    setHasJoined(true);
+    
+    // Initial greeting trigger
+    setTimeout(() => {
+      setLastAIResponse("Hello! Cô là cô giáo AI của con đây. Con tên là gì nhỉ?");
+      speakText("Hello! Cô là cô giáo AI của con đây. Con tên là gì nhỉ?");
+    }, 1000);
+  };
+
+  if (!hasJoined) {
+    return (
+      <div className="min-h-dvh flex flex-col bg-zinc-900 text-white relative overflow-hidden font-sans items-center justify-center">
+        <motion.div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat blur-sm opacity-50"
+          style={{ backgroundImage: "url('/native_teacher.png')" }}
+        />
+        
+        <div className="relative z-10 flex flex-col items-center">
+          <motion.div 
+            animate={{ scale: [1, 1.1, 1] }} 
+            transition={{ repeat: Infinity, duration: 2 }}
+            className="w-32 h-32 rounded-full overflow-hidden border-4 border-green-400 shadow-[0_0_30px_rgba(74,222,128,0.5)] mb-8"
+          >
+            <img src="/native_teacher.png" alt="Teacher" className="w-full h-full object-cover" />
+          </motion.div>
+          
+          <h2 className="text-3xl font-bold mb-2 tracking-wide">Miss Sophia</h2>
+          <p className="text-white/60 mb-12 text-lg">Đang gọi cho bé...</p>
+          
+          <div className="flex gap-8">
+            <Link href="/">
+              <div className="flex flex-col items-center gap-2">
+                <button className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg hover:bg-red-600 transition-colors">
+                  <PhoneOff size={28} />
+                </button>
+                <span className="text-sm font-medium text-white/70">Từ chối</span>
+              </div>
+            </Link>
+            
+            <div className="flex flex-col items-center gap-2">
+              <motion.button 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleAcceptCall}
+                className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.6)] animate-bounce"
+              >
+                <PhoneOff size={28} className="transform rotate-[135deg]" />
+              </motion.button>
+              <span className="text-sm font-medium text-white/70">Trả lời</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-dvh flex flex-col bg-black text-white relative overflow-hidden font-sans">
