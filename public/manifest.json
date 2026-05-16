@@ -4,13 +4,15 @@
   "description": "Ứng dụng học tiếng Anh, hát tiếng Anh và tiếng Việt dành cho bé 3 tuổi.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFF1F5",
-  "theme_color": "#FFF1F5",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "/app_icon.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

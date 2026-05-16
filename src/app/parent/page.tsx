@@ -6,7 +6,7 @@ import BackButton from "@/components/layout/BackButton";
 import BottomNav from "@/components/layout/BottomNav";
 import { useAppStore } from "@/stores/appStore";
 import { getAllTopics } from "@/data/vocabulary";
-import { RotateCcw, Trophy, BookOpen, Gamepad2, Volume2 } from "lucide-react";
+import { RotateCcw, Trophy, BookOpen, Gamepad2, Volume2, Clock } from "lucide-react";
 
 const generateMathProblem = () => {
   const a = Math.floor(Math.random() * 20) + 10;
@@ -19,7 +19,7 @@ export default function ParentPage() {
   const [mathProblem, setMathProblem] = useState(generateMathProblem());
   const [userAnswer, setUserAnswer] = useState("");
   const [error, setError] = useState(false);
-  const { learnedWords, streak, totalStars, quizHighScore, resetProgress } = useAppStore();
+  const { learnedWords, streak, totalStars, quizHighScore, resetProgress, screenTimeLimit, setScreenTimeLimit } = useAppStore();
   const [showReset, setShowReset] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -169,11 +169,41 @@ export default function ParentPage() {
             </div>
           </div>
 
-          {/* Reset Button */}
+          {/* Settings */}
           <div className="glass-card p-5">
-            <h3 className="font-bold text-base mb-3" style={{ fontFamily: "var(--font-heading)" }}>
-              Cài đặt
+            <h3 className="font-bold text-base mb-4" style={{ fontFamily: "var(--font-heading)" }}>
+              Cài đặt & Bảo vệ
             </h3>
+
+            {/* Screen Time Limiter */}
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Clock size={18} className="text-primary" />
+                <span className="font-semibold text-sm">Thời gian học tối đa mỗi ngày</span>
+              </div>
+              <div className="grid grid-cols-4 gap-2">
+                {[15, 30, 60, 0].map((limit) => (
+                  <motion.button
+                    key={limit}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setScreenTimeLimit(limit)}
+                    className={`py-2 px-1 rounded-xl text-xs font-bold transition-colors ${
+                      screenTimeLimit === limit
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-gray-100 text-text-light hover:bg-gray-200"
+                    }`}
+                  >
+                    {limit === 0 ? "Vô hạn" : `${limit} phút`}
+                  </motion.button>
+                ))}
+              </div>
+              <p className="text-[10px] text-text-light mt-2 italic">
+                Ứng dụng sẽ tự động khóa lại khi hết thời gian, giúp bảo vệ mắt cho bé.
+              </p>
+            </div>
+
+            <div className="h-[1px] w-full bg-gray-200 mb-6" />
+
             {!showReset ? (
               <motion.button
                 whileTap={{ scale: 0.95 }}

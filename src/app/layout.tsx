@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Baloo_2, Quicksand } from "next/font/google";
 import "./globals.css";
+import TimeTracker from "@/components/shared/TimeTracker";
 
 const baloo = Baloo_2({
   subsets: ["latin", "vietnamese"],
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="cloud cloud-3" aria-hidden="true" />
 
           {children}
+          <TimeTracker />
         </div>
       </body>
     </html>

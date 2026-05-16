@@ -30,6 +30,16 @@ export default function FlashCardClient() {
     setIsMounted(true);
   }, []);
 
+  // Auto-play English word when navigating to it (with slight delay for animation)
+  useEffect(() => {
+    if (isMounted && current) {
+      const timer = setTimeout(() => {
+        speak(current.en, "en-US");
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [current, isMounted, speak]);
+
   const items = cat?.items || [];
   const current = items[index];
   
@@ -309,14 +319,29 @@ export default function FlashCardClient() {
           </motion.button>
         </div>
 
-        <motion.button
-          whileTap={{ scale: 0.92 }}
-          onClick={() => speak(current.vi, "vi-VN")}
-          className="mt-4 px-5 py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-sm font-semibold shadow-sm flex items-center gap-2"
-          id="btn-speak-vi"
-        >
-          🇻🇳 Nghe tiếng Việt
-        </motion.button>
+        <div className="flex flex-wrap justify-center gap-3 mt-4">
+          {current.realSound && (
+            <motion.button
+              whileTap={{ scale: 0.92 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                const audio = new Audio(current.realSound);
+                audio.play().catch(err => console.log("Lỗi phát âm thanh:", err));
+              }}
+              className="px-5 py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-sm font-semibold shadow-sm flex items-center gap-2 text-green-700"
+            >
+              🎵 Âm thanh thực
+            </motion.button>
+          )}
+          <motion.button
+            whileTap={{ scale: 0.92 }}
+            onClick={() => speak(current.vi, "vi-VN")}
+            className="px-5 py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-sm font-semibold shadow-sm flex items-center gap-2"
+            id="btn-speak-vi"
+          >
+            🇻🇳 Nghe tiếng Việt
+          </motion.button>
+        </div>
       </div>
 
       <BottomNav />

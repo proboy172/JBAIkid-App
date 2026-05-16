@@ -5,9 +5,18 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import BottomNav from "@/components/layout/BottomNav";
 import Mascot from "@/components/shared/Mascot";
+import DailyRewardPopup from "@/components/shared/DailyRewardPopup";
 import { useAppStore } from "@/stores/appStore";
 
 const modes = [
+  {
+    href: "/ai-teacher",
+    emoji: "🤖",
+    title: "Cô Giáo AI",
+    subtitle: "Trò chuyện & Học tập",
+    gradient: "bg-gradient-to-br from-indigo-400 to-purple-500",
+    delay: 0.05,
+  },
   {
     href: "/learn",
     emoji: "📚",
@@ -235,6 +244,7 @@ export default function HomePage() {
       </div>
 
       <BottomNav />
+      <DailyRewardPopup />
     </div>
   );
 }

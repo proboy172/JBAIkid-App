@@ -3,6 +3,7 @@ export interface VocabItem {
   vi: string;
   emoji: string;
   phonetic: string;
+  realSound?: string;
 }
 
 export interface Topic {
@@ -36,16 +37,16 @@ export const curriculum: Level[] = [
         emoji: "🐶",
         color: "#38BDF8",
         items: [
-          { en: "Dog", vi: "Con chó", emoji: "🐶", phonetic: "/dɔɡ/" },
-          { en: "Cat", vi: "Con mèo", emoji: "🐱", phonetic: "/kæt/" },
-          { en: "Bird", vi: "Con chim", emoji: "🐦", phonetic: "/bɜːrd/" },
+          { en: "Dog", vi: "Con chó", emoji: "🐶", phonetic: "/dɔɡ/", realSound: "/sounds/dog.mp3" },
+          { en: "Cat", vi: "Con mèo", emoji: "🐱", phonetic: "/kæt/", realSound: "/sounds/cat.mp3" },
+          { en: "Bird", vi: "Con chim", emoji: "🐦", phonetic: "/bɜːrd/", realSound: "/sounds/bird.mp3" },
           { en: "Fish", vi: "Con cá", emoji: "🐟", phonetic: "/fɪʃ/" },
-          { en: "Cow", vi: "Con bò", emoji: "🐮", phonetic: "/kaʊ/" },
-          { en: "Pig", vi: "Con heo", emoji: "🐷", phonetic: "/pɪɡ/" },
-          { en: "Duck", vi: "Con vịt", emoji: "🦆", phonetic: "/dʌk/" },
-          { en: "Chicken", vi: "Con gà", emoji: "🐔", phonetic: "/ˈtʃɪkɪn/" },
-          { en: "Horse", vi: "Con ngựa", emoji: "🐴", phonetic: "/hɔːrs/" },
-          { en: "Sheep", vi: "Con cừu", emoji: "🐑", phonetic: "/ʃiːp/" },
+          { en: "Cow", vi: "Con bò", emoji: "🐮", phonetic: "/kaʊ/", realSound: "/sounds/cow.mp3" },
+          { en: "Pig", vi: "Con heo", emoji: "🐷", phonetic: "/pɪɡ/", realSound: "/sounds/pig.mp3" },
+          { en: "Duck", vi: "Con vịt", emoji: "🦆", phonetic: "/dʌk/", realSound: "/sounds/duck.mp3" },
+          { en: "Chicken", vi: "Con gà", emoji: "🐔", phonetic: "/ˈtʃɪkɪn/", realSound: "/sounds/rooster.mp3" },
+          { en: "Horse", vi: "Con ngựa", emoji: "🐴", phonetic: "/hɔːrs/", realSound: "/sounds/horse.mp3" },
+          { en: "Sheep", vi: "Con cừu", emoji: "🐑", phonetic: "/ʃiːp/", realSound: "/sounds/sheep.mp3" },
         ],
       },
       {
@@ -139,14 +140,14 @@ export const curriculum: Level[] = [
         emoji: "🦁",
         color: "#F59E0B",
         items: [
-          { en: "Lion", vi: "Con sư tử", emoji: "🦁", phonetic: "/ˈlaɪən/" },
-          { en: "Tiger", vi: "Con hổ", emoji: "🐯", phonetic: "/ˈtaɪɡər/" },
-          { en: "Elephant", vi: "Con voi", emoji: "🐘", phonetic: "/ˈelɪfənt/" },
-          { en: "Monkey", vi: "Con khỉ", emoji: "🐒", phonetic: "/ˈmʌŋki/" },
+          { en: "Lion", vi: "Con sư tử", emoji: "🦁", phonetic: "/ˈlaɪən/", realSound: "/sounds/lion.mp3" },
+          { en: "Tiger", vi: "Con hổ", emoji: "🐯", phonetic: "/ˈtaɪɡər/", realSound: "/sounds/tiger.mp3" },
+          { en: "Elephant", vi: "Con voi", emoji: "🐘", phonetic: "/ˈelɪfənt/", realSound: "/sounds/elephant.mp3" },
+          { en: "Monkey", vi: "Con khỉ", emoji: "🐒", phonetic: "/ˈmʌŋki/", realSound: "/sounds/monkey.mp3" },
           { en: "Bear", vi: "Con gấu", emoji: "🐻", phonetic: "/ber/" },
           { en: "Zebra", vi: "Con ngựa vằn", emoji: "🦓", phonetic: "/ˈziːbrə/" },
           { en: "Giraffe", vi: "Con hươu cao cổ", emoji: "🦒", phonetic: "/dʒəˈræf/" },
-          { en: "Snake", vi: "Con rắn", emoji: "🐍", phonetic: "/sneɪk/" },
+          { en: "Snake", vi: "Con rắn", emoji: "🐍", phonetic: "/sneɪk/", realSound: "/sounds/snake.mp3" },
           { en: "Crocodile", vi: "Con cá sấu", emoji: "🐊", phonetic: "/ˈkrɑːkədaɪl/" },
           { en: "Panda", vi: "Con gấu trúc", emoji: "🐼", phonetic: "/ˈpændə/" },
         ],
@@ -158,16 +159,16 @@ export const curriculum: Level[] = [
         emoji: "🚗",
         color: "#6366F1",
         items: [
-          { en: "Car", vi: "Chiếc xe hơi", emoji: "🚗", phonetic: "/kɑːr/" },
+          { en: "Car", vi: "Chiếc xe hơi", emoji: "🚗", phonetic: "/kɑːr/", realSound: "/sounds/car.mp3" },
           { en: "Bus", vi: "Xe buýt", emoji: "🚌", phonetic: "/bʌs/" },
-          { en: "Train", vi: "Xe lửa", emoji: "🚂", phonetic: "/treɪn/" },
+          { en: "Train", vi: "Xe lửa", emoji: "🚂", phonetic: "/treɪn/", realSound: "/sounds/train.mp3" },
           { en: "Bicycle", vi: "Xe đạp", emoji: "🚲", phonetic: "/ˈbaɪsɪkl/" },
           { en: "Motorcycle", vi: "Xe máy", emoji: "🏍️", phonetic: "/ˈmoʊtərsaɪkl/" },
-          { en: "Airplane", vi: "Máy bay", emoji: "✈️", phonetic: "/ˈerpleɪn/" },
+          { en: "Airplane", vi: "Máy bay", emoji: "✈️", phonetic: "/ˈerpleɪn/", realSound: "/sounds/airplane.mp3" },
           { en: "Boat", vi: "Con thuyền", emoji: "⛵", phonetic: "/boʊt/" },
           { en: "Helicopter", vi: "Máy bay trực thăng", emoji: "🚁", phonetic: "/ˈhelɪkɑːptər/" },
           { en: "Truck", vi: "Xe tải", emoji: "🚚", phonetic: "/trʌk/" },
-          { en: "Police car", vi: "Xe cảnh sát", emoji: "🚓", phonetic: "/pəˈliːs kɑːr/" },
+          { en: "Police car", vi: "Xe cảnh sát", emoji: "🚓", phonetic: "/pəˈliːs kɑːr/", realSound: "/sounds/police.mp3" },
         ],
       },
       {

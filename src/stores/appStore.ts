@@ -61,6 +61,11 @@ interface ProgressState {
   lastDailyReward: string;     // ISO date of last claim
   dailyRewardStreak: number;   // consecutive days claimed
 
+  // Screen Time
+  screenTimeLimit: number; // in minutes. 0 = unlimited
+  dailyPlayTime: number; // in seconds
+  lastPlayDate: string; // ISO date to reset time
+
   markWordLearned: (categoryId: string, wordEn: string) => void;
   addStars: (count: number) => void;
   spendStars: (count: number) => boolean;
@@ -77,6 +82,10 @@ interface ProgressState {
   // Daily Reward actions
   canClaimDailyReward: () => boolean;
   claimDailyReward: () => number; // returns stars earned
+
+  // Screen Time actions
+  incrementPlayTime: () => void;
+  setScreenTimeLimit: (limit: number) => void;
 }
 
 const getTodayStr = () => new Date().toISOString().split("T")[0];
@@ -128,6 +137,9 @@ export const useAppStore = create<ProgressState>()(
       srsCards: {},
       lastDailyReward: "",
       dailyRewardStreak: 0,
+      screenTimeLimit: 30, // Default 30 mins
+      dailyPlayTime: 0,
+      lastPlayDate: "",
 
       markWordLearned: (categoryId, wordEn) => {
         const current = get().learnedWords;
@@ -195,6 +207,7 @@ export const useAppStore = create<ProgressState>()(
           srsCards: {},
           lastDailyReward: "",
           dailyRewardStreak: 0,
+          dailyPlayTime: 0,
         });
       },
 
@@ -270,6 +283,22 @@ export const useAppStore = create<ProgressState>()(
         });
 
         return stars;
+      },
+
+      // ===== Screen Time Actions =====
+      incrementPlayTime: () => {
+        const today = getTodayStr();
+        const last = get().lastPlayDate;
+        if (last !== today) {
+          // Reset if new day
+          set({ dailyPlayTime: 1, lastPlayDate: today });
+        } else {
+          set({ dailyPlayTime: get().dailyPlayTime + 1 });
+        }
+      },
+
+      setScreenTimeLimit: (limit: number) => {
+        set({ screenTimeLimit: limit });
       },
     }),
     { 
