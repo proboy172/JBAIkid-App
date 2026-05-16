@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useAppStore } from "@/stores/appStore";
 import confetti from "canvas-confetti";
 import { STICKERS, Sticker } from "@/data/stickers";
+import { Capacitor } from '@capacitor/core';
+import { SpeechRecognition as NativeSpeech } from '@capacitor-community/speech-recognition';
 
 const FILLER_PHRASES = [
   "À, để cô xem nào...",
@@ -176,21 +178,66 @@ export default function AITeacherPage() {
     };
   }, []);
 
-  const toggleListening = () => {
+  const toggleListening = async () => {
     if (isListening) {
-      try { recognitionRef.current?.stop(); } catch (e) {}
-      setIsListening(false);
-    } else {
-      if (synthRef.current?.speaking) {
-        synthRef.current.cancel(); 
-        setIsTalking(false);
+      if (Capacitor.isNativePlatform()) {
+        try { await NativeSpeech.stop(); } catch (e) {}
+      } else {
+        try { recognitionRef.current?.stop(); } catch (e) {}
       }
-      setTranscript("");
+      setIsListening(false);
+      return;
+    }
+
+    if (synthRef.current?.speaking) {
+      synthRef.current.cancel(); 
+      setIsTalking(false);
+    }
+    setTranscript("");
+    setLastAIResponse("");
+    playBeep(true);
+
+    if (Capacitor.isNativePlatform()) {
       try {
-        playBeep(true);
+        let permStatus = await NativeSpeech.checkPermissions();
+        if (permStatus.speechRecognition !== 'granted') {
+          permStatus = await NativeSpeech.requestPermissions();
+        }
+        if (permStatus.speechRecognition !== 'granted') {
+          alert('Vui lòng cấp quyền micro để thu âm!');
+          return;
+        }
+
+        setIsListening(true);
+        await NativeSpeech.start({
+          language: "vi-VN",
+          maxResults: 1,
+          prompt: "Cô giáo đang nghe...",
+          partialResults: false,
+        });
+
+        NativeSpeech.removeAllListeners();
+        NativeSpeech.addListener("partialResults", (data: any) => {
+          if (data.matches && data.matches.length > 0) {
+            const finalTranscript = data.matches[0];
+            setTranscript(finalTranscript);
+            handleSendMessage(finalTranscript);
+          } else {
+            playBeep(false);
+          }
+          setIsListening(false);
+          NativeSpeech.stop(); 
+        });
+
+      } catch (e) {
+        console.error("Native Speech Error:", e);
+        setIsListening(false);
+        playBeep(false);
+      }
+    } else {
+      try {
         recognitionRef.current?.start();
         setIsListening(true);
-        setLastAIResponse(""); 
       } catch (e) {
         console.error("Microphone error", e);
       }
