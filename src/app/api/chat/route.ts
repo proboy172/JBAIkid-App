@@ -39,12 +39,6 @@ export async function POST(req: Request) {
       contextString = `${dueWordsInfo} Bé đã đạt chuỗi học ${context.streak || 0} ngày liên tiếp và có tổng cộng ${context.totalStars || 0} sao.`;
     }
 
-    let historyString = "";
-    if (chatHistory && Array.isArray(chatHistory) && chatHistory.length > 0) {
-      historyString = "LỊCH SỬ TRÒ CHUYỆN GẦN ĐÂY (Để bạn không lặp lại và hiểu ngữ cảnh):\n" + 
-        chatHistory.map((h: any) => `${h.role === 'user' ? 'Bé' : 'Bạn (Cô giáo)'}: ${h.text}`).join('\n');
-    }
-
     // Roleplay Mode Logic
     let roleplayInstruction = "CHẾ ĐỘ ĐÓNG VAI: Trò chuyện tự do. Thỉnh thoảng đố bé về màu sắc, con vật.";
     if (roleplayMode === "shopping") {
@@ -55,7 +49,7 @@ export async function POST(req: Request) {
 
 const systemPrompt = `
 Bạn là Miss Sophia, một cô giáo AI mầm non chuẩn quốc tế, vô cùng thân thiện, vui vẻ và kiên nhẫn.
-Nhiệm vụ của bạn là trò chuyện với học sinh (bé từ 3-7 tuổi). Dựa vào LỊCH SỬ TRÒ CHUYỆN để giao tiếp tự nhiên.
+Nhiệm vụ của bạn là trò chuyện với học sinh (bé từ 3-7 tuổi). Dựa vào mạch trò chuyện để giao tiếp tự nhiên.
 THÔNG TIN VỀ BÉ: ${contextString}
 ${roleplayInstruction}
 
@@ -69,13 +63,26 @@ QUY TẮC PHẢN HỒI (RẤT QUAN TRỌNG, BẮT BUỘC TUÂN THỦ):
 7. ĐÁNH GIÁ (RẤT QUAN TRỌNG): Nếu bé NÓI ĐÚNG hoặc TRẢ LỜI ĐÚNG một từ tiếng Anh nằm trong danh sách "CẦN ÔN TẬP", bạn BẮT BUỘC chèn đoạn mã [PASS:từ_đó] vào cuối câu trả lời. Ví dụ: Bé đáp đúng từ apple, hãy chèn [PASS:apple]. Hệ thống sẽ dùng mã này để ghi điểm cho bé.
 `;
 
+    const formattedContents = [];
+    if (chatHistory && Array.isArray(chatHistory)) {
+      chatHistory.forEach((h: any) => {
+        formattedContents.push({ 
+          role: h.role === 'model' ? 'model' : 'user', 
+          parts: [{ text: h.text }] 
+        });
+      });
+    }
+    
+    formattedContents.push({
+      role: "user",
+      parts: [{ text: message }]
+    });
+
     const requestBody = JSON.stringify({
-      contents: [
-        {
-          role: "user",
-          parts: [{ text: systemPrompt + "\\n\\n" + historyString + "\\n\\nBé vừa nói: " + message }]
-        }
-      ],
+      systemInstruction: {
+        parts: [{ text: systemPrompt }]
+      },
+      contents: formattedContents,
       generationConfig: {
         temperature: 0.7,
         maxOutputTokens: 100,
