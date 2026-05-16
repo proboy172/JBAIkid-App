@@ -12,6 +12,7 @@ declare global {
   interface Window {
     SpeechRecognition: any;
     webkitSpeechRecognition: any;
+    utterances: SpeechSynthesisUtterance[];
   }
 }
 
@@ -54,7 +55,6 @@ export default function AITeacherPage() {
   const [transcript, setTranscript] = useState("");
   const [lastAIResponse, setLastAIResponse] = useState("Hi there! I am your teacher.");
   const [displayedResponse, setDisplayedResponse] = useState("Hi there! I am your teacher.");
-  const [autoListenMode, setAutoListenMode] = useState(true); // Default to on for video call feel
   const [currentFlashcard, setCurrentFlashcard] = useState<string | null>(null);
   const [giftSticker, setGiftSticker] = useState<Sticker | null>(null);
   const [callDuration, setCallDuration] = useState(0);
@@ -114,16 +114,7 @@ export default function AITeacherPage() {
     return () => clearInterval(interval);
   }, [lastAIResponse, transcript]);
 
-  // Auto-listen loop handler
-  useEffect(() => {
-    if (!hasJoined) return;
-    if (autoListenMode && !isTalking && !isThinking && !isListening) {
-      try {
-        recognitionRef.current?.start();
-        setIsListening(true);
-      } catch (e) {}
-    }
-  }, [autoListenMode, isTalking, isThinking, isListening, hasJoined]);
+  // Auto-listen loop handler removed - replaced by manual Tap to Talk
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -151,7 +142,7 @@ export default function AITeacherPage() {
           if (prev.trim().length > 0) {
             handleSendMessage(prev);
           } else {
-            if (!autoListenMode) playBeep(false);
+            playBeep(false);
           }
           return "";
         });
@@ -162,7 +153,7 @@ export default function AITeacherPage() {
           console.error("Speech recognition error", event.error);
         }
         setIsListening(false);
-        if (!autoListenMode) playBeep(false);
+        playBeep(false);
       };
     }
 
@@ -173,15 +164,10 @@ export default function AITeacherPage() {
   }, []);
 
   const toggleListening = () => {
-    if (autoListenMode) {
-      setAutoListenMode(false);
-      recognitionRef.current?.stop();
-      if (synthRef.current?.speaking) {
-        synthRef.current.cancel(); 
-        setIsTalking(false);
-      }
+    if (isListening) {
+      try { recognitionRef.current?.stop(); } catch (e) {}
+      setIsListening(false);
     } else {
-      setAutoListenMode(true);
       if (synthRef.current?.speaking) {
         synthRef.current.cancel(); 
         setIsTalking(false);
@@ -202,8 +188,15 @@ export default function AITeacherPage() {
     if (!synthRef.current) return;
     synthRef.current.cancel(); 
     
-    const utterance = new SpeechSynthesisUtterance(text);
+    // Strip emojis to prevent TTS from reading them aloud
+    const cleanText = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = "vi-VN";
+    
+    // Prevent Safari Garbage Collection bug
+    window.utterances = window.utterances || [];
+    window.utterances.push(utterance);
     utterance.rate = 0.95;
     utterance.pitch = 1.1; 
     
@@ -478,16 +471,24 @@ export default function AITeacherPage() {
           </div>
 
           <div className="flex items-center justify-center gap-6">
-            <motion.button
-              onClick={toggleListening}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`w-16 h-16 rounded-full flex items-center justify-center shadow-2xl backdrop-blur-xl border border-white/20 transition-all ${
-                autoListenMode ? "bg-white/90 text-black shadow-[0_0_20px_rgba(255,255,255,0.4)]" : "bg-zinc-800/80 text-white"
-              }`}
-            >
-              {autoListenMode ? <Mic size={28} /> : <MicOff size={28} className="text-white/60" />}
-            </motion.button>
+            <div className="flex flex-col items-center gap-2">
+              <motion.button
+                onClick={toggleListening}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`w-20 h-20 rounded-full flex items-center justify-center shadow-2xl backdrop-blur-xl border border-white/20 transition-all relative ${
+                  isListening ? "bg-emerald-500 text-white shadow-[0_0_30px_rgba(52,211,153,0.6)]" : "bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+                }`}
+              >
+                {isListening && (
+                  <div className="absolute inset-0 rounded-full border-4 border-emerald-400 animate-ping opacity-50" />
+                )}
+                <Mic size={36} />
+              </motion.button>
+              <span className="text-xs font-medium text-white/70">
+                {isListening ? "Đang nghe..." : "Nhấn để nói"}
+              </span>
+            </div>
 
             <Link href="/">
               <motion.button
