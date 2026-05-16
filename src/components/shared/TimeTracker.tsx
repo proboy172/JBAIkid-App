@@ -68,7 +68,7 @@ export default function TimeTracker() {
         >
           {!showOverride ? (
             <>
-              <Mascot mood="sleep" message="Mắt bé cần nghỉ ngơi rồi!" size={100} />
+              <Mascot mood="sad" message="Mắt bé cần nghỉ ngơi rồi!" size={100} />
               <h2
                 className="text-2xl font-extrabold text-slate-800"
                 style={{ fontFamily: "var(--font-heading)" }}

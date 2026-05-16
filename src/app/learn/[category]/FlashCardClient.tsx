@@ -26,6 +26,9 @@ export default function FlashCardClient() {
   const [isRecording, setIsRecording] = useState(false);
   const [speechFeedback, setSpeechFeedback] = useState<"correct" | "incorrect" | null>(null);
 
+  const items = cat?.items || [];
+  const current = items[index];
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -39,9 +42,6 @@ export default function FlashCardClient() {
       return () => clearTimeout(timer);
     }
   }, [current, isMounted, speak]);
-
-  const items = cat?.items || [];
-  const current = items[index];
   
   const startRecording = useCallback(async () => {
     if (typeof window === "undefined" || !current) return;
