@@ -74,6 +74,11 @@ interface ProgressState {
   unlockSticker: (id: string) => void;
   resetProgress: () => void;
 
+  // AI API Keys
+  aiApiKeys: string[];
+  addApiKey: (key: string) => void;
+  removeApiKey: (key: string) => void;
+
   // SRS actions
   addToSRS: (categoryId: string, wordEn: string) => void;
   reviewWord: (wordEn: string, quality: SRSQuality) => void;
@@ -140,6 +145,7 @@ export const useAppStore = create<ProgressState>()(
       screenTimeLimit: 30, // Default 30 mins
       dailyPlayTime: 0,
       lastPlayDate: "",
+      aiApiKeys: [],
 
       markWordLearned: (categoryId, wordEn) => {
         const current = get().learnedWords;
@@ -209,6 +215,19 @@ export const useAppStore = create<ProgressState>()(
           dailyRewardStreak: 0,
           dailyPlayTime: 0,
         });
+      },
+
+      // ===== AI API Keys =====
+      addApiKey: (key) => {
+        const current = get().aiApiKeys || [];
+        if (!current.includes(key)) {
+          set({ aiApiKeys: [...current, key] });
+        }
+      },
+
+      removeApiKey: (key) => {
+        const current = get().aiApiKeys || [];
+        set({ aiApiKeys: current.filter((k) => k !== key) });
       },
 
       // ===== SRS Actions =====

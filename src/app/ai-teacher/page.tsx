@@ -47,7 +47,7 @@ const playBeep = (isStart: boolean) => {
 };
 
 export default function AITeacherPage() {
-  const { streak, totalStars, getDueWords, addStars, unlockSticker } = useAppStore();
+  const { streak, totalStars, getDueWords, addStars, unlockSticker, aiApiKeys } = useAppStore();
   const [isListening, setIsListening] = useState(false);
   const [isTalking, setIsTalking] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
@@ -244,7 +244,7 @@ export default function AITeacherPage() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, context, roleplayMode: 'free', chatHistory }),
+        body: JSON.stringify({ message: text, context, roleplayMode: 'free', chatHistory, apiKeys: aiApiKeys }),
       });
       
       if (!response.ok) throw new Error("API Error");

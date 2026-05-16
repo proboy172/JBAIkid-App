@@ -6,7 +6,7 @@ import BackButton from "@/components/layout/BackButton";
 import BottomNav from "@/components/layout/BottomNav";
 import { useAppStore } from "@/stores/appStore";
 import { getAllTopics } from "@/data/vocabulary";
-import { RotateCcw, Trophy, BookOpen, Gamepad2, Volume2, Clock } from "lucide-react";
+import { RotateCcw, Trophy, BookOpen, Gamepad2, Volume2, Clock, Key, Plus, Trash2 } from "lucide-react";
 
 const generateMathProblem = () => {
   const a = Math.floor(Math.random() * 20) + 10;
@@ -19,8 +19,16 @@ export default function ParentPage() {
   const [mathProblem, setMathProblem] = useState(generateMathProblem());
   const [userAnswer, setUserAnswer] = useState("");
   const [error, setError] = useState(false);
-  const { learnedWords, streak, totalStars, quizHighScore, resetProgress, screenTimeLimit, setScreenTimeLimit } = useAppStore();
+  const { learnedWords, streak, totalStars, quizHighScore, resetProgress, screenTimeLimit, setScreenTimeLimit, aiApiKeys, addApiKey, removeApiKey } = useAppStore();
   const [showReset, setShowReset] = useState(false);
+  const [newApiKey, setNewApiKey] = useState("");
+
+  const handleAddKey = () => {
+    if (newApiKey.trim().length > 10) {
+      addApiKey(newApiKey.trim());
+      setNewApiKey("");
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -200,6 +208,50 @@ export default function ParentPage() {
               <p className="text-[10px] text-text-light mt-2 italic">
                 Ứng dụng sẽ tự động khóa lại khi hết thời gian, giúp bảo vệ mắt cho bé.
               </p>
+            </div>
+
+            {/* AI API Keys Config */}
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Key size={18} className="text-primary" />
+                <span className="font-semibold text-sm">Cấu hình AI API Keys (Xoay vòng)</span>
+              </div>
+              
+              <div className="flex flex-col gap-2 mb-3">
+                {aiApiKeys && aiApiKeys.map((key) => (
+                  <div key={key} className="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-xl border border-gray-100">
+                    <span className="text-xs font-mono text-gray-600">
+                      {key.substring(0, 8)}...{key.substring(key.length - 6)}
+                    </span>
+                    <button 
+                      onClick={() => removeApiKey(key)}
+                      className="text-red-400 hover:text-red-600 p-1"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                ))}
+                {(!aiApiKeys || aiApiKeys.length === 0) && (
+                  <p className="text-xs text-text-light italic px-1">Chưa có API Key nào được thêm. Hệ thống sẽ dùng key mặc định.</p>
+                )}
+              </div>
+
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={newApiKey}
+                  onChange={(e) => setNewApiKey(e.target.value)}
+                  placeholder="Nhập Gemini API Key..."
+                  className="flex-1 text-xs px-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white"
+                />
+                <button
+                  onClick={handleAddKey}
+                  disabled={newApiKey.trim().length < 10}
+                  className="bg-primary text-white px-3 py-2 rounded-xl flex items-center gap-1 disabled:opacity-50"
+                >
+                  <Plus size={16} /> <span className="text-xs font-bold">Thêm</span>
+                </button>
+              </div>
             </div>
 
             <div className="h-[1px] w-full bg-gray-200 mb-6" />

@@ -3,16 +3,28 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { message, context, roleplayMode, chatHistory } = body;
+    const { message, context, roleplayMode, chatHistory, apiKeys = [] } = body;
     
     if (!message) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
 
-    const userKey = "AIzaSyCtJuloV" + "ibyusYlE0o" + "pa5iVQBlPg" + "OVct_4";
-    const apiKey = process.env.GEMINI_API_KEY || userKey;
+    const defaultKey = "AIzaSyCtJuloV" + "ibyusYlE0o" + "pa5iVQBlPg" + "OVct_4";
+    const envKey = process.env.GEMINI_API_KEY;
 
-    if (!apiKey) {
+    // Combine all available keys and remove duplicates/empties
+    let allKeys = [...apiKeys];
+    if (envKey) allKeys.push(envKey);
+    allKeys.push(defaultKey);
+    allKeys = Array.from(new Set(allKeys.filter((k: string) => k && k.trim() !== '')));
+
+    // Shuffle keys for load balancing
+    for (let i = allKeys.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [allKeys[i], allKeys[j]] = [allKeys[j], allKeys[i]];
+    }
+
+    if (allKeys.length === 0) {
       return NextResponse.json({ 
         reply: "Cô là giáo viên AI đây! Nhưng ba mẹ chưa kết nối trí não cho cô rồi. Ba mẹ hãy thêm mã khóa API để cô thông minh hơn nhé!" 
       });
@@ -52,39 +64,49 @@ QUY TẮC PHẢN HỒI (RẤT QUAN TRỌNG):
 6. TẶNG QUÀ (GIFTING): Nếu bé có một cuộc trò chuyện xuất sắc, hoặc đoán trúng liên tiếp, hãy tạo bất ngờ bằng cách TẶNG STICKER cho bé. Cú pháp: [GIFT:sX] với X là số ngẫu nhiên từ 1 đến 12 (ví dụ: [GIFT:s4], [GIFT:s10]). Chỉ tặng 1 lần trong những lúc bé thật sự xuất sắc.
 `;
 
-    // Call Gemini API directly via fetch
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [{ text: systemPrompt + "\\n\\n" + historyString + "\\n\\nBé vừa nói: " + message }]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 100,
+    const requestBody = JSON.stringify({
+      contents: [
+        {
+          role: "user",
+          parts: [{ text: systemPrompt + "\\n\\n" + historyString + "\\n\\nBé vừa nói: " + message }]
         }
-      })
+      ],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 100,
+      }
     });
 
-    if (!response.ok) {
-      console.error("Gemini API Error", await response.text());
-      return NextResponse.json({ reply: "Xin lỗi con, mạng của cô đang bị chập chờn một chút!" });
+    let lastErrorText = "";
+
+    // Try keys sequentially
+    for (const key of allKeys) {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${key}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: requestBody
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (!replyText) {
+          return NextResponse.json({ reply: "Cô đang suy nghĩ một chút, con chờ cô nha!" });
+        }
+
+        return NextResponse.json({ reply: replyText.replace(/\\*/g, '') }); // Remove markdown asterisks for clean speech
+      } else {
+        lastErrorText = await response.text();
+        console.warn(`Key failed with status ${response.status}. Trying next key...`);
+        continue;
+      }
     }
 
-    const data = await response.json();
-    const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!replyText) {
-      return NextResponse.json({ reply: "Cô đang suy nghĩ một chút, con chờ cô nha!" });
-    }
-
-    return NextResponse.json({ reply: replyText.replace(/\\*/g, '') }); // Remove markdown asterisks for clean speech
+    console.error("All Gemini API Keys failed. Last error:", lastErrorText);
+    return NextResponse.json({ reply: "Xin lỗi con, mạng của cô đang bị chập chờn một chút!" });
   } catch (error) {
     console.error("Chat API Error:", error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
