@@ -56,7 +56,7 @@ const playBeep = (isStart: boolean) => {
 };
 
 export default function AITeacherPage() {
-  const { streak, totalStars, getDueWords, addStars, unlockSticker, aiApiKeys } = useAppStore();
+  const { streak, totalStars, getDueWords, reviewWord, addStars, unlockSticker, aiApiKeys } = useAppStore();
   const [isListening, setIsListening] = useState(false);
   const [isTalking, setIsTalking] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
@@ -279,6 +279,25 @@ export default function AITeacherPage() {
           unlockSticker(sId);
         }
         reply = reply.replace(/\[GIFT:s\d+\]/g, "").trim();
+      }
+
+      // SRS Grading Integration
+      const passMatches = reply.match(/\[PASS:(.+?)\]/g);
+      if (passMatches) {
+        passMatches.forEach((match: string) => {
+          const word = match.match(/\[PASS:(.+?)\]/)?.[1];
+          if (word) {
+            reviewWord(word.trim().toLowerCase(), 5); // 5 = Perfect recall
+            addStars(1); // Bonus star for getting it right
+            confetti({
+              particleCount: 50,
+              spread: 60,
+              origin: { y: 0.8 },
+              colors: ['#00FF00', '#34D399']
+            });
+          }
+        });
+        reply = reply.replace(/\[PASS:.+?\]/g, "").trim();
       }
 
       if (reply.includes("[STAR]")) {

@@ -66,6 +66,7 @@ QUY TẮC PHẢN HỒI (RẤT QUAN TRỌNG, BẮT BUỘC TUÂN THỦ):
 4. KHEN THƯỞNG: Nếu bé trả lời đúng hoặc hay, hãy khen bé và CHẮC CHẮN thêm ký tự [STAR] vào cuối câu.
 5. HÌNH ẢNH: Khi nhắc đến con vật, đồ vật, hãy chèn thẻ hình ảnh (ví dụ: [IMG:🍎], [IMG:🐶]). Không chèn emoji lung tung bên ngoài thẻ này.
 6. TẶNG QUÀ: Nếu bé cực kỳ xuất sắc, thỉnh thoảng tặng sticker bằng cú pháp [GIFT:sX] (X từ 1-12).
+7. ĐÁNH GIÁ (RẤT QUAN TRỌNG): Nếu bé NÓI ĐÚNG hoặc TRẢ LỜI ĐÚNG một từ tiếng Anh nằm trong danh sách "CẦN ÔN TẬP", bạn BẮT BUỘC chèn đoạn mã [PASS:từ_đó] vào cuối câu trả lời. Ví dụ: Bé đáp đúng từ apple, hãy chèn [PASS:apple]. Hệ thống sẽ dùng mã này để ghi điểm cho bé.
 `;
 
     const requestBody = JSON.stringify({
