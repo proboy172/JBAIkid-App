@@ -8,6 +8,14 @@ import { useAppStore } from "@/stores/appStore";
 import confetti from "canvas-confetti";
 import { STICKERS, Sticker } from "@/data/stickers";
 
+const FILLER_PHRASES = [
+  "À, để cô xem nào...",
+  "Hmm, cô nghe rồi...",
+  "Úi chà...",
+  "Cô hiểu rồi...",
+  "Để cô nghĩ một xíu nhé..."
+];
+
 declare global {
   interface Window {
     SpeechRecognition: any;
@@ -119,6 +127,11 @@ export default function AITeacherPage() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       synthRef.current = window.speechSynthesis;
+      // Preload voices for faster response
+      if (synthRef.current.onvoiceschanged !== undefined) {
+        synthRef.current.onvoiceschanged = () => synthRef.current?.getVoices();
+      }
+      synthRef.current.getVoices();
     }
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -221,8 +234,14 @@ export default function AITeacherPage() {
     setIsThinking(true);
     setCurrentFlashcard(null);
     
+    // Zero-latency illusion: Play a filler phrase immediately
+    const randomFiller = FILLER_PHRASES[Math.floor(Math.random() * FILLER_PHRASES.length)];
+    speakText(randomFiller);
+    
+    // Core Pedagogical Context
+    const dueWordsArray = getDueWords().slice(0, 5).map(w => w.wordEn);
     const context = {
-      dueCount: getDueWords().length,
+      dueWords: dueWordsArray,
       streak: streak,
       totalStars: totalStars
     };

@@ -32,7 +32,11 @@ export async function POST(req: Request) {
 
     let contextString = "Bé đang học rất tốt.";
     if (context) {
-      contextString = `Hôm nay bé có ${context.dueCount || 0} từ vựng cần ôn tập. Bé đã đạt chuỗi học ${context.streak || 0} ngày liên tiếp và có tổng cộng ${context.totalStars || 0} sao.`;
+      const dueWordsInfo = (context.dueWords && context.dueWords.length > 0) 
+        ? `BÉ CẦN ÔN TẬP CÁC TỪ TIẾNG ANH SAU: [${context.dueWords.join(", ")}]. Hãy chủ động HỎI ĐỐ bé về các từ này (từng từ một)!` 
+        : `Bé đã ôn bài đầy đủ hôm nay.`;
+        
+      contextString = `${dueWordsInfo} Bé đã đạt chuỗi học ${context.streak || 0} ngày liên tiếp và có tổng cộng ${context.totalStars || 0} sao.`;
     }
 
     let historyString = "";
