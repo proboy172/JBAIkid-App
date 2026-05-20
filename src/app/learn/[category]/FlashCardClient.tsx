@@ -12,6 +12,7 @@ import { useConfetti } from "@/hooks/useConfetti";
 import { useAppStore } from "@/stores/appStore";
 import { Volume2, ChevronLeft, ChevronRight, Mic } from "lucide-react";
 import stringSimilarity from "string-similarity";
+import Link from "next/link";
 
 export default function FlashCardClient() {
   const { category } = useParams<{ category: string }>();
@@ -25,6 +26,11 @@ export default function FlashCardClient() {
   const { markWordLearned, addStars, learnedWords } = useAppStore();
   const [isRecording, setIsRecording] = useState(false);
   const [speechFeedback, setSpeechFeedback] = useState<"correct" | "incorrect" | null>(null);
+
+  // Swipe state
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [showCompletion, setShowCompletion] = useState(false);
 
   const items = cat?.items || [];
   const current = items[index];
@@ -141,6 +147,8 @@ export default function FlashCardClient() {
       setDirection(1);
       setFlipped(false);
       setIndex((i) => i + 1);
+    } else {
+      setShowCompletion(true);
     }
   }, [index, items.length]);
 
@@ -166,6 +174,94 @@ export default function FlashCardClient() {
   }
 
   const progress = Math.round(((index + 1) / items.length) * 100);
+
+  // Suggest next 3 topics
+  const allTopics = getAllTopics();
+  const currentTopicIndex = allTopics.findIndex(t => t.id === category);
+  let nextTopics = allTopics.slice(currentTopicIndex + 1, currentTopicIndex + 4);
+  if (nextTopics.length < 3) {
+    nextTopics = [...nextTopics, ...allTopics.slice(0, 3 - nextTopics.length)];
+  }
+
+  // Swipe handlers
+  const minSwipeDistance = 50;
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+  const onTouchEndHandler = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      goNext();
+    }
+    if (isRightSwipe && index > 0) {
+      goPrev();
+    }
+  };
+
+  if (showCompletion) {
+    return (
+      <div className="min-h-dvh flex flex-col bg-white p-5">
+        <ConfettiOverlay pieces={pieces} />
+        
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <motion.div 
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="text-center mb-8"
+          >
+            <span className="text-8xl block mb-4">🏆</span>
+            <h1 className="text-4xl font-extrabold text-green-500 mb-2" style={{ fontFamily: "var(--font-heading)" }}>
+              Tuyệt vời!
+            </h1>
+            <p className="text-xl text-gray-600">Bé đã hoàn thành chủ đề {cat.nameVi}</p>
+          </motion.div>
+
+          <h2 className="text-xl font-bold mb-4 text-gray-700">Học tiếp chủ đề nào đây?</h2>
+          
+          <div className="w-full max-w-md space-y-4">
+            {nextTopics.map((topic, i) => (
+              <motion.div
+                key={topic.id}
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Link href={`/learn/${topic.id}`}>
+                  <div 
+                    className="glass-card flex items-center p-4 gap-4 cursor-pointer hover:scale-[1.02] transition-transform"
+                    style={{ borderLeft: `6px solid ${topic.color}` }}
+                  >
+                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-sm" style={{ backgroundColor: `${topic.color}22` }}>
+                      {topic.emoji}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-800">{topic.nameVi}</h3>
+                      <p className="text-gray-500">{topic.nameEn}</p>
+                    </div>
+                    <ChevronRight className="text-gray-400" />
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          
+          <Link href="/">
+            <button className="mt-8 px-8 py-4 bg-gray-100 rounded-full font-bold text-gray-600 hover:bg-gray-200 transition-colors">
+              Về trang chủ
+            </button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-dvh flex flex-col">
@@ -207,6 +303,9 @@ export default function FlashCardClient() {
               className="flash-card-container w-full"
               style={{ height: "340px" }}
               onClick={() => setFlipped((f) => !f)}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEndHandler}
             >
               <div className={`flash-card-inner ${flipped ? "flipped" : ""}`}>
                 {/* Front - Emoji + Word */}
