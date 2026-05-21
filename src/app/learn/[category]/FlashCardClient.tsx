@@ -425,7 +425,10 @@ export default function FlashCardClient() {
               onClick={(e) => {
                 e.stopPropagation();
                 const audio = new Audio(current.realSound);
-                audio.play().catch(err => console.log("Lỗi phát âm thanh:", err));
+                audio.play().catch(err => {
+                  console.error("Lỗi phát âm thanh:", err);
+                  alert(`Chưa tìm thấy file âm thanh thật! (Thiếu file ${current.realSound})`);
+                });
               }}
               className="px-5 py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-sm font-semibold shadow-sm flex items-center gap-2 text-green-700"
             >
