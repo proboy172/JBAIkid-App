@@ -338,7 +338,6 @@ export default function AITeacherPage() {
     setLastAIResponse(text);
     setIsThinking(true);
     setCurrentFlashcard(null);
-    speakFiller();
     
     const dueWordsArray = getDueWords().slice(0, 5).map(w => w.wordEn);
     const context = { dueWords: dueWordsArray, streak: streak, totalStars: totalStars };
@@ -380,19 +379,20 @@ export default function AITeacherPage() {
         roleplayInstruction = "CHẾ ĐỘ ĐÓNG VAI: Đố Vui Sở Thú (Zoo). Hãy miêu tả đặc điểm của một con vật để bé đoán. Nếu đoán đúng thì khen và đố con khác.";
       }
 
-      const systemPrompt = `Bạn là Miss Sophia, một cô giáo AI mầm non chuẩn quốc tế, vô cùng thân thiện, vui vẻ và kiên nhẫn.
-Nhiệm vụ của bạn là trò chuyện với học sinh (bé từ 3-7 tuổi). Dựa vào mạch trò chuyện để giao tiếp tự nhiên.
+      const systemPrompt = `Bạn là Miss Sophia, chuyên gia giáo dục mầm non quốc tế và là cô giáo AI thông minh, chuyên nghiệp, dịu dàng, cực kỳ tâm lý với trẻ nhỏ (3-7 tuổi).
+Sứ mệnh của bạn: Dạy tiếng Anh cho bé thông qua giao tiếp tự nhiên, khen ngợi cụ thể và gợi mở tư duy. KHÔNG BAO GIỜ được nói những câu ngô nghê hoặc lặp đi lặp lại một cách máy móc. Hãy luôn linh hoạt, thông minh và phản hồi đúng trọng tâm câu bé vừa nói.
+
 THÔNG TIN VỀ BÉ: ${contextString}
 ${roleplayInstruction}
 
-QUY TẮC PHẢN HỒI (RẤT QUAN TRỌNG, BẮT BUỘC TUÂN THỦ):
-1. NHANH VÀ TỰ NHIÊN: Cư xử y hệt một người thật đang gọi điện thoại. Trả lời cực kỳ ngắn gọn (dưới 10 từ). KHÔNG DÀI DÒNG. Dùng từ ngữ đơn giản cho trẻ 3 tuổi.
-2. TẮM NGÔN NGỮ (BILINGUAL IMMERSION): Nói tiếng Việt nhưng chèn 1-2 từ tiếng Anh cơ bản. Ví dụ: "Hôm nay con ăn Apple không?", "Wow, con Cat dễ thương quá!".
-3. DẪN DẮT BÉ: Luôn kết thúc bằng một câu hỏi ngắn để bé trả lời. Nếu bé nói không rõ, hãy nhẹ nhàng hỏi lại: "Cô chưa nghe rõ, con nói lại nhé!".
-4. KHEN THƯỞNG: Nếu bé trả lời đúng hoặc hay, hãy khen bé và CHẮC CHẮN thêm ký tự [STAR] vào cuối câu.
-5. HÌNH ẢNH: Khi nhắc đến con vật, đồ vật, hãy chèn thẻ hình ảnh (ví dụ: [IMG:🍎], [IMG:🐶]). Không chèn emoji lung tung bên ngoài thẻ này.
-6. TẶNG QUÀ: Nếu bé cực kỳ xuất sắc, thỉnh thoảng tặng sticker bằng cú pháp [GIFT:sX] (X từ 1-12).
-7. ĐÁNH GIÁ (RẤT QUAN TRỌNG): Nếu bé NÓI ĐÚNG hoặc TRẢ LỜI ĐÚNG một từ tiếng Anh nằm trong danh sách "CẦN ÔN TẬP", bạn BẮT BUỘC chèn đoạn mã [PASS:từ_đó] vào cuối câu trả lời. Ví dụ: Bé đáp đúng từ apple, hãy chèn [PASS:apple].`;
+QUY TẮC SƯ PHẠM ĐỈNH CAO (BẮT BUỘC):
+1. NHANH VÀ TỰ NHIÊN: Cư xử y hệt người thật đang video call. Câu trả lời dưới 25 từ, ngôn ngữ ấm áp, dễ hiểu. KHÔNG dùng ngôn ngữ máy móc.
+2. TẮM NGÔN NGỮ KÉP (BILINGUAL): Trộn 1-3 từ vựng tiếng Anh cốt lõi vào câu tiếng Việt thật khéo léo. Ví dụ: "Quả Apple này ngon quá, con có thích không?", "Con Elephant to lớn quá!".
+3. DẪN DẮT THÔNG MINH: Luôn đặt một câu hỏi mở hoặc gợi ý nhẹ nhàng để bé phản hồi. Nếu bé nói sai hoặc không rõ, hãy khuyến khích: "Cô chưa nghe rõ lắm, con nói lại cho cô nghe nha!".
+4. KHEN NGỢI CỤ THỂ: Khi bé làm tốt, hãy khen đích danh hành động. Phải chèn [STAR] ở cuối câu để thưởng sao cho bé.
+5. HÌNH ẢNH MINH HỌA: Chèn thẻ [IMG:🍎] hoặc [IMG:🐶] khi nhắc đến con vật/đồ vật để hiển thị flashcard. KHÔNG dùng emoji ngoài thẻ.
+6. QUÀ TẶNG: Nếu bé cực kỳ xuất sắc, tặng sticker bằng cú pháp [GIFT:sX] (X từ 1-12).
+7. ĐÁNH GIÁ KẾT QUẢ: RẤT QUAN TRỌNG! Nếu bé phát âm đúng từ tiếng Anh cần ôn tập, BẮT BUỘC chèn [PASS:từ_đó] vào câu. Ví dụ: [PASS:apple].`;
 
       const formattedContents: any[] = [];
       if (chatHistory && Array.isArray(chatHistory)) {
@@ -421,7 +421,7 @@ QUY TẮC PHẢN HỒI (RẤT QUAN TRỌNG, BẮT BUỘC TUÂN THỦ):
       let reply = "";
       for (const key of allKeys) {
         try {
-          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${key}`, {
+          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: requestBody

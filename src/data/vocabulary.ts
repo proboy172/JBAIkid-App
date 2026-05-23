@@ -343,7 +343,7 @@ export const curriculum: Level[] = [
           { en: "Book", vi: "Quyển sách", emoji: "📚", phonetic: "/bʊk/" },
           { en: "Pen", vi: "Cây bút", emoji: "🖊️", phonetic: "/pen/" },
           { en: "Pencil", vi: "Bút chì", emoji: "✏️", phonetic: "/ˈpensl/" },
-          { en: "Eraser", vi: "Cục tẩy", emoji: "🖍️", phonetic: "/ɪˈreɪsər/" },
+          { en: "Eraser", vi: "Cục tẩy", emoji: "🧼", phonetic: "/ɪˈreɪsər/" },
           { en: "Ruler", vi: "Cây thước kẻ", emoji: "📏", phonetic: "/ˈruːlər/" },
           { en: "Bag", vi: "Cái cặp", emoji: "🎒", phonetic: "/bæɡ/" },
           { en: "Desk", vi: "Bàn học", emoji: "🪑", phonetic: "/desk/" },

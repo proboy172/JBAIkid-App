@@ -177,7 +177,7 @@ export default function MemoryGamePage() {
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 relative z-10">
-        <div className="grid grid-cols-3 gap-3 w-full max-w-sm">
+        <div className="grid grid-cols-3 gap-4 md:gap-6 w-full max-w-2xl mx-auto">
           <AnimatePresence>
             {cards.map((card) => {
               const isFlipped = flippedIds.includes(card.id) || card.isMatched;
@@ -196,21 +196,21 @@ export default function MemoryGamePage() {
                   >
                     {/* Front (Hidden) */}
                     <div
-                      className="absolute inset-0 rounded-2xl shadow-md border-2 border-purple-300 flex items-center justify-center overflow-hidden"
+                      className="absolute inset-0 rounded-2xl md:rounded-3xl shadow-md border-2 border-purple-300 flex items-center justify-center overflow-hidden"
                       style={{ 
                         background: "repeating-linear-gradient(45deg, #f3e8ff, #f3e8ff 10px, #e9d5ff 10px, #e9d5ff 20px)",
                         backfaceVisibility: "hidden", 
                         WebkitBackfaceVisibility: "hidden" 
                       }}
                     >
-                      <div className="bg-white/80 p-2 rounded-full shadow-sm backdrop-blur-sm w-16 h-16 flex items-center justify-center">
-                        <span className="text-5xl md:text-6xl text-purple-500 drop-shadow-md font-black">?</span>
+                      <div className="bg-white/80 p-2 md:p-4 rounded-full shadow-sm backdrop-blur-sm w-16 h-16 md:w-24 md:h-24 flex items-center justify-center">
+                        <span className="text-5xl md:text-7xl text-purple-500 drop-shadow-md font-black">?</span>
                       </div>
                     </div>
 
                     {/* Back (Revealed) */}
                     <div
-                      className={`absolute inset-0 rounded-2xl shadow-md border-2 bg-white flex flex-col items-center justify-center p-2 ${
+                      className={`absolute inset-0 rounded-2xl md:rounded-3xl shadow-md border-2 bg-white flex flex-col items-center justify-center p-2 md:p-4 ${
                         card.isMatched ? "border-green-400 bg-green-50" : "border-purple-400"
                       }`}
                       style={{ 
@@ -220,9 +220,9 @@ export default function MemoryGamePage() {
                       }}
                     >
                       {card.type === "emoji" ? (
-                        <span className="text-5xl">{card.item.emoji}</span>
+                        <span className="text-6xl lg:text-8xl">{card.item.emoji}</span>
                       ) : (
-                        <span className="text-lg font-bold text-center break-words w-full" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
+                        <span className="text-xl lg:text-3xl font-bold text-center break-words w-full" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
                           {card.item.en}
                         </span>
                       )}

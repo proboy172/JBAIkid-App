@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import BackButton from "@/components/layout/BackButton";
 import BottomNav from "@/components/layout/BottomNav";
@@ -22,6 +23,19 @@ export default function ParentPage() {
   const { learnedWords, streak, totalStars, quizHighScore, resetProgress, screenTimeLimit, setScreenTimeLimit, aiApiKeys, addApiKey, removeApiKey } = useAppStore();
   const [showReset, setShowReset] = useState(false);
   const [newApiKey, setNewApiKey] = useState("");
+  const [clickCount, setClickCount] = useState(0);
+  const router = useRouter();
+
+  const handleTitleClick = () => {
+    setClickCount(prev => {
+      const newCount = prev + 1;
+      if (newCount >= 5) {
+        router.push("/police-call");
+        return 0;
+      }
+      return newCount;
+    });
+  };
 
   const handleAddKey = () => {
     if (newApiKey.trim().length > 10) {
@@ -111,9 +125,10 @@ export default function ParentPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mt-3"
+          onClick={handleTitleClick}
         >
           <h1
-            className="text-2xl font-extrabold"
+            className="text-2xl font-extrabold cursor-pointer select-none"
             style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}
           >
             👨‍👩‍👧 Phụ Huynh

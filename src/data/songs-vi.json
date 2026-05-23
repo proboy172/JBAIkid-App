@@ -5,8 +5,58 @@
     "emoji": "❤️",
     "color": "#FF6B9D",
     "youtubeId": "dPw23ap6wIs",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 15.1,
+        "text": "Ba là cây nến vàng"
+      },
+      {
+        "time": 22.7,
+        "text": "Mẹ là cây nến xanh"
+      },
+      {
+        "time": 30.2,
+        "text": "Con là cây nến hồng"
+      },
+      {
+        "time": 37.8,
+        "text": "Ba ngọn nến lung linh"
+      },
+      {
+        "time": 60.6,
+        "text": "Thắp sáng một gia đình"
+      },
+      {
+        "time": 75.9,
+        "text": "Gia đình nhỏ, niềm vui to"
+      },
+      {
+        "time": 79.9,
+        "text": "Ba bắt cá dưới sông"
+      },
+      {
+        "time": 83.9,
+        "text": "Mẹ trồng rau trên vườn"
+      },
+      {
+        "time": 87.9,
+        "text": "Con chăn trâu trên đồng"
+      },
+      {
+        "time": 91.9,
+        "text": "Cả nhà cùng chung sống"
+      },
+      {
+        "time": 95.9,
+        "text": "Cả nhà ta bé ơi"
+      },
+      {
+        "time": 99.9,
+        "text": "Rất là vui, rất là vui"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/ca-nha-thuong-nhau.mp4"
   },
   {
     "id": "con-co-be-be",
@@ -14,8 +64,42 @@
     "emoji": "🐦",
     "color": "#34D399",
     "youtubeId": "H-nFnnlNBmc",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 12,
+        "text": "Con cò bé bé"
+      },
+      {
+        "time": 16,
+        "text": "Nó đậu cành tre"
+      },
+      {
+        "time": 20,
+        "text": "Đi không hỏi mẹ"
+      },
+      {
+        "time": 24,
+        "text": "Biết đi đường nào"
+      },
+      {
+        "time": 28,
+        "text": "Khi đi em hỏi"
+      },
+      {
+        "time": 32,
+        "text": "Khi về em chào"
+      },
+      {
+        "time": 36,
+        "text": "Miệng em chúm chím"
+      },
+      {
+        "time": 40,
+        "text": "Mẹ có yêu không nào"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/con-co-be-be.mp4"
   },
   {
     "id": "bong-bong-bang-bang",
@@ -23,8 +107,42 @@
     "emoji": "🎵",
     "color": "#C084FC",
     "youtubeId": "8VXUnFeEvZU",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 15,
+        "text": "Ngày xưa xưa ơi là xưa"
+      },
+      {
+        "time": 19,
+        "text": "Ở một nơi đồng quê bát ngát"
+      },
+      {
+        "time": 23,
+        "text": "Nhà kia có hai chị em"
+      },
+      {
+        "time": 27,
+        "text": "Tên được cha gọi là Tấm Cám"
+      },
+      {
+        "time": 31,
+        "text": "Từ thuở ấu thơ Tấm đã mơ"
+      },
+      {
+        "time": 35,
+        "text": "Về bống bống bang bang"
+      },
+      {
+        "time": 39,
+        "text": "Bống bống bang bang"
+      },
+      {
+        "time": 43,
+        "text": "Lên ăn cơm vàng cơm bạc nhà ta"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/bong-bong-bang-bang.mp4"
   },
   {
     "id": "chau-len-ba",
@@ -32,8 +150,50 @@
     "emoji": "👶",
     "color": "#38BDF8",
     "youtubeId": "L_XKGl6casE",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 18.7,
+        "text": "Cháu lên ba cháu đi mẫu giáo"
+      },
+      {
+        "time": 43.2,
+        "text": "Cô thương cháu vì cháu không khóc nhè"
+      },
+      {
+        "time": 110.3,
+        "text": "Không khóc nhè để mẹ trồng cây trái"
+      },
+      {
+        "time": 118.5,
+        "text": "Ba vào nhà máy, ông bà vui cấy cày"
+      },
+      {
+        "time": 126.5,
+        "text": "Là lá la la, là lá la la"
+      },
+      {
+        "time": 138.8,
+        "text": "Cháu lên ba cháu đi mẫu giáo"
+      },
+      {
+        "time": 146.9,
+        "text": "Cô thương cháu vì cháu không khóc nhè"
+      },
+      {
+        "time": 159.1,
+        "text": "Không khóc nhè để mẹ trồng cây trái"
+      },
+      {
+        "time": 167.4,
+        "text": "Ba vào nhà máy, ông bà vui cấy cày"
+      },
+      {
+        "time": 175.3,
+        "text": "Là lá la la, là lá la la"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/chau-len-ba.mp4"
   },
   {
     "id": "rua-mat-nhu-meo",
@@ -41,8 +201,42 @@
     "emoji": "🐱",
     "color": "#FBBF24",
     "youtubeId": "2Ey4pek4m3Q",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 16.1,
+        "text": "Meo meo meo, rửa mặt như mèo"
+      },
+      {
+        "time": 20.5,
+        "text": "Xấu xấu lắm, chẳng được mẹ yêu"
+      },
+      {
+        "time": 28.8,
+        "text": "Khăn mặt đâu mà ngồi liếm mép"
+      },
+      {
+        "time": 40.5,
+        "text": "Đau mắt rồi, lại khóc meo meo"
+      },
+      {
+        "time": 81.7,
+        "text": "Meo meo meo, rửa mặt như mèo"
+      },
+      {
+        "time": 106.3,
+        "text": "Xấu xấu lắm, chẳng được mẹ yêu"
+      },
+      {
+        "time": 130.9,
+        "text": "Khăn mặt đâu mà ngồi liếm mép"
+      },
+      {
+        "time": 134.9,
+        "text": "Đau mắt rồi, lại khóc meo meo"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/rua-mat-nhu-meo.mp4"
   },
   {
     "id": "chu-ech-con",
@@ -50,8 +244,50 @@
     "emoji": "🐸",
     "color": "#10B981",
     "youtubeId": "FpXB559PIxc",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 10.8,
+        "text": "Kìa chú là chú ếch con"
+      },
+      {
+        "time": 20,
+        "text": "Có hai là hai mắt tròn"
+      },
+      {
+        "time": 29,
+        "text": "Chú ngồi học bài một mình"
+      },
+      {
+        "time": 34,
+        "text": "Bên hố bom kề vườn xoan"
+      },
+      {
+        "time": 40.5,
+        "text": "Bao nhiêu cô cá tung tăng"
+      },
+      {
+        "time": 57.2,
+        "text": "Cùng bao nhiêu chú cá rô"
+      },
+      {
+        "time": 66.3,
+        "text": "Kìa chú là chú ếch con"
+      },
+      {
+        "time": 75.3,
+        "text": "Có hai là hai mắt tròn"
+      },
+      {
+        "time": 79.6,
+        "text": "Chú ngồi học bài một mình"
+      },
+      {
+        "time": 86.9,
+        "text": "Bên hố bom kề vườn xoan"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/chu-ech-con.mp4"
   },
   {
     "id": "hai-con-than-lan",
@@ -59,8 +295,42 @@
     "emoji": "🦎",
     "color": "#F472B6",
     "youtubeId": "MJFqPYy2u9s",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 14,
+        "text": "Hai con thằn lằn con"
+      },
+      {
+        "time": 18,
+        "text": "Đùa nhau cắn nhau đứt đuôi"
+      },
+      {
+        "time": 22,
+        "text": "Cha thằn lằn buồn hiu"
+      },
+      {
+        "time": 26,
+        "text": "Gọi chúng đến mới mắng cho"
+      },
+      {
+        "time": 30,
+        "text": "Hai con thằn lằn con"
+      },
+      {
+        "time": 34,
+        "text": "Đuôi thì to nhưng đã cụt rồi"
+      },
+      {
+        "time": 38,
+        "text": "Ôi đớn đau quá trời"
+      },
+      {
+        "time": 42,
+        "text": "Chúng khóc la tơi bời"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/hai-con-than-lan.mp4"
   },
   {
     "id": "mot-con-vit",
@@ -68,8 +338,26 @@
     "emoji": "🦆",
     "color": "#F59E0B",
     "youtubeId": "fuhVoEq6jAg",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 15,
+        "text": "Một con vịt xòe ra hai cái cánh"
+      },
+      {
+        "time": 22,
+        "text": "Nó kêu rằng cáp cáp cáp cạp cạp cạp"
+      },
+      {
+        "time": 29,
+        "text": "Gặp hồ nước nó bì bà bì bõm"
+      },
+      {
+        "time": 36,
+        "text": "Lúc lên bờ vẫy cái cánh cho khô"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/mot-con-vit.mp4"
   },
   {
     "id": "ba-ba-di-ban",
@@ -77,8 +365,42 @@
     "emoji": "🐷",
     "color": "#EC4899",
     "youtubeId": "tNDEZyxFvms",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 46.4,
+        "text": "Ba bà đi bán lợn con"
+      },
+      {
+        "time": 54.6,
+        "text": "Bán đi chẳng được lon ton chạy về"
+      },
+      {
+        "time": 65.1,
+        "text": "Ba bà đi bán lợn sề"
+      },
+      {
+        "time": 74.6,
+        "text": "Bán đi chẳng được lon ton chạy về"
+      },
+      {
+        "time": 102.6,
+        "text": "Ba bà đi bán lợn con"
+      },
+      {
+        "time": 107.4,
+        "text": "Bán đi chẳng được lon ton chạy về"
+      },
+      {
+        "time": 116.9,
+        "text": "Ba bà đi bán lợn sề"
+      },
+      {
+        "time": 139.9,
+        "text": "Bán đi chẳng được lon ton chạy về"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/ba-ba-di-ban.mp4"
   },
   {
     "id": "dan-ga-trong-san",
@@ -86,8 +408,42 @@
     "emoji": "🐔",
     "color": "#8B5CF6",
     "youtubeId": "GOiAkX1Mjq4",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 7.3,
+        "text": "Gà không biết gáy là con gà con"
+      },
+      {
+        "time": 47.5,
+        "text": "Gà mà biết gáy là con gà trống"
+      },
+      {
+        "time": 67.3,
+        "text": "Gà mà không biết gáy là con gà mẹ"
+      },
+      {
+        "time": 110.2,
+        "text": "Đi loanh quanh trong sân có con gà, có con gà"
+      },
+      {
+        "time": 118.2,
+        "text": "Gà không biết gáy là con gà con"
+      },
+      {
+        "time": 155.9,
+        "text": "Gà mà biết gáy là con gà trống"
+      },
+      {
+        "time": 169.4,
+        "text": "Gà mà không biết gáy là con gà mẹ"
+      },
+      {
+        "time": 213.1,
+        "text": "Đi loanh quanh trong sân có con gà, có con gà"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/dan-ga-trong-san.mp4"
   },
   {
     "id": "bac-kim-thang",
@@ -95,8 +451,50 @@
     "emoji": "🎃",
     "color": "#14B8A6",
     "youtubeId": "qs08zLZS-PI",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 30,
+        "text": "Bắc kim thang cà lang bí rợ"
+      },
+      {
+        "time": 38,
+        "text": "Cột qua kèo là kèo qua cột"
+      },
+      {
+        "time": 46.4,
+        "text": "Chú bán dầu qua cầu mà té"
+      },
+      {
+        "time": 54.4,
+        "text": "Chú bán ếch ở lại làm chi"
+      },
+      {
+        "time": 60.2,
+        "text": "Con le le đánh trống thổi kèn"
+      },
+      {
+        "time": 93.8,
+        "text": "Con bìm bịp khánh tận tò tí te tò te"
+      },
+      {
+        "time": 100,
+        "text": "Bắc kim thang cà lang bí rợ"
+      },
+      {
+        "time": 116.5,
+        "text": "Cột qua kèo là kèo qua cột"
+      },
+      {
+        "time": 125,
+        "text": "Chú bán dầu qua cầu mà té"
+      },
+      {
+        "time": 134.6,
+        "text": "Chú bán ếch ở lại làm chi"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/bac-kim-thang.mp4"
   },
   {
     "id": "chi-ong-nau",
@@ -104,8 +502,54 @@
     "emoji": "🐝",
     "color": "#FBBF24",
     "youtubeId": "PZDnjOn5EII",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 19.6,
+        "text": "Chị ong nâu nâu nâu nâu"
+      },
+      {
+        "time": 29.5,
+        "text": "Chị bay đi đâu đi đâu"
+      },
+      {
+        "time": 45.4,
+        "text": "Bác gà trống mới gáy"
+      },
+      {
+        "time": 56.6,
+        "text": "Ông mặt trời mới dậy"
+      },
+      {
+        "time": 70,
+        "text": "Trên những cành hoa em đã thấy chị bay"
+      },
+      {
+        "time": 102.7,
+        "text": "Bé ngoan của chị ơi"
+      },
+      {
+        "time": 112.8,
+        "text": "Hôm nay trời nắng tươi"
+      },
+      {
+        "time": 123.8,
+        "text": "Chị bay đi tìm nhụy"
+      },
+      {
+        "time": 137.7,
+        "text": "Làm mật ong nuôi đời"
+      },
+      {
+        "time": 146.8,
+        "text": "Chị vâng theo bố mẹ"
+      },
+      {
+        "time": 160.6,
+        "text": "Chăm làm không nên lười"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/chi-ong-nau.mp4"
   },
   {
     "id": "qua-gi",
@@ -113,8 +557,42 @@
     "emoji": "🍎",
     "color": "#EF4444",
     "youtubeId": "g1QXSvOqcTM",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 10,
+        "text": "Quả gì mà chua chua thế"
+      },
+      {
+        "time": 14,
+        "text": "Xin thưa rằng quả khế"
+      },
+      {
+        "time": 18,
+        "text": "Ăn vào thì chắc là chua"
+      },
+      {
+        "time": 22,
+        "text": "Vâng vâng chua thì để nấu canh chua"
+      },
+      {
+        "time": 26,
+        "text": "Quả gì mà da cật cứng"
+      },
+      {
+        "time": 30,
+        "text": "Xin thưa rằng quả trứng"
+      },
+      {
+        "time": 34,
+        "text": "Ăn vào thì nó làm sao"
+      },
+      {
+        "time": 38,
+        "text": "Không sao ăn vào người sẽ thêm cao"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/qua-gi.mp4"
   },
   {
     "id": "trai-dat-nay",
@@ -122,8 +600,50 @@
     "emoji": "🌍",
     "color": "#3B82F6",
     "youtubeId": "dAUvdM2sK_8",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 17.3,
+        "text": "Trái đất này là của chúng mình"
+      },
+      {
+        "time": 30.4,
+        "text": "Quả bóng xanh bay giữa trời xanh"
+      },
+      {
+        "time": 48,
+        "text": "Bồ câu ơi tiếng chim gù thương mến"
+      },
+      {
+        "time": 61,
+        "text": "Hải âu ơi cánh chim vờn sóng biển"
+      },
+      {
+        "time": 76.3,
+        "text": "Cùng bay nào cho trái đất quay"
+      },
+      {
+        "time": 96.3,
+        "text": "Cùng bay nào cho trái đất quay"
+      },
+      {
+        "time": 113.1,
+        "text": "Trái đất này là của chúng mình"
+      },
+      {
+        "time": 126.3,
+        "text": "Quả bóng xanh bay giữa trời xanh"
+      },
+      {
+        "time": 141.6,
+        "text": "Bồ câu ơi tiếng chim gù thương mến"
+      },
+      {
+        "time": 152.5,
+        "text": "Hải âu ơi cánh chim vờn sóng biển"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/trai-dat-nay.mp4"
   },
   {
     "id": "me-oi-tai-sao",
@@ -131,7 +651,25 @@
     "emoji": "👩‍👧",
     "color": "#8B5CF6",
     "youtubeId": "0rwe6Xr2aqc",
-    "lyrics": [],
-    "aiSynced": true
+    "lyrics": [
+      {
+        "time": 16,
+        "text": "Mẹ ơi tại sao con bướm bay cao"
+      },
+      {
+        "time": 21,
+        "text": "Con ong làm mật, con kiến tha mồi"
+      },
+      {
+        "time": 26,
+        "text": "Mẹ ơi tại sao trời nhiều mây thế"
+      },
+      {
+        "time": 31,
+        "text": "Tại sao mẹ ơi mặt trời hiền hòa"
+      }
+    ],
+    "aiSynced": true,
+    "localVideo": "/videos/me-oi-tai-sao.mp4"
   }
 ]

@@ -210,13 +210,13 @@ export default function PlayPage() {
           key={qIndex}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center mb-6"
+          className="text-center mb-8"
         >
-          <p className="text-text-light text-base mb-2">🔊 Nghe và chọn đáp án đúng:</p>
+          <p className="text-text-light text-xl mb-4 font-semibold">🔊 Nghe và chọn đáp án đúng:</p>
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => speak(current.en, "en-US")}
-            className="px-6 py-3 rounded-2xl text-white text-xl font-bold shadow-lg"
+            className="px-8 py-4 rounded-3xl text-white text-2xl font-bold shadow-xl"
             style={{ background: "linear-gradient(135deg, #C084FC, #818CF8)", fontFamily: "var(--font-heading)" }}
             id="btn-repeat"
           >
@@ -225,7 +225,7 @@ export default function PlayPage() {
         </motion.div>
 
         {/* Choices */}
-        <div className="grid grid-cols-3 gap-4 w-full max-w-sm">
+        <div className="grid grid-cols-3 gap-6 w-full max-w-2xl mx-auto">
           {choices.map((item) => {
             const isCorrect = item.en === current.en;
             const isSelected = selected === item.en;
@@ -241,7 +241,7 @@ export default function PlayPage() {
                 whileTap={!selected ? { scale: 0.9 } : {}}
                 onClick={() => handleAnswer(item)}
                 disabled={!!selected}
-                className={`${bg} rounded-3xl p-5 flex flex-col items-center gap-2 shadow-md border-2 transition-colors ${
+                className={`${bg} rounded-[2rem] p-6 flex flex-col items-center gap-4 shadow-lg border-4 transition-colors ${
                   isSelected && isCorrect
                     ? "border-accent"
                     : isSelected && !isCorrect
@@ -252,8 +252,8 @@ export default function PlayPage() {
                 }`}
                 id={`choice-${item.en.toLowerCase()}`}
               >
-                <span className="text-5xl">{item.emoji}</span>
-                <span className="text-xs font-bold text-text-light">{item.vi}</span>
+                <span className="text-7xl lg:text-8xl">{item.emoji}</span>
+                <span className="text-base lg:text-xl font-bold text-text-light text-center">{item.vi}</span>
               </motion.button>
             );
           })}

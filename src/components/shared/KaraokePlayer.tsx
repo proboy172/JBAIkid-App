@@ -6,54 +6,7 @@ import { X, Play, Pause } from "lucide-react";
 import { Song, LyricLine } from "@/data/songs";
 import { useAppStore } from "@/stores/appStore";
 
-// Sub-component for a single Lyric Line
-function KaraokeLine({ line, currentTime, isActive }: { line: LyricLine; currentTime: number; isActive: boolean }) {
-  // Word-level highlight logic
-  if (line.words && line.words.length > 0) {
-    let wordStartTime = line.time;
-    return (
-      <div className={`transition-all duration-500 ${isActive ? "opacity-100 scale-100" : "opacity-40 scale-95"} mb-6 origin-left`}>
-        <p className="text-3xl md:text-5xl font-extrabold text-left leading-tight drop-shadow-2xl" style={{ fontFamily: "var(--font-heading)" }}>
-          {line.words.map((word, idx) => {
-            const wordEndTime = wordStartTime + word.duration;
-            const isPassed = currentTime >= wordEndTime;
-            const isCurrent = currentTime >= wordStartTime && currentTime < wordEndTime;
-            let fillPct = 0;
-            
-            if (isPassed) {
-              fillPct = 100;
-            } else if (isCurrent) {
-              fillPct = Math.min(100, Math.max(0, ((currentTime - wordStartTime) / word.duration) * 100));
-            }
-            
-            wordStartTime = wordEndTime; // Prepare for next word
-            
-            return (
-              <span key={idx} className="relative inline-block mr-[0.3em]">
-                <span className="text-white/80">{word.text}</span>
-                <span 
-                  className="absolute left-0 top-0 text-[#FF6B9D] overflow-hidden whitespace-nowrap"
-                  style={{ width: `${fillPct}%` }}
-                >
-                  {word.text}
-                </span>
-              </span>
-            );
-          })}
-        </p>
-      </div>
-    );
-  }
-  
-  // Fallback if no words array is present (Line-level highlight)
-  return (
-    <div className={`transition-all duration-500 ${isActive ? "opacity-100 scale-100 text-[#FF6B9D]" : "opacity-40 scale-95 text-white"} mb-6 origin-left`}>
-      <p className="text-3xl md:text-5xl font-extrabold text-left drop-shadow-2xl" style={{ fontFamily: "var(--font-heading)" }}>
-        {line.text}
-      </p>
-    </div>
-  );
-}
+
 
 export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: () => void }) {
   const { addStars } = useAppStore();
@@ -93,15 +46,7 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
 
   // Smooth scroll active line
   useEffect(() => {
-    if (activeLineIdx >= 0 && scrollRef.current) {
-      const activeElement = scrollRef.current.children[activeLineIdx] as HTMLElement;
-      if (activeElement) {
-        // Custom offset scroll to keep it at the top 1/3 of the container
-        const containerHeight = scrollRef.current.clientHeight;
-        const offset = activeElement.offsetTop - (containerHeight / 3);
-        scrollRef.current.scrollTo({ top: offset, behavior: 'smooth' });
-      }
-    }
+    // Scroll logic removed since Lyrics Engine UI is removed
   }, [activeLineIdx]);
 
   const togglePlay = () => {
@@ -122,9 +67,9 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[1000] bg-black overflow-hidden flex flex-col"
     >
-      {/* Background Video - Takes full screen but dimmed */}
+      {/* Background Video - Takes full screen */}
       {song.localVideo && (
-        <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 z-0 pointer-events-none bg-black">
           <video
             ref={videoRef}
             src={song.localVideo}
@@ -132,10 +77,8 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
             playsInline
             onTimeUpdate={handleTimeUpdate}
             onEnded={handleClose}
-            className="w-full h-full object-cover opacity-80"
+            className="w-full h-full object-contain"
           />
-          {/* Elegant Gradient Overlay to make lyrics pop */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
         </div>
       )}
 
@@ -153,30 +96,9 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
         </button>
       </div>
 
-      {/* Lyrics Engine UI (Only if localVideo exists) */}
+      {/* Play Controls Overlay (Only if localVideo exists) */}
       {song.localVideo && (
         <div className="absolute bottom-0 inset-x-0 h-[60vh] z-10 flex flex-col pointer-events-auto">
-          {/* Scrolling Lyrics Container */}
-          <div 
-            className="flex-1 w-full overflow-y-auto px-6 pb-[30vh] pt-10 scroll-smooth [&::-webkit-scrollbar]:hidden" 
-            ref={scrollRef}
-            style={{ scrollbarWidth: 'none' }}
-          >
-             {song.lyrics.length > 0 ? (
-               song.lyrics.map((line, idx) => (
-                 <KaraokeLine 
-                   key={idx} 
-                   line={line} 
-                   currentTime={currentTime} 
-                   isActive={idx === activeLineIdx} 
-                 />
-               ))
-             ) : (
-               <p className="text-white/50 font-bold mt-10">Đang tải lời bài hát...</p>
-             )}
-          </div>
-          
-          {/* Play Controls Overlay */}
           <div className="absolute bottom-10 right-6 z-20">
             <button 
               onClick={togglePlay}
