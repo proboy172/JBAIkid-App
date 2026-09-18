@@ -13,6 +13,7 @@ import { useAppStore } from "@/stores/appStore";
 import { Volume2, ChevronLeft, ChevronRight, Mic } from "lucide-react";
 import stringSimilarity from "string-similarity";
 import Link from "next/link";
+import { playSFX } from "@/utils/soundEffects";
 
 export default function FlashCardClient() {
   const { category } = useParams<{ category: string }>();
@@ -58,13 +59,15 @@ export default function FlashCardClient() {
       const similarity = stringSimilarity.compareTwoStrings(transcript, target);
       
       if (similarity >= 0.8 || transcript.includes(target) || target.includes(transcript)) {
+        playSFX("correct");
         setSpeechFeedback("correct");
         addStars(2);
         fire();
-        setTimeout(() => setSpeechFeedback(null), 2000);
+        setTimeout(() => setSpeechFeedback(null), 2500);
       } else {
+        playSFX("boop");
         setSpeechFeedback("incorrect");
-        setTimeout(() => setSpeechFeedback(null), 2000);
+        setTimeout(() => setSpeechFeedback(null), 2500);
       }
     };
 
@@ -144,16 +147,19 @@ export default function FlashCardClient() {
   
   const goNext = useCallback(() => {
     if (index < items.length - 1) {
+      playSFX("pop");
       setDirection(1);
       setFlipped(false);
       setIndex((i) => i + 1);
     } else {
+      playSFX("cheer");
       setShowCompletion(true);
     }
   }, [index, items.length]);
 
   const goPrev = useCallback(() => {
     if (index > 0) {
+      playSFX("pop");
       setDirection(-1);
       setFlipped(false);
       setIndex((i) => i - 1);
@@ -302,7 +308,10 @@ export default function FlashCardClient() {
             <div
               className="flash-card-container w-full"
               style={{ height: "340px" }}
-              onClick={() => setFlipped((f) => !f)}
+              onClick={() => {
+                playSFX("pop");
+                setFlipped((f) => !f);
+              }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEndHandler}
@@ -335,9 +344,13 @@ export default function FlashCardClient() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        className={`absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-white font-bold text-sm ${speechFeedback === "correct" ? "bg-green-500 shadow-[0_0_15px_#22c55e]" : "bg-red-500 shadow-[0_0_15px_#ef4444]"}`}
+                        className={`absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-white font-bold text-sm shadow-xl flex items-center gap-1.5 ${
+                          speechFeedback === "correct" 
+                            ? "bg-green-500 shadow-green-500/50" 
+                            : "bg-amber-500 shadow-amber-500/50"
+                        }`}
                       >
-                        {speechFeedback === "correct" ? "Tuyệt vời! +2⭐" : "Thử lại nhé!"}
+                        {speechFeedback === "correct" ? "🌟 Tuyệt vời! +2⭐" : "💪 Cố lên, đọc lại nhé!"}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -366,6 +379,37 @@ export default function FlashCardClient() {
           </motion.div>
         </AnimatePresence>
 
+        {/* Live Audio Waveform Visualizer */}
+        <AnimatePresence>
+          {isRecording && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="flex flex-col items-center gap-2 mt-4 bg-red-500/10 border border-red-500/30 px-6 py-2.5 rounded-2xl backdrop-blur-md shadow-lg"
+            >
+              <div className="flex items-center gap-1.5 h-7">
+                {[0.2, 0.6, 1.0, 0.4, 0.9, 0.5, 0.8, 0.3].map((delay, idx) => (
+                  <motion.span
+                    key={idx}
+                    className="w-1.5 bg-red-500 rounded-full"
+                    animate={{ height: ["8px", "26px", "8px"] }}
+                    transition={{
+                      duration: 0.7,
+                      repeat: Infinity,
+                      delay: delay * 0.15,
+                      ease: "easeInOut",
+                    }}
+                  />
+                ))}
+              </div>
+              <span className="text-xs font-bold text-red-500 animate-pulse">
+                Đang lắng nghe bé đọc... 🎙️
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Action Buttons */}
         <div className="flex items-center gap-4 mt-6">
           <motion.button
@@ -381,6 +425,7 @@ export default function FlashCardClient() {
           <motion.button
             whileTap={{ scale: 0.85 }}
             onClick={() => {
+              playSFX("tap");
               speak(current.en, "en-US");
               if (!isLearned && current) {
                 markWordLearned(category, current.en);
@@ -399,6 +444,7 @@ export default function FlashCardClient() {
             whileTap={{ scale: 0.85 }}
             onClick={(e) => {
               e.stopPropagation();
+              playSFX("tap");
               startRecording();
             }}
             className={`bubble-btn w-16 h-16 shadow-lg ${isRecording ? "bg-red-500 animate-pulse" : "bg-blue-500"}`}

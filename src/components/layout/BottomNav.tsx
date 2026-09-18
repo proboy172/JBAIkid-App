@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { BookOpen, Music, Gamepad2, Home } from "lucide-react";
 import { useAppStore } from "@/stores/appStore";
 import { useEffect, useState } from "react";
+import { playSFX } from "@/utils/soundEffects";
 
 const navItems = [
   { href: "/", icon: Home, label: "Home", emoji: "🏠" },
@@ -37,6 +38,7 @@ export default function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => playSFX("tap")}
               id={`nav-${item.label.toLowerCase()}`}
               className="flex flex-col items-center gap-0.5 py-1 px-3 rounded-2xl transition-colors relative"
             >

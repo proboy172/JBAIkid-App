@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/stores/appStore";
 import Mascot from "./Mascot";
+import { playSFX } from "@/utils/soundEffects";
 
 const DAILY_REWARDS = [2, 3, 4, 5, 6, 8, 10];
 
@@ -24,6 +25,7 @@ export default function DailyRewardPopup() {
   }, []);
 
   const handleClaim = () => {
+    playSFX("star");
     const stars = claimDailyReward();
     setStarsEarned(stars);
     setClaimed(true);
