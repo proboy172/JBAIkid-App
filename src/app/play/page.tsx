@@ -81,28 +81,31 @@ export default function PlayMenuPage() {
         <p className="text-sm text-text-light mt-1">Chọn một trò chơi để bắt đầu nhé!</p>
       </motion.div>
 
-      <div className="flex-1 px-5 pb-36 scroll-area relative z-10 w-full">
-        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto w-full">
+      <div className="flex-1 px-4 sm:px-6 pb-36 scroll-area relative z-10 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 max-w-2xl mx-auto w-full">
           {games.map((game, i) => (
-            <Link key={game.id} href={game.href}>
+            <Link key={game.id} href={game.href} className="w-full">
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                whileTap={{ scale: 0.95 }}
-                className={`glass-card p-5 flex items-center gap-4 border-2 border-transparent hover:border-current transition-colors`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.08 }}
+                whileTap={{ scale: 0.98 }}
+                whileHover={{ translateY: -2 }}
+                className="glass-card h-[92px] sm:h-[98px] px-3.5 sm:px-4 py-3 flex items-center gap-3 sm:gap-3.5 border-2 border-transparent hover:border-current transition-all cursor-pointer group"
                 style={{ color: game.color }}
               >
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-4xl shadow-sm ${game.bg}`}>
+                <div className={`w-12 h-12 sm:w-13 sm:h-13 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl shadow-sm shrink-0 ${game.bg} group-hover:scale-105 transition-transform`}>
                   {game.emoji}
                 </div>
-                <div className="flex-1">
-                  <h2 className="text-xl font-bold mb-1" style={{ fontFamily: "var(--font-heading)" }}>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-base sm:text-lg font-bold truncate leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
                     {game.title}
                   </h2>
-                  <p className="text-xs font-medium text-text-light">{game.desc}</p>
+                  <p className="text-xs text-text-light font-medium truncate mt-0.5">{game.desc}</p>
                 </div>
-                <span className="text-2xl opacity-50">›</span>
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-100/80 flex items-center justify-center text-gray-400 group-hover:text-current group-hover:translate-x-0.5 transition-all shrink-0">
+                  <span className="text-sm font-black">›</span>
+                </div>
               </motion.div>
             </Link>
           ))}

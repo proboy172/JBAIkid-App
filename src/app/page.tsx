@@ -16,36 +16,65 @@ import { Trophy, Smartphone, Gift, Sparkles } from "lucide-react";
 
 const modes = [
   {
+    id: "learn",
     href: "/learn",
     emoji: "📚",
     title: "Học Từ Vựng",
-    subtitle: "Learn English Words",
-    gradient: "gradient-learn",
+    subtitle: "Khám phá & Flashcards",
+    gradientClass: "gradient-learn",
+    shadow: "0 8px 20px -4px rgba(255, 107, 139, 0.4), 0 4px 0 #E0486D",
     delay: 0.05,
   },
   {
+    id: "sing",
     href: "/sing",
     emoji: "🎵",
-    title: "Ca Hát",
-    subtitle: "Sing Karaoke Songs",
-    gradient: "gradient-sing",
+    title: "Bé Ca Hát",
+    subtitle: "Karaoke tiếng Anh vui nhộn",
+    gradientClass: "gradient-sing",
+    shadow: "0 8px 20px -4px rgba(168, 85, 247, 0.4), 0 4px 0 #7C3AED",
     delay: 0.1,
   },
   {
+    id: "play",
     href: "/play",
     emoji: "🎮",
-    title: "Chơi Game",
-    subtitle: "Fun Mini Games",
-    gradient: "gradient-play",
+    title: "Góc Trò Chơi",
+    subtitle: "3 Mini game trí tuệ",
+    gradientClass: "gradient-play",
+    shadow: "0 8px 20px -4px rgba(16, 185, 129, 0.4), 0 4px 0 #059669",
     delay: 0.15,
   },
   {
+    id: "stickers",
     href: "/play/stickers",
     emoji: "🎨",
     title: "Phòng Sáng Tạo",
-    subtitle: "Stickers & Tranh Dán",
-    gradient: "bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500",
+    subtitle: "Dán sticker & Tranh vẽ",
+    gradientClass: "gradient-stickers",
+    shadow: "0 8px 20px -4px rgba(236, 72, 153, 0.4), 0 4px 0 #BE185D",
     delay: 0.2,
+  },
+  {
+    id: "review",
+    href: "/review",
+    emoji: "📝",
+    title: "Ôn Tập Trí Nhớ",
+    subtitle: "Luyện phản xạ ngắt quãng",
+    gradientClass: "gradient-review",
+    shadow: "0 8px 20px -4px rgba(245, 158, 11, 0.4), 0 4px 0 #C2410C",
+    delay: 0.25,
+  },
+  {
+    id: "parent",
+    href: "/parent",
+    emoji: "👨‍👩‍👧",
+    title: "Góc Phụ Huynh",
+    subtitle: "Báo cáo & Cài đặt PIN",
+    gradientClass: "gradient-parent",
+    shadow: "0 8px 20px -4px rgba(71, 85, 105, 0.4), 0 4px 0 #0F172A",
+    delay: 0.3,
+    isLocked: true,
   },
 ];
 
@@ -243,104 +272,71 @@ export default function HomePage() {
       </div>
 
       {/* Mode Cards */}
-      <div className="flex-1 px-5 pb-36 scroll-area relative z-10 w-full">
-        <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto w-full">
-          {modes.map((mode) => (
-            <Link key={mode.href} href={mode.href} prefetch={false}>
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: mode.delay, type: "spring", stiffness: 300 }}
-                whileTap={{ scale: 0.95, rotate: -1 }}
-                whileHover={{ scale: 1.02 }}
-                className={`${mode.gradient} rounded-3xl p-5 flex items-center gap-5 shadow-lg cursor-pointer`}
-                id={`mode-${mode.href.replace("/", "")}`}
-              >
-                <motion.span
-                  className="text-5xl"
-                  animate={{ rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                >
-                  {mode.emoji}
-                </motion.span>
-                <div className="text-white">
-                  <h2
-                    className="text-2xl font-bold leading-tight"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    {mode.title}
-                  </h2>
-                  <p className="text-sm opacity-90 font-medium">{mode.subtitle}</p>
-                </div>
-                <motion.span
-                  className="ml-auto text-3xl text-white/70"
-                  animate={{ x: [0, 6, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  ›
-                </motion.span>
-              </motion.div>
-            </Link>
-          ))}
+      <div className="flex-1 px-4 sm:px-6 pb-36 scroll-area relative z-10 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 max-w-4xl mx-auto w-full">
+          {modes.map((mode, idx) => {
+            const isReview = mode.id === "review";
+            const showReviewBadge = isReview && isMounted && dueCount > 0;
+            const currentSubtitle = showReviewBadge
+              ? `${dueCount} từ cần ôn hôm nay!`
+              : mode.subtitle;
 
-          {/* Review Card - prominent when there are due words */}
-          {dueCount > 0 && (
-            <Link href="/review" prefetch={false}>
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.35, type: "spring", stiffness: 300 }}
-                whileTap={{ scale: 0.95 }}
-                className="rounded-3xl p-5 flex items-center gap-5 shadow-lg cursor-pointer"
-                style={{ background: "linear-gradient(135deg, #C084FC, #818CF8)" }}
+            return (
+              <Link
+                key={mode.id}
+                href={mode.href}
+                prefetch={false}
+                onClick={() => playSFX("tap")}
+                className="w-full"
               >
-                <motion.span
-                  className="text-5xl"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: mode.delay, type: "spring", stiffness: 300, damping: 24 }}
+                  whileHover={{ translateY: -3 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`mode-card-3d ${mode.gradientClass} h-[92px] sm:h-[98px] px-3.5 sm:px-4 py-3 flex items-center gap-3 sm:gap-3.5 cursor-pointer group`}
+                  style={{ boxShadow: mode.shadow }}
+                  id={`mode-${mode.id}`}
                 >
-                  📝
-                </motion.span>
-                <div className="text-white">
-                  <h2
-                    className="text-2xl font-bold leading-tight"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    Ôn Tập
-                  </h2>
-                  <p className="text-sm opacity-90 font-medium">{dueCount} từ cần ôn hôm nay</p>
-                </div>
-                <motion.span
-                  className="ml-auto text-3xl text-white/70"
-                  animate={{ x: [0, 6, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  ›
-                </motion.span>
-              </motion.div>
-            </Link>
-          )}
+                  {/* Squircle Icon Pod */}
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-2xl sm:text-3xl shrink-0 shadow-inner border border-white/30 group-hover:scale-110 transition-transform">
+                    <motion.span
+                      animate={{ rotate: [0, 4, -4, 0] }}
+                      transition={{ duration: 3, repeat: Infinity, delay: idx * 0.4 }}
+                    >
+                      {mode.emoji}
+                    </motion.span>
+                  </div>
 
-          {/* Parent Zone Link */}
-          <Link href="/parent" prefetch={false}>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              whileTap={{ scale: 0.95 }}
-              className="gradient-parent rounded-3xl p-4 flex items-center gap-4 shadow-md cursor-pointer mt-2"
-              id="mode-parent"
-            >
-              <span className="text-3xl">👨‍👩‍👧</span>
-              <div className="text-white">
-                <h2 className="text-lg font-bold" style={{ fontFamily: "var(--font-heading)" }}>
-                  Khu Vực Phụ Huynh
-                </h2>
-                <p className="text-xs opacity-80">Xem tiến trình & cài đặt</p>
-              </div>
-              <span className="ml-auto text-xl text-white/50">🔒</span>
-            </motion.div>
-          </Link>
+                  {/* Text Info */}
+                  <div className="flex-1 min-w-0 pr-1">
+                    <div className="flex items-center gap-1.5">
+                      <h2
+                        className="text-base sm:text-lg font-black text-white leading-tight truncate"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                      >
+                        {mode.title}
+                      </h2>
+                      {showReviewBadge && (
+                        <span className="bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full animate-bounce shadow-md shrink-0">
+                          {dueCount}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs sm:text-[13px] text-white/90 font-medium truncate mt-0.5">
+                      {currentSubtitle}
+                    </p>
+                  </div>
+
+                  {/* Action / Arrow / Lock */}
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white/95 text-xs sm:text-sm font-black shrink-0 border border-white/25 group-hover:bg-white/30 group-hover:translate-x-0.5 transition-all shadow-xs">
+                    {mode.isLocked ? "🔒" : "›"}
+                  </div>
+                </motion.div>
+              </Link>
+            );
+          })}
         </div>
       </div>
 
