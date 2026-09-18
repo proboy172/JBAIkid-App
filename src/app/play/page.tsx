@@ -56,7 +56,7 @@ export default function PlayMenuPage() {
 
   return (
     <div className="min-h-dvh flex flex-col">
-      <div className="pt-10 pb-4 px-5 relative z-10 flex items-center justify-between">
+      <div className="pt-3 sm:pt-5 pb-2 px-5 relative z-10 flex items-center justify-between max-w-2xl mx-auto w-full">
         <BackButton label="Home" />
         <div className="glass-card px-3 py-1 text-sm font-bold flex items-center gap-1">
           <span>⭐</span>
@@ -69,20 +69,20 @@ export default function PlayMenuPage() {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center px-5 relative z-10 mb-4"
+        className="text-center px-5 relative z-10 mb-3"
       >
-        <span className="text-6xl block mb-2">🎮</span>
+        <span className="text-4xl sm:text-5xl block mb-1">🎮</span>
         <h1
-          className="text-3xl font-extrabold"
+          className="text-2xl sm:text-3xl font-extrabold"
           style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}
         >
           Game Center
         </h1>
-        <p className="text-sm text-text-light mt-1">Chọn một trò chơi để bắt đầu nhé!</p>
+        <p className="text-xs sm:text-sm text-text-light mt-0.5">Chọn một trò chơi để bắt đầu nhé!</p>
       </motion.div>
 
-      <div className="flex-1 px-4 sm:px-6 pb-36 scroll-area relative z-10 w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 max-w-2xl mx-auto w-full">
+      <div className="flex-1 px-4 sm:px-6 pb-24 lg:pb-16 scroll-area relative z-10 w-full flex flex-col justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 max-w-2xl mx-auto w-full">
           {games.map((game, i) => (
             <Link key={game.id} href={game.href} className="w-full">
               <motion.div
