@@ -174,8 +174,8 @@ export default function MemoryGamePage() {
 
   return (
     <div className="min-h-dvh flex flex-col">
-      <div className="pt-10 pb-2 px-5 relative z-10">
-        <div className="flex items-center justify-between">
+      <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10">
+        <div className="flex items-center justify-between max-w-4xl mx-auto w-full">
           <BackButton />
           <span className="text-sm font-bold px-3 py-1 rounded-full glass-card text-purple-600">
             Lượt: {moves} &nbsp;|&nbsp; Ghép: {matches}/{PAIRS}
@@ -183,15 +183,15 @@ export default function MemoryGamePage() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-24 relative z-10">
-        <div className="grid grid-cols-3 gap-4 md:gap-6 w-full max-w-2xl mx-auto">
+      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 pb-20 lg:pb-14 relative z-10">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 landscape:grid-cols-6 gap-2 sm:gap-3 w-full max-w-sm sm:max-w-xl md:max-w-4xl mx-auto">
           <AnimatePresence>
             {cards.map((card) => {
               const isFlipped = flippedIds.includes(card.id) || card.isMatched;
               return (
                 <motion.div
                   key={card.id}
-                  className="aspect-[3/4] relative cursor-pointer perspective-1000"
+                  className="aspect-[3/4] relative cursor-pointer perspective-1000 max-h-[160px]"
                   onClick={() => handleCardClick(card.id)}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -210,14 +210,14 @@ export default function MemoryGamePage() {
                         WebkitBackfaceVisibility: "hidden" 
                       }}
                     >
-                      <div className="bg-white/80 p-2 md:p-4 rounded-full shadow-sm backdrop-blur-sm w-16 h-16 md:w-24 md:h-24 flex items-center justify-center">
-                        <span className="text-5xl md:text-7xl text-purple-500 drop-shadow-md font-black">?</span>
+                      <div className="bg-white/80 p-2 sm:p-3 rounded-full shadow-sm backdrop-blur-sm w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center">
+                        <span className="text-3xl sm:text-4xl md:text-5xl text-purple-500 drop-shadow-md font-black">?</span>
                       </div>
                     </div>
 
                     {/* Back (Revealed) */}
                     <div
-                      className={`absolute inset-0 rounded-2xl md:rounded-3xl shadow-md border-2 bg-white flex flex-col items-center justify-center p-2 md:p-4 ${
+                      className={`absolute inset-0 rounded-2xl md:rounded-3xl shadow-md border-2 bg-white flex flex-col items-center justify-center p-2 sm:p-3 ${
                         card.isMatched ? "border-green-400 bg-green-50" : "border-purple-400"
                       }`}
                       style={{ 
@@ -227,9 +227,9 @@ export default function MemoryGamePage() {
                       }}
                     >
                       {card.type === "emoji" ? (
-                        <span className="text-6xl lg:text-8xl">{card.item.emoji}</span>
+                        <span className="text-4xl sm:text-5xl md:text-6xl">{card.item.emoji}</span>
                       ) : (
-                        <span className="text-xl lg:text-3xl font-bold text-center break-words w-full" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
+                        <span className="text-xs sm:text-sm md:text-base font-bold text-center break-words w-full px-1" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
                           {card.item.en}
                         </span>
                       )}

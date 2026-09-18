@@ -160,8 +160,8 @@ export default function ReviewClient() {
     <div className="min-h-dvh flex flex-col">
       <ConfettiOverlay pieces={pieces} />
 
-      <div className="pt-10 pb-2 px-5 relative z-10">
-        <div className="flex items-center justify-between">
+      <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10">
+        <div className="flex items-center justify-between max-w-xl mx-auto w-full">
           <BackButton label="Home" />
           <span
             className="text-sm font-bold px-3 py-1 rounded-full glass-card"
@@ -172,7 +172,7 @@ export default function ReviewClient() {
         </div>
 
         {/* Progress bar */}
-        <div className="mt-3 h-2.5 bg-white/50 rounded-full overflow-hidden">
+        <div className="mt-2.5 h-2.5 bg-white/50 rounded-full overflow-hidden max-w-xl mx-auto">
           <motion.div
             className="h-full rounded-full"
             style={{ background: "linear-gradient(90deg, #C084FC, #818CF8)" }}
@@ -182,7 +182,7 @@ export default function ReviewClient() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-20 lg:pb-14 relative z-10">
         {currentVocab ? (
           <AnimatePresence mode="wait">
             <motion.div
@@ -191,12 +191,11 @@ export default function ReviewClient() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -100, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="w-full max-w-sm"
+              className="w-full max-w-xs sm:max-w-sm"
             >
               {/* Card */}
               <div
-                className="flash-card-container w-full"
-                style={{ height: "300px" }}
+                className="flash-card-container w-full h-[240px] sm:h-[270px]"
                 onClick={() => {
                   playSFX("pop");
                   setFlipped((f) => !f);
@@ -204,32 +203,32 @@ export default function ReviewClient() {
               >
                 <div className={`flash-card-inner ${flipped ? "flipped" : ""}`}>
                   {/* Front */}
-                  <div className="flash-card-front glass-card flex flex-col items-center justify-center gap-4 p-6 cursor-pointer border-2 border-purple-200">
-                    <span className="text-7xl">{currentVocab.emoji}</span>
+                  <div className="flash-card-front glass-card flex flex-col items-center justify-center gap-2 p-4 sm:p-5 cursor-pointer border-2 border-purple-200">
+                    <span className="text-5xl sm:text-6xl">{currentVocab.emoji}</span>
                     <h2
-                      className="text-3xl font-extrabold"
+                      className="text-2xl sm:text-3xl font-extrabold"
                       style={{ fontFamily: "var(--font-heading)", color: "var(--color-secondary)" }}
                     >
                       {currentVocab.en}
                     </h2>
-                    <p className="text-xs text-text-light">👆 Chạm để xem đáp án</p>
+                    <p className="text-xs text-text-light mt-1">👆 Chạm để xem đáp án</p>
                   </div>
 
                   {/* Back */}
                   <div
-                    className="flash-card-back glass-card flex flex-col items-center justify-center gap-3 p-6 cursor-pointer border-2 border-purple-200"
+                    className="flash-card-back glass-card flex flex-col items-center justify-center gap-1.5 p-4 sm:p-5 cursor-pointer border-2 border-purple-200"
                     style={{ background: "linear-gradient(135deg, #f3e8ff22, white)" }}
                   >
-                    <span className="text-5xl">{currentVocab.emoji}</span>
+                    <span className="text-4xl sm:text-5xl">{currentVocab.emoji}</span>
                     <h2
-                      className="text-2xl font-extrabold"
+                      className="text-xl sm:text-2xl font-extrabold"
                       style={{ fontFamily: "var(--font-heading)", color: "var(--color-secondary)" }}
                     >
                       {currentVocab.en}
                     </h2>
-                    <p className="text-base text-text-light font-mono">{currentVocab.phonetic}</p>
-                    <div className="h-px w-16 bg-gray-200 my-1" />
-                    <p className="text-xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
+                    <p className="text-sm text-text-light font-mono">{currentVocab.phonetic}</p>
+                    <div className="h-px w-14 bg-gray-200 my-0.5" />
+                    <p className="text-lg sm:text-xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
                       {currentVocab.vi}
                     </p>
                   </div>
@@ -237,7 +236,7 @@ export default function ReviewClient() {
               </div>
 
               {/* Listen button */}
-              <div className="flex justify-center mt-4">
+              <div className="flex justify-center mt-2.5 sm:mt-3">
                 <motion.button
                   whileTap={{ scale: 0.85 }}
                   onClick={(e) => {
@@ -245,10 +244,10 @@ export default function ReviewClient() {
                     playSFX("tap");
                     speak(currentVocab.en, "en-US");
                   }}
-                  className="bubble-btn w-14 h-14 shadow-lg"
+                  className="bubble-btn w-12 h-12 sm:w-14 sm:h-14 shadow-lg"
                   style={{ background: "linear-gradient(135deg, #C084FC, #818CF8)" }}
                 >
-                  <Volume2 size={26} className="text-white relative z-10" />
+                  <Volume2 size={24} className="text-white relative z-10" />
                 </motion.button>
               </div>
 
@@ -256,13 +255,13 @@ export default function ReviewClient() {
               <AnimatePresence>
                 {flipped && (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="mt-5 flex flex-col gap-2"
+                    className="mt-2.5 sm:mt-3 flex flex-col gap-1.5"
                   >
                     <p
-                      className="text-center text-sm font-bold text-text-light mb-1"
+                      className="text-center text-xs font-bold text-text-light"
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
                       Bé nhớ từ này không?
@@ -271,7 +270,7 @@ export default function ReviewClient() {
                       <motion.button
                         whileTap={{ scale: 0.92 }}
                         onClick={() => handleRate(1)}
-                        className="py-3 rounded-2xl font-bold text-sm border-2 border-red-200 bg-red-50 text-red-600"
+                        className="py-2 sm:py-2.5 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm border-2 border-red-200 bg-red-50 text-red-600"
                         style={{ fontFamily: "var(--font-heading)" }}
                       >
                         😵 Quên rồi
@@ -279,7 +278,7 @@ export default function ReviewClient() {
                       <motion.button
                         whileTap={{ scale: 0.92 }}
                         onClick={() => handleRate(3)}
-                        className="py-3 rounded-2xl font-bold text-sm border-2 border-yellow-200 bg-yellow-50 text-yellow-700"
+                        className="py-2 sm:py-2.5 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm border-2 border-yellow-200 bg-yellow-50 text-yellow-700"
                         style={{ fontFamily: "var(--font-heading)" }}
                       >
                         🤔 Hơi khó
@@ -287,7 +286,7 @@ export default function ReviewClient() {
                       <motion.button
                         whileTap={{ scale: 0.92 }}
                         onClick={() => handleRate(5)}
-                        className="py-3 rounded-2xl font-bold text-sm border-2 border-green-200 bg-green-50 text-green-700"
+                        className="py-2 sm:py-2.5 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm border-2 border-green-200 bg-green-50 text-green-700"
                         style={{ fontFamily: "var(--font-heading)" }}
                       >
                         😎 Dễ ợt!

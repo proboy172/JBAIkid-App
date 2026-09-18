@@ -126,12 +126,12 @@ export default function ParentPage() {
 
   return (
     <div className="min-h-dvh flex flex-col">
-      <div className="pt-10 pb-4 px-5 relative z-10">
+      <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10 max-w-4xl mx-auto w-full">
         <BackButton label="Home" />
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mt-3"
+          className="text-center mt-1"
           onClick={handleTitleClick}
         >
           <h1
@@ -143,7 +143,7 @@ export default function ParentPage() {
         </motion.div>
       </div>
 
-      <div className="flex-1 px-5 pb-36 scroll-area relative z-10 w-full">
+      <div className="flex-1 px-4 sm:px-5 pb-24 lg:pb-16 scroll-area relative z-10 w-full">
         <div className="max-w-4xl mx-auto flex flex-col gap-4 w-full">
           {/* Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

@@ -159,8 +159,8 @@ export default function MatchGamePage() {
 
   return (
     <div className="min-h-dvh flex flex-col">
-      <div className="pt-10 pb-2 px-5 relative z-10">
-        <div className="flex items-center justify-between">
+      <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10">
+        <div className="flex items-center justify-between max-w-xl mx-auto w-full">
           <BackButton />
           <span className="text-sm font-bold px-3 py-1 rounded-full glass-card text-emerald-600">
             Vòng: {round}/3 &nbsp;|&nbsp; Điểm: {score}
@@ -168,10 +168,10 @@ export default function MatchGamePage() {
         </div>
       </div>
 
-      <div className="flex-1 flex px-6 pb-24 pt-8 relative z-10 items-center justify-center gap-8">
+      <div className="flex-1 flex px-4 pb-20 lg:pb-14 pt-2 sm:pt-4 relative z-10 items-center justify-center gap-4 sm:gap-8">
         
         {/* Left Column: Emojis */}
-        <div className="flex flex-col gap-4 w-1/2 max-w-[120px]">
+        <div className="flex flex-col gap-2.5 sm:gap-3 w-1/2 max-w-[130px] sm:max-w-[150px]">
           <AnimatePresence>
             {leftItems.map((item, i) => {
               const isMatched = matchedIds.includes(item.en);
@@ -190,7 +190,7 @@ export default function MatchGamePage() {
                     }
                   }}
                   disabled={isMatched || !!(selectedLeft && selectedRight)}
-                  className={`aspect-square rounded-2xl flex items-center justify-center text-5xl shadow-md border-4 transition-colors ${
+                  className={`h-14 sm:h-16 md:h-18 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl md:text-5xl shadow-md border-4 transition-colors ${
                     isSelected ? "border-emerald-400 bg-emerald-50" : "border-transparent bg-white"
                   } ${isMatched ? "pointer-events-none" : ""}`}
                 >
@@ -202,7 +202,7 @@ export default function MatchGamePage() {
         </div>
 
         {/* Right Column: Words */}
-        <div className="flex flex-col gap-4 w-1/2 max-w-[160px]">
+        <div className="flex flex-col gap-2.5 sm:gap-3 w-1/2 max-w-[180px] sm:max-w-[220px]">
           <AnimatePresence>
             {rightItems.map((item, i) => {
               const isMatched = matchedIds.includes(item.en);
@@ -222,11 +222,11 @@ export default function MatchGamePage() {
                     }
                   }}
                   disabled={isMatched || !!(selectedLeft && selectedRight)}
-                  className={`py-6 px-2 rounded-2xl flex items-center justify-center shadow-md border-4 transition-colors ${
+                  className={`h-14 sm:h-16 md:h-18 px-3 rounded-2xl flex items-center justify-center shadow-md border-4 transition-colors ${
                     isSelected ? "border-emerald-400 bg-emerald-50" : "border-transparent bg-white"
                   } ${isMatched ? "pointer-events-none" : ""}`}
                 >
-                  <span className="text-xl font-bold break-words text-center" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
+                  <span className="text-sm sm:text-base md:text-lg font-bold break-words text-center" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
                     {item.en}
                   </span>
                 </motion.button>

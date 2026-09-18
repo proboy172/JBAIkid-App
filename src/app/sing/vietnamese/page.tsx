@@ -65,12 +65,12 @@ export default function SingVietnamesePage() {
         )}
       </AnimatePresence>
 
-      <div className="pt-10 pb-4 px-5 relative z-10">
+      <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10 max-w-3xl mx-auto w-full">
         <BackButton label="Ca Hát" />
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mt-3"
+          className="text-center mt-1"
         >
           <h1
             className="text-2xl font-extrabold"
@@ -81,8 +81,8 @@ export default function SingVietnamesePage() {
         </motion.div>
       </div>
 
-      <div className="flex-1 px-5 pb-28 scroll-area relative z-10">
-        <div className="flex flex-col gap-3 max-w-md mx-auto">
+      <div className="flex-1 px-4 sm:px-5 pb-20 lg:pb-14 scroll-area relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
           {songsVi.map((song, i) => (
             <SongCard key={song.id} song={song} index={i} onPlay={() => setActiveSong(song)} />
           ))}

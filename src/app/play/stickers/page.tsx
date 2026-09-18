@@ -213,13 +213,13 @@ export default function StickerBookPage() {
       <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header */}
-      <header className="pt-10 pb-4 px-5 flex justify-between items-center relative z-20 max-w-4xl mx-auto w-full">
+      <header className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 flex justify-between items-center relative z-20 max-w-5xl mx-auto w-full">
         <Link 
           href="/play" 
           onClick={() => playSFX("tap")}
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white active:scale-90 transition-transform border border-white/10"
+          className="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white active:scale-90 transition-transform border border-white/10"
         >
-          <ArrowLeft size={24} />
+          <ArrowLeft size={20} />
         </Link>
 
         {/* Tab Switcher */}
@@ -229,13 +229,13 @@ export default function StickerBookPage() {
               playSFX("tap");
               setActiveTab("book");
             }}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === "book"
                 ? "bg-primary text-white shadow-md shadow-primary/30"
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            <BookMarked size={16} />
+            <BookMarked size={15} />
             <span>Sổ Nhãn Dán</span>
           </button>
           <button
@@ -243,29 +243,29 @@ export default function StickerBookPage() {
               playSFX("tap");
               setActiveTab("canvas");
             }}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition-all ${
               activeTab === "canvas"
                 ? "bg-gradient-to-r from-amber-500 to-pink-500 text-white shadow-md shadow-pink-500/30"
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            <Palette size={16} />
+            <Palette size={15} />
             <span>Phòng Sáng Tạo</span>
           </button>
         </div>
 
         {/* Star Badge */}
-        <div className="bg-yellow-400/20 border border-yellow-400/50 px-3.5 py-1.5 rounded-2xl flex items-center gap-1.5 shadow-[0_0_15px_rgba(250,204,21,0.25)]">
-          <Star size={18} className="text-yellow-400 fill-yellow-400" />
-          <span className="text-yellow-400 font-extrabold text-base">{totalStars}</span>
+        <div className="bg-yellow-400/20 border border-yellow-400/50 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-2xl flex items-center gap-1.5 shadow-[0_0_15px_rgba(250,204,21,0.25)]">
+          <Star size={16} className="text-yellow-400 fill-yellow-400" />
+          <span className="text-yellow-400 font-extrabold text-sm sm:text-base">{totalStars}</span>
         </div>
       </header>
 
       {/* TAB 1: SỔ NHÃN DÁN (COLLECTION / SHOP) */}
       {activeTab === "book" && (
-        <main className="px-5 relative z-10 max-w-4xl mx-auto w-full flex-1">
-          <div className="text-center mb-6">
-            <h2 className="text-xl font-black tracking-wide text-white mb-1">
+        <main className="px-4 sm:px-5 pb-20 lg:pb-14 relative z-10 max-w-4xl mx-auto w-full flex-1">
+          <div className="text-center mb-3 sm:mb-4">
+            <h2 className="text-lg sm:text-xl font-black tracking-wide text-white mb-0.5">
               Bộ Sưu Tập Nhãn Dán
             </h2>
             <p className="text-xs text-slate-400">
@@ -273,7 +273,7 @@ export default function StickerBookPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5 max-w-3xl mx-auto">
             {STICKERS.map((sticker) => {
               const isUnlocked = unlockedStickers.includes(sticker.id);
               const canAfford = totalStars >= sticker.price;
@@ -285,7 +285,7 @@ export default function StickerBookPage() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleBuySticker(sticker)}
                   className={`
-                    relative aspect-square rounded-3xl p-4 flex flex-col items-center justify-center cursor-pointer transition-all duration-300
+                    relative aspect-[4/3] sm:aspect-[5/4] md:aspect-square max-h-[145px] sm:max-h-[160px] rounded-2xl sm:rounded-3xl p-2.5 sm:p-3 flex flex-col items-center justify-center cursor-pointer transition-all duration-300
                     ${isUnlocked 
                       ? "bg-gradient-to-br from-white/15 to-white/5 border border-white/20 shadow-lg" 
                       : "bg-slate-800/60 border border-slate-700/70 opacity-80"
@@ -293,7 +293,7 @@ export default function StickerBookPage() {
                   `}
                 >
                   {/* Sticker Emoji */}
-                  <div className={`text-6xl md:text-7xl mb-2 transition-all duration-500 ${
+                  <div className={`text-4xl sm:text-5xl md:text-5xl mb-1 transition-all duration-500 ${
                     !isUnlocked 
                       ? "grayscale opacity-40 blur-[1px]" 
                       : "filter-none scale-110 drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]"
@@ -302,23 +302,23 @@ export default function StickerBookPage() {
                   </div>
                   
                   {/* Name */}
-                  <span className={`text-xs font-bold text-center ${isUnlocked ? "text-white" : "text-slate-400"}`}>
+                  <span className={`text-[11px] sm:text-xs font-bold text-center ${isUnlocked ? "text-white" : "text-slate-400"}`}>
                     {sticker.name}
                   </span>
 
                   {/* Price Tag / Status */}
                   <div className="absolute bottom-0 translate-y-1/2">
                     {isUnlocked ? (
-                      <div className="bg-emerald-500 text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-md shadow-emerald-500/40">
-                        <Check size={12} /> Đã Sở Hữu
+                      <div className="bg-emerald-500 text-white text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full flex items-center gap-1 shadow-md shadow-emerald-500/40">
+                        <Check size={11} /> Đã Có
                       </div>
                     ) : (
-                      <div className={`text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-md ${
+                      <div className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full flex items-center gap-1 shadow-md ${
                         canAfford 
                           ? "bg-amber-400 text-slate-950 shadow-amber-400/40 animate-pulse" 
                           : "bg-slate-700 text-slate-400"
                       }`}>
-                        {canAfford ? <Star size={11} className="fill-slate-950" /> : <Lock size={11} />}
+                        {canAfford ? <Star size={10} className="fill-slate-950" /> : <Lock size={10} />}
                         {sticker.price} sao
                       </div>
                     )}
@@ -328,15 +328,15 @@ export default function StickerBookPage() {
             })}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-6 sm:mt-8 text-center">
             <button
               onClick={() => {
                 playSFX("tap");
                 setActiveTab("canvas");
               }}
-              className="px-6 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-sm shadow-xl shadow-indigo-500/30 flex items-center gap-2 mx-auto active:scale-95 transition-transform"
+              className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs sm:text-sm shadow-xl shadow-indigo-500/30 flex items-center gap-2 mx-auto active:scale-95 transition-transform"
             >
-              <Palette size={18} />
+              <Palette size={16} />
               <span>Vào Phòng Sáng Tạo Dán Tranh 🎨</span>
             </button>
           </div>
@@ -345,9 +345,9 @@ export default function StickerBookPage() {
 
       {/* TAB 2: PHÒNG SÁNG TẠO (INTERACTIVE CANVAS) */}
       {activeTab === "canvas" && (
-        <main className="px-5 relative z-10 max-w-4xl mx-auto w-full flex-1 flex flex-col gap-3">
+        <main className="px-4 sm:px-5 pb-20 lg:pb-14 relative z-10 max-w-4xl mx-auto w-full flex-1 flex flex-col gap-2.5 sm:gap-3">
           {/* Top Canvas Controls Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+          <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-800/80 p-2.5 sm:p-3 rounded-2xl border border-slate-700/80">
             {/* Theme Selector */}
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
               <span className="text-xs font-bold text-slate-400 shrink-0 mr-1">Bối cảnh:</span>
@@ -407,7 +407,7 @@ export default function StickerBookPage() {
             ref={canvasRef}
             onClick={() => setSelectedPlacedId(null)}
             className={`
-              relative w-full aspect-[4/3] sm:aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20
+              relative w-full aspect-[4/3] sm:aspect-[16/9] md:aspect-[2/1] max-h-[330px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20
               bg-gradient-to-b ${currentTheme.bgGradient} transition-colors duration-700 select-none
             `}
           >

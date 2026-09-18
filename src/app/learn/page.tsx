@@ -99,10 +99,10 @@ export default function LearnPage() {
       </motion.div>
 
       {/* Content Area */}
-      <div className="flex-1 px-5 pb-36 pt-2 scroll-area relative z-10 w-full">
+      <div className="flex-1 px-4 sm:px-5 pb-24 lg:pb-16 pt-1 scroll-area relative z-10 w-full">
         {viewMode === "map" ? (
           /* ================= ADVENTURE MAP VIEW ================= */
-          <div className="max-w-md mx-auto flex flex-col items-center gap-12 w-full py-4">
+          <div className="max-w-md mx-auto flex flex-col items-center gap-6 sm:gap-8 w-full py-2">
             {curriculum.map((level, levelIdx) => {
               const isUnlocked = totalStars >= level.requiredStars;
               const biomeEmojis = ["🏝️", "🌲", "🏰"];
@@ -111,23 +111,23 @@ export default function LearnPage() {
               return (
                 <div key={level.id} className="w-full flex flex-col items-center relative">
                   {/* Biome Portal Header */}
-                  <div className="w-full mb-8 relative">
+                  <div className="w-full mb-4 sm:mb-6 relative">
                     <div
-                      className={`w-full bg-gradient-to-r ${biomeColors[levelIdx % biomeColors.length]} text-white p-4 rounded-3xl shadow-lg flex items-center justify-between relative overflow-hidden`}
+                      className={`w-full bg-gradient-to-r ${biomeColors[levelIdx % biomeColors.length]} text-white p-3 sm:p-4 rounded-2xl sm:rounded-3xl shadow-lg flex items-center justify-between relative overflow-hidden`}
                     >
                       <div className="relative z-10">
-                        <span className="text-xs uppercase tracking-widest font-extrabold opacity-80">
+                        <span className="text-[10px] sm:text-xs uppercase tracking-widest font-extrabold opacity-80">
                           Thế giới {levelIdx + 1}
                         </span>
-                        <h2 className="text-lg sm:text-xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
+                        <h2 className="text-base sm:text-lg font-bold" style={{ fontFamily: "var(--font-heading)" }}>
                           {level.name}
                         </h2>
-                        <p className="text-[11px] opacity-90 mt-0.5">{level.description}</p>
+                        <p className="text-[10px] sm:text-[11px] opacity-90 mt-0.5">{level.description}</p>
                       </div>
-                      <span className="text-4xl relative z-10">{biomeEmojis[levelIdx % biomeEmojis.length]}</span>
+                      <span className="text-3xl sm:text-4xl relative z-10">{biomeEmojis[levelIdx % biomeEmojis.length]}</span>
                       {!isUnlocked && (
                         <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px] z-20 flex items-center justify-center gap-2">
-                          <Lock size={18} className="text-amber-300" />
+                          <Lock size={16} className="text-amber-300" />
                           <span className="text-xs font-bold text-amber-200">
                             Cần {level.requiredStars} ⭐ để mở
                           </span>
@@ -146,13 +146,13 @@ export default function LearnPage() {
                       const pct = Math.round((learned / total) * 100);
 
                       // S-Curve horizontal offset pattern: center -> right -> center -> left
-                      const offsets = [0, 50, 0, -50];
+                      const offsets = [0, 45, 0, -45];
                       const xOffset = offsets[topicIdx % offsets.length];
 
                       return (
                         <div
                           key={topic.id}
-                          className="relative flex flex-col items-center my-3 w-full"
+                          className="relative flex flex-col items-center my-1.5 sm:my-2 w-full"
                           style={{ transform: `translateX(${xOffset}px)` }}
                         >
                           {/* Stepping Stone Node */}
@@ -171,7 +171,7 @@ export default function LearnPage() {
                             <motion.div
                               whileHover={isUnlocked ? { scale: 1.08 } : {}}
                               whileTap={isUnlocked ? { scale: 0.92 } : { x: [-4, 4, -4, 4, 0] }}
-                              className={`w-24 h-24 sm:w-28 sm:h-28 rounded-full p-2 flex flex-col items-center justify-center shadow-xl relative transition-all ${
+                              className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1.5 sm:p-2 flex flex-col items-center justify-center shadow-lg relative transition-all ${
                                 !isUnlocked
                                   ? "bg-slate-200/90 border-4 border-slate-300 text-slate-400"
                                   : isComplete
@@ -182,13 +182,13 @@ export default function LearnPage() {
                               }`}
                             >
                               {/* Station Emoji */}
-                              <span className="text-3xl sm:text-4xl drop-shadow-md mb-1">
+                              <span className="text-2xl sm:text-3xl drop-shadow-md mb-0.5">
                                 {!isUnlocked ? "🔒" : topic.emoji}
                               </span>
 
                               {/* Station Label */}
                               <span
-                                className="text-[11px] sm:text-xs font-black truncate max-w-[80px] text-center"
+                                className="text-[10px] sm:text-[11px] font-black truncate max-w-[72px] text-center"
                                 style={{ fontFamily: "var(--font-heading)" }}
                               >
                                 {topic.nameVi}
@@ -196,14 +196,14 @@ export default function LearnPage() {
 
                               {/* Progress Badge */}
                               {isUnlocked && (
-                                <div className="absolute -bottom-2 bg-white/90 px-2 py-0.5 rounded-full border border-gray-200 shadow-sm flex items-center gap-1">
+                                <div className="absolute -bottom-2 bg-white/90 px-1.5 py-0.5 rounded-full border border-gray-200 shadow-sm flex items-center gap-1">
                                   {isComplete ? (
-                                    <span className="text-[10px] font-bold text-amber-600 flex items-center gap-0.5">
-                                      <Star size={10} fill="#D97706" /> 100%
+                                    <span className="text-[9px] font-bold text-amber-600 flex items-center gap-0.5">
+                                      <Star size={9} fill="#D97706" /> 100%
                                     </span>
                                   ) : (
                                     <span
-                                      className="text-[10px] font-bold"
+                                      className="text-[9px] font-bold"
                                       style={{ color: topic.color }}
                                     >
                                       {learned}/{total}
@@ -264,7 +264,7 @@ export default function LearnPage() {
                   </div>
 
                   {/* Level Topics */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 relative">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 relative max-w-4xl mx-auto">
                     {!isUnlocked && (
                       <div className="absolute inset-0 z-20 rounded-3xl bg-white/40 backdrop-blur-[2px] flex items-center justify-center">
                         <div className="glass-card p-3 text-center shadow-lg">

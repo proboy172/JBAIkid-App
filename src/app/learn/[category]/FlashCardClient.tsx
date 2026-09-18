@@ -377,7 +377,7 @@ export default function FlashCardClient() {
       </div>
 
       {/* Flash Card Area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 pb-20 lg:pb-14 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -385,12 +385,11 @@ export default function FlashCardClient() {
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -direction * 200, opacity: 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="w-full max-w-sm"
+            className="w-full max-w-xs sm:max-w-sm"
           >
             {/* Card */}
             <div
-              className="flash-card-container w-full"
-              style={{ height: "370px" }}
+              className="flash-card-container w-full h-[275px] sm:h-[305px] md:h-[315px]"
               onClick={() => {
                 playSFX("pop");
                 setFlipped((f) => !f);
@@ -407,18 +406,18 @@ export default function FlashCardClient() {
               <div className={`flash-card-inner ${flipped ? "flipped" : ""}`}>
                 {/* Front - Emoji + Word + Phonics Syllables */}
                 <div
-                  className="flash-card-front glass-card flex flex-col items-center justify-center gap-2 p-5 cursor-pointer relative"
+                  className="flash-card-front glass-card flex flex-col items-center justify-center gap-1.5 p-4 sm:p-5 cursor-pointer relative"
                   style={{ border: `3px solid ${cat.color}33` }}
                 >
                   <motion.span
-                    className="text-7xl mb-1"
+                    className="text-5xl sm:text-6xl mb-0.5"
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
                   >
                     {current.emoji}
                   </motion.span>
                   <h2
-                    className="text-3xl font-extrabold"
+                    className="text-2xl sm:text-3xl font-extrabold"
                     style={{ fontFamily: "var(--font-heading)", color: cat.color }}
                   >
                     {current.en}
@@ -426,7 +425,7 @@ export default function FlashCardClient() {
 
                   {/* Interactive Syllables Breakdown Pill Strip */}
                   <div 
-                    className="flex flex-col items-center gap-1.5 mt-1 z-20"
+                    className="flex flex-col items-center gap-1 mt-0.5 z-20"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="flex items-center gap-1.5 flex-wrap justify-center max-w-full px-2">
@@ -441,7 +440,7 @@ export default function FlashCardClient() {
                             speak(syl, "en-US", 0.65);
                             setTimeout(() => setActiveSyllableIndex(null), 900);
                           }}
-                          className={`px-3 py-1 rounded-xl text-sm font-black tracking-wide transition-all shadow-sm flex items-center gap-1 ${
+                          className={`px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-xl text-xs sm:text-sm font-black tracking-wide transition-all shadow-sm flex items-center gap-1 ${
                             activeSyllableIndex === i
                               ? "bg-amber-400 text-slate-900 scale-110 ring-2 ring-amber-300 shadow-md"
                               : "bg-white/90 hover:bg-white text-slate-700 border border-slate-200"
@@ -458,7 +457,7 @@ export default function FlashCardClient() {
                             e.stopPropagation();
                             playPhonicsSequence();
                           }}
-                          className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1 ${
+                          className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-xl text-[11px] sm:text-xs font-bold transition-all shadow-sm flex items-center gap-1 ${
                             isPlayingPhonics 
                               ? "bg-primary text-white animate-pulse" 
                               : "bg-primary/15 text-primary hover:bg-primary/25"
@@ -474,7 +473,7 @@ export default function FlashCardClient() {
                     </span>
                   </div>
 
-                  <p className="text-xs text-text-light mt-2">👆 Chạm để lật thẻ</p>
+                  <p className="text-[11px] sm:text-xs text-text-light mt-1">👆 Chạm để lật thẻ</p>
                   
                   {/* Feedback overlay */}
                   <AnimatePresence>
@@ -497,24 +496,24 @@ export default function FlashCardClient() {
 
                 {/* Back - Translation + Phonetic + Syllable Overview */}
                 <div
-                  className="flash-card-back glass-card flex flex-col items-center justify-center gap-2 p-5 cursor-pointer"
+                  className="flash-card-back glass-card flex flex-col items-center justify-center gap-1.5 p-4 sm:p-5 cursor-pointer"
                   style={{ border: `3px solid ${cat.color}33`, background: `linear-gradient(135deg, ${cat.color}11, white)` }}
                 >
-                  <span className="text-5xl">{current.emoji}</span>
+                  <span className="text-4xl sm:text-5xl">{current.emoji}</span>
                   <h2
-                    className="text-3xl font-extrabold"
+                    className="text-2xl sm:text-3xl font-extrabold"
                     style={{ fontFamily: "var(--font-heading)", color: cat.color }}
                   >
                     {current.en}
                   </h2>
-                  <p className="text-sm text-text-light font-mono bg-white/70 px-3 py-0.5 rounded-full border border-gray-100">
+                  <p className="text-xs sm:text-sm text-text-light font-mono bg-white/70 px-3 py-0.5 rounded-full border border-gray-100">
                     {current.phonetic}
                   </p>
-                  <div className="h-px w-16 bg-gray-200 my-1" />
-                  <p className="text-2xl font-bold text-gray-800" style={{ fontFamily: "var(--font-heading)" }}>
+                  <div className="h-px w-14 bg-gray-200 my-0.5" />
+                  <p className="text-xl sm:text-2xl font-bold text-gray-800" style={{ fontFamily: "var(--font-heading)" }}>
                     {current.vi}
                   </p>
-                  <div className="mt-2 text-xs text-gray-500 flex items-center gap-1 bg-white/60 px-3 py-1 rounded-xl">
+                  <div className="mt-1 text-[11px] sm:text-xs text-gray-500 flex items-center gap-1 bg-white/60 px-2.5 py-0.5 rounded-xl">
                     <span>Âm tiết:</span>
                     <span className="font-bold text-primary">{syllables.join(" • ")}</span>
                   </div>
@@ -531,14 +530,14 @@ export default function FlashCardClient() {
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="flex flex-col items-center gap-2 mt-4 bg-red-500/10 border border-red-500/30 px-6 py-2.5 rounded-2xl backdrop-blur-md shadow-lg"
+              className="flex flex-col items-center gap-1.5 mt-2 bg-red-500/10 border border-red-500/30 px-5 py-2 rounded-2xl backdrop-blur-md shadow-lg"
             >
-              <div className="flex items-center gap-1.5 h-7">
+              <div className="flex items-center gap-1.5 h-6">
                 {[0.2, 0.6, 1.0, 0.4, 0.9, 0.5, 0.8, 0.3].map((delay, idx) => (
                   <motion.span
                     key={idx}
                     className="w-1.5 bg-red-500 rounded-full"
-                    animate={{ height: ["8px", "26px", "8px"] }}
+                    animate={{ height: ["6px", "22px", "6px"] }}
                     transition={{
                       duration: 0.7,
                       repeat: Infinity,
@@ -556,15 +555,15 @@ export default function FlashCardClient() {
         </AnimatePresence>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-4 mt-6">
+        <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4">
           <motion.button
             whileTap={{ scale: 0.85 }}
             onClick={goPrev}
             disabled={index === 0}
-            className="bubble-btn w-14 h-14 bg-white shadow-md disabled:opacity-30"
+            className="bubble-btn w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-md disabled:opacity-30"
             id="btn-prev"
           >
-            <ChevronLeft size={28} className="text-text relative z-10" />
+            <ChevronLeft size={24} className="text-text relative z-10" />
           </motion.button>
 
           <motion.button
@@ -578,11 +577,11 @@ export default function FlashCardClient() {
                 fire();
               }
             }}
-            className="bubble-btn w-16 h-16 shadow-lg"
+            className="bubble-btn w-14 h-14 sm:w-16 sm:h-16 shadow-lg"
             style={{ background: `linear-gradient(135deg, ${cat.color}, ${cat.color}CC)` }}
             id="btn-speak"
           >
-            <Volume2 size={30} className="text-white relative z-10" />
+            <Volume2 size={26} className="text-white relative z-10" />
           </motion.button>
 
           <motion.button
@@ -592,24 +591,24 @@ export default function FlashCardClient() {
               playSFX("tap");
               startRecording();
             }}
-            className={`bubble-btn w-16 h-16 shadow-lg ${isRecording ? "bg-red-500 animate-pulse" : "bg-blue-500"}`}
+            className={`bubble-btn w-14 h-14 sm:w-16 sm:h-16 shadow-lg ${isRecording ? "bg-red-500 animate-pulse" : "bg-blue-500"}`}
             id="btn-record"
           >
-            <Mic size={30} className="text-white relative z-10" />
+            <Mic size={26} className="text-white relative z-10" />
           </motion.button>
 
           <motion.button
             whileTap={{ scale: 0.85 }}
             onClick={goNext}
             disabled={index === items.length - 1}
-            className="bubble-btn w-14 h-14 bg-white shadow-md disabled:opacity-30"
+            className="bubble-btn w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-md disabled:opacity-30"
             id="btn-next"
           >
-            <ChevronRight size={28} className="text-text relative z-10" />
+            <ChevronRight size={24} className="text-text relative z-10" />
           </motion.button>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mt-4">
+        <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mt-2.5 sm:mt-3">
           {current.realSound && (
             <motion.button
               whileTap={{ scale: 0.92 }}
@@ -621,7 +620,7 @@ export default function FlashCardClient() {
                   alert(`Chưa tìm thấy file âm thanh thật! (Thiếu file ${current.realSound})`);
                 });
               }}
-              className="px-5 py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-sm font-semibold shadow-sm flex items-center gap-2 text-green-700"
+              className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-xs sm:text-sm font-semibold shadow-sm flex items-center gap-2 text-green-700"
             >
               🎵 Âm thanh thực
             </motion.button>
@@ -629,7 +628,7 @@ export default function FlashCardClient() {
           <motion.button
             whileTap={{ scale: 0.92 }}
             onClick={() => speak(current.vi, "vi-VN")}
-            className="px-5 py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-sm font-semibold shadow-sm flex items-center gap-2"
+            className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-xs sm:text-sm font-semibold shadow-sm flex items-center gap-2"
             id="btn-speak-vi"
           >
             🇻🇳 Nghe tiếng Việt
