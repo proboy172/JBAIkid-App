@@ -10,36 +10,36 @@ import { useAppStore } from "@/stores/appStore";
 
 const modes = [
   {
-    href: "/ai-teacher",
-    emoji: "🤖",
-    title: "Cô Giáo AI",
-    subtitle: "Trò chuyện & Học tập",
-    gradient: "bg-gradient-to-br from-indigo-400 to-purple-500",
-    delay: 0.05,
-  },
-  {
     href: "/learn",
     emoji: "📚",
     title: "Học Từ Vựng",
     subtitle: "Learn English Words",
     gradient: "gradient-learn",
-    delay: 0.1,
+    delay: 0.05,
   },
   {
     href: "/sing",
     emoji: "🎵",
     title: "Ca Hát",
-    subtitle: "Sing Songs",
+    subtitle: "Sing Karaoke Songs",
     gradient: "gradient-sing",
-    delay: 0.2,
+    delay: 0.1,
   },
   {
     href: "/play",
     emoji: "🎮",
     title: "Chơi Game",
-    subtitle: "Fun Games",
+    subtitle: "Fun Mini Games",
     gradient: "gradient-play",
-    delay: 0.3,
+    delay: 0.15,
+  },
+  {
+    href: "/play/stickers",
+    emoji: "🎨",
+    title: "Phòng Sáng Tạo",
+    subtitle: "Stickers & Tranh Dán",
+    gradient: "bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500",
+    delay: 0.2,
   },
 ];
 
