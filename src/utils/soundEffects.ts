@@ -3,9 +3,12 @@
 // Web Audio API Sound Effects Synthesizer for Kids
 // 100% Offline, Zero-Latency, Zero-File-Size
 
-type SoundType = "pop" | "star" | "correct" | "boop" | "cheer" | "tap";
+type SoundType = "pop" | "star" | "correct" | "boop" | "cheer" | "tap" | "giggle";
 
 let audioCtx: AudioContext | null = null;
+let bgmInterval: any = null;
+let bgmGainNode: GainNode | null = null;
+let isBgmRunning = false;
 
 function getAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
@@ -32,6 +35,105 @@ export function triggerHaptic(duration: number | number[] = 15) {
   }
 }
 
+// ===== Web Audio Cheerful BGM Generator (Kalimba / Music Box) =====
+// C major pentatonic nursery progression: C - G - Am - F
+const BGM_NOTES: number[][] = [
+  // C major: C4, E4, G4, C5
+  [261.63, 329.63, 392.00, 523.25],
+  // G major: G3, B3, D4, G4
+  [196.00, 246.94, 293.66, 392.00],
+  // A minor: A3, C4, E4, A4
+  [220.00, 261.63, 329.63, 440.00],
+  // F major: F3, A3, C4, F4
+  [174.61, 220.00, 261.63, 349.23],
+];
+
+let currentChordIdx = 0;
+let currentNoteInChord = 0;
+
+function playNextBgmNote() {
+  const ctx = getAudioContext();
+  if (!ctx || !isBgmRunning) return;
+
+  const now = ctx.currentTime;
+  const chord = BGM_NOTES[currentChordIdx];
+  const freq = chord[currentNoteInChord];
+
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  // Soft sine tone like a warm music box / marimba
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(freq, now);
+
+  gain.gain.setValueAtTime(0, now);
+  // Very soft volume (0.04 - 0.06) so it's gentle and soothing
+  gain.gain.linearRampToValueAtTime(0.045, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc.start(now);
+  osc.stop(now + 0.6);
+
+  currentNoteInChord++;
+  if (currentNoteInChord >= chord.length) {
+    currentNoteInChord = 0;
+    currentChordIdx = (currentChordIdx + 1) % BGM_NOTES.length;
+  }
+}
+
+export function startBGM() {
+  if (isBgmRunning) return;
+  const ctx = getAudioContext();
+  if (!ctx) return;
+  
+  isBgmRunning = true;
+  currentChordIdx = 0;
+  currentNoteInChord = 0;
+  
+  playNextBgmNote();
+  bgmInterval = setInterval(playNextBgmNote, 380); // ~158 BPM eighth-note pulse
+}
+
+export function stopBGM() {
+  isBgmRunning = false;
+  if (bgmInterval) {
+    clearInterval(bgmInterval);
+    bgmInterval = null;
+  }
+}
+
+export function isBGMActive(): boolean {
+  return isBgmRunning;
+}
+
+// Random kid-encouragement voice cheer in Vietnamese
+export function speakCheer(customText?: string) {
+  if (typeof window === "undefined" || !window.speechSynthesis) return;
+
+  const cheers = [
+    "Bé giỏi quá!",
+    "Hoan hô con!",
+    "Xuất sắc lắm!",
+    "Tuyệt vời!",
+    "Bé thông minh quá!",
+  ];
+  const text = customText || cheers[Math.floor(Math.random() * cheers.length)];
+
+  try {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "vi-VN";
+    utterance.rate = 1.05;
+    utterance.pitch = 1.25; // Playful, higher pitch for friendly cartoon feel
+    window.speechSynthesis.speak(utterance);
+  } catch (e) {
+    // Fallback ignore
+  }
+}
+
 export function playSFX(type: SoundType) {
   try {
     const ctx = getAudioContext();
@@ -40,6 +142,31 @@ export function playSFX(type: SoundType) {
     const now = ctx.currentTime;
 
     switch (type) {
+      case "giggle": {
+        // Playful mascot giggle sound (quick rising arpeggio)
+        const notes = [440, 554.37, 659.25, 880, 1108.73];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const noteTime = now + idx * 0.05;
+
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, noteTime);
+
+          gain.gain.setValueAtTime(0, noteTime);
+          gain.gain.linearRampToValueAtTime(0.25, noteTime + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.001, noteTime + 0.12);
+
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+
+          osc.start(noteTime);
+          osc.stop(noteTime + 0.14);
+        });
+        triggerHaptic(20);
+        break;
+      }
+
       case "pop": {
         // Cheerful bubble pop sound
         const osc = ctx.createOscillator();

@@ -102,6 +102,97 @@ body {
   transform: scale(0.92);
 }
 
+/* ===== 3D TOY BUTTONS (Duolingo Style Tactile Depth) ===== */
+.btn-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-3d:active {
+  transform: translateY(4px);
+}
+
+.btn-3d-primary {
+  background: #FF6B9D;
+  color: white;
+  box-shadow: 0 5px 0 #D93B73, 0 8px 15px rgba(255, 107, 157, 0.35);
+}
+.btn-3d-primary:active {
+  box-shadow: 0 1px 0 #D93B73, 0 3px 6px rgba(255, 107, 157, 0.35);
+}
+
+.btn-3d-secondary {
+  background: #C084FC;
+  color: white;
+  box-shadow: 0 5px 0 #9333EA, 0 8px 15px rgba(192, 132, 252, 0.35);
+}
+.btn-3d-secondary:active {
+  box-shadow: 0 1px 0 #9333EA, 0 3px 6px rgba(192, 132, 252, 0.35);
+}
+
+.btn-3d-accent {
+  background: #34D399;
+  color: white;
+  box-shadow: 0 5px 0 #059669, 0 8px 15px rgba(52, 211, 153, 0.35);
+}
+.btn-3d-accent:active {
+  box-shadow: 0 1px 0 #059669, 0 3px 6px rgba(52, 211, 153, 0.35);
+}
+
+.btn-3d-warning {
+  background: #FBBF24;
+  color: #78350F;
+  box-shadow: 0 5px 0 #D97706, 0 8px 15px rgba(251, 191, 36, 0.35);
+}
+.btn-3d-warning:active {
+  box-shadow: 0 1px 0 #D97706, 0 3px 6px rgba(251, 191, 36, 0.35);
+}
+
+/* Shimmer & sparkle animations */
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(200%) rotate(45deg); }
+}
+
+.shimmer-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-badge::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer-sweep 3s infinite;
+}
+
+@keyframes chest-wobble {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  15% { transform: rotate(-8deg) scale(1.1); }
+  30% { transform: rotate(8deg) scale(1.1); }
+  45% { transform: rotate(-5deg) scale(1.15); }
+  60% { transform: rotate(5deg) scale(1.15); }
+  75% { transform: rotate(0deg) scale(1.05); }
+}
+
+.animate-chest-wobble {
+  animation: chest-wobble 1.8s infinite ease-in-out;
+}
+
 /* ===== MODE CARD GRADIENTS ===== */
 
 .gradient-learn {

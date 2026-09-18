@@ -93,6 +93,19 @@ interface ProgressState {
   addPlayTime: (seconds: number) => void;
   setScreenTimeLimit: (limit: number) => void;
 
+  // Music BGM
+  bgmEnabled: boolean;
+  toggleBgm: () => void;
+
+  // Badges & Achievements
+  unlockedBadges: string[];
+  unlockBadge: (badgeId: string) => void;
+
+  // Daily Chest Quest
+  dailyWordsLearned: Record<string, string[]>; // dateStr -> words learned today
+  hasClaimedDailyChest: Record<string, boolean>; // dateStr -> boolean
+  claimDailyChest: () => number;
+
   // Weekly Study History & Smart Cache
   studyHistory: Record<string, number>; // dateStr -> seconds
   getWeeklyStudyStats: () => { dayLabel: string; dateStr: string; minutes: number; isToday: boolean }[];
@@ -153,23 +166,76 @@ export const useAppStore = create<ProgressState>()(
       lastPlayDate: "",
       aiApiKeys: [],
       studyHistory: {},
+      bgmEnabled: false,
+      unlockedBadges: [],
+      dailyWordsLearned: {},
+      hasClaimedDailyChest: {},
+
+      toggleBgm: () => {
+        set({ bgmEnabled: !get().bgmEnabled });
+      },
+
+      unlockBadge: (badgeId) => {
+        const current = get().unlockedBadges || [];
+        if (!current.includes(badgeId)) {
+          set({ unlockedBadges: [...current, badgeId] });
+        }
+      },
+
+      claimDailyChest: () => {
+        const today = getTodayStr();
+        const claimed = get().hasClaimedDailyChest || {};
+        if (claimed[today]) return 0;
+        
+        const currentWords = get().dailyWordsLearned?.[today] || [];
+        if (currentWords.length < 5) return 0;
+
+        set({
+          hasClaimedDailyChest: { ...claimed, [today]: true },
+          totalStars: get().totalStars + 10,
+        });
+        get().unlockBadge("badge_daily_chest");
+        return 10;
+      },
 
       markWordLearned: (categoryId, wordEn) => {
         const current = get().learnedWords;
         const catWords = current[categoryId] || [];
-        if (catWords.includes(wordEn)) return;
-        set({
-          learnedWords: {
-            ...current,
-            [categoryId]: [...catWords, wordEn],
-          },
-        });
-        // Also add to SRS automatically
-        get().addToSRS(categoryId, wordEn);
+        if (!catWords.includes(wordEn)) {
+          set({
+            learnedWords: {
+              ...current,
+              [categoryId]: [...catWords, wordEn],
+            },
+          });
+          get().addToSRS(categoryId, wordEn);
+        }
+
+        // Track daily unique words learned
+        const today = getTodayStr();
+        const currentDailyMap = get().dailyWordsLearned || {};
+        const todayWords = currentDailyMap[today] || [];
+        if (!todayWords.includes(wordEn)) {
+          set({
+            dailyWordsLearned: {
+              ...currentDailyMap,
+              [today]: [...todayWords, wordEn],
+            },
+          });
+        }
+
+        // Auto check badge criteria
+        const totalLearnedCount = Object.values(get().learnedWords).flat().length;
+        if (totalLearnedCount >= 10) get().unlockBadge("badge_words_10");
+        if (totalLearnedCount >= 30) get().unlockBadge("badge_words_30");
+        if (totalLearnedCount >= 50) get().unlockBadge("badge_words_50");
       },
 
       addStars: (count) => {
-        set({ totalStars: get().totalStars + count });
+        const newTotal = get().totalStars + count;
+        set({ totalStars: newTotal });
+        if (newTotal >= 50) get().unlockBadge("badge_stars_50");
+        if (newTotal >= 100) get().unlockBadge("badge_stars_100");
       },
 
       spendStars: (count) => {
@@ -197,16 +263,21 @@ export const useAppStore = create<ProgressState>()(
         yesterday.setDate(yesterday.getDate() - 1);
         const yesterdayStr = yesterday.toISOString().split("T")[0];
 
+        const newStreak = last === yesterdayStr ? get().streak + 1 : 1;
         set({
-          streak: last === yesterdayStr ? get().streak + 1 : 1,
+          streak: newStreak,
           lastActiveDate: today,
         });
+
+        if (newStreak >= 3) get().unlockBadge("badge_streak_3");
+        if (newStreak >= 7) get().unlockBadge("badge_streak_7");
       },
 
       setQuizHighScore: (score) => {
         if (score > get().quizHighScore) {
           set({ quizHighScore: score });
         }
+        if (score >= 8) get().unlockBadge("badge_quiz_master");
       },
 
       resetProgress: () => {
@@ -217,6 +288,9 @@ export const useAppStore = create<ProgressState>()(
           totalStars: 0,
           quizHighScore: 0,
           unlockedStickers: [],
+          unlockedBadges: [],
+          dailyWordsLearned: {},
+          hasClaimedDailyChest: {},
           srsCards: {},
           lastDailyReward: "",
           dailyRewardStreak: 0,

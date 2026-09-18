@@ -35,6 +35,7 @@ export default function FlashCardClient() {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [showCompletion, setShowCompletion] = useState(false);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
 
   const items = cat?.items || [];
   const current = items[index];
@@ -60,18 +61,78 @@ export default function FlashCardClient() {
     setIsMounted(true);
   }, []);
 
-  // Auto-play English word when navigating to it (with slight delay for animation)
+  // Auto-play English word when navigating to it manually (with slight delay for animation)
   useEffect(() => {
-    if (isMounted && current) {
+    if (isMounted && current && !isAutoPlay) {
       const timer = setTimeout(() => {
         speak(current.en, "en-US");
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [current, isMounted, speak]);
+  }, [current, isMounted, speak, isAutoPlay]);
 
   const learned = learnedWords[category] || [];
   const isLearned = current ? learned.includes(current.en) : false;
+
+  const goNext = useCallback(() => {
+    if (index < items.length - 1) {
+      playSFX("pop");
+      setDirection(1);
+      setFlipped(false);
+      setActiveSyllableIndex(null);
+      setIsPlayingPhonics(false);
+      setIndex((i) => i + 1);
+    } else {
+      playSFX("cheer");
+      addStars(3);
+      fire();
+      setShowCompletion(true);
+    }
+  }, [index, items.length, addStars, fire]);
+
+  const goPrev = useCallback(() => {
+    if (index > 0) {
+      playSFX("pop");
+      setDirection(-1);
+      setFlipped(false);
+      setActiveSyllableIndex(null);
+      setIsPlayingPhonics(false);
+      setIndex((i) => i - 1);
+    }
+  }, [index]);
+
+  // Hands-free Auto-play Slideshow loop
+  useEffect(() => {
+    if (!isAutoPlay || !current || showCompletion) return;
+
+    // 1. Speak English word clearly
+    speak(current.en, "en-US", 0.75);
+
+    // 2. Flip to back after 1.8s and speak Vietnamese translation
+    const flipTimer = setTimeout(() => {
+      setFlipped(true);
+      if (!isLearned && current) {
+        markWordLearned(category, current.en);
+        addStars(1);
+      }
+      speak(current.vi, "vi-VN", 0.85);
+    }, 1800);
+
+    // 3. Move to next card after 4.2s
+    const nextTimer = setTimeout(() => {
+      if (index < items.length - 1) {
+        goNext();
+      } else {
+        setIsAutoPlay(false);
+        goNext();
+      }
+    }, 4200);
+
+    return () => {
+      clearTimeout(flipTimer);
+      clearTimeout(nextTimer);
+    };
+  }, [isAutoPlay, index, current, showCompletion, goNext, speak, isLearned, category, markWordLearned, addStars, items.length]);
   
   const startRecording = useCallback(async () => {
     if (typeof window === "undefined" || !current) return;
@@ -168,33 +229,6 @@ export default function FlashCardClient() {
     
     recognition.start();
   }, [current, isLearned, category, markWordLearned, addStars, fire]);
-  
-  const goNext = useCallback(() => {
-    if (index < items.length - 1) {
-      playSFX("pop");
-      setDirection(1);
-      setFlipped(false);
-      setActiveSyllableIndex(null);
-      setIsPlayingPhonics(false);
-      setIndex((i) => i + 1);
-    } else {
-      playSFX("cheer");
-      addStars(3);
-      fire();
-      setShowCompletion(true);
-    }
-  }, [index, items.length, addStars, fire]);
-
-  const goPrev = useCallback(() => {
-    if (index > 0) {
-      playSFX("pop");
-      setDirection(-1);
-      setFlipped(false);
-      setActiveSyllableIndex(null);
-      setIsPlayingPhonics(false);
-      setIndex((i) => i - 1);
-    }
-  }, [index]);
 
   // Prevent hydration mismatch
   if (!isMounted) {
@@ -307,9 +341,28 @@ export default function FlashCardClient() {
       <div className="pt-10 pb-2 px-5 relative z-10">
         <div className="flex items-center justify-between">
           <BackButton label={cat.nameVi} />
-          <span className="text-sm font-bold px-3 py-1 rounded-full glass-card" style={{ color: cat.color }}>
-            {index + 1} / {items.length}
-          </span>
+          
+          <div className="flex items-center gap-2">
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => {
+                playSFX("tap");
+                setIsAutoPlay((prev) => !prev);
+              }}
+              className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 border shadow-sm transition-all ${
+                isAutoPlay
+                  ? "bg-pink-500 text-white border-pink-400 shadow-pink-300/50 animate-pulse"
+                  : "bg-white/80 text-text-light border-white/60 hover:text-text"
+              }`}
+              title={isAutoPlay ? "Tạm dừng tự động xem" : "Bật tự động lật & đọc từ"}
+            >
+              <span>{isAutoPlay ? "⏸️ Dừng" : "▶️ Tự động xem"}</span>
+            </motion.button>
+
+            <span className="text-sm font-bold px-3 py-1 rounded-full glass-card" style={{ color: cat.color }}>
+              {index + 1} / {items.length}
+            </span>
+          </div>
         </div>
 
         {/* Progress bar */}

@@ -6,7 +6,13 @@ import { useEffect, useState } from "react";
 import BottomNav from "@/components/layout/BottomNav";
 import Mascot from "@/components/shared/Mascot";
 import DailyRewardPopup from "@/components/shared/DailyRewardPopup";
+import BgmPlayer from "@/components/shared/BgmPlayer";
+import BadgesModal from "@/components/shared/BadgesModal";
+import TreasureChestPopup from "@/components/shared/TreasureChestPopup";
+import PwaPrompt from "@/components/shared/PwaPrompt";
 import { useAppStore } from "@/stores/appStore";
+import { playSFX } from "@/utils/soundEffects";
+import { Trophy, Smartphone, Gift, Sparkles } from "lucide-react";
 
 const modes = [
   {
@@ -44,8 +50,14 @@ const modes = [
 ];
 
 export default function HomePage() {
-  const { streak, totalStars, updateStreak, getDueWords } = useAppStore();
+  const { 
+    streak, totalStars, updateStreak, getDueWords, 
+    dailyWordsLearned, hasClaimedDailyChest, unlockedBadges 
+  } = useAppStore();
   const [isMounted, setIsMounted] = useState(false);
+  const [showBadges, setShowBadges] = useState(false);
+  const [showChest, setShowChest] = useState(false);
+  const [showPwa, setShowPwa] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -53,11 +65,51 @@ export default function HomePage() {
   }, [updateStreak]);
 
   const dueCount = isMounted ? getDueWords().length : 0;
+  const today = new Date().toISOString().split("T")[0];
+  const todayWords = isMounted ? (dailyWordsLearned?.[today] || []) : [];
+  const todayWordsCount = todayWords.length;
+  const isChestClaimed = isMounted ? !!hasClaimedDailyChest?.[today] : false;
+  const canClaimChest = todayWordsCount >= 5 && !isChestClaimed;
 
   return (
     <div className="min-h-dvh flex flex-col">
+      {/* Top Utility Bar */}
+      <div className="pt-10 pb-2 px-5 relative z-20 flex items-center justify-between max-w-4xl mx-auto w-full">
+        <div className="flex items-center gap-2">
+          <BgmPlayer />
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => {
+              playSFX("tap");
+              setShowPwa(true);
+            }}
+            className="glass-card px-3 py-1.5 rounded-full flex items-center gap-1.5 text-[11px] font-bold text-gray-700 hover:text-primary transition-colors border border-gray-200"
+            title="Cài đặt ứng dụng về màn hình chính"
+          >
+            <Smartphone size={14} className="text-primary" />
+            <span className="hidden sm:inline">Cài App</span>
+          </motion.button>
+        </div>
+
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={() => {
+            playSFX("tap");
+            setShowBadges(true);
+          }}
+          className="glass-card px-3 py-1.5 rounded-full flex items-center gap-1.5 text-[11px] font-bold text-amber-700 border border-amber-200 shadow-sm hover:border-amber-300 transition-colors"
+          title="Xem bộ sưu tập huy hiệu"
+        >
+          <Trophy size={14} className="text-amber-500" />
+          <span>Huy Hiệu</span>
+          <span className="bg-amber-100 text-amber-800 text-[10px] px-1.5 py-0.2 rounded-full font-black">
+            {isMounted ? (unlockedBadges?.length || 0) : 0}
+          </span>
+        </motion.button>
+      </div>
+
       {/* Header */}
-      <div className="pt-12 pb-4 px-6 text-center relative z-10">
+      <div className="pt-2 pb-4 px-6 text-center relative z-10">
         {/* Mascot Greeting */}
         <motion.div
           initial={{ scale: 0, y: -20 }}
@@ -68,11 +120,13 @@ export default function HomePage() {
           <Mascot
             mood="wave"
             message={
-              dueCount > 0
+              canClaimChest
+                ? "Bé ơi! Hòm kho báu đã mở, bấm nhận sao nào! 🎁"
+                : dueCount > 0
                 ? `Có ${dueCount} từ cần ôn tập nè!`
-                : "Chào con! Hôm nay học gì nào? ✨"
+                : "Chào con! Chạm vào Bino để chơi nhé! ✨"
             }
-            size={100}
+            size={105}
           />
         </motion.div>
 
@@ -100,7 +154,7 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45 }}
-          className="flex justify-center gap-4 mt-3"
+          className="flex justify-center gap-3 mt-3"
         >
           <div className="glass-card px-3 py-2 flex items-center gap-2">
             <span className="text-lg">🔥</span>
@@ -140,6 +194,51 @@ export default function HomePage() {
               </motion.div>
             </Link>
           )}
+        </motion.div>
+
+        {/* Daily Quest Chest Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          onClick={() => {
+            playSFX("tap");
+            setShowChest(true);
+          }}
+          className={`max-w-md mx-auto mt-4 p-3 rounded-2xl glass-card border-2 cursor-pointer flex items-center gap-3 transition-all select-none ${
+            canClaimChest
+              ? "border-amber-400 bg-amber-50/95 shadow-lg shadow-amber-200/60"
+              : "border-purple-200/60 hover:border-purple-300"
+          }`}
+        >
+          <div className="text-3xl shrink-0">
+            <span className={canClaimChest ? "block animate-chest-wobble" : ""}>
+              {isChestClaimed ? "👑" : canClaimChest ? "🎁" : "📦"}
+            </span>
+          </div>
+
+          <div className="flex-1 text-left min-w-0">
+            <div className="flex items-center justify-between gap-1 mb-1">
+              <span className="text-xs font-bold text-gray-800 truncate" style={{ fontFamily: "var(--font-heading)" }}>
+                {canClaimChest ? "🎉 Mở Hòm Nhận 10 ⭐!" : "Mục tiêu ngày: Học 5 từ"}
+              </span>
+              <span className="text-[11px] font-extrabold text-amber-600 shrink-0">
+                {todayWordsCount}/5 từ
+              </span>
+            </div>
+
+            <div className="w-full bg-gray-200/80 h-2 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full"
+                animate={{ width: `${Math.min(100, (todayWordsCount / 5) * 100)}%` }}
+                transition={{ duration: 0.4 }}
+              />
+            </div>
+          </div>
+
+          <span className="text-xs font-black text-amber-500 shrink-0">
+            {canClaimChest ? "MỞ NGAY" : "›"}
+          </span>
         </motion.div>
       </div>
 
@@ -247,6 +346,9 @@ export default function HomePage() {
 
       <BottomNav />
       <DailyRewardPopup />
+      <TreasureChestPopup isOpen={showChest} onClose={() => setShowChest(false)} />
+      <BadgesModal isOpen={showBadges} onClose={() => setShowBadges(false)} />
+      <PwaPrompt isOpen={showPwa} onClose={() => setShowPwa(false)} />
     </div>
   );
 }
