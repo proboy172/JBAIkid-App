@@ -292,13 +292,20 @@ export default function PoliceCallPage() {
     });
 
     try {
-      const defaultKey = "AIzaSyCtJuloV" + "ibyusYlE0o" + "pa5iVQBlPg" + "OVct_4";
-      let allKeys = [...aiApiKeys.filter(k => k.startsWith('AIza')), defaultKey];
-      allKeys = Array.from(new Set(allKeys.filter((k: string) => k && k.trim() !== '')));
+      let allKeys = aiApiKeys.filter((k: string) => k && k.startsWith('AIza') && k.trim() !== '');
+      allKeys = Array.from(new Set(allKeys));
 
       for (let i = allKeys.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [allKeys[i], allKeys[j]] = [allKeys[j], allKeys[i]];
+      }
+
+      if (allKeys.length === 0) {
+        setIsThinking(false);
+        const noKeyMsg = "Ba mẹ ơi, hãy vào mục Phụ Huynh để thêm mã Gemini API miễn phí thì chú công an mới có thể trò chuyện cùng bé được nhé!";
+        setLastAIResponse(noKeyMsg);
+        speakText(noKeyMsg);
+        return;
       }
 
       const systemPrompt = `Bạn là Chú Công An nhân dân Việt Nam. Giọng điệu của bạn vô cùng dõng dạc, uy nghiêm, chững chạc nhưng vẫn toát lên sự thân thiện, quan tâm.
@@ -417,10 +424,20 @@ QUY TẮC BẮT BUỘC:
           </motion.div>
           
           <h2 className="text-3xl font-bold mb-2 tracking-wide text-blue-100">Chú Công An</h2>
-          <div className="flex items-center gap-2 text-blue-200/70 mb-12">
+          <div className="flex items-center gap-2 text-blue-200/70 mb-4">
             <ShieldAlert size={16} />
             <p className="text-lg">Cuộc gọi đến từ Tổ Công Tác...</p>
           </div>
+
+          {!aiApiKeys.some(k => k && k.startsWith('AIza')) && (
+            <Link
+              href="/parent"
+              className="mb-8 px-4 py-2 bg-amber-500/20 border border-amber-400/40 rounded-full text-xs text-amber-300 flex items-center gap-2 hover:bg-amber-500/30 transition-all shadow-lg"
+            >
+              <span>🔑</span>
+              <span>Chưa có mã Gemini API • Nhấn để cài đặt ở mục Phụ Huynh</span>
+            </Link>
+          )}
           
           <div className="flex gap-10">
             <Link href="/parent">

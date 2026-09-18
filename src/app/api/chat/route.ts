@@ -9,13 +9,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
 
-    const defaultKey = "AIzaSyCtJuloV" + "ibyusYlE0o" + "pa5iVQBlPg" + "OVct_4";
     const envKey = process.env.GEMINI_API_KEY;
 
     // Combine all available keys and remove duplicates/empties
     let allKeys = [...apiKeys];
     if (envKey) allKeys.push(envKey);
-    allKeys.push(defaultKey);
     allKeys = Array.from(new Set(allKeys.filter((k: string) => k && k.trim() !== '')));
 
     // Shuffle keys for load balancing

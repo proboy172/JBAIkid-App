@@ -247,7 +247,9 @@ export default function ParentPage() {
                   </div>
                 ))}
                 {(!aiApiKeys || aiApiKeys.length === 0) && (
-                  <p className="text-xs text-text-light italic px-1">Chưa có API Key nào được thêm. Hệ thống sẽ dùng key mặc định.</p>
+                  <p className="text-xs text-amber-600 bg-amber-50 p-2.5 rounded-xl border border-amber-200">
+                    💡 <strong>Chưa có API Key nào.</strong> Ba mẹ hãy thêm mã Gemini API để kích hoạt tính năng Cô Giáo AI và Cuộc Gọi Cảnh Sát nhé!
+                  </p>
                 )}
               </div>
 
@@ -256,7 +258,7 @@ export default function ParentPage() {
                   type="text"
                   value={newApiKey}
                   onChange={(e) => setNewApiKey(e.target.value)}
-                  placeholder="Nhập Gemini API Key..."
+                  placeholder="Dán mã Gemini API (AIzaSy...)..."
                   className="flex-1 text-xs px-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white"
                 />
                 <button
@@ -267,6 +269,17 @@ export default function ParentPage() {
                   <Plus size={16} /> <span className="text-xs font-bold">Thêm</span>
                 </button>
               </div>
+              <p className="text-[11px] text-text-light mt-2 flex items-center gap-1">
+                <span>🔗 Lấy mã miễn phí 100% tại:</span>
+                <a 
+                  href="https://aistudio.google.com/apikey" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-primary font-bold underline"
+                >
+                  Google AI Studio
+                </a>
+              </p>
             </div>
 
             <div className="h-[1px] w-full bg-gray-200 mb-6" />

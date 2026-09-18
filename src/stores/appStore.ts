@@ -90,6 +90,7 @@ interface ProgressState {
 
   // Screen Time actions
   incrementPlayTime: () => void;
+  addPlayTime: (seconds: number) => void;
   setScreenTimeLimit: (limit: number) => void;
 }
 
@@ -305,15 +306,20 @@ export const useAppStore = create<ProgressState>()(
       },
 
       // ===== Screen Time Actions =====
-      incrementPlayTime: () => {
+      addPlayTime: (seconds: number) => {
+        if (seconds <= 0) return;
         const today = getTodayStr();
         const last = get().lastPlayDate;
         if (last !== today) {
           // Reset if new day
-          set({ dailyPlayTime: 1, lastPlayDate: today });
+          set({ dailyPlayTime: seconds, lastPlayDate: today });
         } else {
-          set({ dailyPlayTime: get().dailyPlayTime + 1 });
+          set({ dailyPlayTime: get().dailyPlayTime + seconds });
         }
+      },
+
+      incrementPlayTime: () => {
+        get().addPlayTime(1);
       },
 
       setScreenTimeLimit: (limit: number) => {

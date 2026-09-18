@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/stores/appStore";
 import Mascot from "./Mascot";
@@ -12,8 +12,9 @@ const generateMathProblem = () => {
 };
 
 export default function TimeTracker() {
-  const { dailyPlayTime, screenTimeLimit, incrementPlayTime } = useAppStore();
+  const { dailyPlayTime, screenTimeLimit, addPlayTime } = useAppStore();
   const [isLocked, setIsLocked] = useState(false);
+  const bufferedSecondsRef = useRef(0);
   
   // For parent override
   const [showOverride, setShowOverride] = useState(false);
@@ -21,21 +22,44 @@ export default function TimeTracker() {
   const [userAnswer, setUserAnswer] = useState("");
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    // Increment time every second
-    const interval = setInterval(() => {
-      incrementPlayTime();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [incrementPlayTime]);
+  // Flush in-memory accumulated seconds to storage
+  const flushTime = useCallback(() => {
+    if (bufferedSecondsRef.current > 0) {
+      addPlayTime(bufferedSecondsRef.current);
+      bufferedSecondsRef.current = 0;
+    }
+  }, [addPlayTime]);
 
   useEffect(() => {
-    if (screenTimeLimit > 0 && dailyPlayTime >= screenTimeLimit * 60) {
-      if (!isLocked) setIsLocked(true);
-    } else {
-      if (isLocked) setIsLocked(false);
-    }
-  }, [dailyPlayTime, screenTimeLimit, isLocked]);
+    // 1-second in-memory tick for exact lock timing, flushed to disk every 30 seconds
+    const interval = setInterval(() => {
+      bufferedSecondsRef.current += 1;
+      
+      // Check lock condition against combined persisted + buffered time
+      const totalEffectiveTime = dailyPlayTime + bufferedSecondsRef.current;
+      if (screenTimeLimit > 0 && totalEffectiveTime >= screenTimeLimit * 60) {
+        setIsLocked(true);
+      } else {
+        setIsLocked(false);
+      }
+
+      // Flush to disk every 30 seconds to protect flash storage and battery
+      if (bufferedSecondsRef.current >= 30) {
+        flushTime();
+      }
+    }, 1000);
+
+    const handleBeforeUnload = () => {
+      flushTime();
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      flushTime();
+    };
+  }, [dailyPlayTime, screenTimeLimit, flushTime]);
 
   const handleOverrideSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +68,7 @@ export default function TimeTracker() {
       useAppStore.getState().setScreenTimeLimit(screenTimeLimit + 15);
       setShowOverride(false);
       setUserAnswer("");
+      setMathProblem(generateMathProblem());
     } else {
       setError(true);
       setUserAnswer("");

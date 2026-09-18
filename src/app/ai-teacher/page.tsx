@@ -350,14 +350,21 @@ export default function AITeacherPage() {
 
     try {
       // Setup Gemini API keys
-      const defaultKey = "AIzaSyCtJuloV" + "ibyusYlE0o" + "pa5iVQBlPg" + "OVct_4";
-      let allKeys = [...aiApiKeys.filter(k => k.startsWith('AIza')), defaultKey];
-      allKeys = Array.from(new Set(allKeys.filter((k: string) => k && k.trim() !== '')));
+      let allKeys = aiApiKeys.filter((k: string) => k && k.startsWith('AIza') && k.trim() !== '');
+      allKeys = Array.from(new Set(allKeys));
 
       // Shuffle keys for load balancing
       for (let i = allKeys.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [allKeys[i], allKeys[j]] = [allKeys[j], allKeys[i]];
+      }
+
+      if (allKeys.length === 0) {
+        setIsThinking(false);
+        const noKeyMsg = "Ba mẹ ơi, hãy vào mục Phụ Huynh để thêm mã Gemini API miễn phí thì cô mới có thể trò chuyện cùng bé được nhé!";
+        setLastAIResponse(noKeyMsg);
+        speakText(noKeyMsg);
+        return;
       }
 
       // Time Context
@@ -545,7 +552,17 @@ QUY TẮC SƯ PHẠM ĐỈNH CAO (BẮT BUỘC):
           </motion.div>
           
           <h2 className="text-3xl font-bold mb-2 tracking-wide">Miss Sophia</h2>
-          <p className="text-white/60 mb-6 text-lg">Đang gọi cho bé...</p>
+          <p className="text-white/60 mb-4 text-lg">Đang gọi cho bé...</p>
+          
+          {!aiApiKeys.some(k => k && k.startsWith('AIza')) && (
+            <Link
+              href="/parent"
+              className="mb-6 px-4 py-2 bg-amber-500/20 border border-amber-400/40 rounded-full text-xs text-amber-300 flex items-center gap-2 hover:bg-amber-500/30 transition-all shadow-lg"
+            >
+              <span>🔑</span>
+              <span>Chưa có mã Gemini API • Nhấn để cài đặt ở mục Phụ Huynh</span>
+            </Link>
+          )}
           
           {/* Roleplay Selection */}
           <div className="w-full max-w-sm mb-12 bg-black/40 backdrop-blur-md rounded-3xl p-4 border border-white/10">

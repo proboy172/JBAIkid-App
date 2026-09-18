@@ -40,4 +40,17 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
+# large binaries and build artifacts
+*.apk
+*.exe
+test.mp4
+
+# scraper & AI processing temp files
+temp_*
+temp_audio/
+whisper_results.json
+download-results.json
+song_times.json
+transcripts.json
+ca-nha-thuong-nhau-words.json
+whisper-en-words.json
