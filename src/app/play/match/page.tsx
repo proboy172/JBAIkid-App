@@ -9,6 +9,7 @@ import { getAllTopics, type VocabItem } from "@/data/vocabulary";
 import { useSpeech } from "@/hooks/useSpeech";
 import { useConfetti } from "@/hooks/useConfetti";
 import { useAppStore } from "@/stores/appStore";
+import { playSFX } from "@/utils/soundEffects";
 
 function getMatchSet(count: number) {
   const all = getAllTopics().flatMap((c) => c.items);
@@ -46,6 +47,7 @@ export default function MatchGamePage() {
   }, []);
 
   const startGame = useCallback(() => {
+    playSFX("tap");
     setScore(0);
     setRound(1);
     setGameOver(false);
@@ -58,6 +60,7 @@ export default function MatchGamePage() {
     if (selectedLeft && selectedRight) {
       if (selectedLeft === selectedRight) {
         // Match!
+        playSFX("correct");
         speak(selectedRight, "en-US");
         setMatchedIds(prev => [...prev, selectedLeft]);
         setScore(s => s + 1);
@@ -65,6 +68,7 @@ export default function MatchGamePage() {
         setSelectedRight(null);
       } else {
         // Mismatch
+        playSFX("boop");
         setTimeout(() => {
           setSelectedLeft(null);
           setSelectedRight(null);
@@ -78,9 +82,11 @@ export default function MatchGamePage() {
     if (started && matchedIds.length === ITEMS_PER_ROUND) {
       setTimeout(() => {
         if (round < 3) {
+          playSFX("pop");
           setRound(r => r + 1);
           loadRound();
         } else {
+          playSFX("cheer");
           fire();
           setGameOver(true);
           addStars(3); // 3 stars for completing 3 rounds
@@ -177,8 +183,13 @@ export default function MatchGamePage() {
                   animate={{ opacity: isMatched ? 0 : 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
                   whileTap={!isMatched ? { scale: 0.9 } : {}}
-                  onClick={() => !isMatched && setSelectedLeft(item.en)}
-                  disabled={isMatched}
+                  onClick={() => {
+                    if (!isMatched && !(selectedLeft && selectedRight)) {
+                      playSFX("tap");
+                      setSelectedLeft(item.en);
+                    }
+                  }}
+                  disabled={isMatched || !!(selectedLeft && selectedRight)}
                   className={`aspect-square rounded-2xl flex items-center justify-center text-5xl shadow-md border-4 transition-colors ${
                     isSelected ? "border-emerald-400 bg-emerald-50" : "border-transparent bg-white"
                   } ${isMatched ? "pointer-events-none" : ""}`}
@@ -204,12 +215,13 @@ export default function MatchGamePage() {
                   transition={{ delay: i * 0.1 }}
                   whileTap={!isMatched ? { scale: 0.9 } : {}}
                   onClick={() => {
-                    if (!isMatched) {
+                    if (!isMatched && !(selectedLeft && selectedRight)) {
+                      playSFX("tap");
                       speak(item.en, "en-US");
                       setSelectedRight(item.en);
                     }
                   }}
-                  disabled={isMatched}
+                  disabled={isMatched || !!(selectedLeft && selectedRight)}
                   className={`py-6 px-2 rounded-2xl flex items-center justify-center shadow-md border-4 transition-colors ${
                     isSelected ? "border-emerald-400 bg-emerald-50" : "border-transparent bg-white"
                   } ${isMatched ? "pointer-events-none" : ""}`}

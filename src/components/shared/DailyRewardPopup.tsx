@@ -32,6 +32,7 @@ export default function DailyRewardPopup() {
   };
 
   const handleClose = () => {
+    playSFX("pop");
     setIsOpen(false);
   };
 

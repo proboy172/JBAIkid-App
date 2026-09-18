@@ -9,6 +9,7 @@ import { getAllTopics, type VocabItem } from "@/data/vocabulary";
 import { useSpeech } from "@/hooks/useSpeech";
 import { useConfetti } from "@/hooks/useConfetti";
 import { useAppStore } from "@/stores/appStore";
+import { playSFX } from "@/utils/soundEffects";
 
 function getRandomItems(count: number): VocabItem[] {
   const all = getAllTopics().flatMap((c) => c.items);
@@ -35,6 +36,7 @@ export default function PlayPage() {
   const TOTAL = 8;
 
   const startGame = useCallback(() => {
+    playSFX("tap");
     setQuestionPool(getRandomItems(TOTAL + 10));
     setQIndex(0);
     setScore(0);
@@ -63,8 +65,11 @@ export default function PlayPage() {
 
       const isCorrect = item.en === current.en;
       if (isCorrect) {
+        playSFX("correct");
         setScore((s) => s + 1);
         fire();
+      } else {
+        playSFX("boop");
       }
 
       setTimeout(() => {
@@ -74,6 +79,7 @@ export default function PlayPage() {
           addStars(finalScore);
           setQuizHighScore(finalScore);
           setGameOver(true);
+          playSFX("cheer");
         } else {
           setQIndex((i) => i + 1);
         }
@@ -215,7 +221,10 @@ export default function PlayPage() {
           <p className="text-text-light text-xl mb-4 font-semibold">🔊 Nghe và chọn đáp án đúng:</p>
           <motion.button
             whileTap={{ scale: 0.9 }}
-            onClick={() => speak(current.en, "en-US")}
+            onClick={() => {
+              playSFX("tap");
+              speak(current.en, "en-US");
+            }}
             className="px-8 py-4 rounded-3xl text-white text-2xl font-bold shadow-xl"
             style={{ background: "linear-gradient(135deg, #C084FC, #818CF8)", fontFamily: "var(--font-heading)" }}
             id="btn-repeat"

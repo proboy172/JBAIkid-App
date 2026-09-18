@@ -7,6 +7,7 @@ import BottomNav from "@/components/layout/BottomNav";
 import { songsVi, type Song } from "@/data/songs";
 import { Play } from "lucide-react";
 import KaraokePlayer from "@/components/shared/KaraokePlayer";
+import { playSFX } from "@/utils/soundEffects";
 
 function SongCard({
   song,
@@ -23,7 +24,10 @@ function SongCard({
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: index * 0.08, type: "spring", stiffness: 300 }}
       whileTap={{ scale: 0.96 }}
-      onClick={onPlay}
+      onClick={() => {
+        playSFX("tap");
+        onPlay();
+      }}
       className="glass-card p-4 flex items-center gap-4 cursor-pointer"
       id={`song-${song.id}`}
     >

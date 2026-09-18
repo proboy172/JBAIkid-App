@@ -240,7 +240,7 @@ export const useAppStore = create<ProgressState>()(
 
       // ===== SRS Actions =====
       addToSRS: (categoryId, wordEn) => {
-        const cards = get().srsCards;
+        const cards = get().srsCards || {};
         if (cards[wordEn]) return; // Already in SRS
         
         const tomorrow = new Date();
@@ -262,7 +262,7 @@ export const useAppStore = create<ProgressState>()(
       },
 
       reviewWord: (wordEn, quality) => {
-        const cards = get().srsCards;
+        const cards = get().srsCards || {};
         const card = cards[wordEn];
         if (!card) return;
 
@@ -277,9 +277,9 @@ export const useAppStore = create<ProgressState>()(
 
       getDueWords: () => {
         const today = getTodayStr();
-        const cards = get().srsCards;
+        const cards = get().srsCards || {};
         return Object.values(cards).filter(
-          (card) => card.nextReview <= today
+          (card) => card && card.nextReview && card.nextReview <= today
         );
       },
 

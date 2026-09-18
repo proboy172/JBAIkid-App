@@ -11,6 +11,7 @@ import { useSpeech } from "@/hooks/useSpeech";
 import { useConfetti } from "@/hooks/useConfetti";
 import { useAppStore, type SRSCard, type SRSQuality } from "@/stores/appStore";
 import { Volume2, RotateCcw } from "lucide-react";
+import { playSFX } from "@/utils/soundEffects";
 
 export default function ReviewClient() {
   const { getDueWords, reviewWord, addStars } = useAppStore();
@@ -50,12 +51,18 @@ export default function ReviewClient() {
       reviewWord(currentCard.wordEn, quality);
 
       if (quality >= 4) {
+        playSFX("correct");
         addStars(1);
         fire();
+      } else if (quality <= 2) {
+        playSFX("boop");
+      } else {
+        playSFX("tap");
       }
 
       if (currentIndex + 1 >= dueWords.length) {
         addStars(3); // Bonus for finishing all reviews
+        playSFX("cheer");
         fire();
         setDone(true);
       } else {
@@ -190,7 +197,10 @@ export default function ReviewClient() {
               <div
                 className="flash-card-container w-full"
                 style={{ height: "300px" }}
-                onClick={() => setFlipped((f) => !f)}
+                onClick={() => {
+                  playSFX("pop");
+                  setFlipped((f) => !f);
+                }}
               >
                 <div className={`flash-card-inner ${flipped ? "flipped" : ""}`}>
                   {/* Front */}
@@ -232,6 +242,7 @@ export default function ReviewClient() {
                   whileTap={{ scale: 0.85 }}
                   onClick={(e) => {
                     e.stopPropagation();
+                    playSFX("tap");
                     speak(currentVocab.en, "en-US");
                   }}
                   className="bubble-btn w-14 h-14 shadow-lg"

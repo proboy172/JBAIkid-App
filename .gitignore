@@ -48,6 +48,7 @@ test.mp4
 # scraper & AI processing temp files
 temp_*
 temp_audio/
+.firebase/
 whisper_results.json
 download-results.json
 song_times.json

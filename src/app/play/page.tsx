@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import BackButton from "@/components/layout/BackButton";
@@ -47,6 +48,11 @@ const games = [
 
 export default function PlayMenuPage() {
   const { totalStars } = useAppStore();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div className="min-h-dvh flex flex-col">
@@ -55,7 +61,7 @@ export default function PlayMenuPage() {
         <div className="glass-card px-3 py-1 text-sm font-bold flex items-center gap-1">
           <span>⭐</span>
           <span style={{ color: "var(--color-primary)", fontFamily: "var(--font-heading)" }}>
-            {totalStars}
+            {isMounted ? totalStars : 0}
           </span>
         </div>
       </div>

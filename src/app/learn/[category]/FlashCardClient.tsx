@@ -69,6 +69,9 @@ export default function FlashCardClient() {
       return () => clearTimeout(timer);
     }
   }, [current, isMounted, speak]);
+
+  const learned = learnedWords[category] || [];
+  const isLearned = current ? learned.includes(current.en) : false;
   
   const startRecording = useCallback(async () => {
     if (typeof window === "undefined" || !current) return;
@@ -83,6 +86,9 @@ export default function FlashCardClient() {
         setSpeechFeedback("correct");
         addStars(2);
         fire();
+        if (!isLearned && current) {
+          markWordLearned(category, current.en);
+        }
         setTimeout(() => setSpeechFeedback(null), 2500);
       } else {
         playSFX("boop");
@@ -161,27 +167,31 @@ export default function FlashCardClient() {
     recognition.onend = () => setIsRecording(false);
     
     recognition.start();
-  }, [current, addStars, fire]);
-  const learned = learnedWords[category] || [];
-  const isLearned = current ? learned.includes(current.en) : false;
+  }, [current, isLearned, category, markWordLearned, addStars, fire]);
   
   const goNext = useCallback(() => {
     if (index < items.length - 1) {
       playSFX("pop");
       setDirection(1);
       setFlipped(false);
+      setActiveSyllableIndex(null);
+      setIsPlayingPhonics(false);
       setIndex((i) => i + 1);
     } else {
       playSFX("cheer");
+      addStars(3);
+      fire();
       setShowCompletion(true);
     }
-  }, [index, items.length]);
+  }, [index, items.length, addStars, fire]);
 
   const goPrev = useCallback(() => {
     if (index > 0) {
       playSFX("pop");
       setDirection(-1);
       setFlipped(false);
+      setActiveSyllableIndex(null);
+      setIsPlayingPhonics(false);
       setIndex((i) => i - 1);
     }
   }, [index]);
@@ -331,6 +341,11 @@ export default function FlashCardClient() {
               onClick={() => {
                 playSFX("pop");
                 setFlipped((f) => !f);
+                if (!isLearned && current) {
+                  markWordLearned(category, current.en);
+                  addStars(1);
+                  fire();
+                }
               }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}

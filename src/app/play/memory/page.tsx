@@ -9,6 +9,7 @@ import { getAllTopics, type VocabItem } from "@/data/vocabulary";
 import { useSpeech } from "@/hooks/useSpeech";
 import { useConfetti } from "@/hooks/useConfetti";
 import { useAppStore } from "@/stores/appStore";
+import { playSFX } from "@/utils/soundEffects";
 
 interface Card {
   id: string;
@@ -45,6 +46,7 @@ export default function MemoryGamePage() {
   const { addStars } = useAppStore();
 
   const startGame = useCallback(() => {
+    playSFX("tap");
     setCards(generateCards(PAIRS));
     setFlippedIds([]);
     setMoves(0);
@@ -60,6 +62,8 @@ export default function MemoryGamePage() {
     const card = cards.find(c => c.id === id);
     if (card?.isMatched) return;
 
+    playSFX("pop");
+
     if (card?.type === "text" || card?.type === "emoji") {
       speak(card.item.en, "en-US");
     }
@@ -74,6 +78,7 @@ export default function MemoryGamePage() {
 
       if (card1?.item.en === card2?.item.en && card1 && card2) {
         // Match!
+        playSFX("correct");
         setTimeout(() => {
           setCards(prev => prev.map(c => 
             c.id === card1.id || c.id === card2.id ? { ...c, isMatched: true } : c
@@ -82,6 +87,7 @@ export default function MemoryGamePage() {
           setMatches(m => {
             const newMatches = m + 1;
             if (newMatches === PAIRS) {
+              playSFX("cheer");
               fire();
               setGameOver(true);
               // moves was incremented above this block, so current moves value is accurate
@@ -94,6 +100,7 @@ export default function MemoryGamePage() {
         }, 500);
       } else {
         // No match
+        playSFX("boop");
         setTimeout(() => {
           setFlippedIds([]);
         }, 1000);

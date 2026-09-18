@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Play, Pause, RotateCcw, Mic, MicOff } from "lucide-react";
 import { Song, LyricLine } from "@/data/songs";
 import { useAppStore } from "@/stores/appStore";
+import { playSFX } from "@/utils/soundEffects";
 
 // Sub-component for a single Lyric Line with word-level sync
 function KaraokeLine({ 
@@ -85,12 +86,17 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
   const [isPlaying, setIsPlaying] = useState(true);
   const [showLyrics, setShowLyrics] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const openTimeRef = useRef<number>(Date.now());
   const [activeLineIdx, setActiveLineIdx] = useState(-1);
 
   const handleClose = () => {
-    if (!hasAwardedStars) {
+    playSFX("tap");
+    const elapsedSeconds = (Date.now() - openTimeRef.current) / 1000;
+    const qualified = (song.localVideo && currentTime >= 15) || (!song.localVideo && elapsedSeconds >= 15);
+    if (!hasAwardedStars && qualified) {
       addStars(5);
       setHasAwardedStars(true);
+      playSFX("star");
     }
     onClose();
   };
@@ -125,6 +131,7 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
   };
 
   const handleRestart = () => {
+    playSFX("tap");
     if (videoRef.current) {
       videoRef.current.currentTime = 0;
       videoRef.current.play();

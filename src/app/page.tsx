@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import BottomNav from "@/components/layout/BottomNav";
 import Mascot from "@/components/shared/Mascot";
 import DailyRewardPopup from "@/components/shared/DailyRewardPopup";
@@ -45,12 +45,14 @@ const modes = [
 
 export default function HomePage() {
   const { streak, totalStars, updateStreak, getDueWords } = useAppStore();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     updateStreak();
   }, [updateStreak]);
 
-  const dueCount = getDueWords().length;
+  const dueCount = isMounted ? getDueWords().length : 0;
 
   return (
     <div className="min-h-dvh flex flex-col">
@@ -105,7 +107,7 @@ export default function HomePage() {
             <div className="text-left">
               <div className="text-[10px] text-text-light font-medium">Streak</div>
               <div className="text-base font-bold leading-none" style={{ fontFamily: "var(--font-heading)" }}>
-                {streak} ngày
+                {isMounted ? streak : 0} ngày
               </div>
             </div>
           </div>
@@ -114,11 +116,11 @@ export default function HomePage() {
             <div className="text-left">
               <div className="text-[10px] text-text-light font-medium">Sao</div>
               <div className="text-base font-bold leading-none" style={{ fontFamily: "var(--font-heading)" }}>
-                {totalStars}
+                {isMounted ? totalStars : 0}
               </div>
             </div>
           </div>
-          {dueCount > 0 && (
+          {isMounted && dueCount > 0 && (
             <Link href="/review">
               <motion.div
                 animate={{ scale: [1, 1.05, 1] }}
