@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import BottomNav from "@/components/layout/BottomNav";
@@ -10,9 +11,10 @@ import BgmPlayer from "@/components/shared/BgmPlayer";
 import BadgesModal from "@/components/shared/BadgesModal";
 import TreasureChestPopup from "@/components/shared/TreasureChestPopup";
 import PwaPrompt from "@/components/shared/PwaPrompt";
+import ParentalGateModal from "@/components/shared/ParentalGateModal";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX } from "@/utils/soundEffects";
-import { Trophy, Smartphone, Gift, Sparkles } from "lucide-react";
+import { Trophy, Smartphone, Gift, Sparkles, Globe } from "lucide-react";
 
 const modes = [
   {
@@ -20,7 +22,9 @@ const modes = [
     href: "/learn",
     emoji: "📚",
     title: "Học Từ Vựng",
+    titleEn: "Vocabulary",
     subtitle: "26 Chủ đề & Flashcards",
+    subtitleEn: "26 Topics & Flashcards",
     gradientClass: "gradient-learn",
     shadow: "0 8px 20px -4px rgba(255, 107, 139, 0.4), 0 4px 0 #E0486D",
     delay: 0.05,
@@ -30,7 +34,9 @@ const modes = [
     href: "/sing",
     emoji: "🎵",
     title: "Bé Ca Hát",
+    titleEn: "Sing & Dance",
     subtitle: "29 Bài hát có lyric & học từ",
+    subtitleEn: "29 Songs with Lyrics",
     gradientClass: "gradient-sing",
     shadow: "0 8px 20px -4px rgba(168, 85, 247, 0.4), 0 4px 0 #7C3AED",
     delay: 0.08,
@@ -40,7 +46,9 @@ const modes = [
     href: "/videos",
     emoji: "📺",
     title: "Video Bé Học",
+    titleEn: "Learning Videos",
     subtitle: "Ms Rachel & Kênh Mầm Non",
+    subtitleEn: "Ms Rachel & Top Shows",
     gradientClass: "gradient-videos",
     shadow: "0 8px 20px -4px rgba(6, 182, 212, 0.4), 0 4px 0 #0891B2",
     delay: 0.12,
@@ -50,7 +58,9 @@ const modes = [
     href: "/play",
     emoji: "🎮",
     title: "Góc Trò Chơi",
-    subtitle: "3 Mini game trí tuệ",
+    titleEn: "Game Zone",
+    subtitle: "Tập tô nét & 3 Mini game",
+    subtitleEn: "Letter Tracing & Games",
     gradientClass: "gradient-play",
     shadow: "0 8px 20px -4px rgba(16, 185, 129, 0.4), 0 4px 0 #059669",
     delay: 0.15,
@@ -60,7 +70,9 @@ const modes = [
     href: "/play/stickers",
     emoji: "🎨",
     title: "Phòng Sáng Tạo",
+    titleEn: "Creative Room",
     subtitle: "Dán sticker & Tranh vẽ",
+    subtitleEn: "Stickers & Drawing",
     gradientClass: "gradient-stickers",
     shadow: "0 8px 20px -4px rgba(236, 72, 153, 0.4), 0 4px 0 #BE185D",
     delay: 0.18,
@@ -70,7 +82,9 @@ const modes = [
     href: "/review",
     emoji: "📝",
     title: "Ôn Tập Trí Nhớ",
+    titleEn: "Memory Review",
     subtitle: "Luyện phản xạ ngắt quãng",
+    subtitleEn: "Spaced Repetition",
     gradientClass: "gradient-review",
     shadow: "0 8px 20px -4px rgba(245, 158, 11, 0.4), 0 4px 0 #C2410C",
     delay: 0.22,
@@ -80,7 +94,9 @@ const modes = [
     href: "/parent",
     emoji: "👨‍👩‍👧",
     title: "Góc Phụ Huynh",
+    titleEn: "Parents Corner",
     subtitle: "Báo cáo & Cài đặt PIN",
+    subtitleEn: "Reports & PIN Lock",
     gradientClass: "gradient-parent",
     shadow: "0 8px 20px -4px rgba(71, 85, 105, 0.4), 0 4px 0 #0F172A",
     delay: 0.25,
@@ -89,14 +105,17 @@ const modes = [
 ];
 
 export default function HomePage() {
+  const router = useRouter();
   const { 
     streak, totalStars, updateStreak, getDueWords, 
-    dailyWordsLearned, hasClaimedDailyChest, unlockedBadges 
+    dailyWordsLearned, hasClaimedDailyChest, unlockedBadges,
+    immersionMode, toggleImmersionMode
   } = useAppStore();
   const [isMounted, setIsMounted] = useState(false);
   const [showBadges, setShowBadges] = useState(false);
   const [showChest, setShowChest] = useState(false);
   const [showPwa, setShowPwa] = useState(false);
+  const [showParentGate, setShowParentGate] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -116,6 +135,25 @@ export default function HomePage() {
       <div className="pt-3 sm:pt-4 lg:pt-5 pb-1 sm:pb-2 px-5 relative z-20 flex items-center justify-between max-w-6xl mx-auto w-full">
         <div className="flex items-center gap-2">
           <BgmPlayer />
+          
+          {/* Immersion Mode Toggle */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => {
+              playSFX("tap");
+              toggleImmersionMode();
+            }}
+            className={`glass-card px-2.5 py-1.5 rounded-full flex items-center gap-1.5 text-[11px] font-bold border transition-all ${
+              immersionMode
+                ? "bg-indigo-100 text-indigo-800 border-indigo-300 shadow-sm"
+                : "text-gray-700 hover:text-primary border-gray-200"
+            }`}
+            title="Chuyển chế độ tiếng Anh đắm chìm"
+          >
+            <Globe size={13} className={immersionMode ? "text-indigo-600" : "text-gray-500"} />
+            <span>{immersionMode ? "🇬🇧 English" : "🇻🇳 Song ngữ"}</span>
+          </motion.button>
+
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => {
@@ -163,10 +201,10 @@ export default function HomePage() {
               mood="wave"
               message={
                 canClaimChest
-                  ? "Bé ơi! Hòm kho báu đã mở, bấm nhận sao nào! 🎁"
+                  ? (immersionMode ? "Yay! Treasure chest unlocked, claim your stars! 🎁" : "Bé ơi! Hòm kho báu đã mở, bấm nhận sao nào! 🎁")
                   : dueCount > 0
-                  ? `Có ${dueCount} từ cần ôn tập nè!`
-                  : "Chào con! Chạm vào Bino để chơi nhé! ✨"
+                  ? (immersionMode ? `You have ${dueCount} words to review today!` : `Có ${dueCount} từ cần ôn tập nè!`)
+                  : (immersionMode ? "Hello star! Tap Bino to play! ✨" : "Chào con! Chạm vào Bino để chơi nhé! ✨")
               }
               size={85}
             />
@@ -282,15 +320,24 @@ export default function HomePage() {
             const isReview = mode.id === "review";
             const showReviewBadge = isReview && isMounted && dueCount > 0;
             const currentSubtitle = showReviewBadge
-              ? `${dueCount} từ cần ôn hôm nay!`
-              : mode.subtitle;
+              ? (immersionMode ? `${dueCount} words to review!` : `${dueCount} từ cần ôn hôm nay!`)
+              : (immersionMode ? mode.subtitleEn : mode.subtitle);
+            const currentTitle = immersionMode ? mode.titleEn : mode.title;
 
             return (
               <Link
                 key={mode.id}
                 href={mode.href}
                 prefetch={false}
-                onClick={() => playSFX("tap")}
+                onClick={(e) => {
+                  if (mode.id === "parent") {
+                    e.preventDefault();
+                    playSFX("tap");
+                    setShowParentGate(true);
+                  } else {
+                    playSFX("tap");
+                  }
+                }}
                 className={mode.id === "parent" ? "w-full sm:col-span-2" : "w-full"}
               >
                 <motion.div
@@ -320,7 +367,7 @@ export default function HomePage() {
                         className="text-base sm:text-lg font-black text-white leading-tight truncate"
                         style={{ fontFamily: "var(--font-heading)" }}
                       >
-                        {mode.title}
+                        {currentTitle}
                       </h2>
                       {showReviewBadge && (
                         <span className="bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full animate-bounce shadow-md shrink-0">
@@ -350,6 +397,11 @@ export default function HomePage() {
       <TreasureChestPopup isOpen={showChest} onClose={() => setShowChest(false)} />
       <BadgesModal isOpen={showBadges} onClose={() => setShowBadges(false)} />
       <PwaPrompt isOpen={showPwa} onClose={() => setShowPwa(false)} />
+      <ParentalGateModal
+        isOpen={showParentGate}
+        onClose={() => setShowParentGate(false)}
+        onSuccess={() => router.push("/parent")}
+      />
     </div>
   );
 }

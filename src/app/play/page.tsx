@@ -36,6 +36,15 @@ const games = [
     bg: "bg-emerald-50",
   },
   {
+    id: "tracing",
+    href: "/play/tracing",
+    title: "Tập Tô Nét",
+    desc: "Tô chữ A-Z & số 1-10 nhận sao.",
+    emoji: "✍️",
+    color: "#F43F5E", // rose
+    bg: "bg-rose-50",
+  },
+  {
     id: "stickers",
     href: "/play/stickers",
     title: "Sổ Nhãn Dán",

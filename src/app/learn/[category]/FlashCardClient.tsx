@@ -15,6 +15,7 @@ import stringSimilarity from "string-similarity";
 import Link from "next/link";
 import { playSFX } from "@/utils/soundEffects";
 import { getWordSyllables } from "@/utils/syllableHelper";
+import SpeechPracticeModal from "@/components/shared/SpeechPracticeModal";
 
 export default function FlashCardClient() {
   const { category } = useParams<{ category: string }>();
@@ -23,6 +24,7 @@ export default function FlashCardClient() {
   const [flipped, setFlipped] = useState(false);
   const [direction, setDirection] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
+  const [showSpeechModal, setShowSpeechModal] = useState(false);
   const { speak } = useSpeech();
   const { pieces, fire } = useConfetti();
   const { markWordLearned, addStars, learnedWords } = useAppStore();
@@ -589,10 +591,11 @@ export default function FlashCardClient() {
             onClick={(e) => {
               e.stopPropagation();
               playSFX("tap");
-              startRecording();
+              setShowSpeechModal(true);
             }}
-            className={`bubble-btn w-14 h-14 sm:w-16 sm:h-16 shadow-lg ${isRecording ? "bg-red-500 animate-pulse" : "bg-blue-500"}`}
+            className="bubble-btn w-14 h-14 sm:w-16 sm:h-16 shadow-lg bg-gradient-to-tr from-blue-500 to-cyan-400"
             id="btn-record"
+            title="Luyện đọc phát âm cùng AI"
           >
             <Mic size={26} className="text-white relative z-10" />
           </motion.button>
@@ -635,6 +638,23 @@ export default function FlashCardClient() {
           </motion.button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showSpeechModal && current && (
+          <SpeechPracticeModal
+            wordEn={current.en}
+            wordVi={current.vi}
+            emoji={current.emoji}
+            phonetic={current.phonetic}
+            onClose={() => setShowSpeechModal(false)}
+            onSuccess={() => {
+              if (!isLearned && current) {
+                markWordLearned(category, current.en);
+              }
+            }}
+          />
+        )}
+      </AnimatePresence>
 
       <BottomNav />
     </div>

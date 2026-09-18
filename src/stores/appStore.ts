@@ -110,6 +110,10 @@ interface ProgressState {
   studyHistory: Record<string, number>; // dateStr -> seconds
   getWeeklyStudyStats: () => { dayLabel: string; dateStr: string; minutes: number; isToday: boolean }[];
   clearTempCache: () => { freedKB: number };
+
+  // 100% English Immersion Mode
+  immersionMode: boolean;
+  toggleImmersionMode: () => void;
 }
 
 const getTodayStr = () => new Date().toISOString().split("T")[0];
@@ -170,9 +174,14 @@ export const useAppStore = create<ProgressState>()(
       unlockedBadges: [],
       dailyWordsLearned: {},
       hasClaimedDailyChest: {},
+      immersionMode: false,
 
       toggleBgm: () => {
         set({ bgmEnabled: !get().bgmEnabled });
+      },
+
+      toggleImmersionMode: () => {
+        set({ immersionMode: !get().immersionMode });
       },
 
       unlockBadge: (badgeId) => {
