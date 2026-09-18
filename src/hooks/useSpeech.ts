@@ -27,7 +27,7 @@ export function useSpeech() {
     }
   }, []);
 
-  const speak = useCallback((text: string, lang: "en-US" | "vi-VN" = "en-US") => {
+  const speak = useCallback((text: string, lang: "en-US" | "vi-VN" = "en-US", customRate?: number) => {
     if (typeof window === "undefined") return;
     if (!synthRef.current) synthRef.current = window.speechSynthesis;
     const synth = synthRef.current;
@@ -41,7 +41,7 @@ export function useSpeech() {
     synth.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
-    utterance.rate = lang === "en-US" ? 0.8 : 0.9;
+    utterance.rate = customRate !== undefined ? customRate : (lang === "en-US" ? 0.8 : 0.9);
     utterance.pitch = 1.1;
 
     // Android/WebView requires speech to be triggered by a user gesture

@@ -14,6 +14,7 @@ import { Volume2, ChevronLeft, ChevronRight, Mic } from "lucide-react";
 import stringSimilarity from "string-similarity";
 import Link from "next/link";
 import { playSFX } from "@/utils/soundEffects";
+import { getWordSyllables } from "@/utils/syllableHelper";
 
 export default function FlashCardClient() {
   const { category } = useParams<{ category: string }>();
@@ -27,6 +28,8 @@ export default function FlashCardClient() {
   const { markWordLearned, addStars, learnedWords } = useAppStore();
   const [isRecording, setIsRecording] = useState(false);
   const [speechFeedback, setSpeechFeedback] = useState<"correct" | "incorrect" | null>(null);
+  const [activeSyllableIndex, setActiveSyllableIndex] = useState<number | null>(null);
+  const [isPlayingPhonics, setIsPlayingPhonics] = useState(false);
 
   // Swipe state
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -35,6 +38,23 @@ export default function FlashCardClient() {
 
   const items = cat?.items || [];
   const current = items[index];
+  const syllables = current ? getWordSyllables(current.en) : [];
+
+  const playPhonicsSequence = useCallback(async () => {
+    if (!current || syllables.length === 0 || isPlayingPhonics) return;
+    setIsPlayingPhonics(true);
+    playSFX("tap");
+
+    for (let i = 0; i < syllables.length; i++) {
+      setActiveSyllableIndex(i);
+      speak(syllables[i], "en-US", 0.65);
+      await new Promise((r) => setTimeout(r, 750));
+    }
+    setActiveSyllableIndex(null);
+    await new Promise((r) => setTimeout(r, 200));
+    speak(current.en, "en-US", 0.85);
+    setIsPlayingPhonics(false);
+  }, [current, syllables, isPlayingPhonics, speak]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -307,7 +327,7 @@ export default function FlashCardClient() {
             {/* Card */}
             <div
               className="flash-card-container w-full"
-              style={{ height: "340px" }}
+              style={{ height: "370px" }}
               onClick={() => {
                 playSFX("pop");
                 setFlipped((f) => !f);
@@ -317,25 +337,76 @@ export default function FlashCardClient() {
               onTouchEnd={onTouchEndHandler}
             >
               <div className={`flash-card-inner ${flipped ? "flipped" : ""}`}>
-                {/* Front - Emoji + Word */}
+                {/* Front - Emoji + Word + Phonics Syllables */}
                 <div
-                  className="flash-card-front glass-card flex flex-col items-center justify-center gap-4 p-6 cursor-pointer"
+                  className="flash-card-front glass-card flex flex-col items-center justify-center gap-2 p-5 cursor-pointer relative"
                   style={{ border: `3px solid ${cat.color}33` }}
                 >
                   <motion.span
-                    className="text-8xl"
+                    className="text-7xl mb-1"
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
                   >
                     {current.emoji}
                   </motion.span>
                   <h2
-                    className="text-4xl font-extrabold"
+                    className="text-3xl font-extrabold"
                     style={{ fontFamily: "var(--font-heading)", color: cat.color }}
                   >
                     {current.en}
                   </h2>
-                  <p className="text-sm text-text-light">👆 Chạm để lật thẻ</p>
+
+                  {/* Interactive Syllables Breakdown Pill Strip */}
+                  <div 
+                    className="flex flex-col items-center gap-1.5 mt-1 z-20"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex items-center gap-1.5 flex-wrap justify-center max-w-full px-2">
+                      {syllables.map((syl, i) => (
+                        <motion.button
+                          key={i}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            playSFX("tap");
+                            setActiveSyllableIndex(i);
+                            speak(syl, "en-US", 0.65);
+                            setTimeout(() => setActiveSyllableIndex(null), 900);
+                          }}
+                          className={`px-3 py-1 rounded-xl text-sm font-black tracking-wide transition-all shadow-sm flex items-center gap-1 ${
+                            activeSyllableIndex === i
+                              ? "bg-amber-400 text-slate-900 scale-110 ring-2 ring-amber-300 shadow-md"
+                              : "bg-white/90 hover:bg-white text-slate-700 border border-slate-200"
+                          }`}
+                        >
+                          <span>{syl}</span>
+                        </motion.button>
+                      ))}
+
+                      {syllables.length > 1 && (
+                        <motion.button
+                          whileTap={{ scale: 0.85 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            playPhonicsSequence();
+                          }}
+                          className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1 ${
+                            isPlayingPhonics 
+                              ? "bg-primary text-white animate-pulse" 
+                              : "bg-primary/15 text-primary hover:bg-primary/25"
+                          }`}
+                          title="Đọc chậm từng âm"
+                        >
+                          <span>🎧 Ghép vần</span>
+                        </motion.button>
+                      )}
+                    </div>
+                    <span className="text-[10px] font-semibold text-text-light/80">
+                      🧩 {syllables.length} âm tiết • Chạm để nghe phát âm
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-text-light mt-2">👆 Chạm để lật thẻ</p>
                   
                   {/* Feedback overlay */}
                   <AnimatePresence>
@@ -356,23 +427,29 @@ export default function FlashCardClient() {
                   </AnimatePresence>
                 </div>
 
-                {/* Back - Translation + Phonetic */}
+                {/* Back - Translation + Phonetic + Syllable Overview */}
                 <div
-                  className="flash-card-back glass-card flex flex-col items-center justify-center gap-3 p-6 cursor-pointer"
+                  className="flash-card-back glass-card flex flex-col items-center justify-center gap-2 p-5 cursor-pointer"
                   style={{ border: `3px solid ${cat.color}33`, background: `linear-gradient(135deg, ${cat.color}11, white)` }}
                 >
-                  <span className="text-6xl">{current.emoji}</span>
+                  <span className="text-5xl">{current.emoji}</span>
                   <h2
                     className="text-3xl font-extrabold"
                     style={{ fontFamily: "var(--font-heading)", color: cat.color }}
                   >
                     {current.en}
                   </h2>
-                  <p className="text-lg text-text-light font-mono">{current.phonetic}</p>
+                  <p className="text-sm text-text-light font-mono bg-white/70 px-3 py-0.5 rounded-full border border-gray-100">
+                    {current.phonetic}
+                  </p>
                   <div className="h-px w-16 bg-gray-200 my-1" />
-                  <p className="text-2xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
+                  <p className="text-2xl font-bold text-gray-800" style={{ fontFamily: "var(--font-heading)" }}>
                     {current.vi}
                   </p>
+                  <div className="mt-2 text-xs text-gray-500 flex items-center gap-1 bg-white/60 px-3 py-1 rounded-xl">
+                    <span>Âm tiết:</span>
+                    <span className="font-bold text-primary">{syllables.join(" • ")}</span>
+                  </div>
                 </div>
               </div>
             </div>

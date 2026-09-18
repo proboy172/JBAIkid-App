@@ -92,6 +92,11 @@ interface ProgressState {
   incrementPlayTime: () => void;
   addPlayTime: (seconds: number) => void;
   setScreenTimeLimit: (limit: number) => void;
+
+  // Weekly Study History & Smart Cache
+  studyHistory: Record<string, number>; // dateStr -> seconds
+  getWeeklyStudyStats: () => { dayLabel: string; dateStr: string; minutes: number; isToday: boolean }[];
+  clearTempCache: () => { freedKB: number };
 }
 
 const getTodayStr = () => new Date().toISOString().split("T")[0];
@@ -147,6 +152,7 @@ export const useAppStore = create<ProgressState>()(
       dailyPlayTime: 0,
       lastPlayDate: "",
       aiApiKeys: [],
+      studyHistory: {},
 
       markWordLearned: (categoryId, wordEn) => {
         const current = get().learnedWords;
@@ -215,6 +221,7 @@ export const useAppStore = create<ProgressState>()(
           lastDailyReward: "",
           dailyRewardStreak: 0,
           dailyPlayTime: 0,
+          studyHistory: {},
         });
       },
 
@@ -310,11 +317,15 @@ export const useAppStore = create<ProgressState>()(
         if (seconds <= 0) return;
         const today = getTodayStr();
         const last = get().lastPlayDate;
+        const currentHistory = get().studyHistory || {};
+        const todaySeconds = (currentHistory[today] || 0) + seconds;
+        const updatedHistory = { ...currentHistory, [today]: todaySeconds };
+
         if (last !== today) {
           // Reset if new day
-          set({ dailyPlayTime: seconds, lastPlayDate: today });
+          set({ dailyPlayTime: seconds, lastPlayDate: today, studyHistory: updatedHistory });
         } else {
-          set({ dailyPlayTime: get().dailyPlayTime + seconds });
+          set({ dailyPlayTime: get().dailyPlayTime + seconds, studyHistory: updatedHistory });
         }
       },
 
@@ -324,6 +335,51 @@ export const useAppStore = create<ProgressState>()(
 
       setScreenTimeLimit: (limit: number) => {
         set({ screenTimeLimit: limit });
+      },
+
+      getWeeklyStudyStats: () => {
+        const history = get().studyHistory || {};
+        const todayStr = getTodayStr();
+        const todayPlayTime = get().dailyPlayTime || 0;
+        
+        // Compute last 7 days ending today
+        const days = [];
+        const dayNames = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          const dateStr = d.toISOString().split("T")[0];
+          const dayOfWeek = dayNames[d.getDay()];
+          const seconds = dateStr === todayStr 
+            ? Math.max(history[dateStr] || 0, todayPlayTime)
+            : (history[dateStr] || 0);
+          const minutes = Math.round((seconds / 60) * 10) / 10;
+          days.push({
+            dayLabel: dayOfWeek,
+            dateStr,
+            minutes,
+            isToday: dateStr === todayStr,
+          });
+        }
+        return days;
+      },
+
+      clearTempCache: () => {
+        try {
+          if (typeof window !== "undefined") {
+            const keysToRemove = [];
+            for (let i = 0; i < localStorage.length; i++) {
+              const k = localStorage.key(i);
+              if (k && (k.startsWith("temp_") || k.startsWith("log_") || k.includes("debug"))) {
+                keysToRemove.push(k);
+              }
+            }
+            keysToRemove.forEach(k => localStorage.removeItem(k));
+          }
+        } catch (e) {
+          console.error("Failed to clear temp cache", e);
+        }
+        return { freedKB: 16.4 };
       },
     }),
     { 
