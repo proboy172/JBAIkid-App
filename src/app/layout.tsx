@@ -18,10 +18,37 @@ const quicksand = Quicksand({
 });
 
 export const metadata: Metadata = {
-  title: "JBAIkid ⭐ Bé Học Tiếng Anh & Hát",
+  metadataBase: new URL("https://kid.jbai.vn"),
+  title: "JBAIkid ⭐ Bé Học Tiếng Anh & Hát Vui Nhộn",
   description:
-    "Ứng dụng học tiếng Anh, hát tiếng Anh và tiếng Việt dành cho bé 3 tuổi. Thiết kế sinh động, an toàn, miễn phí.",
-  keywords: ["kids", "learn english", "vietnamese songs", "nursery rhymes", "bé học tiếng anh"],
+    "Ứng dụng học tiếng Anh, hát karaoke và chơi mini-game thông minh dành cho bé mầm non & tiểu học. 100% miễn phí, an toàn, sinh động!",
+  keywords: ["kids", "learn english", "vietnamese songs", "nursery rhymes", "bé học tiếng anh", "jbaikid", "jbai"],
+  openGraph: {
+    title: "JBAIkid ⭐ Bé Học Tiếng Anh & Hát Vui Nhộn",
+    description: "Ứng dụng học tiếng Anh, hát karaoke và chơi mini-game thông minh cho bé. 100% miễn phí & an toàn!",
+    url: "https://kid.jbai.vn",
+    siteName: "JBAIkid",
+    images: [
+      {
+        url: "/app_icon.png",
+        width: 512,
+        height: 512,
+        alt: "JBAIkid - Bé Học Tiếng Anh",
+      },
+    ],
+    locale: "vi_VN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "JBAIkid ⭐ Bé Học Tiếng Anh & Hát Vui Nhộn",
+    description: "Ứng dụng học tiếng Anh, hát karaoke và chơi mini-game thông minh cho bé.",
+    images: ["/app_icon.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/app_icon.png",
+  },
 };
 
 export const viewport: Viewport = {
