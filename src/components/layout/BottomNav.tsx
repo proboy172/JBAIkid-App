@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { BookOpen, Music, Gamepad2, Home } from "lucide-react";
+import { BookOpen, Music, Gamepad2, Home, Tv } from "lucide-react";
 import { useAppStore } from "@/stores/appStore";
 import { useEffect, useState } from "react";
 import { playSFX } from "@/utils/soundEffects";
@@ -11,9 +11,10 @@ import { playSFX } from "@/utils/soundEffects";
 const navItems = [
   { href: "/", icon: Home, label: "Home", emoji: "🏠" },
   { href: "/learn", icon: BookOpen, label: "Học", emoji: "📚" },
-  { href: "/review", icon: BookOpen, label: "Ôn tập", emoji: "📝" },
+  { href: "/videos", icon: Tv, label: "Video", emoji: "📺" },
   { href: "/sing", icon: Music, label: "Hát", emoji: "🎵" },
   { href: "/play", icon: Gamepad2, label: "Chơi", emoji: "🎮" },
+  { href: "/review", icon: BookOpen, label: "Ôn tập", emoji: "📝" },
 ];
 
 export default function BottomNav() {
@@ -28,7 +29,7 @@ export default function BottomNav() {
 
   return (
     <nav className="bottom-nav" id="bottom-nav">
-      <div className="flex items-center justify-around px-2 pt-2 pb-1 max-w-md mx-auto">
+      <div className="flex items-center justify-around px-1 sm:px-2 pt-2 pb-1 max-w-lg mx-auto">
         {navItems.map((item) => {
           const isActive =
             item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);

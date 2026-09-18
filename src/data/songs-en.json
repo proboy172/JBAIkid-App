@@ -6462,5 +6462,889 @@
     ],
     "aiSynced": true,
     "localVideo": "/videos/mary-had-lamb.mp4"
+  },
+  {
+    "id": "finger-family",
+    "title": "The Finger Family",
+    "emoji": "🖐️",
+    "color": "#FF6B8B",
+    "youtubeId": "YJyNoFkud6g",
+    "keyVocab": [
+      {
+        "en": "Daddy",
+        "vi": "Bố",
+        "emoji": "👨"
+      },
+      {
+        "en": "Mommy",
+        "vi": "Mẹ",
+        "emoji": "👩"
+      },
+      {
+        "en": "Brother",
+        "vi": "Anh trai",
+        "emoji": "👦"
+      },
+      {
+        "en": "Sister",
+        "vi": "Chị gái",
+        "emoji": "👧"
+      },
+      {
+        "en": "Baby",
+        "vi": "Em bé",
+        "emoji": "👶"
+      },
+      {
+        "en": "Finger",
+        "vi": "Ngón tay",
+        "emoji": "👆"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Daddy finger, daddy finger, where are you?",
+        "translation": "Bố ngón tay ơi, bố ở nơi đâu?"
+      },
+      {
+        "time": 10,
+        "text": "Here I am, here I am. How do you do?",
+        "translation": "Bố ở đây này, xin chào con yêu!"
+      },
+      {
+        "time": 16,
+        "text": "Mommy finger, mommy finger, where are you?",
+        "translation": "Mẹ ngón tay ơi, mẹ ở nơi đâu?"
+      },
+      {
+        "time": 21,
+        "text": "Here I am, here I am. How do you do?",
+        "translation": "Mẹ ở đây này, xin chào con yêu!"
+      },
+      {
+        "time": 27,
+        "text": "Brother finger, brother finger, where are you?",
+        "translation": "Anh ngón tay ơi, anh ở nơi đâu?"
+      },
+      {
+        "time": 32,
+        "text": "Here I am, here I am. How do you do?",
+        "translation": "Anh ở đây này, xin chào bé ngoan!"
+      },
+      {
+        "time": 38,
+        "text": "Sister finger, sister finger, where are you?",
+        "translation": "Chị ngón tay ơi, chị ở nơi đâu?"
+      },
+      {
+        "time": 43,
+        "text": "Here I am, here I am. How do you do?",
+        "translation": "Chị ở đây này, xin chào bé ngoan!"
+      },
+      {
+        "time": 49,
+        "text": "Baby finger, baby finger, where are you?",
+        "translation": "Bé ngón tay út, em ở nơi đâu?"
+      },
+      {
+        "time": 54,
+        "text": "Here I am, here I am. How do you do?",
+        "translation": "Em ở đây này, xin chào cả nhà!"
+      }
+    ]
+  },
+  {
+    "id": "five-little-ducks",
+    "title": "Five Little Ducks",
+    "emoji": "🦆",
+    "color": "#FBBF24",
+    "youtubeId": "pZw9veQ76fo",
+    "keyVocab": [
+      {
+        "en": "Duck",
+        "vi": "Con vịt",
+        "emoji": "🦆"
+      },
+      {
+        "en": "Hill",
+        "vi": "Ngọn đồi",
+        "emoji": "⛰️"
+      },
+      {
+        "en": "Quack",
+        "vi": "Tiếng vịt kêu cạp cạp",
+        "emoji": "🗣️"
+      },
+      {
+        "en": "Mother",
+        "vi": "Vịt mẹ",
+        "emoji": "🦆"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Five little ducks went out one day",
+        "translation": "Năm chú vịt con rủ nhau đi chơi xa"
+      },
+      {
+        "time": 10,
+        "text": "Over the hill and far away",
+        "translation": "Vượt qua ngọn đồi và đi thật xa"
+      },
+      {
+        "time": 14,
+        "text": "Mother duck said, 'Quack, quack, quack, quack'",
+        "translation": "Vịt mẹ gọi: 'Cạp cạp cạp cạp mau về thôi'"
+      },
+      {
+        "time": 18,
+        "text": "But only four little ducks came back",
+        "translation": "Nhưng chỉ có bốn chú vịt con quay về"
+      },
+      {
+        "time": 24,
+        "text": "Four little ducks went out one day",
+        "translation": "Bốn chú vịt con rủ nhau đi chơi xa"
+      },
+      {
+        "time": 28,
+        "text": "Over the hill and far away",
+        "translation": "Vượt qua ngọn đồi và đi thật xa"
+      },
+      {
+        "time": 32,
+        "text": "Mother duck said, 'Quack, quack, quack, quack'",
+        "translation": "Vịt mẹ gọi: 'Cạp cạp cạp cạp mau về thôi'"
+      },
+      {
+        "time": 36,
+        "text": "But only three little ducks came back",
+        "translation": "Nhưng chỉ có ba chú vịt con quay về"
+      },
+      {
+        "time": 42,
+        "text": "Three little ducks went out one day",
+        "translation": "Ba chú vịt con rủ nhau đi chơi xa"
+      },
+      {
+        "time": 46,
+        "text": "Over the hill and far away",
+        "translation": "Vượt qua ngọn đồi và đi thật xa"
+      },
+      {
+        "time": 50,
+        "text": "Mother duck said, 'Quack, quack, quack, quack'",
+        "translation": "Vịt mẹ gọi: 'Cạp cạp cạp cạp mau về thôi'"
+      },
+      {
+        "time": 54,
+        "text": "But only two little ducks came back",
+        "translation": "Nhưng chỉ có hai chú vịt con quay về"
+      },
+      {
+        "time": 60,
+        "text": "Sad mother duck went out one day",
+        "translation": "Vịt mẹ buồn rầu bước ra ngoài tìm con"
+      },
+      {
+        "time": 65,
+        "text": "And all the five little ducks came back!",
+        "translation": "Và cả năm chú vịt con đều đã trở về!"
+      }
+    ]
+  },
+  {
+    "id": "open-shut-them",
+    "title": "Open Shut Them",
+    "emoji": "👐",
+    "color": "#34D399",
+    "youtubeId": "RNUZBHlRH4Y",
+    "keyVocab": [
+      {
+        "en": "Open",
+        "vi": "Mở ra",
+        "emoji": "👐"
+      },
+      {
+        "en": "Shut",
+        "vi": "Đóng lại",
+        "emoji": "✊"
+      },
+      {
+        "en": "Clap",
+        "vi": "Vỗ tay",
+        "emoji": "👏"
+      },
+      {
+        "en": "Lap",
+        "vi": "Lòng đùi",
+        "emoji": "🦵"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "Open, shut them, open, shut them",
+        "translation": "Mở bàn tay ra, nắm chặt tay lại"
+      },
+      {
+        "time": 8,
+        "text": "Give a little clap, clap, clap",
+        "translation": "Bé hãy vỗ tay thật vui nào"
+      },
+      {
+        "time": 13,
+        "text": "Open, shut them, open, shut them",
+        "translation": "Mở bàn tay ra, nắm chặt tay lại"
+      },
+      {
+        "time": 17,
+        "text": "Put them in your lap, lap, lap",
+        "translation": "Đặt tay ngay ngắn trên đùi bé ngoan"
+      },
+      {
+        "time": 22,
+        "text": "Creep them, crawl them, creep them, crawl them",
+        "translation": "Nhúc nhích từng ngón bò lên nào"
+      },
+      {
+        "time": 26,
+        "text": "Right up to your chin, chin, chin",
+        "translation": "Bò lên tới tận cằm của bé rồi"
+      },
+      {
+        "time": 31,
+        "text": "Open wide your little mouth",
+        "translation": "Mở rộng chiếc miệng nhỏ xinh xắn ra"
+      },
+      {
+        "time": 35,
+        "text": "But do not let them in!",
+        "translation": "Nhưng chớ để tay chui vào miệng nhé!"
+      }
+    ]
+  },
+  {
+    "id": "rain-rain-go-away",
+    "title": "Rain, Rain, Go Away",
+    "emoji": "🌧️",
+    "color": "#38BDF8",
+    "youtubeId": "c3v0rJqyCTM",
+    "keyVocab": [
+      {
+        "en": "Rain",
+        "vi": "Cơn mưa",
+        "emoji": "🌧️"
+      },
+      {
+        "en": "Go away",
+        "vi": "Đi đi",
+        "emoji": "👋"
+      },
+      {
+        "en": "Play",
+        "vi": "Vui chơi",
+        "emoji": "🪁"
+      },
+      {
+        "en": "Little",
+        "vi": "Nhỏ bé",
+        "emoji": "👶"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Rain, rain, go away",
+        "translation": "Mưa ơi mưa hãy mau tạnh đi"
+      },
+      {
+        "time": 9,
+        "text": "Come again another day",
+        "translation": "Hẹn hôm khác mưa hãy quay lại nhé"
+      },
+      {
+        "time": 13,
+        "text": "Little Johnny wants to play",
+        "translation": "Bé Johnny đang muốn được ra sân chơi"
+      },
+      {
+        "time": 17,
+        "text": "Rain, rain, go away",
+        "translation": "Mưa ơi mưa mau tan biến đi nào"
+      },
+      {
+        "time": 22,
+        "text": "Rain, rain, go away",
+        "translation": "Mưa ơi mưa hãy mau tạnh đi"
+      },
+      {
+        "time": 26,
+        "text": "Daddy wants to play",
+        "translation": "Bố cũng muốn cùng bé vui chơi"
+      },
+      {
+        "time": 30,
+        "text": "Rain, rain, go away",
+        "translation": "Mưa ơi mưa mau tan biến đi nào"
+      },
+      {
+        "time": 35,
+        "text": "Mommy wants to play",
+        "translation": "Mẹ cũng muốn cùng bé vui chơi"
+      },
+      {
+        "time": 39,
+        "text": "Rain, rain, go away!",
+        "translation": "Mưa ơi mưa hãy đi xa thật xa!"
+      }
+    ]
+  },
+  {
+    "id": "humpty-dumpty",
+    "title": "Humpty Dumpty",
+    "emoji": "🥚",
+    "color": "#FB923C",
+    "youtubeId": "nrv495corBc",
+    "keyVocab": [
+      {
+        "en": "Egg",
+        "vi": "Quả trứng",
+        "emoji": "🥚"
+      },
+      {
+        "en": "Wall",
+        "vi": "Bức tường",
+        "emoji": "🧱"
+      },
+      {
+        "en": "Fall",
+        "vi": "Ngã, rơi",
+        "emoji": "⬇️"
+      },
+      {
+        "en": "King",
+        "vi": "Nhà vua",
+        "emoji": "👑"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "Humpty Dumpty sat on a wall",
+        "translation": "Chú trứng Humpty ngồi trên bức tường cao"
+      },
+      {
+        "time": 9,
+        "text": "Humpty Dumpty had a great fall",
+        "translation": "Humpty sẩy chân rơi nhào xuống đất"
+      },
+      {
+        "time": 14,
+        "text": "All the King's horses and all the King's men",
+        "translation": "Tất cả kỵ binh và tướng quân của vua"
+      },
+      {
+        "time": 19,
+        "text": "Couldn't put Humpty together again",
+        "translation": "Không thể ghép chú trứng lành lặn như xưa"
+      }
+    ]
+  },
+  {
+    "id": "down-by-the-bay",
+    "title": "Down by the Bay",
+    "emoji": "🍉",
+    "color": "#EC4899",
+    "youtubeId": "-cs3Z283Chw",
+    "keyVocab": [
+      {
+        "en": "Bay",
+        "vi": "Vịnh biển",
+        "emoji": "🏖️"
+      },
+      {
+        "en": "Watermelon",
+        "vi": "Quả dưa hấu",
+        "emoji": "🍉"
+      },
+      {
+        "en": "Grow",
+        "vi": "Lớn lên",
+        "emoji": "🌱"
+      },
+      {
+        "en": "Bear",
+        "vi": "Con gấu",
+        "emoji": "🐻"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Down by the bay, where the watermelons grow",
+        "translation": "Dưới bờ vịnh xanh, nơi dưa hấu trổ bông"
+      },
+      {
+        "time": 10,
+        "text": "Back to my home, I dare not go",
+        "translation": "Về lại nhà mình, bé chẳng dám đâu"
+      },
+      {
+        "time": 14,
+        "text": "For if I do, my mother will say",
+        "translation": "Vì nếu bé về, mẹ sẽ hỏi ngay"
+      },
+      {
+        "time": 19,
+        "text": "'Did you ever see a bear combing his hair?'",
+        "translation": "'Con có thấy chú gấu chải tóc mượt mà?'"
+      },
+      {
+        "time": 24,
+        "text": "Down by the bay!",
+        "translation": "Ở ngay bờ vịnh xanh!"
+      }
+    ]
+  },
+  {
+    "id": "ants-go-marching",
+    "title": "The Ants Go Marching",
+    "emoji": "🐜",
+    "color": "#A855F7",
+    "youtubeId": "2S__fbCGwOM",
+    "keyVocab": [
+      {
+        "en": "Ant",
+        "vi": "Con kiến",
+        "emoji": "🐜"
+      },
+      {
+        "en": "Marching",
+        "vi": "Hành quân",
+        "emoji": "🥾"
+      },
+      {
+        "en": "Ground",
+        "vi": "Mặt đất",
+        "emoji": "🌱"
+      },
+      {
+        "en": "Rain",
+        "vi": "Cơn mưa",
+        "emoji": "🌧️"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "The ants go marching one by one, hurrah, hurrah",
+        "translation": "Đoàn kiến hành quân từng con một, hoan hô, hoan hô"
+      },
+      {
+        "time": 10,
+        "text": "The ants go marching one by one, hurrah, hurrah",
+        "translation": "Đoàn kiến hành quân từng con một, hoan hô, hoan hô"
+      },
+      {
+        "time": 15,
+        "text": "The little one stops to suck his thumb",
+        "translation": "Chú kiến bé nhất dừng lại mút ngón tay"
+      },
+      {
+        "time": 19,
+        "text": "And they all go marching down to the ground",
+        "translation": "Rồi tất cả cùng hành quân xuống lòng đất"
+      },
+      {
+        "time": 23,
+        "text": "To get out of the rain, BOOM! BOOM! BOOM!",
+        "translation": "Để tránh cơn mưa rào, BÙM! BÙM! BÙM!"
+      }
+    ]
+  },
+  {
+    "id": "apples-and-bananas",
+    "title": "Apples and Bananas",
+    "emoji": "🍌",
+    "color": "#EAB308",
+    "youtubeId": "r5WLXZSpD1M",
+    "keyVocab": [
+      {
+        "en": "Apple",
+        "vi": "Quả táo",
+        "emoji": "🍎"
+      },
+      {
+        "en": "Banana",
+        "vi": "Quả chuối",
+        "emoji": "🍌"
+      },
+      {
+        "en": "Eat",
+        "vi": "Ăn",
+        "emoji": "😋"
+      },
+      {
+        "en": "Like",
+        "vi": "Thích",
+        "emoji": "❤️"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "I like to eat, eat, eat apples and bananas",
+        "translation": "Bé rất thích ăn, ăn táo thơm và chuối ngọt"
+      },
+      {
+        "time": 11,
+        "text": "I like to eat, eat, eat apples and bananas",
+        "translation": "Bé rất thích ăn, ăn táo thơm và chuối ngọt"
+      },
+      {
+        "time": 18,
+        "text": "Now change the vowel sound to A: I like to ate, ate, ate ay-ples and ba-nay-nays",
+        "translation": "Đổi sang âm A nào: Bé thích ăn táo và chuối ngọt ngào"
+      },
+      {
+        "time": 26,
+        "text": "Now change to E: I like to eat, eat, eat ee-ples and bee-nee-nees",
+        "translation": "Đổi sang âm E nào: Luyện âm nguyên âm thật vui"
+      }
+    ]
+  },
+  {
+    "id": "clean-up-song",
+    "title": "Clean Up Song",
+    "emoji": "🧹",
+    "color": "#10B981",
+    "youtubeId": "oY-H2WGThc8",
+    "keyVocab": [
+      {
+        "en": "Clean up",
+        "vi": "Dọn dẹp",
+        "emoji": "🧹"
+      },
+      {
+        "en": "Everywhere",
+        "vi": "Mọi nơi",
+        "emoji": "🌍"
+      },
+      {
+        "en": "Put away",
+        "vi": "Cất gọn gàng",
+        "emoji": "📦"
+      },
+      {
+        "en": "Together",
+        "vi": "Cùng nhau",
+        "emoji": "🤝"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Clean up, clean up, everybody everywhere",
+        "translation": "Dọn dẹp nào, dọn dẹp nào, mọi người ở khắp mọi nơi"
+      },
+      {
+        "time": 8,
+        "text": "Clean up, clean up, everybody do your share",
+        "translation": "Dọn dẹp nào, dọn dẹp nào, mỗi người hãy góp một tay"
+      },
+      {
+        "time": 13,
+        "text": "Put the toys away, put the books away",
+        "translation": "Cất đồ chơi vào khay, xếp sách lên kệ ngay ngắn"
+      },
+      {
+        "time": 18,
+        "text": "Clean up, clean up, put everything away!",
+        "translation": "Dọn dẹp sạch sẽ, cất mọi thứ về đúng chỗ nào!"
+      }
+    ]
+  },
+  {
+    "id": "brush-our-teeth",
+    "title": "This Is The Way We Brush Our Teeth",
+    "emoji": "🪥",
+    "color": "#06B6D4",
+    "youtubeId": "Pd4WnsXWDjU",
+    "keyVocab": [
+      {
+        "en": "Brush teeth",
+        "vi": "Đánh răng",
+        "emoji": "🪥"
+      },
+      {
+        "en": "Wash face",
+        "vi": "Rửa mặt",
+        "emoji": "🧼"
+      },
+      {
+        "en": "Comb hair",
+        "vi": "Chải tóc",
+        "emoji": "🪮"
+      },
+      {
+        "en": "Morning",
+        "vi": "Buổi sáng",
+        "emoji": "🌅"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "This is the way we brush our teeth",
+        "translation": "Đây là cách chúng mình đánh răng sạch sẽ"
+      },
+      {
+        "time": 8,
+        "text": "Brush our teeth, brush our teeth",
+        "translation": "Đánh răng thật xinh, chải răng thật kỹ"
+      },
+      {
+        "time": 12,
+        "text": "This is the way we brush our teeth",
+        "translation": "Đây là cách chúng mình đánh răng sạch sẽ"
+      },
+      {
+        "time": 16,
+        "text": "So early in the morning!",
+        "translation": "Vào mỗi buổi sớm mai thức dậy!"
+      },
+      {
+        "time": 20,
+        "text": "This is the way we wash our face",
+        "translation": "Đây là cách chúng mình rửa mặt thật mát"
+      },
+      {
+        "time": 25,
+        "text": "So early in the morning!",
+        "translation": "Vào mỗi buổi sớm mai thức dậy!"
+      }
+    ]
+  },
+  {
+    "id": "ten-in-the-bed",
+    "title": "Ten in the Bed",
+    "emoji": "🛏️",
+    "color": "#6366F1",
+    "youtubeId": "TdDypyS_5zE",
+    "keyVocab": [
+      {
+        "en": "Bed",
+        "vi": "Cái giường",
+        "emoji": "🛏️"
+      },
+      {
+        "en": "Roll over",
+        "vi": "Lăn tròn qua",
+        "emoji": "🔄"
+      },
+      {
+        "en": "Fell out",
+        "vi": "Rơi ra ngoài",
+        "emoji": "💨"
+      },
+      {
+        "en": "Alone",
+        "vi": "Một mình",
+        "emoji": "🧸"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "There were ten in the bed and the little one said",
+        "translation": "Có mười bạn trên giường và bạn nhỏ nhất bảo rằng"
+      },
+      {
+        "time": 10,
+        "text": "'Roll over, roll over!'",
+        "translation": "'Lăn qua đi, lăn qua đi nào!'"
+      },
+      {
+        "time": 14,
+        "text": "So they all rolled over and one fell out",
+        "translation": "Thế là tất cả lăn qua và một bạn rơi xuống đất"
+      },
+      {
+        "time": 19,
+        "text": "Nine! There were nine in the bed and the little one said...",
+        "translation": "Còn chín bạn trên giường và bạn nhỏ lại bảo..."
+      },
+      {
+        "time": 25,
+        "text": "Good night!",
+        "translation": "Chúc ngủ ngon nhé!"
+      }
+    ]
+  },
+  {
+    "id": "walking-in-the-jungle",
+    "title": "Walking in the Jungle",
+    "emoji": "🌴",
+    "color": "#15803D",
+    "youtubeId": "GoSq-yZOT-4",
+    "keyVocab": [
+      {
+        "en": "Jungle",
+        "vi": "Rừng nhiệt đới",
+        "emoji": "🌴"
+      },
+      {
+        "en": "Frog",
+        "vi": "Con ếch",
+        "emoji": "🐸"
+      },
+      {
+        "en": "Monkey",
+        "vi": "Con khỉ",
+        "emoji": "🐒"
+      },
+      {
+        "en": "Tiger",
+        "vi": "Con hổ",
+        "emoji": "🐯"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Walking in the jungle, walking in the jungle",
+        "translation": "Đi dạo trong rừng xanh, bước đi trong rừng già"
+      },
+      {
+        "time": 9,
+        "text": "We're not afraid, we're not afraid",
+        "translation": "Chúng mình chẳng sợ đâu, chúng mình thật dũng cảm"
+      },
+      {
+        "time": 14,
+        "text": "One step, two steps, three steps forward",
+        "translation": "Một bước, hai bước, ba bước tiến lên"
+      },
+      {
+        "time": 18,
+        "text": "Stop! Listen! What's that?",
+        "translation": "Dừng lại! Lắng nghe xem! Âm thanh gì thế?"
+      },
+      {
+        "time": 23,
+        "text": "It's a frog! Hop hop hop!",
+        "translation": "Đó là một chú ếch! Nhảy nhảy nhảy nào!"
+      }
+    ]
+  },
+  {
+    "id": "one-little-finger",
+    "title": "One Little Finger",
+    "emoji": "☝️",
+    "color": "#F43F5E",
+    "youtubeId": "eBVqcTEC3zQ",
+    "keyVocab": [
+      {
+        "en": "Finger",
+        "vi": "Ngón tay",
+        "emoji": "☝️"
+      },
+      {
+        "en": "Tap",
+        "vi": "Chạm nhẹ",
+        "emoji": "👉"
+      },
+      {
+        "en": "Head",
+        "vi": "Cái đầu",
+        "emoji": "🗣️"
+      },
+      {
+        "en": "Nose",
+        "vi": "Cái mũi",
+        "emoji": "👃"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "One little finger, one little finger, tap tap tap",
+        "translation": "Một ngón tay nhỏ xinh, gõ nhẹ gõ nhẹ nào"
+      },
+      {
+        "time": 10,
+        "text": "Point your finger up, point your finger down",
+        "translation": "Chỉ ngón tay lên trời, chỉ ngón tay xuống đất"
+      },
+      {
+        "time": 15,
+        "text": "Put it on your head. Head!",
+        "translation": "Đặt ngón tay lên đầu nào. Cái đầu!"
+      },
+      {
+        "time": 20,
+        "text": "One little finger, one little finger, tap tap tap",
+        "translation": "Một ngón tay nhỏ xinh, gõ nhẹ gõ nhẹ nào"
+      },
+      {
+        "time": 26,
+        "text": "Put it on your nose. Nose!",
+        "translation": "Đặt ngón tay lên mũi nào. Cái mũi!"
+      }
+    ]
+  },
+  {
+    "id": "days-of-the-week",
+    "title": "Days of the Week Song",
+    "emoji": "📅",
+    "color": "#8B5CF6",
+    "youtubeId": "mXMofxtDPUQ",
+    "keyVocab": [
+      {
+        "en": "Sunday",
+        "vi": "Chủ nhật",
+        "emoji": "☀️"
+      },
+      {
+        "en": "Monday",
+        "vi": "Thứ hai",
+        "emoji": "🌙"
+      },
+      {
+        "en": "Friday",
+        "vi": "Thứ sáu",
+        "emoji": "🎉"
+      },
+      {
+        "en": "Week",
+        "vi": "Tuần",
+        "emoji": "📅"
+      }
+    ],
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "Sunday, Monday, Tuesday, Wednesday",
+        "translation": "Chủ nhật, Thứ hai, Thứ ba, Thứ tư"
+      },
+      {
+        "time": 8,
+        "text": "Thursday, Friday, Saturday",
+        "translation": "Thứ năm, Thứ sáu, Thứ bảy"
+      },
+      {
+        "time": 12,
+        "text": "Seven days are in a week",
+        "translation": "Bảy ngày họp thành một tuần lễ vui tươi"
+      },
+      {
+        "time": 16,
+        "text": "Sing them happy, sing them loud!",
+        "translation": "Bé hãy hát thật vui, hát thật vang nào!"
+      }
+    ]
   }
 ]

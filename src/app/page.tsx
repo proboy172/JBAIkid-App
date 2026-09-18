@@ -20,7 +20,7 @@ const modes = [
     href: "/learn",
     emoji: "📚",
     title: "Học Từ Vựng",
-    subtitle: "Khám phá & Flashcards",
+    subtitle: "26 Chủ đề & Flashcards",
     gradientClass: "gradient-learn",
     shadow: "0 8px 20px -4px rgba(255, 107, 139, 0.4), 0 4px 0 #E0486D",
     delay: 0.05,
@@ -30,10 +30,20 @@ const modes = [
     href: "/sing",
     emoji: "🎵",
     title: "Bé Ca Hát",
-    subtitle: "Karaoke tiếng Anh vui nhộn",
+    subtitle: "29 Bài hát có lyric & học từ",
     gradientClass: "gradient-sing",
     shadow: "0 8px 20px -4px rgba(168, 85, 247, 0.4), 0 4px 0 #7C3AED",
-    delay: 0.1,
+    delay: 0.08,
+  },
+  {
+    id: "videos",
+    href: "/videos",
+    emoji: "📺",
+    title: "Video Bé Học",
+    subtitle: "Ms Rachel & Kênh Mầm Non",
+    gradientClass: "gradient-videos",
+    shadow: "0 8px 20px -4px rgba(6, 182, 212, 0.4), 0 4px 0 #0891B2",
+    delay: 0.12,
   },
   {
     id: "play",
@@ -53,7 +63,7 @@ const modes = [
     subtitle: "Dán sticker & Tranh vẽ",
     gradientClass: "gradient-stickers",
     shadow: "0 8px 20px -4px rgba(236, 72, 153, 0.4), 0 4px 0 #BE185D",
-    delay: 0.2,
+    delay: 0.18,
   },
   {
     id: "review",
@@ -63,7 +73,7 @@ const modes = [
     subtitle: "Luyện phản xạ ngắt quãng",
     gradientClass: "gradient-review",
     shadow: "0 8px 20px -4px rgba(245, 158, 11, 0.4), 0 4px 0 #C2410C",
-    delay: 0.25,
+    delay: 0.22,
   },
   {
     id: "parent",
@@ -73,7 +83,7 @@ const modes = [
     subtitle: "Báo cáo & Cài đặt PIN",
     gradientClass: "gradient-parent",
     shadow: "0 8px 20px -4px rgba(71, 85, 105, 0.4), 0 4px 0 #0F172A",
-    delay: 0.3,
+    delay: 0.25,
     isLocked: true,
   },
 ];
@@ -281,7 +291,7 @@ export default function HomePage() {
                 href={mode.href}
                 prefetch={false}
                 onClick={() => playSFX("tap")}
-                className="w-full"
+                className={mode.id === "parent" ? "w-full sm:col-span-2" : "w-full"}
               >
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

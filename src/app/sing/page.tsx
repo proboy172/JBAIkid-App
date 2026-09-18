@@ -10,7 +10,7 @@ const languages = [
     href: "/sing/english",
     flag: "🇬🇧",
     title: "English Songs",
-    subtitle: "Bài hát tiếng Anh",
+    subtitle: "29 Bài hát tiếng Anh có lyric",
     gradient: "linear-gradient(135deg, #818CF8, #C084FC)",
   },
   {
@@ -19,6 +19,13 @@ const languages = [
     title: "Bài Hát Việt",
     subtitle: "Vietnamese Songs",
     gradient: "linear-gradient(135deg, #FF6B9D, #FB923C)",
+  },
+  {
+    href: "/videos",
+    flag: "📺",
+    title: "Video Bé Học",
+    subtitle: "Ms Rachel & Kênh Mầm Non",
+    gradient: "linear-gradient(135deg, #06B6D4, #3B82F6)",
   },
 ];
 
@@ -36,14 +43,14 @@ export default function SingPage() {
             className="text-2xl sm:text-3xl font-extrabold"
             style={{ fontFamily: "var(--font-heading)", color: "var(--color-secondary)" }}
           >
-            🎵 Ca Hát
+            🎵 Ca Hát & Video
           </h1>
-          <p className="text-xs sm:text-sm text-text-light mt-0.5">Chọn ngôn ngữ bé muốn hát!</p>
+          <p className="text-xs sm:text-sm text-text-light mt-0.5">Chọn ngôn ngữ bé muốn hát hoặc xem kênh học tập!</p>
         </motion.div>
       </div>
 
       <div className="flex-1 px-5 pb-24 lg:pb-16 pt-2 scroll-area relative z-10 w-full flex flex-col items-center justify-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl w-full">
           {languages.map((lang, i) => (
             <Link key={lang.href} href={lang.href} prefetch={false} className="w-full">
               <motion.div

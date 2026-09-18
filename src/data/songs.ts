@@ -6,7 +6,15 @@ export interface LyricWord {
 export interface LyricLine {
   time: number;
   text: string;
+  translation?: string; // Vietnamese translation for kids and parents
   words?: LyricWord[];
+}
+
+export interface SongVocab {
+  en: string;
+  vi: string;
+  emoji?: string;
+  phonetic?: string;
 }
 
 export interface Song {
@@ -19,6 +27,7 @@ export interface Song {
   lyrics: LyricLine[];
   introDuration?: number; // Time in seconds for the intro music
   bpm?: number; // Beats per minute for the song
+  keyVocab?: SongVocab[];
 }
 
 import songsEnData from "./songs-en.json";
