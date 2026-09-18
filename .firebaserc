@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "jbaikid-app"
+    "default": "jbai-studio"
+  },
+  "targets": {
+    "jbai-studio": {
+      "hosting": {
+        "jbaikid": [
+          "jbaikid"
+        ]
+      }
+    }
   }
 }
