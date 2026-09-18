@@ -73,6 +73,21 @@ export default function AITeacherPage() {
   const [prefetchedFillers, setPrefetchedFillers] = useState<string[]>([]);
   const [shouldAutoListen, setShouldAutoListen] = useState(false);
   const [roleplayMode, setRoleplayMode] = useState<'free' | 'shopping' | 'zoo'>('free');
+  const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsOnline(navigator.onLine);
+      const handleOnline = () => setIsOnline(true);
+      const handleOffline = () => setIsOnline(false);
+      window.addEventListener("online", handleOnline);
+      window.addEventListener("offline", handleOffline);
+      return () => {
+        window.removeEventListener("online", handleOnline);
+        window.removeEventListener("offline", handleOffline);
+      };
+    }
+  }, []);
   
   // Extract API keys for Premium Voice
   const openAiKey = aiApiKeys.find(key => key.startsWith('sk-'));
@@ -349,6 +364,14 @@ export default function AITeacherPage() {
     });
 
     try {
+      if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        setIsThinking(false);
+        const offlineMsg = "Bé ơi, điện thoại đang không có mạng Internet. Ba mẹ hãy bật Wi-Fi để cô trò chuyện với bé nhé!";
+        setLastAIResponse(offlineMsg);
+        speakText(offlineMsg);
+        return;
+      }
+
       // Setup Gemini API keys
       let allKeys = aiApiKeys.filter((k: string) => k && k.startsWith('AIza') && k.trim() !== '');
       allKeys = Array.from(new Set(allKeys));
@@ -553,6 +576,13 @@ QUY TẮC SƯ PHẠM ĐỈNH CAO (BẮT BUỘC):
           
           <h2 className="text-3xl font-bold mb-2 tracking-wide">Miss Sophia</h2>
           <p className="text-white/60 mb-4 text-lg">Đang gọi cho bé...</p>
+
+          {!isOnline && (
+            <div className="mb-4 px-4 py-2 bg-red-500/25 border border-red-400/50 rounded-full text-xs text-red-300 flex items-center gap-2 shadow-lg">
+              <span>⚡</span>
+              <span>Thiết bị đang ngoại tuyến • Cần kết nối Wi-Fi/4G</span>
+            </div>
+          )}
           
           {!aiApiKeys.some(k => k && k.startsWith('AIza')) && (
             <Link
@@ -592,7 +622,8 @@ QUY TẮC SƯ PHẠM ĐỈNH CAO (BẮT BUỘC):
             </div>
           </div>
           
-          <div className="flex gap-8">
+          {/* Action Buttons */}
+          <div className="flex gap-10">
             <Link href="/">
               <div className="flex flex-col items-center gap-2">
                 <button className="w-16 h-16 rounded-full bg-red-500 flex items-center justify-center shadow-lg hover:bg-red-600 transition-colors">
@@ -640,9 +671,17 @@ QUY TẮC SƯ PHẠM ĐỈNH CAO (BẮT BUỘC):
       {/* Top Header - FaceTime Style */}
       <div className="pt-10 pb-4 px-6 flex items-center justify-between relative z-10 w-full">
         <div className="flex flex-col items-center justify-center w-full relative">
-          <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10">
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-xs font-semibold tracking-wider">{formatTime(callDuration)}</span>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <span className="text-xs font-semibold tracking-wider">{formatTime(callDuration)}</span>
+            </div>
+            {!isOnline && (
+              <div className="flex items-center gap-1.5 bg-red-500/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white border border-red-400">
+                <span>⚡</span>
+                <span>Ngoại tuyến</span>
+              </div>
+            )}
           </div>
           <span className="text-sm font-medium text-white/70 mt-2">Miss Sophia</span>
         </div>

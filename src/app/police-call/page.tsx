@@ -51,6 +51,21 @@ export default function PoliceCallPage() {
   const [chatHistory, setChatHistory] = useState<{role: string, text: string}[]>([]);
   const [hasJoined, setHasJoined] = useState(false);
   const [shouldAutoListen, setShouldAutoListen] = useState(false);
+  const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsOnline(navigator.onLine);
+      const handleOnline = () => setIsOnline(true);
+      const handleOffline = () => setIsOnline(false);
+      window.addEventListener("online", handleOnline);
+      window.addEventListener("offline", handleOffline);
+      return () => {
+        window.removeEventListener("online", handleOnline);
+        window.removeEventListener("offline", handleOffline);
+      };
+    }
+  }, []);
   
   const openAiKey = aiApiKeys.find(key => key.startsWith('sk-'));
   
@@ -292,6 +307,14 @@ export default function PoliceCallPage() {
     });
 
     try {
+      if (typeof navigator !== 'undefined' && !navigator.onLine) {
+        setIsThinking(false);
+        const offlineMsg = "Cháu ơi, điện thoại đang không có kết nối mạng Internet. Cháu hãy nhờ ba mẹ kết nối Wi-Fi nhé!";
+        setLastAIResponse(offlineMsg);
+        speakText(offlineMsg);
+        return;
+      }
+
       let allKeys = aiApiKeys.filter((k: string) => k && k.startsWith('AIza') && k.trim() !== '');
       allKeys = Array.from(new Set(allKeys));
 
@@ -429,6 +452,13 @@ QUY TẮC BẮT BUỘC:
             <p className="text-lg">Cuộc gọi đến từ Tổ Công Tác...</p>
           </div>
 
+          {!isOnline && (
+            <div className="mb-4 px-4 py-2 bg-red-500/25 border border-red-400/50 rounded-full text-xs text-red-300 flex items-center gap-2 shadow-lg">
+              <span>⚡</span>
+              <span>Thiết bị đang ngoại tuyến • Cần kết nối Wi-Fi/4G</span>
+            </div>
+          )}
+
           {!aiApiKeys.some(k => k && k.startsWith('AIza')) && (
             <Link
               href="/parent"
@@ -490,9 +520,17 @@ QUY TẮC BẮT BUỘC:
       {/* Top Header */}
       <div className="pt-10 pb-4 px-6 flex items-center justify-between relative z-10 w-full">
         <div className="flex flex-col items-center justify-center w-full relative">
-          <div className="flex items-center gap-2 bg-blue-900/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-blue-400/20">
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <span className="text-xs font-semibold tracking-wider text-blue-100">{formatTime(callDuration)}</span>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 bg-blue-900/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-blue-400/20">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <span className="text-xs font-semibold tracking-wider text-blue-100">{formatTime(callDuration)}</span>
+            </div>
+            {!isOnline && (
+              <div className="flex items-center gap-1.5 bg-red-500/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white border border-red-400">
+                <span>⚡</span>
+                <span>Ngoại tuyến</span>
+              </div>
+            )}
           </div>
           <span className="text-sm font-bold text-white mt-2 drop-shadow-md">Chú Công An Khu Vực</span>
         </div>
