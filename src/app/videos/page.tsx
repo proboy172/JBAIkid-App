@@ -346,54 +346,107 @@ function VideosContent() {
           <motion.div
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-2.5 space-y-2"
+            className="mt-3 space-y-2.5"
           >
-            {/* Channels scroller / flex-wrap cleanly */}
-            <div className="flex flex-wrap items-center gap-1.5 pb-1" style={{ flexWrap: "wrap" }}>
-              {educationalChannels.map((chan) => {
-                const isSelected = selectedChannel === chan.id;
-                return (
-                  <button
-                    key={chan.id}
-                    onClick={() => {
-                      playSFX("tap");
-                      setSelectedChannel(chan.id);
-                    }}
-                    className={`px-2 sm:px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-bold whitespace-nowrap flex items-center gap-1 sm:gap-1.5 transition-all border ${
-                      isSelected
-                        ? "bg-slate-900 text-white border-slate-900 shadow-md scale-102"
-                        : "bg-white text-gray-700 hover:bg-slate-100 border-gray-200 shadow-sm"
-                    }`}
-                  >
-                    <span>{chan.emoji}</span>
-                    <span>{chan.name}</span>
-                  </button>
-                );
-              })}
+            {/* Channels Tray: Big Chunky Character Avatar Cards (YouTube Kids style) */}
+            <div className="relative">
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 px-0.5 scroll-smooth">
+                {educationalChannels.map((chan) => {
+                  const isSelected = selectedChannel === chan.id;
+                  const videoCount =
+                    chan.id === "all"
+                      ? educationalVideos.length
+                      : educationalVideos.filter((v) => v.channel === chan.channelName).length;
+
+                  return (
+                    <motion.button
+                      key={chan.id}
+                      whileHover={{ scale: 1.04, y: -2 }}
+                      whileTap={{ scale: 0.94 }}
+                      onClick={() => {
+                        playSFX("tap");
+                        setSelectedChannel(chan.id);
+                      }}
+                      className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shrink-0 transition-all font-bold cursor-pointer border shadow-sm ${
+                        isSelected
+                          ? "bg-slate-900 text-white border-slate-900 shadow-md ring-2 ring-cyan-400 scale-102"
+                          : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200/90 hover:border-cyan-300"
+                      }`}
+                    >
+                      {/* Chunky Colorful Emoji Circle */}
+                      <div
+                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-inner ${
+                          isSelected ? "bg-white/20 text-white" : ""
+                        }`}
+                        style={{
+                          backgroundColor: isSelected ? undefined : `${chan.color || "#06b6d4"}18`,
+                          color: isSelected ? "#fff" : chan.color,
+                        }}
+                      >
+                        {chan.emoji}
+                      </div>
+
+                      {/* Channel Name & Video Count Badge */}
+                      <div className="flex flex-col items-start text-left leading-tight">
+                        <span
+                          className="text-xs sm:text-sm font-black whitespace-nowrap"
+                          style={{ fontFamily: "var(--font-heading)" }}
+                        >
+                          {chan.name}
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold ${
+                            isSelected ? "text-cyan-300" : "text-gray-400"
+                          }`}
+                        >
+                          {videoCount} bài
+                        </span>
+                      </div>
+                    </motion.button>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Subject category chips / flex-wrap cleanly */}
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pb-1" style={{ flexWrap: "wrap" }}>
+            {/* Subject Category Chips: Cute, Large Rounded-Full Pills */}
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 px-0.5 scroll-smooth">
               {educationalCategories.map((cat) => {
                 const isSelected = selectedEduCategory === cat.id;
                 return (
-                  <button
+                  <motion.button
                     key={cat.id}
+                    whileTap={{ scale: 0.94 }}
                     onClick={() => {
                       playSFX("tap");
                       setSelectedEduCategory(cat.id);
                     }}
-                    className={`px-2.5 py-1 rounded-xl text-[11px] font-semibold whitespace-nowrap flex items-center gap-1 shrink-0 transition-all ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border ${
                       isSelected
-                        ? "bg-cyan-500 text-white shadow-sm font-bold"
-                        : "bg-white text-gray-600 hover:bg-cyan-50 border border-gray-200"
+                        ? "bg-cyan-500 text-white border-cyan-500 shadow-md shadow-cyan-500/30 scale-102"
+                        : "bg-white text-slate-700 hover:bg-cyan-50/70 border-slate-200 shadow-sm"
                     }`}
                   >
-                    <span>{cat.emoji}</span>
+                    <span className="text-base">{cat.emoji}</span>
                     <span>{cat.name}</span>
-                  </button>
+                  </motion.button>
                 );
               })}
+
+              {/* Reset Filter Button */}
+              {(selectedChannel !== "all" || selectedEduCategory !== "all") && (
+                <motion.button
+                  whileTap={{ scale: 0.94 }}
+                  onClick={() => {
+                    playSFX("pop");
+                    setSelectedChannel("all");
+                    setSelectedEduCategory("all");
+                  }}
+                  className="px-2.5 py-1.5 rounded-full text-xs font-bold text-rose-500 bg-rose-50 hover:bg-rose-100 border border-rose-200 whitespace-nowrap flex items-center gap-1 shrink-0 transition-all cursor-pointer"
+                >
+                  <X size={13} />
+                  <span>Xem tất cả</span>
+                </motion.button>
+              )}
             </div>
           </motion.div>
         )}
@@ -403,27 +456,27 @@ function VideosContent() {
           <motion.div
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-2.5 flex flex-wrap items-center gap-1.5 sm:gap-2 pb-1"
-            style={{ flexWrap: "wrap" }}
+            className="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 px-0.5 scroll-smooth"
           >
             {englishSongThemes.map((theme) => {
               const isSelected = songEnTheme === theme.id;
               return (
-                <button
+                <motion.button
                   key={theme.id}
+                  whileTap={{ scale: 0.94 }}
                   onClick={() => {
                     playSFX("tap");
                     setSongEnTheme(theme.id);
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 transition-all border ${
+                  className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap flex items-center gap-2 shrink-0 transition-all border ${
                     isSelected
-                      ? "bg-indigo-600 text-white border-indigo-700 shadow-md scale-102"
+                      ? "bg-indigo-600 text-white border-indigo-700 shadow-md shadow-indigo-500/30 scale-102"
                       : "bg-white text-gray-700 hover:bg-indigo-50 border-gray-200 shadow-sm"
                   }`}
                 >
-                  <span>{theme.emoji}</span>
+                  <span className="text-lg">{theme.emoji}</span>
                   <span>{theme.label}</span>
-                </button>
+                </motion.button>
               );
             })}
           </motion.div>
@@ -434,27 +487,27 @@ function VideosContent() {
           <motion.div
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-2.5 flex flex-wrap items-center gap-1.5 sm:gap-2 pb-1"
-            style={{ flexWrap: "wrap" }}
+            className="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 px-0.5 scroll-smooth"
           >
             {vietnameseSongThemes.map((theme) => {
               const isSelected = songViTheme === theme.id;
               return (
-                <button
+                <motion.button
                   key={theme.id}
+                  whileTap={{ scale: 0.94 }}
                   onClick={() => {
                     playSFX("tap");
                     setSongViTheme(theme.id);
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 transition-all border ${
+                  className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap flex items-center gap-2 shrink-0 transition-all border ${
                     isSelected
-                      ? "bg-rose-500 text-white border-rose-600 shadow-md scale-102"
+                      ? "bg-rose-500 text-white border-rose-600 shadow-md shadow-rose-500/30 scale-102"
                       : "bg-white text-gray-700 hover:bg-rose-50 border-gray-200 shadow-sm"
                   }`}
                 >
-                  <span>{theme.emoji}</span>
+                  <span className="text-lg">{theme.emoji}</span>
                   <span>{theme.label}</span>
-                </button>
+                </motion.button>
               );
             })}
           </motion.div>

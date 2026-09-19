@@ -42,7 +42,7 @@ export const educationalChannels = [
   {
     id: "wild-safari",
     channelName: "Wild Safari",
-    name: "🦁 Safari Động Vật",
+    name: "Safari Động Vật",
     emoji: "🦁",
     color: "#D97706",
     description: "Động vật hoang dã 4K ngoài đời thật, trực quan sinh động, không thuyết minh",
@@ -114,14 +114,14 @@ export const educationalChannels = [
 ];
 
 export const educationalCategories = [
-  { id: "all", name: "Tất cả", emoji: "🌟" },
-  { id: "safari", name: "🦁 Động vật thực tế", emoji: "🦁" },
-  { id: "speech", name: "Tập nói & Giao tiếp", emoji: "🗣️" },
-  { id: "phonics", name: "Phonics & Chữ cái", emoji: "🔤" },
-  { id: "math", name: "Đếm số & Toán tư duy", emoji: "🔢" },
-  { id: "movement", name: "Vận động & Vui nhộn", emoji: "🏃" },
-  { id: "world", name: "Khám phá thế giới", emoji: "🌍" },
-  { id: "habits", name: "Thói quen & Cảm xúc", emoji: "💖" },
+  { id: "all", name: "Tất cả chủ đề", emoji: "🌟" },
+  { id: "safari", name: "Động vật 4K", emoji: "🦁" },
+  { id: "speech", name: "Bé tập nói", emoji: "🗣️" },
+  { id: "phonics", name: "Chữ cái ABC", emoji: "🔤" },
+  { id: "math", name: "Đếm số 123", emoji: "🔢" },
+  { id: "movement", name: "Nhảy múa vui", emoji: "🏃" },
+  { id: "world", name: "Khám phá", emoji: "🌍" },
+  { id: "habits", name: "Thói quen tốt", emoji: "💖" },
 ];
 
 export const educationalVideos: EducationalVideo[] = [
