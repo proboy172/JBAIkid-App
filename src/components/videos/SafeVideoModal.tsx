@@ -227,7 +227,7 @@ export default function SafeVideoModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-md select-none"
+      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/95 backdrop-blur-md select-none"
     >
       {/* Top Controls Header */}
       <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-3 sm:p-5 bg-gradient-to-b from-black/80 to-transparent">

@@ -28,7 +28,7 @@ export default function BottomNav() {
 
   return (
     <nav className="bottom-nav" id="bottom-nav">
-      <div className="flex items-center justify-around px-1 sm:px-2 pt-2 pb-1 max-w-lg mx-auto">
+      <div className="flex items-center justify-around px-2 sm:px-6 md:px-8 pt-2 sm:pt-3 pb-1.5 sm:pb-3 max-w-lg sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto">
         {navItems.map((item) => {
           const isActive =
             item.href === "/"
@@ -42,20 +42,22 @@ export default function BottomNav() {
               href={item.href}
               onClick={() => playSFX("tap")}
               id={`nav-${item.label.toLowerCase()}`}
-              className="flex flex-col items-center gap-0.5 py-1 px-3 rounded-2xl transition-colors relative"
+              className="flex flex-col items-center justify-center gap-0.5 sm:gap-1.5 py-1 sm:py-2 md:py-2.5 px-2.5 sm:px-5 md:px-7 rounded-2xl sm:rounded-3xl transition-all relative group cursor-pointer select-none"
             >
               {isActive && (
                 <motion.div
                   layoutId="nav-pill"
-                  className="absolute inset-0 rounded-2xl"
-                  style={{ background: "linear-gradient(135deg, rgba(255,107,157,0.15), rgba(192,132,252,0.15))" }}
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  className="absolute inset-0 rounded-2xl sm:rounded-3xl shadow-sm sm:shadow-md border border-pink-300/50"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(192, 132, 252, 0.2))",
+                  }}
+                  transition={{ type: "spring", stiffness: 450, damping: 32 }}
                 />
               )}
-              <div className="relative">
+              <div className="relative flex items-center justify-center">
                 <motion.span
-                  className="text-xl relative z-10 block"
-                  animate={isActive ? { scale: 1.2, y: -2 } : { scale: 1, y: 0 }}
+                  className="text-2xl sm:text-3xl md:text-4xl relative z-10 block filter drop-shadow-sm"
+                  animate={isActive ? { scale: 1.15, y: -2 } : { scale: 1, y: 0 }}
                   transition={{ type: "spring", stiffness: 500, damping: 25 }}
                 >
                   {item.emoji}
@@ -65,17 +67,17 @@ export default function BottomNav() {
                   <motion.span
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-2 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center z-20 shadow-sm"
+                    className="absolute -top-1 -right-2 sm:-top-1.5 sm:-right-3 bg-red-500 text-white text-[9px] sm:text-xs font-black w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center z-20 shadow-md ring-2 ring-white"
                   >
                     {dueCount > 9 ? "9+" : dueCount}
                   </motion.span>
                 )}
               </div>
               <span
-                className={`text-[10px] font-semibold relative z-10 transition-colors ${
-                  isActive ? "text-primary" : "text-text-light"
+                className={`text-[10px] sm:text-xs md:text-sm font-extrabold relative z-10 transition-colors whitespace-nowrap ${
+                  isActive ? "text-primary" : "text-slate-500 group-hover:text-slate-700"
                 }`}
-                style={{ fontFamily: "var(--font-body)" }}
+                style={{ fontFamily: "var(--font-heading)" }}
               >
                 {item.label}
               </span>

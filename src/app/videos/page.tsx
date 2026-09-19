@@ -294,20 +294,20 @@ function VideosContent() {
                   playSFX("tap");
                   setActiveTab(tab.id);
                 }}
-                className={`relative px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl flex items-center gap-2 shrink-0 transition-all font-bold cursor-pointer border ${
+                className={`relative px-3.5 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-2xl sm:rounded-3xl flex items-center gap-2 sm:gap-2.5 shrink-0 transition-all font-bold cursor-pointer border ${
                   isSelected
                     ? `bg-gradient-to-r ${tab.bgGradient} text-white shadow-lg ${tab.activeShadow} scale-105 border-transparent`
                     : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200/80 shadow-sm"
                 }`}
               >
-                <span className="text-lg sm:text-xl drop-shadow-sm">{tab.emoji}</span>
+                <span className="text-lg sm:text-2xl md:text-3xl drop-shadow-sm">{tab.emoji}</span>
                 <div className="flex flex-col items-start leading-tight">
-                  <span className="text-xs sm:text-sm font-extrabold whitespace-nowrap" style={{ fontFamily: "var(--font-heading)" }}>
+                  <span className="text-xs sm:text-sm md:text-base font-extrabold whitespace-nowrap" style={{ fontFamily: "var(--font-heading)" }}>
                     {tab.label}
                   </span>
                 </div>
                 <span
-                  className={`text-[10px] font-black px-1.5 py-0.5 rounded-full ${
+                  className={`text-[10px] sm:text-xs md:text-sm font-black px-1.5 sm:px-2 py-0.5 rounded-full ${
                     isSelected ? "bg-white/30 text-white" : "bg-slate-100 text-slate-500"
                   }`}
                 >
@@ -959,7 +959,7 @@ function VideosContent() {
         )}
       </div>
 
-      <BottomNav />
+      {!activeEduVideo && !activeSong && <BottomNav />}
     </div>
   );
 }
