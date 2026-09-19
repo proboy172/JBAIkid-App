@@ -13,7 +13,7 @@ import { useAppStore } from "@/stores/appStore";
 import { Volume2, ChevronLeft, ChevronRight, Mic } from "lucide-react";
 import stringSimilarity from "string-similarity";
 import Link from "next/link";
-import { playSFX } from "@/utils/soundEffects";
+import { playSFX, playRealLifeSound } from "@/utils/soundEffects";
 import { getWordSyllables } from "@/utils/syllableHelper";
 import SpeechPracticeModal from "@/components/shared/SpeechPracticeModal";
 
@@ -42,6 +42,29 @@ export default function FlashCardClient() {
   const items = cat?.items || [];
   const current = items[index];
   const syllables = current ? getWordSyllables(current.en) : [];
+
+  // Dual-mode visuals: Montessori Real Photos vs Cute 3D Cartoon Illustrations
+  const [imageMode, setImageMode] = useState<"photo" | "illustration">("photo");
+  const [imageLoading, setImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("jbaikid_image_mode");
+      if (saved === "photo" || saved === "illustration") {
+        setImageMode(saved as "photo" | "illustration");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    setImageLoading(true);
+    setImageError(false);
+  }, [index, imageMode]);
+
+  const currentImageUrl = imageMode === "photo"
+    ? (current?.photoUrl || current?.illustrationUrl)
+    : (current?.illustrationUrl || current?.photoUrl);
 
   const playPhonicsSequence = useCallback(async () => {
     if (!current || syllables.length === 0 || isPlayingPhonics) return;
@@ -391,7 +414,7 @@ export default function FlashCardClient() {
           >
             {/* Card */}
             <div
-              className="flash-card-container w-full h-[275px] sm:h-[305px] md:h-[315px]"
+              className="flash-card-container w-full h-[350px] sm:h-[385px] md:h-[400px]"
               onClick={() => {
                 playSFX("pop");
                 setFlipped((f) => !f);
@@ -406,20 +429,106 @@ export default function FlashCardClient() {
               onTouchEnd={onTouchEndHandler}
             >
               <div className={`flash-card-inner ${flipped ? "flipped" : ""}`}>
-                {/* Front - Emoji + Word + Phonics Syllables */}
+                {/* Front - Mode Switch + Visual (Photo/3D/Emoji) + Word + Syllables */}
                 <div
-                  className="flash-card-front glass-card flex flex-col items-center justify-center gap-1.5 p-4 sm:p-5 cursor-pointer relative"
+                  className="flash-card-front glass-card flex flex-col items-center justify-between p-3.5 sm:p-4 cursor-pointer relative overflow-hidden"
                   style={{ border: `3px solid ${cat.color}33` }}
                 >
-                  <motion.span
-                    className="text-5xl sm:text-6xl mb-0.5"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
-                  >
-                    {current.emoji}
-                  </motion.span>
+                  {/* Top Bar: Visual Mode Switcher + Sound Button */}
+                  <div className="w-full flex items-center justify-between gap-1 z-20">
+                    {(current.photoUrl || current.illustrationUrl) ? (
+                      <div 
+                        className="flex items-center gap-0.5 bg-slate-100/90 backdrop-blur-sm p-0.5 sm:p-1 rounded-xl shadow-inner"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => {
+                            playSFX("tap");
+                            setImageMode("photo");
+                            if (typeof window !== "undefined") localStorage.setItem("jbaikid_image_mode", "photo");
+                          }}
+                          className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
+                            imageMode === "photo"
+                              ? "bg-white text-slate-800 shadow-sm font-extrabold scale-105"
+                              : "text-slate-500 hover:text-slate-700"
+                          }`}
+                        >
+                          <span>📸 Ảnh thật</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            playSFX("tap");
+                            setImageMode("illustration");
+                            if (typeof window !== "undefined") localStorage.setItem("jbaikid_image_mode", "illustration");
+                          }}
+                          className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
+                            imageMode === "illustration"
+                              ? "bg-white text-slate-800 shadow-sm font-extrabold scale-105"
+                              : "text-slate-500 hover:text-slate-700"
+                          }`}
+                        >
+                          <span>🎨 Hình 3D</span>
+                        </button>
+                      </div>
+                    ) : (
+                      <div />
+                    )}
+
+                    {(current.realSound || current.realSoundType) && (
+                      <motion.button
+                        whileTap={{ scale: 0.9 }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          playRealLifeSound(current.realSoundType, current.realSound);
+                        }}
+                        className="px-2.5 py-1 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-[11px] sm:text-xs font-bold shadow-sm flex items-center gap-1 transition-all"
+                        title="Nghe âm thanh thực tế"
+                      >
+                        <span className="animate-bounce">🔊</span>
+                        <span>{current.soundLabel ? current.soundLabel.replace("Tiếng ", "") : "Âm thanh"}</span>
+                      </motion.button>
+                    )}
+                  </div>
+
+                  {/* Visual Presentation: Real Photo / 3D Illustration / Emoji */}
+                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/80 my-0.5">
+                    {currentImageUrl && !imageError ? (
+                      <>
+                        <img
+                          key={`${current.en}-${imageMode}`}
+                          src={currentImageUrl}
+                          alt={current.en}
+                          className={`w-full h-full object-cover rounded-2xl transition-opacity duration-300 ${
+                            imageLoading ? "opacity-0" : "opacity-100"
+                          }`}
+                          onLoad={() => setImageLoading(false)}
+                          onError={() => {
+                            setImageError(true);
+                            setImageLoading(false);
+                          }}
+                        />
+                        {imageLoading && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-slate-100/90 animate-pulse">
+                            <span className="text-4xl opacity-50">{current.emoji}</span>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <motion.span
+                        className="text-5xl sm:text-6xl"
+                        animate={{ scale: [1, 1.1, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
+                      >
+                        {current.emoji}
+                      </motion.span>
+                    )}
+                  </div>
+
+                  {/* English Word */}
                   <h2
-                    className="text-2xl sm:text-3xl font-extrabold"
+                    className="text-2xl sm:text-3xl font-extrabold tracking-tight"
                     style={{ fontFamily: "var(--font-heading)", color: cat.color }}
                   >
                     {current.en}
@@ -427,10 +536,10 @@ export default function FlashCardClient() {
 
                   {/* Interactive Syllables Breakdown Pill Strip */}
                   <div 
-                    className="flex flex-col items-center gap-1 mt-0.5 z-20"
+                    className="flex flex-col items-center gap-1 z-20"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <div className="flex items-center gap-1.5 flex-wrap justify-center max-w-full px-2">
+                    <div className="flex items-center gap-1.5 flex-wrap justify-center max-w-full px-1">
                       {syllables.map((syl, i) => (
                         <motion.button
                           key={i}
@@ -470,12 +579,9 @@ export default function FlashCardClient() {
                         </motion.button>
                       )}
                     </div>
-                    <span className="text-[10px] font-semibold text-text-light/80">
-                      🧩 {syllables.length} âm tiết • Chạm để nghe phát âm
-                    </span>
                   </div>
 
-                  <p className="text-[11px] sm:text-xs text-text-light mt-1">👆 Chạm để lật thẻ</p>
+                  <p className="text-[10px] sm:text-[11px] text-text-light">👆 Chạm để lật thẻ xem nghĩa</p>
                   
                   {/* Feedback overlay */}
                   <AnimatePresence>
@@ -484,7 +590,7 @@ export default function FlashCardClient() {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        className={`absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-white font-bold text-sm shadow-xl flex items-center gap-1.5 ${
+                        className={`absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-white font-bold text-sm shadow-xl flex items-center gap-1.5 z-30 ${
                           speechFeedback === "correct" 
                             ? "bg-green-500 shadow-green-500/50" 
                             : "bg-amber-500 shadow-amber-500/50"
@@ -496,29 +602,66 @@ export default function FlashCardClient() {
                   </AnimatePresence>
                 </div>
 
-                {/* Back - Translation + Phonetic + Syllable Overview */}
+                {/* Back - Translation + Phonetic + Contextual Example Sentence */}
                 <div
-                  className="flash-card-back glass-card flex flex-col items-center justify-center gap-1.5 p-4 sm:p-5 cursor-pointer"
+                  className="flash-card-back glass-card flex flex-col justify-between p-3.5 sm:p-4 cursor-pointer"
                   style={{ border: `3px solid ${cat.color}33`, background: `linear-gradient(135deg, ${cat.color}11, white)` }}
                 >
-                  <span className="text-4xl sm:text-5xl">{current.emoji}</span>
-                  <h2
-                    className="text-2xl sm:text-3xl font-extrabold"
-                    style={{ fontFamily: "var(--font-heading)", color: cat.color }}
-                  >
-                    {current.en}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-text-light font-mono bg-white/70 px-3 py-0.5 rounded-full border border-gray-100">
-                    {current.phonetic}
-                  </p>
-                  <div className="h-px w-14 bg-gray-200 my-0.5" />
-                  <p className="text-xl sm:text-2xl font-bold text-gray-800" style={{ fontFamily: "var(--font-heading)" }}>
-                    {current.vi}
-                  </p>
-                  <div className="mt-1 text-[11px] sm:text-xs text-gray-500 flex items-center gap-1 bg-white/60 px-2.5 py-0.5 rounded-xl">
-                    <span>Âm tiết:</span>
-                    <span className="font-bold text-primary">{syllables.join(" • ")}</span>
+                  <div className="w-full flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl">{current.emoji}</span>
+                      <span className="text-lg font-bold" style={{ color: cat.color }}>{current.en}</span>
+                    </div>
+                    <span className="text-xs text-text-light font-mono bg-white/80 px-2.5 py-0.5 rounded-full border border-gray-100">
+                      {current.phonetic}
+                    </span>
                   </div>
+
+                  <div className="my-auto text-center py-1">
+                    <p className="text-2xl sm:text-3xl font-black text-gray-800 tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                      {current.vi}
+                    </p>
+                    <div className="mt-1 text-xs text-gray-500 flex items-center justify-center gap-1 bg-white/70 px-3 py-0.5 rounded-full inline-flex border border-gray-100">
+                      <span>Âm tiết:</span>
+                      <span className="font-bold text-primary">{syllables.join(" • ")}</span>
+                    </div>
+                  </div>
+
+                  {/* Contextual Action / Example Sentence */}
+                  {current.exampleSentenceEn && (
+                    <div
+                      className="w-full bg-white/95 rounded-2xl p-2.5 sm:p-3 border border-slate-100 shadow-sm flex flex-col gap-1 text-left z-20"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[10px] font-bold tracking-wider uppercase text-primary flex items-center gap-1">
+                          💡 Câu ví dụ thực tế
+                        </span>
+                        <motion.button
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => {
+                            playSFX("tap");
+                            speak(current.exampleSentenceEn!, "en-US", 0.8);
+                          }}
+                          className="px-2 py-0.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 text-xs font-bold flex items-center gap-1 transition-colors"
+                          title="Nghe phát âm câu"
+                        >
+                          <Volume2 size={13} />
+                          <span>Nghe câu</span>
+                        </motion.button>
+                      </div>
+                      <p className="text-xs sm:text-sm font-bold text-slate-800 leading-snug">
+                        {current.exampleSentenceEn}
+                      </p>
+                      {current.exampleSentenceVi && (
+                        <p className="text-[11px] sm:text-xs text-slate-500 italic">
+                          {current.exampleSentenceVi}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  <p className="text-[10px] sm:text-[11px] text-center text-text-light mt-1">👆 Chạm để quay lại mặt trước</p>
                 </div>
               </div>
             </div>
@@ -612,20 +755,16 @@ export default function FlashCardClient() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mt-2.5 sm:mt-3">
-          {current.realSound && (
+          {(current.realSound || current.realSoundType) && (
             <motion.button
               whileTap={{ scale: 0.92 }}
               onClick={(e) => {
                 e.stopPropagation();
-                const audio = new Audio(current.realSound);
-                audio.play().catch(err => {
-                  console.error("Lỗi phát âm thanh:", err);
-                  alert(`Chưa tìm thấy file âm thanh thật! (Thiếu file ${current.realSound})`);
-                });
+                playRealLifeSound(current.realSoundType, current.realSound);
               }}
-              className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-xs sm:text-sm font-semibold shadow-sm flex items-center gap-2 text-green-700"
+              className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 backdrop-blur-sm border border-emerald-200 text-xs sm:text-sm font-bold shadow-sm flex items-center gap-2 transition-colors"
             >
-              🎵 Âm thanh thực
+              <span>🔊 {current.soundLabel || "Âm thanh thực tế"}</span>
             </motion.button>
           )}
           <motion.button
