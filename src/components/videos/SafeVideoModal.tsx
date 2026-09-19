@@ -242,8 +242,17 @@ export default function SafeVideoModal({
     };
   }, [iframeKey, currentVideo.id]);
 
+  // Lock body scroll and prevent BottomNav from showing
+  useEffect(() => {
+    document.body.classList.add("video-modal-open");
+    return () => {
+      document.body.classList.remove("video-modal-open");
+    };
+  }, []);
+
   return (
     <motion.div
+      id="safe-video-modal"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -313,15 +322,15 @@ export default function SafeVideoModal({
               playSFX("tap");
               setShowVocabPanel(!showVocabPanel);
             }}
-            className={`px-3 py-1.5 rounded-full border text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-              showVocabPanel
-                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/30"
-                : "bg-white/15 border-white/25 text-white/90 hover:bg-white/25"
+            className={`px-3 py-1.5 rounded-full border text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer shadow-sm ${
+              !showVocabPanel
+                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/40 hover:bg-amber-300 scale-102"
+                : "bg-white/20 text-white/95 border-white/30 hover:bg-white/30"
             }`}
             title={showVocabPanel ? "Ẩn góc từ vựng để mở rộng video" : "Bật góc từ vựng & mẹo học"}
           >
             <BookOpen size={16} />
-            <span className="hidden sm:inline">{showVocabPanel ? "Ẩn Từ Vựng" : "Bật Từ Vựng"}</span>
+            <span className="hidden sm:inline">{showVocabPanel ? "Ẩn Từ Vựng" : "Bật Từ Vựng 📖"}</span>
             <span className="sm:hidden">{showVocabPanel ? "Ẩn" : "Từ Vựng"}</span>
           </motion.button>
 
@@ -454,21 +463,22 @@ export default function SafeVideoModal({
               )}
             </AnimatePresence>
 
-            {/* Floating Re-open Vocab Button when Panel is Hidden */}
+            {/* Floating Re-open Vocab Button at Top-Right of Video when Panel is Hidden */}
             {!showVocabPanel && (
               <motion.button
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.85, x: 20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
                   playSFX("tap");
                   setShowVocabPanel(true);
                 }}
-                className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 z-30 px-3.5 py-2 rounded-2xl bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-2xl border border-amber-300 hover:bg-amber-300 transition-transform cursor-pointer"
-                title="Bật góc từ vựng và mẹo học"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 px-3.5 py-2 rounded-2xl bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-1.5 shadow-[0_4px_25px_rgba(251,191,36,0.6)] border-2 border-amber-300 hover:bg-amber-300 transition-all cursor-pointer select-none"
+                title="Bật góc từ vựng và mẹo học cho bé"
               >
-                <BookOpen size={15} />
-                <span>Bật Từ Vựng</span>
+                <BookOpen size={16} className="text-slate-950" />
+                <span>Bật Góc Từ Vựng 📖</span>
               </motion.button>
             )}
 

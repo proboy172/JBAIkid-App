@@ -249,8 +249,17 @@ export default function KaraokePlayer({
   const hasLyrics = currentSong.lyrics && currentSong.lyrics.length > 0;
   const hasVocab = currentSong.keyVocab && currentSong.keyVocab.length > 0;
 
+  // Lock body scroll and prevent BottomNav from showing
+  useEffect(() => {
+    document.body.classList.add("video-modal-open");
+    return () => {
+      document.body.classList.remove("video-modal-open");
+    };
+  }, []);
+
   return (
     <motion.div
+      id="karaoke-player-modal"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

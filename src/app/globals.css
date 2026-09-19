@@ -352,6 +352,14 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 8px);
 }
 
+body.video-modal-open .bottom-nav,
+body:has(#safe-video-modal) .bottom-nav,
+body:has(#karaoke-player-modal) .bottom-nav {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 /* ===== FLASH CARD ===== */
 
 .flash-card-container {
