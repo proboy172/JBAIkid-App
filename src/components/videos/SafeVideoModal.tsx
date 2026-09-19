@@ -12,12 +12,15 @@ import {
   Award,
   HelpCircle,
   BookOpen,
+  Shuffle,
+  Zap,
 } from "lucide-react";
 import { EducationalVideo, educationalVideos, getRecommendedVideos } from "@/data/educationalVideos";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX } from "@/utils/soundEffects";
 import { useSpeech } from "@/hooks/useSpeech";
 import VideoEndRecommendation, { RecommendedItem } from "./VideoEndRecommendation";
+import YouTubeKidsVideoDrawer from "./YouTubeKidsVideoDrawer";
 
 interface SafeVideoModalProps {
   video: EducationalVideo;
@@ -41,6 +44,8 @@ export default function SafeVideoModal({
   const [isLocked, setIsLocked] = useState(false);
   const [showVocabPanel, setShowVocabPanel] = useState(true);
   const [isVideoEnded, setIsVideoEnded] = useState(false);
+  const [showQuickDrawer, setShowQuickDrawer] = useState(false);
+  const [isAutoPlayNext, setIsAutoPlayNext] = useState(true);
   const [iframeKey, setIframeKey] = useState(0);
   const openTimeRef = useRef<number>(Date.now());
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -49,6 +54,7 @@ export default function SafeVideoModal({
   useEffect(() => {
     setCurrentVideo(video);
     setIsVideoEnded(false);
+    setShowQuickDrawer(false);
     setHasAwardedStars(false);
     openTimeRef.current = Date.now();
   }, [video]);
@@ -121,11 +127,25 @@ export default function SafeVideoModal({
     if (nextVid) {
       setCurrentVideo(nextVid);
       setIsVideoEnded(false);
+      setShowQuickDrawer(false);
       setIframeKey((prev) => prev + 1);
       setHasAwardedStars(false);
       openTimeRef.current = Date.now();
       onSelectVideo?.(nextVid);
     }
+  };
+
+  const handleRandomSurprise = () => {
+    const others = educationalVideos.filter((v) => v.id !== currentVideo.id);
+    if (others.length === 0) return;
+    const randomVid = others[Math.floor(Math.random() * others.length)];
+    setCurrentVideo(randomVid);
+    setIsVideoEnded(false);
+    setShowQuickDrawer(false);
+    setIframeKey((prev) => prev + 1);
+    setHasAwardedStars(false);
+    openTimeRef.current = Date.now();
+    onSelectVideo?.(randomVid);
   };
 
   const handleReplay = () => {
@@ -254,24 +274,36 @@ export default function SafeVideoModal({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
-          {/* Next Videos Suggestions Button */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Quick Drawer Button: Gợi ý video như YouTube Kids */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               playSFX("tap");
-              setIsVideoEnded(!isVideoEnded);
+              setShowQuickDrawer(!showQuickDrawer);
             }}
             className={`px-3 py-1.5 rounded-full border text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-              isVideoEnded
+              showQuickDrawer
                 ? "bg-cyan-500 text-white border-cyan-400 shadow-md shadow-cyan-500/30"
                 : "bg-white/15 border-white/25 text-white/90 hover:bg-white/25"
             }`}
-            title="Xem danh sách bài tiếp theo cho bé"
+            title="Xem danh sách video gợi ý như YouTube Kids"
           >
-            <span>🎬</span>
-            <span className="hidden sm:inline">Bài Tiếp Theo</span>
-            <span className="sm:hidden">Tiếp</span>
+            <span>🎈</span>
+            <span className="hidden sm:inline">Gợi Ý Video</span>
+            <span className="sm:hidden">Gợi Ý</span>
+          </motion.button>
+
+          {/* Random Surprise Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={handleRandomSurprise}
+            className="px-2.5 sm:px-3 py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 hover:bg-amber-400/30 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer shadow-sm"
+            title="Đổi sang 1 video ngẫu nhiên bất ngờ"
+          >
+            <span>🎲</span>
+            <span className="hidden md:inline">Ngẫu nhiên</span>
           </motion.button>
 
           {/* Toggle Vocab Panel Button */}
@@ -371,6 +403,41 @@ export default function SafeVideoModal({
                   );
                 } catch {}
               }}
+            />
+
+            {/* Floating YouTube Kids Quick Button on Video */}
+            {!showQuickDrawer && !isVideoEnded && !isLocked && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.94 }}
+                onClick={() => {
+                  playSFX("pop");
+                  setShowQuickDrawer(true);
+                }}
+                className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-950/85 hover:bg-slate-900 text-white border border-white/25 backdrop-blur-md text-xs font-bold flex items-center gap-2 shadow-2xl cursor-pointer"
+                title="Bấm để mở danh sách video gợi ý như YouTube Kids"
+              >
+                <span className="text-base sm:text-lg animate-bounce">🎈</span>
+                <span className="hidden sm:inline">Bấm chọn video khác</span>
+                <span className="sm:hidden">Video khác</span>
+                <span className="text-amber-300 text-[10px] sm:text-[11px] bg-amber-400/20 px-1.5 py-0.5 rounded-full font-black">
+                  🎲 Gợi ý
+                </span>
+              </motion.button>
+            )}
+
+            {/* YouTube Kids In-Video Recommendation Drawer */}
+            <YouTubeKidsVideoDrawer
+              isOpen={showQuickDrawer}
+              onClose={() => setShowQuickDrawer(false)}
+              recommendations={recommendations}
+              onSelect={handleSelectNextVideo}
+              onRefresh={handleRefreshRecommendations}
+              isAutoPlayNext={isAutoPlayNext}
+              onToggleAutoPlayNext={() => setIsAutoPlayNext(!isAutoPlayNext)}
+              onRandomSurprise={handleRandomSurprise}
             />
 
             {/* In-App Recommendation End Screen Overlay */}

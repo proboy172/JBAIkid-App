@@ -8,6 +8,7 @@ import { useAppStore } from "@/stores/appStore";
 import { playSFX } from "@/utils/soundEffects";
 import { useSpeech } from "@/hooks/useSpeech";
 import VideoEndRecommendation, { RecommendedItem } from "@/components/videos/VideoEndRecommendation";
+import YouTubeKidsVideoDrawer from "@/components/videos/YouTubeKidsVideoDrawer";
 
 export default function KaraokePlayer({
   song,
@@ -27,6 +28,8 @@ export default function KaraokePlayer({
   const [showLyricsPanel, setShowLyricsPanel] = useState(false);
   const [showTranslation, setShowTranslation] = useState(true);
   const [isSongEnded, setIsSongEnded] = useState(false);
+  const [showQuickDrawer, setShowQuickDrawer] = useState(false);
+  const [isAutoPlayNext, setIsAutoPlayNext] = useState(true);
   const [iframeKey, setIframeKey] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -35,6 +38,7 @@ export default function KaraokePlayer({
   useEffect(() => {
     setCurrentSong(song);
     setIsSongEnded(false);
+    setShowQuickDrawer(false);
     setHasAwardedStars(false);
     openTimeRef.current = Date.now();
   }, [song]);
@@ -161,11 +165,25 @@ export default function KaraokePlayer({
     if (nextS) {
       setCurrentSong(nextS);
       setIsSongEnded(false);
+      setShowQuickDrawer(false);
       setIframeKey((prev) => prev + 1);
       setHasAwardedStars(false);
       openTimeRef.current = Date.now();
       onSelectSong?.(nextS);
     }
+  };
+
+  const handleRandomSongSurprise = () => {
+    const all = [...songsEn, ...songsVi].filter((s) => s.id !== currentSong.id);
+    if (all.length === 0) return;
+    const randomSong = all[Math.floor(Math.random() * all.length)];
+    setCurrentSong(randomSong);
+    setIsSongEnded(false);
+    setShowQuickDrawer(false);
+    setIframeKey((prev) => prev + 1);
+    setHasAwardedStars(false);
+    openTimeRef.current = Date.now();
+    onSelectSong?.(randomSong);
   };
 
   const handleReplaySong = () => {
@@ -262,24 +280,36 @@ export default function KaraokePlayer({
           </h2>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
-          {/* Next Songs Suggestions Button */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Quick Drawer Button: Gợi ý bài hát */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               playSFX("tap");
-              setIsSongEnded(!isSongEnded);
+              setShowQuickDrawer(!showQuickDrawer);
             }}
             className={`px-3 py-1.5 rounded-full border text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all shadow-md backdrop-blur-md cursor-pointer ${
-              isSongEnded
+              showQuickDrawer
                 ? "bg-purple-600 text-white border-purple-400 shadow-purple-500/40"
                 : "bg-white/20 text-white hover:bg-white/30 border-white/30"
             }`}
-            title="Xem danh sách bài hát tiếp theo cho bé"
+            title="Xem danh sách bài hát gợi ý như YouTube Kids"
           >
-            <span>🎵</span>
-            <span className="hidden sm:inline">Bài Tiếp Theo</span>
-            <span className="sm:hidden">Tiếp</span>
+            <span>🎈</span>
+            <span className="hidden sm:inline">Gợi Ý Bài Hát</span>
+            <span className="sm:hidden">Gợi Ý</span>
+          </motion.button>
+
+          {/* Random Song Surprise Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
+            onClick={handleRandomSongSurprise}
+            className="px-2.5 sm:px-3 py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 hover:bg-amber-400/30 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer shadow-sm"
+            title="Đổi sang 1 bài hát ngẫu nhiên bất ngờ"
+          >
+            <span>🎲</span>
+            <span className="hidden md:inline">Ngẫu nhiên</span>
           </motion.button>
 
           {/* Toggle Lyrics & Learning Button */}
@@ -340,6 +370,41 @@ export default function KaraokePlayer({
                     );
                   } catch {}
                 }}
+              />
+
+              {/* Floating YouTube Kids Quick Button on Song */}
+              {!showQuickDrawer && !isSongEnded && (
+                <motion.button
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.94 }}
+                  onClick={() => {
+                    playSFX("pop");
+                    setShowQuickDrawer(true);
+                  }}
+                  className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-950/85 hover:bg-slate-900 text-white border border-white/25 backdrop-blur-md text-xs font-bold flex items-center gap-2 shadow-2xl cursor-pointer"
+                  title="Bấm để mở danh sách bài hát gợi ý như YouTube Kids"
+                >
+                  <span className="text-base sm:text-lg animate-bounce">🎈</span>
+                  <span className="hidden sm:inline">Bấm chọn bài hát khác</span>
+                  <span className="sm:hidden">Bài khác</span>
+                  <span className="text-amber-300 text-[10px] sm:text-[11px] bg-amber-400/20 px-1.5 py-0.5 rounded-full font-black">
+                    🎲 Gợi ý
+                  </span>
+                </motion.button>
+              )}
+
+              {/* YouTube Kids In-Video Recommendation Drawer */}
+              <YouTubeKidsVideoDrawer
+                isOpen={showQuickDrawer}
+                onClose={() => setShowQuickDrawer(false)}
+                recommendations={songRecommendations}
+                onSelect={handleSelectNextSong}
+                onRefresh={handleRefreshSongRecommendations}
+                isAutoPlayNext={isAutoPlayNext}
+                onToggleAutoPlayNext={() => setIsAutoPlayNext(!isAutoPlayNext)}
+                onRandomSurprise={handleRandomSongSurprise}
               />
 
               {/* In-App Recommendation End Screen Overlay for YouTube Song */}
