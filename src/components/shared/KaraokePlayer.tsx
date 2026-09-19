@@ -29,6 +29,7 @@ export default function KaraokePlayer({
   const [isSongEnded, setIsSongEnded] = useState(false);
   const [iframeKey, setIframeKey] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const openTimeRef = useRef<number>(Date.now());
 
   useEffect(() => {
@@ -38,25 +39,112 @@ export default function KaraokePlayer({
     openTimeRef.current = Date.now();
   }, [song]);
 
-  // Listen for YouTube Iframe player state change via postMessage
+  // Randomized 6 song recommendations
+  const [songRecommendations, setSongRecommendations] = useState<RecommendedItem[]>(() =>
+    getRecommendedSongs(currentSong, 6).map((s) => ({
+      id: s.id,
+      title: s.title,
+      thumbnail: s.youtubeId
+        ? `https://img.youtube.com/vi/${s.youtubeId}/hqdefault.jpg`
+        : "/images/karaoke-thumb.jpg",
+      channelOrArtist: songsEn.some((en) => en.id === s.id) ? "English Song" : "Bài Hát Việt",
+      avatarOrEmoji: s.emoji,
+      duration: `${s.lyrics.length} câu`,
+      categoryName: "Karaoke Thiếu Nhi",
+    }))
+  );
+
   useEffect(() => {
+    setSongRecommendations(
+      getRecommendedSongs(currentSong, 6).map((s) => ({
+        id: s.id,
+        title: s.title,
+        thumbnail: s.youtubeId
+          ? `https://img.youtube.com/vi/${s.youtubeId}/hqdefault.jpg`
+          : "/images/karaoke-thumb.jpg",
+        channelOrArtist: songsEn.some((en) => en.id === s.id) ? "English Song" : "Bài Hát Việt",
+        avatarOrEmoji: s.emoji,
+        duration: `${s.lyrics.length} câu`,
+        categoryName: "Karaoke Thiếu Nhi",
+      }))
+    );
+  }, [currentSong]);
+
+  const handleRefreshSongRecommendations = () => {
+    setSongRecommendations(
+      getRecommendedSongs(currentSong, 6).map((s) => ({
+        id: s.id,
+        title: s.title,
+        thumbnail: s.youtubeId
+          ? `https://img.youtube.com/vi/${s.youtubeId}/hqdefault.jpg`
+          : "/images/karaoke-thumb.jpg",
+        channelOrArtist: songsEn.some((en) => en.id === s.id) ? "English Song" : "Bài Hát Việt",
+        avatarOrEmoji: s.emoji,
+        duration: `${s.lyrics.length} câu`,
+        categoryName: "Karaoke Thiếu Nhi",
+      }))
+    );
+  };
+
+  // Continuous Handshake & Message Listener for YouTube Iframe Player
+  useEffect(() => {
+    const sendHandshake = () => {
+      try {
+        if (iframeRef.current?.contentWindow) {
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({ event: "listening", id: 1, channel: "widget" }),
+            "*"
+          );
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"] }),
+            "*"
+          );
+        }
+      } catch {}
+    };
+
+    sendHandshake();
+    const interval = setInterval(sendHandshake, 1200);
+    const stopTimer = setTimeout(() => clearInterval(interval), 15000);
+
     const handleMessage = (e: MessageEvent) => {
       try {
-        const data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+        let data = e.data;
+        if (typeof data === "string") {
+          try {
+            data = JSON.parse(data);
+          } catch {
+            return;
+          }
+        }
+        if (!data) return;
+
+        // 1. onStateChange === 0
         if (
-          (data?.event === "onStateChange" && data?.info === 0) ||
-          (data?.event === "infoDelivery" && data?.info?.playerState === 0)
+          (data.event === "onStateChange" && (data.info === 0 || data.info === "0")) ||
+          (data.event === "infoDelivery" && (data.info?.playerState === 0 || data.info?.playerState === "0"))
         ) {
           handleSongFinished();
         }
-      } catch {
-        // ignore non-JSON messages
-      }
+
+        // 2. Near-end detection
+        if (data.event === "infoDelivery" && data.info) {
+          const ct = data.info.currentTime;
+          const dur = data.info.duration;
+          if (typeof ct === "number" && typeof dur === "number" && dur > 5 && ct >= dur - 1.5) {
+            handleSongFinished();
+          }
+        }
+      } catch {}
     };
 
     window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [hasAwardedStars]);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(stopTimer);
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [iframeKey, currentSong.id]);
 
   const handleSongFinished = () => {
     if (!hasAwardedStars) {
@@ -142,18 +230,6 @@ export default function KaraokePlayer({
 
   const hasLyrics = currentSong.lyrics && currentSong.lyrics.length > 0;
   const hasVocab = currentSong.keyVocab && currentSong.keyVocab.length > 0;
-
-  const songRecommendations: RecommendedItem[] = getRecommendedSongs(currentSong, 3).map((s) => ({
-    id: s.id,
-    title: s.title,
-    thumbnail: s.youtubeId
-      ? `https://img.youtube.com/vi/${s.youtubeId}/hqdefault.jpg`
-      : "",
-    channelOrArtist: songsEn.some((en) => en.id === s.id) ? "English Song" : "Bài Hát Việt",
-    avatarOrEmoji: s.emoji,
-    duration: `${s.lyrics.length} câu`,
-    categoryName: "Karaoke Thiếu Nhi",
-  }));
 
   return (
     <motion.div
@@ -245,12 +321,25 @@ export default function KaraokePlayer({
           <div className={`w-full h-full transition-all duration-300 flex items-center justify-center ${showLyricsPanel ? "md:w-3/5 lg:w-2/3" : "max-w-6xl mx-auto"}`}>
             <div className="w-full h-full max-h-[85vh] relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-black">
               <iframe
+                ref={iframeRef}
                 key={`${currentSong.id}-${iframeKey}`}
-                src={`https://www.youtube.com/embed/${currentSong.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1&enablejsapi=1`}
+                src={`https://www.youtube.com/embed/${currentSong.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1&enablejsapi=1&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`}
                 title={currentSong.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full border-0"
+                onLoad={() => {
+                  try {
+                    iframeRef.current?.contentWindow?.postMessage(
+                      JSON.stringify({ event: "listening", id: 1, channel: "widget" }),
+                      "*"
+                    );
+                    iframeRef.current?.contentWindow?.postMessage(
+                      JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"] }),
+                      "*"
+                    );
+                  } catch {}
+                }}
               />
 
               {/* In-App Recommendation End Screen Overlay for YouTube Song */}
@@ -262,6 +351,7 @@ export default function KaraokePlayer({
                     onSelect={handleSelectNextSong}
                     onReplay={handleReplaySong}
                     onClose={handleClose}
+                    onRefresh={handleRefreshSongRecommendations}
                   />
                 )}
               </AnimatePresence>
@@ -279,6 +369,7 @@ export default function KaraokePlayer({
                 onSelect={handleSelectNextSong}
                 onReplay={handleReplaySong}
                 onClose={handleClose}
+                onRefresh={handleRefreshSongRecommendations}
               />
             )}
           </AnimatePresence>

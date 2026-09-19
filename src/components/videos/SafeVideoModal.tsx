@@ -43,6 +43,7 @@ export default function SafeVideoModal({
   const [isVideoEnded, setIsVideoEnded] = useState(false);
   const [iframeKey, setIframeKey] = useState(0);
   const openTimeRef = useRef<number>(Date.now());
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   // Sync state if video prop changes
   useEffect(() => {
@@ -65,25 +66,46 @@ export default function SafeVideoModal({
     return () => clearTimeout(timer);
   }, [addStars, hasAwardedStars, currentVideo.id]);
 
-  // Listen for YouTube Iframe player state change via postMessage
-  useEffect(() => {
-    const handleMessage = (e: MessageEvent) => {
-      try {
-        const data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
-        if (
-          (data?.event === "onStateChange" && data?.info === 0) ||
-          (data?.event === "infoDelivery" && data?.info?.playerState === 0)
-        ) {
-          handleVideoFinished();
-        }
-      } catch {
-        // ignore non-JSON messages
-      }
-    };
+  // Randomized 6 recommendations like YouTube Kids
+  const [recommendations, setRecommendations] = useState<RecommendedItem[]>(() =>
+    getRecommendedVideos(currentVideo, 6).map((v) => ({
+      id: v.id,
+      title: v.title,
+      thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
+      channelOrArtist: v.channel,
+      avatarOrEmoji: v.channelAvatar,
+      duration: v.duration,
+      categoryName: v.categoryNameVi,
+    }))
+  );
 
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
-  }, [hasAwardedStars]);
+  useEffect(() => {
+    setRecommendations(
+      getRecommendedVideos(currentVideo, 6).map((v) => ({
+        id: v.id,
+        title: v.title,
+        thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
+        channelOrArtist: v.channel,
+        avatarOrEmoji: v.channelAvatar,
+        duration: v.duration,
+        categoryName: v.categoryNameVi,
+      }))
+    );
+  }, [currentVideo]);
+
+  const handleRefreshRecommendations = () => {
+    setRecommendations(
+      getRecommendedVideos(currentVideo, 6).map((v) => ({
+        id: v.id,
+        title: v.title,
+        thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
+        channelOrArtist: v.channel,
+        avatarOrEmoji: v.channelAvatar,
+        duration: v.duration,
+        categoryName: v.categoryNameVi,
+      }))
+    );
+  };
 
   const handleVideoFinished = () => {
     if (!hasAwardedStars) {
@@ -137,15 +159,68 @@ export default function SafeVideoModal({
     setIsLocked(!isLocked);
   };
 
-  const recommendations: RecommendedItem[] = getRecommendedVideos(currentVideo, 3).map((v) => ({
-    id: v.id,
-    title: v.title,
-    thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
-    channelOrArtist: v.channel,
-    avatarOrEmoji: v.channelAvatar,
-    duration: v.duration,
-    categoryName: v.categoryNameVi,
-  }));
+  // Continuous Handshake & Message Listener for YouTube Iframe Player
+  useEffect(() => {
+    // Handshake: Required by YouTube to start streaming postMessage events
+    const sendHandshake = () => {
+      try {
+        if (iframeRef.current?.contentWindow) {
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({ event: "listening", id: 1, channel: "widget" }),
+            "*"
+          );
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"] }),
+            "*"
+          );
+        }
+      } catch {}
+    };
+
+    sendHandshake();
+    const interval = setInterval(sendHandshake, 1200);
+    const stopTimer = setTimeout(() => clearInterval(interval), 15000);
+
+    const handleMessage = (e: MessageEvent) => {
+      try {
+        let data = e.data;
+        if (typeof data === "string") {
+          try {
+            data = JSON.parse(data);
+          } catch {
+            return;
+          }
+        }
+        if (!data) return;
+
+        // 1. Direct onStateChange === 0 (YT.PlayerState.ENDED)
+        if (
+          (data.event === "onStateChange" && (data.info === 0 || data.info === "0")) ||
+          (data.event === "infoDelivery" && (data.info?.playerState === 0 || data.info?.playerState === "0"))
+        ) {
+          handleVideoFinished();
+        }
+
+        // 2. Near-end detection via infoDelivery (catches 1:00:20 / 1:00:21)
+        if (data.event === "infoDelivery" && data.info) {
+          const ct = data.info.currentTime;
+          const dur = data.info.duration;
+          if (typeof ct === "number" && typeof dur === "number" && dur > 5 && ct >= dur - 1.5) {
+            handleVideoFinished();
+          }
+        }
+      } catch {
+        // ignore non-JSON messages
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(stopTimer);
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [iframeKey, currentVideo.id]);
 
   return (
     <motion.div
@@ -277,12 +352,25 @@ export default function SafeVideoModal({
         >
           <div className="w-full h-full relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/15 bg-black">
             <iframe
+              ref={iframeRef}
               key={`${currentVideo.id}-${iframeKey}`}
-              src={`https://www.youtube.com/embed/${currentVideo.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1`}
+              src={`https://www.youtube.com/embed/${currentVideo.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`}
               title={currentVideo.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               className="absolute inset-0 w-full h-full border-0"
+              onLoad={() => {
+                try {
+                  iframeRef.current?.contentWindow?.postMessage(
+                    JSON.stringify({ event: "listening", id: 1, channel: "widget" }),
+                    "*"
+                  );
+                  iframeRef.current?.contentWindow?.postMessage(
+                    JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"] }),
+                    "*"
+                  );
+                } catch {}
+              }}
             />
 
             {/* In-App Recommendation End Screen Overlay */}
@@ -294,6 +382,7 @@ export default function SafeVideoModal({
                   onSelect={handleSelectNextVideo}
                   onReplay={handleReplay}
                   onClose={handleClose}
+                  onRefresh={handleRefreshRecommendations}
                 />
               )}
             </AnimatePresence>

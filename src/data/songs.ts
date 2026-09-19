@@ -36,19 +36,34 @@ import songsViData from "./songs-vi.json";
 export const songsEn: Song[] = songsEnData as Song[];
 export const songsVi: Song[] = songsViData as Song[];
 
-export function getRecommendedSongs(currentSong: Song, count = 3): Song[] {
+export function getRecommendedSongs(currentSong: Song, count = 6): Song[] {
   const isEn = songsEn.some((s) => s.id === currentSong.id);
-  const pool = isEn ? songsEn : songsVi;
-  const currentIndex = pool.findIndex((s) => s.id === currentSong.id);
+  const primaryPool = isEn ? songsEn : songsVi;
+  const secondaryPool = isEn ? songsVi : songsEn;
 
-  const recommendations: Song[] = [];
-  for (let i = 1; i < pool.length && recommendations.length < count; i++) {
-    const nextSong = pool[(currentIndex + i) % pool.length];
-    if (nextSong.id !== currentSong.id) {
-      recommendations.push(nextSong);
+  const shuffle = <T>(arr: T[]): T[] => {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
     }
+    return copy;
+  };
+
+  const sameLang = shuffle(primaryPool.filter((s) => s.id !== currentSong.id));
+  const otherLang = shuffle(secondaryPool);
+
+  const picks: Song[] = [];
+  for (const s of sameLang) {
+    if (picks.length >= count - 2) break;
+    picks.push(s);
   }
-  return recommendations;
+  for (const s of otherLang) {
+    if (picks.length >= count) break;
+    picks.push(s);
+  }
+  return picks.slice(0, count);
 }
+
 
 

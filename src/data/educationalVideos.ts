@@ -5604,16 +5604,53 @@ export const educationalVideos: EducationalVideo[] = [
 
 ];
 
-export function getRecommendedVideos(currentVideo: EducationalVideo, count = 3): EducationalVideo[] {
+export function getRecommendedVideos(currentVideo: EducationalVideo, count = 6): EducationalVideo[] {
   const others = educationalVideos.filter((v) => v.id !== currentVideo.id);
-  const sameChannel = others.filter((v) => v.channel === currentVideo.channel);
-  const sameCategory = others.filter(
-    (v) => v.category === currentVideo.category && v.channel !== currentVideo.channel
+
+  // Fisher-Yates shuffle helper
+  const shuffle = <T>(arr: T[]): T[] => {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  };
+
+  const sameChannel = shuffle(others.filter((v) => v.channel === currentVideo.channel));
+  const sameCategory = shuffle(
+    others.filter((v) => v.category === currentVideo.category && v.channel !== currentVideo.channel)
   );
-  const different = others.filter(
-    (v) => v.channel !== currentVideo.channel && v.category !== currentVideo.category
+  const safariVideos = shuffle(
+    others.filter((v) => v.channel === "Wild Safari" && v.channel !== currentVideo.channel)
+  );
+  const diverseVideos = shuffle(
+    others.filter((v) => v.channel !== currentVideo.channel && v.category !== currentVideo.category)
   );
 
-  const combined = [...sameChannel, ...sameCategory, ...different];
-  return combined.slice(0, count);
+  const picks: EducationalVideo[] = [];
+  const addUnique = (list: EducationalVideo[]) => {
+    for (const item of list) {
+      if (picks.length >= count) break;
+      if (!picks.some((p) => p.id === item.id)) {
+        picks.push(item);
+      }
+    }
+  };
+
+  // 2 videos from same channel or category
+  addUnique(sameChannel.slice(0, 2));
+  addUnique(sameCategory.slice(0, 2));
+
+  // 1-2 videos from Safari real wildlife if not already watching Safari
+  if (currentVideo.channel !== "Wild Safari") {
+    addUnique(safariVideos.slice(0, 1));
+  }
+
+  // Diverse top picks across the library
+  addUnique(diverseVideos);
+  addUnique(shuffle(others));
+
+  return picks.slice(0, count);
 }
+
