@@ -53,6 +53,12 @@ function VideosContent() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [activeEduVideo, setActiveEduVideo] = useState<EducationalVideo | null>(null);
   const [activeSong, setActiveSong] = useState<Song | null>(null);
+  const [visibleEduCount, setVisibleEduCount] = useState(24);
+
+  // Reset pagination when channel, category or search query changes
+  useEffect(() => {
+    setVisibleEduCount(24);
+  }, [selectedChannel, selectedEduCategory, searchQuery, activeTab]);
 
   // Sync tab if URL param changes
   useEffect(() => {
@@ -792,17 +798,41 @@ function VideosContent() {
                     </button>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredEduVideos.map((video) => (
-                      <EduVideoCard
-                        key={video.id}
-                        video={video}
-                        isFavorite={favorites.includes(video.id)}
-                        onToggleFavorite={() => toggleFavorite(video.id)}
-                        onSelect={() => setActiveEduVideo(video)}
-                      />
-                    ))}
-                  </div>
+                  <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {filteredEduVideos.slice(0, visibleEduCount).map((video) => (
+                        <EduVideoCard
+                          key={video.id}
+                          video={video}
+                          isFavorite={favorites.includes(video.id)}
+                          onToggleFavorite={() => toggleFavorite(video.id)}
+                          onSelect={() => setActiveEduVideo(video)}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Load More Button - Reduces DOM & VRAM Load for Cool Tablet Experience */}
+                    {visibleEduCount < filteredEduVideos.length && (
+                      <div className="mt-8 flex flex-col items-center justify-center">
+                        <button
+                          onClick={() => {
+                            playSFX("tap");
+                            setVisibleEduCount((prev) => prev + 24);
+                          }}
+                          className="btn-3d btn-3d-primary px-6 py-3 text-sm font-extrabold flex items-center gap-2 shadow-lg"
+                        >
+                          <span>Xem thêm 24 video nữa</span>
+                          <span className="bg-white/25 px-2 py-0.5 rounded-full text-xs">
+                            (còn {filteredEduVideos.length - visibleEduCount} video)
+                          </span>
+                          <ChevronRight size={16} />
+                        </button>
+                        <p className="text-xs text-gray-500 mt-2 font-medium">
+                          Đang hiển thị {Math.min(visibleEduCount, filteredEduVideos.length)} / {filteredEduVideos.length} video (tối ưu mượt và mát máy cho bé)
+                        </p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -982,11 +1012,8 @@ function EduVideoCard({
   const [imgFailed, setImgFailed] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -3 }}
-      className="glass-card p-3 sm:p-4 flex flex-col justify-between hover:border-cyan-300 transition-all group shadow-md hover:shadow-xl rounded-3xl relative overflow-hidden bg-white/95"
+    <div
+      className="p-3 sm:p-4 flex flex-col justify-between hover:border-cyan-300 transition-all group shadow-md hover:shadow-xl rounded-3xl relative overflow-hidden bg-white border border-slate-100"
     >
       <div>
         {/* Card Top: Channel & Favorite */}
@@ -1051,12 +1078,12 @@ function EduVideoCard({
 
           {/* Top Badges */}
           <div className="relative z-10 flex items-center justify-between">
-            <span className="text-[10px] font-bold text-white px-2 py-0.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 flex items-center gap-1">
+            <span className="text-[10px] font-bold text-white px-2 py-0.5 rounded-lg bg-black/80 border border-white/20 flex items-center gap-1 shadow-sm">
               <span>{video.categoryEmoji}</span>
               <span>{video.categoryNameVi}</span>
             </span>
 
-            <span className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-lg bg-black/60 backdrop-blur-md flex items-center gap-1">
+            <span className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-lg bg-black/80 flex items-center gap-1 shadow-sm">
               <Clock size={11} />
               <span>{video.duration}</span>
             </span>
@@ -1071,11 +1098,11 @@ function EduVideoCard({
 
           {/* Bottom Badges */}
           <div className="relative z-10 flex items-center justify-between text-white/90 text-[10px]">
-            <span className="font-bold text-yellow-300 flex items-center gap-1">
+            <span className="font-bold text-yellow-300 flex items-center gap-1 drop-shadow">
               <Sparkles size={11} />
               Nhận +5 ⭐
             </span>
-            <span className="font-bold bg-white/20 px-2 py-0.5 rounded-md backdrop-blur-md">
+            <span className="font-bold bg-black/60 text-cyan-300 px-2 py-0.5 rounded-md border border-cyan-400/30">
               Xem an toàn ›
             </span>
           </div>
@@ -1120,7 +1147,7 @@ function EduVideoCard({
           <span>Học ngay ›</span>
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -1143,11 +1170,8 @@ function SongVideoCard({
     : "";
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -3 }}
-      className="glass-card p-3 sm:p-4 flex flex-col justify-between hover:border-purple-300 transition-all group shadow-md hover:shadow-xl rounded-3xl relative overflow-hidden bg-white/95"
+    <div
+      className="p-3 sm:p-4 flex flex-col justify-between hover:border-purple-300 transition-all group shadow-md hover:shadow-xl rounded-3xl relative overflow-hidden bg-white border border-slate-100"
     >
       <div>
         {/* Card Top: Song Category & Favorite */}
@@ -1207,12 +1231,12 @@ function SongVideoCard({
 
           {/* Top Badges */}
           <div className="relative z-10 flex items-center justify-between">
-            <span className="text-[10px] font-bold text-white px-2 py-0.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 flex items-center gap-1">
+            <span className="text-[10px] font-bold text-white px-2 py-0.5 rounded-lg bg-black/80 border border-white/20 flex items-center gap-1 shadow-sm">
               <span>🎵</span>
               <span>Có Lyric & Lời dịch</span>
             </span>
 
-            <span className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-lg bg-black/60 backdrop-blur-md flex items-center gap-1">
+            <span className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-lg bg-black/80 flex items-center gap-1 shadow-sm">
               <span>{song.lyrics.length} câu</span>
             </span>
           </div>
@@ -1229,11 +1253,11 @@ function SongVideoCard({
 
           {/* Bottom Badges */}
           <div className="relative z-10 flex items-center justify-between text-white/90 text-[10px]">
-            <span className="font-bold text-yellow-300 flex items-center gap-1">
+            <span className="font-bold text-yellow-300 flex items-center gap-1 drop-shadow">
               <Sparkles size={11} />
               Nhận +5 ⭐
             </span>
-            <span className="font-bold bg-white/20 px-2 py-0.5 rounded-md backdrop-blur-md">
+            <span className="font-bold bg-black/60 text-purple-300 px-2 py-0.5 rounded-md border border-purple-400/30">
               Hát cùng bé ›
             </span>
           </div>
@@ -1284,7 +1308,7 @@ function SongVideoCard({
           <span>Hát ngay ›</span>
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

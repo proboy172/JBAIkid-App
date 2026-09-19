@@ -272,10 +272,13 @@ body {
 
 .cloud {
   position: fixed;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.45);
   border-radius: 50px;
-  filter: blur(1px);
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.6);
   z-index: 0;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 .cloud-1 {
@@ -358,6 +361,30 @@ body:has(#karaoke-player-modal) .bottom-nav {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
+}
+
+/* Pause background animations when watching video or singing to save GPU/battery */
+body.video-modal-open .cloud,
+body:has(#safe-video-modal) .cloud,
+body:has(#karaoke-player-modal) .cloud {
+  animation-play-state: paused !important;
+}
+
+/* ===== COOL TABLET & BATTERY SAVER ECO MODE ===== */
+body.eco-mode *,
+body.eco-mode *::before,
+body.eco-mode *::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.eco-mode .cloud {
+  display: none !important;
+}
+
+body.eco-mode .animate-bounce,
+body.eco-mode .animate-pulse {
+  animation: none !important;
 }
 
 /* ===== FLASH CARD ===== */

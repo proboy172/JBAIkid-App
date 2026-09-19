@@ -25,7 +25,8 @@ export default function ParentPage() {
     learnedWords, streak, totalStars, quizHighScore, resetProgress, 
     screenTimeLimit, setScreenTimeLimit, dailyPlayTime, resetDailyPlayTime,
     aiApiKeys, addApiKey, removeApiKey,
-    getWeeklyStudyStats, clearTempCache, getDueWords, srsCards
+    getWeeklyStudyStats, clearTempCache, getDueWords, srsCards,
+    ecoMode, toggleEcoMode
   } = useAppStore();
   const [showReset, setShowReset] = useState(false);
   const [newApiKey, setNewApiKey] = useState("");
@@ -449,6 +450,42 @@ export default function ParentPage() {
                   🔄 Đặt lại về 0 phút
                 </button>
               </div>
+            </div>
+
+            {/* Cool Tablet & Battery Saver Eco Mode */}
+            <div className="mb-6 p-4 rounded-2xl bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-200">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-sky-500 text-white flex items-center justify-center text-lg shadow-sm">
+                    ❄️
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-slate-800">Chế độ Máy Mát & Tiết Kiệm Pin</h4>
+                    <p className="text-[11px] text-slate-500">Tắt hiệu ứng kính mờ nặng, giảm tải GPU giúp máy tính bảng mát rượi và dùng lâu</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    playSFX("tap");
+                    toggleEcoMode();
+                  }}
+                  className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+                    ecoMode ? "bg-emerald-500" : "bg-gray-300"
+                  }`}
+                >
+                  <span
+                    className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                      ecoMode ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </button>
+              </div>
+              {ecoMode && (
+                <p className="text-[11px] font-bold text-emerald-700 mt-2 bg-emerald-100/70 px-2.5 py-1 rounded-lg">
+                  ✓ Đang bật chế độ siêu mát. Ứng dụng đã loại bỏ toàn bộ hiệu ứng blur nặng để bảo vệ thiết bị.
+                </p>
+              )}
             </div>
 
             {/* AI API Keys Config */}

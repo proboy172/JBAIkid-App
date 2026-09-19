@@ -15,9 +15,16 @@ const generateMathProblem = () => {
 
 export default function TimeTracker() {
   const pathname = usePathname();
-  const { dailyPlayTime, screenTimeLimit, addPlayTime, resetDailyPlayTime, setScreenTimeLimit } = useAppStore();
+  const { dailyPlayTime, screenTimeLimit, addPlayTime, resetDailyPlayTime, setScreenTimeLimit, ecoMode } = useAppStore();
   const [isLocked, setIsLocked] = useState(false);
   const bufferedSecondsRef = useRef(0);
+
+  // Sync Cool Tablet & Battery Saver Eco Mode with document body
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.classList.toggle("eco-mode", Boolean(ecoMode));
+    }
+  }, [ecoMode]);
   
   // For parent override
   const [showOverride, setShowOverride] = useState(false);

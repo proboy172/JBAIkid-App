@@ -213,8 +213,6 @@ export default function TracingPage() {
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.strokeStyle = currentItem.color;
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = currentItem.color;
 
     const points = drawnPointsRef.current;
     if (points.length >= 2) {

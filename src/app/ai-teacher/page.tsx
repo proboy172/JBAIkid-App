@@ -111,11 +111,12 @@ export default function AITeacherPage() {
     return `${m}:${s}`;
   };
 
-  // Webcam PiP Setup
+  // Webcam PiP Setup - Only activate camera when student has joined to save battery & keep device cool
   useEffect(() => {
+    if (!hasJoined) return;
     let stream: MediaStream | null = null;
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 480 }, height: { ideal: 360 } }, audio: false })
         .then(s => {
           stream = s;
           if (localVideoRef.current) {
@@ -129,7 +130,7 @@ export default function AITeacherPage() {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-  }, []);
+  }, [hasJoined]);
 
   // Pre-fetch filler phrases for zero-latency removed for client-side simplification
   // We will use native SpeechSynthesis which is instantaneous anyway, or fetch on demand.

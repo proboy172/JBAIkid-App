@@ -115,6 +115,10 @@ interface ProgressState {
   // 100% English Immersion Mode
   immersionMode: boolean;
   toggleImmersionMode: () => void;
+
+  // Cool Tablet & Battery Saver Eco Mode
+  ecoMode: boolean;
+  toggleEcoMode: () => void;
 }
 
 const getTodayStr = () => new Date().toISOString().split("T")[0];
@@ -176,6 +180,7 @@ export const useAppStore = create<ProgressState>()(
       dailyWordsLearned: {},
       hasClaimedDailyChest: {},
       immersionMode: false,
+      ecoMode: false,
 
       toggleBgm: () => {
         set({ bgmEnabled: !get().bgmEnabled });
@@ -183,6 +188,14 @@ export const useAppStore = create<ProgressState>()(
 
       toggleImmersionMode: () => {
         set({ immersionMode: !get().immersionMode });
+      },
+
+      toggleEcoMode: () => {
+        const next = !get().ecoMode;
+        set({ ecoMode: next });
+        if (typeof document !== "undefined") {
+          document.body.classList.toggle("eco-mode", next);
+        }
       },
 
       unlockBadge: (badgeId) => {

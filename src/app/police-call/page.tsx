@@ -85,10 +85,12 @@ export default function PoliceCallPage() {
     return `${m}:${s}`;
   };
 
+  // Webcam PiP Setup - Only activate camera when call starts to save battery & keep device cool
   useEffect(() => {
+    if (!hasJoined) return;
     let stream: MediaStream | null = null;
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 480 }, height: { ideal: 360 } }, audio: false })
         .then(s => {
           stream = s;
           if (localVideoRef.current) {
@@ -100,7 +102,7 @@ export default function PoliceCallPage() {
     return () => {
       if (stream) stream.getTracks().forEach(track => track.stop());
     };
-  }, []);
+  }, [hasJoined]);
 
   useEffect(() => {
     if (!lastAIResponse || transcript) {
