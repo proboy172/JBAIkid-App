@@ -36,3 +36,19 @@ import songsViData from "./songs-vi.json";
 export const songsEn: Song[] = songsEnData as Song[];
 export const songsVi: Song[] = songsViData as Song[];
 
+export function getRecommendedSongs(currentSong: Song, count = 3): Song[] {
+  const isEn = songsEn.some((s) => s.id === currentSong.id);
+  const pool = isEn ? songsEn : songsVi;
+  const currentIndex = pool.findIndex((s) => s.id === currentSong.id);
+
+  const recommendations: Song[] = [];
+  for (let i = 1; i < pool.length && recommendations.length < count; i++) {
+    const nextSong = pool[(currentIndex + i) % pool.length];
+    if (nextSong.id !== currentSong.id) {
+      recommendations.push(nextSong);
+    }
+  }
+  return recommendations;
+}
+
+

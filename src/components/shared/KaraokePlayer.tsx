@@ -1,28 +1,101 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Play, Pause, RotateCcw, BookOpen, Volume2, Languages, Sparkles } from "lucide-react";
-import { Song } from "@/data/songs";
+import { Song, songsEn, songsVi, getRecommendedSongs } from "@/data/songs";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX } from "@/utils/soundEffects";
 import { useSpeech } from "@/hooks/useSpeech";
+import VideoEndRecommendation, { RecommendedItem } from "@/components/videos/VideoEndRecommendation";
 
-export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: () => void }) {
+export default function KaraokePlayer({
+  song,
+  onClose,
+  onSelectSong,
+}: {
+  song: Song;
+  onClose: () => void;
+  onSelectSong?: (newSong: Song) => void;
+}) {
   const { addStars } = useAppStore();
   const { speak } = useSpeech();
+  const [currentSong, setCurrentSong] = useState<Song>(song);
   const [hasAwardedStars, setHasAwardedStars] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [showLyricsPanel, setShowLyricsPanel] = useState(false);
   const [showTranslation, setShowTranslation] = useState(true);
+  const [isSongEnded, setIsSongEnded] = useState(false);
+  const [iframeKey, setIframeKey] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const openTimeRef = useRef<number>(Date.now());
+
+  useEffect(() => {
+    setCurrentSong(song);
+    setIsSongEnded(false);
+    setHasAwardedStars(false);
+    openTimeRef.current = Date.now();
+  }, [song]);
+
+  // Listen for YouTube Iframe player state change via postMessage
+  useEffect(() => {
+    const handleMessage = (e: MessageEvent) => {
+      try {
+        const data = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
+        if (
+          (data?.event === "onStateChange" && data?.info === 0) ||
+          (data?.event === "infoDelivery" && data?.info?.playerState === 0)
+        ) {
+          handleSongFinished();
+        }
+      } catch {
+        // ignore non-JSON messages
+      }
+    };
+
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, [hasAwardedStars]);
+
+  const handleSongFinished = () => {
+    if (!hasAwardedStars) {
+      addStars(5);
+      setHasAwardedStars(true);
+      playSFX("star");
+    }
+    setIsSongEnded(true);
+  };
+
+  const handleSelectNextSong = (nextId: string) => {
+    const all = [...songsEn, ...songsVi];
+    const nextS = all.find((s) => s.id === nextId);
+    if (nextS) {
+      setCurrentSong(nextS);
+      setIsSongEnded(false);
+      setIframeKey((prev) => prev + 1);
+      setHasAwardedStars(false);
+      openTimeRef.current = Date.now();
+      onSelectSong?.(nextS);
+    }
+  };
+
+  const handleReplaySong = () => {
+    setIsSongEnded(false);
+    if (currentSong.localVideo && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      setIframeKey((prev) => prev + 1);
+    }
+    openTimeRef.current = Date.now();
+  };
 
   const handleClose = () => {
     playSFX("tap");
     const elapsedSeconds = (Date.now() - openTimeRef.current) / 1000;
-    const qualified = (song.localVideo && currentTime >= 15) || (!song.localVideo && elapsedSeconds >= 15);
+    const qualified = (currentSong.localVideo && currentTime >= 15) || (!currentSong.localVideo && elapsedSeconds >= 15);
     if (!hasAwardedStars && qualified) {
       addStars(5);
       setHasAwardedStars(true);
@@ -67,8 +140,20 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
     speak(word, "en-US", 0.8);
   };
 
-  const hasLyrics = song.lyrics && song.lyrics.length > 0;
-  const hasVocab = song.keyVocab && song.keyVocab.length > 0;
+  const hasLyrics = currentSong.lyrics && currentSong.lyrics.length > 0;
+  const hasVocab = currentSong.keyVocab && currentSong.keyVocab.length > 0;
+
+  const songRecommendations: RecommendedItem[] = getRecommendedSongs(currentSong, 3).map((s) => ({
+    id: s.id,
+    title: s.title,
+    thumbnail: s.youtubeId
+      ? `https://img.youtube.com/vi/${s.youtubeId}/hqdefault.jpg`
+      : "",
+    channelOrArtist: songsEn.some((en) => en.id === s.id) ? "English Song" : "Bài Hát Việt",
+    avatarOrEmoji: s.emoji,
+    duration: `${s.lyrics.length} câu`,
+    categoryName: "Karaoke Thiếu Nhi",
+  }));
 
   return (
     <motion.div
@@ -78,15 +163,15 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
       className="fixed inset-0 z-[1000] bg-black overflow-hidden flex flex-col"
     >
       {/* Background Video - Full screen (if local file) */}
-      {song.localVideo && (
+      {currentSong.localVideo && (
         <div className="absolute inset-0 z-0 bg-black">
           <video
             ref={videoRef}
-            src={song.localVideo}
+            src={currentSong.localVideo}
             autoPlay
             playsInline
             onTimeUpdate={handleTimeUpdate}
-            onEnded={handleClose}
+            onEnded={handleSongFinished}
             className="w-full h-full object-contain"
           />
         </div>
@@ -95,13 +180,32 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
       {/* Top Bar Header */}
       <div className="absolute top-0 inset-x-0 z-30 flex items-center justify-between px-4 sm:px-6 pt-[max(env(safe-area-inset-top),24px)] pb-3 bg-gradient-to-b from-black/85 via-black/50 to-transparent pointer-events-auto">
         <div className="flex items-center gap-2 min-w-0 pr-2">
-          <span className="text-2xl sm:text-3xl shrink-0">{song.emoji}</span>
+          <span className="text-2xl sm:text-3xl shrink-0">{currentSong.emoji}</span>
           <h2 className="text-white text-base sm:text-xl font-bold truncate drop-shadow-md" style={{ fontFamily: "var(--font-heading)" }}>
-            {song.title}
+            {currentSong.title}
           </h2>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
+          {/* Next Songs Suggestions Button */}
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              playSFX("tap");
+              setIsSongEnded(!isSongEnded);
+            }}
+            className={`px-3 py-1.5 rounded-full border text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all shadow-md backdrop-blur-md cursor-pointer ${
+              isSongEnded
+                ? "bg-purple-600 text-white border-purple-400 shadow-purple-500/40"
+                : "bg-white/20 text-white hover:bg-white/30 border-white/30"
+            }`}
+            title="Xem danh sách bài hát tiếp theo cho bé"
+          >
+            <span>🎵</span>
+            <span className="hidden sm:inline">Bài Tiếp Theo</span>
+            <span className="sm:hidden">Tiếp</span>
+          </motion.button>
+
           {/* Toggle Lyrics & Learning Button */}
           {hasLyrics && (
             <motion.button
@@ -137,18 +241,47 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
       <div className="flex-1 w-full h-full flex flex-col md:flex-row items-center justify-center z-10 pt-16 pb-4 px-2 sm:px-4 gap-4 overflow-hidden">
         
         {/* YouTube Embed Player (if not local) */}
-        {!song.localVideo && (
+        {!currentSong.localVideo && (
           <div className={`w-full h-full transition-all duration-300 flex items-center justify-center ${showLyricsPanel ? "md:w-3/5 lg:w-2/3" : "max-w-6xl mx-auto"}`}>
             <div className="w-full h-full max-h-[85vh] relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-black">
               <iframe
-                src={`https://www.youtube.com/embed/${song.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1`}
-                title={song.title}
+                key={`${currentSong.id}-${iframeKey}`}
+                src={`https://www.youtube.com/embed/${currentSong.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1&enablejsapi=1`}
+                title={currentSong.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="absolute inset-0 w-full h-full border-0"
               />
+
+              {/* In-App Recommendation End Screen Overlay for YouTube Song */}
+              <AnimatePresence>
+                {isSongEnded && (
+                  <VideoEndRecommendation
+                    currentTitle={currentSong.title}
+                    recommendations={songRecommendations}
+                    onSelect={handleSelectNextSong}
+                    onReplay={handleReplaySong}
+                    onClose={handleClose}
+                  />
+                )}
+              </AnimatePresence>
             </div>
           </div>
+        )}
+
+        {/* In-App Recommendation End Screen Overlay for Local Video */}
+        {currentSong.localVideo && (
+          <AnimatePresence>
+            {isSongEnded && (
+              <VideoEndRecommendation
+                currentTitle={currentSong.title}
+                recommendations={songRecommendations}
+                onSelect={handleSelectNextSong}
+                onReplay={handleReplaySong}
+                onClose={handleClose}
+              />
+            )}
+          </AnimatePresence>
         )}
 
         {/* Side Panel in Landscape (when lyrics active) */}
@@ -191,7 +324,7 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
                     <span>💡 Từ vựng quan trọng:</span>
                   </div>
                   <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto scroll-area">
-                    {song.keyVocab?.map((v, i) => (
+                    {currentSong.keyVocab?.map((v, i) => (
                       <button
                         key={i}
                         onClick={() => handleSpeakWord(v.en)}
@@ -210,7 +343,7 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
 
               {/* Scrollable Lyric Lines */}
               <div className="flex-1 overflow-y-auto scroll-area space-y-2.5 pr-1">
-                {song.lyrics.map((line, idx) => (
+                {currentSong.lyrics.map((line, idx) => (
                   <div
                     key={idx}
                     className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-colors group"
@@ -287,7 +420,7 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
             {hasVocab && (
               <div className="my-2 shrink-0 bg-white/5 p-2 rounded-xl border border-white/10">
                 <div className="flex flex-wrap gap-1 max-h-20 overflow-y-auto scroll-area">
-                  {song.keyVocab?.map((v, i) => (
+                  {currentSong.keyVocab?.map((v, i) => (
                     <button
                       key={i}
                       onClick={() => handleSpeakWord(v.en)}
@@ -305,7 +438,7 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
 
             {/* Lyrics List */}
             <div className="flex-1 overflow-y-auto scroll-area space-y-2 pt-1 pb-6 pr-1">
-              {song.lyrics.map((line, idx) => (
+              {currentSong.lyrics.map((line, idx) => (
                 <div
                   key={idx}
                   className="p-2 rounded-xl bg-white/5 border border-white/5 flex items-start justify-between gap-2"
@@ -335,7 +468,7 @@ export default function KaraokePlayer({ song, onClose }: { song: Song; onClose: 
       </AnimatePresence>
 
       {/* Local Video Controls Overlay */}
-      {song.localVideo && (
+      {currentSong.localVideo && (
         <div className="absolute bottom-0 inset-x-0 h-[25vh] z-20 flex items-end justify-between px-6 pb-6 pointer-events-none bg-gradient-to-t from-black/80 via-black/20 to-transparent">
           <div className="pointer-events-auto">
             <button

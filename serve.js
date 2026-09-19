@@ -51,7 +51,7 @@ const server = http.createServer((req, res) => {
     } else {
       res.writeHead(200, {
         "Content-Type": contentType,
-        "Cache-Control": ext === ".html" ? "no-cache" : "public, max-age=86400",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
       });
       res.end(content);
     }

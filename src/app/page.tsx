@@ -31,7 +31,7 @@ const modes = [
   },
   {
     id: "sing",
-    href: "/sing",
+    href: "/videos?tab=sing_en",
     emoji: "🎵",
     title: "Bé Ca Hát",
     titleEn: "Sing & Dance",
@@ -43,7 +43,7 @@ const modes = [
   },
   {
     id: "videos",
-    href: "/videos",
+    href: "/videos?tab=edu",
     emoji: "📺",
     title: "Video Bé Học",
     titleEn: "Learning Videos",
