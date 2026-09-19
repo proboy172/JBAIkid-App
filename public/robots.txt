@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /parent/
+Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /parent/
+Disallow: /api/
+
+User-agent: Mediapartners-Google
+Allow: /
+
+Sitemap: https://kid.jbai.vn/sitemap.xml
