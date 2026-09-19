@@ -1,8 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Play, Pause, RotateCcw, BookOpen, Volume2, Languages, Sparkles } from "lucide-react";
+import {
+  X,
+  Play,
+  Pause,
+  RotateCcw,
+  BookOpen,
+  Volume2,
+  Languages,
+  Sparkles,
+  Lock,
+  Unlock,
+  SkipBack,
+  SkipForward,
+} from "lucide-react";
 import { Song, songsEn, songsVi, getRecommendedSongs } from "@/data/songs";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX } from "@/utils/soundEffects";
@@ -31,17 +44,27 @@ export default function KaraokePlayer({
   const [showQuickDrawer, setShowQuickDrawer] = useState(false);
   const [isAutoPlayNext, setIsAutoPlayNext] = useState(true);
   const [iframeKey, setIframeKey] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
+  const [unlockTapCount, setUnlockTapCount] = useState(0);
+  const [showHUD, setShowHUD] = useState(false);
+  const [historyStack, setHistoryStack] = useState<string[]>([]);
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const openTimeRef = useRef<number>(Date.now());
+  const hudTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const unlockTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setCurrentSong(song);
     setIsSongEnded(false);
     setShowQuickDrawer(false);
+    setShowHUD(false);
     setHasAwardedStars(false);
+    setIsPlaying(true);
     openTimeRef.current = Date.now();
   }, [song]);
+
 
   // Randomized 6 song recommendations
   const [songRecommendations, setSongRecommendations] = useState<RecommendedItem[]>(() =>
@@ -150,6 +173,58 @@ export default function KaraokePlayer({
     };
   }, [iframeKey, currentSong.id]);
 
+  // HUD Auto-Hide Timer (4.5s of inactivity like YouTube Kids)
+  const resetHUDTimer = useCallback(() => {
+    if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
+    hudTimerRef.current = setTimeout(() => {
+      setShowHUD(false);
+    }, 4500);
+  }, []);
+
+  const handleOpenHUD = useCallback(() => {
+    if (isLocked || isSongEnded) return;
+    setShowHUD(true);
+    resetHUDTimer();
+  }, [isLocked, isSongEnded, resetHUDTimer]);
+
+  const handleCloseHUD = useCallback(() => {
+    if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
+    setShowHUD(false);
+  }, []);
+
+  // Toddler 3-Tap Safety Unlock
+  const handleUnlockTap = () => {
+    const nextCount = unlockTapCount + 1;
+    if (unlockTimerRef.current) clearTimeout(unlockTimerRef.current);
+
+    if (nextCount >= 3) {
+      playSFX("cheer");
+      setUnlockTapCount(3);
+      setTimeout(() => {
+        setIsLocked(false);
+        setUnlockTapCount(0);
+      }, 400);
+    } else {
+      playSFX("boop");
+      setUnlockTapCount(nextCount);
+      unlockTimerRef.current = setTimeout(() => {
+        setUnlockTapCount(0);
+      }, 2500);
+    }
+  };
+
+  const toggleLock = () => {
+    playSFX("tap");
+    if (!isLocked) {
+      setIsLocked(true);
+      setUnlockTapCount(0);
+      setShowHUD(false);
+      setShowQuickDrawer(false);
+    } else {
+      handleUnlockTap();
+    }
+  };
+
   const handleSongFinished = () => {
     if (!hasAwardedStars) {
       addStars(5);
@@ -157,15 +232,19 @@ export default function KaraokePlayer({
       playSFX("star");
     }
     setIsSongEnded(true);
+    setShowHUD(false);
   };
 
   const handleSelectNextSong = (nextId: string) => {
     const all = [...songsEn, ...songsVi];
     const nextS = all.find((s) => s.id === nextId);
     if (nextS) {
+      setHistoryStack((prev) => [...prev, currentSong.id]);
       setCurrentSong(nextS);
       setIsSongEnded(false);
       setShowQuickDrawer(false);
+      setShowHUD(false);
+      setIsPlaying(true);
       setIframeKey((prev) => prev + 1);
       setHasAwardedStars(false);
       openTimeRef.current = Date.now();
@@ -173,13 +252,48 @@ export default function KaraokePlayer({
     }
   };
 
+  const handlePreviousSong = () => {
+    playSFX("tap");
+    if (historyStack.length > 0) {
+      const prevId = historyStack[historyStack.length - 1];
+      setHistoryStack((prev) => prev.slice(0, -1));
+      const all = [...songsEn, ...songsVi];
+      const prevS = all.find((s) => s.id === prevId);
+      if (prevS) {
+        setCurrentSong(prevS);
+        setIsSongEnded(false);
+        setShowQuickDrawer(false);
+        setShowHUD(false);
+        setIsPlaying(true);
+        setIframeKey((prev) => prev + 1);
+        setHasAwardedStars(false);
+        openTimeRef.current = Date.now();
+        onSelectSong?.(prevS);
+        return;
+      }
+    }
+    handleRandomSongSurprise();
+  };
+
+  const handleNextSongShortcut = () => {
+    playSFX("tap");
+    if (songRecommendations.length > 0) {
+      handleSelectNextSong(songRecommendations[0].id);
+    } else {
+      handleRandomSongSurprise();
+    }
+  };
+
   const handleRandomSongSurprise = () => {
     const all = [...songsEn, ...songsVi].filter((s) => s.id !== currentSong.id);
     if (all.length === 0) return;
     const randomSong = all[Math.floor(Math.random() * all.length)];
+    setHistoryStack((prev) => [...prev, currentSong.id]);
     setCurrentSong(randomSong);
     setIsSongEnded(false);
     setShowQuickDrawer(false);
+    setShowHUD(false);
+    setIsPlaying(true);
     setIframeKey((prev) => prev + 1);
     setHasAwardedStars(false);
     openTimeRef.current = Date.now();
@@ -188,10 +302,11 @@ export default function KaraokePlayer({
 
   const handleReplaySong = () => {
     setIsSongEnded(false);
+    setShowHUD(false);
+    setIsPlaying(true);
     if (currentSong.localVideo && videoRef.current) {
       videoRef.current.currentTime = 0;
       videoRef.current.play();
-      setIsPlaying(true);
     } else {
       setIframeKey((prev) => prev + 1);
     }
@@ -199,6 +314,10 @@ export default function KaraokePlayer({
   };
 
   const handleClose = () => {
+    if (isLocked) {
+      handleUnlockTap();
+      return;
+    }
     playSFX("tap");
     const elapsedSeconds = (Date.now() - openTimeRef.current) / 1000;
     const qualified = (currentSong.localVideo && currentTime >= 15) || (!currentSong.localVideo && elapsedSeconds >= 15);
@@ -217,15 +336,32 @@ export default function KaraokePlayer({
   };
 
   const togglePlay = () => {
-    if (videoRef.current) {
+    playSFX("tap");
+    if (currentSong.localVideo && videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
       } else {
         videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
+    } else if (iframeRef.current?.contentWindow) {
+      if (isPlaying) {
+        iframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func: "pauseVideo", args: [] }),
+          "*"
+        );
+        setIsPlaying(false);
+      } else {
+        iframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func: "playVideo", args: [] }),
+          "*"
+        );
+        setIsPlaying(true);
+      }
     }
+    resetHUDTimer();
   };
+
 
   const handleRestart = () => {
     playSFX("tap");
@@ -342,9 +478,28 @@ export default function KaraokePlayer({
             </motion.button>
           )}
 
+          {/* Toddler Screen Lock Button */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleLock}
+            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
+              isLocked
+                ? "bg-amber-500 text-slate-950 border-amber-300 shadow-lg shadow-amber-500/40"
+                : "bg-white/20 border-white/30 text-white/70 hover:bg-white/30"
+            }`}
+            title={isLocked ? "Bấm để mở khóa thao tác" : "Khóa màn hình cho bé xem"}
+          >
+            {isLocked ? <Lock size={18} strokeWidth={2.5} /> : <Unlock size={18} />}
+          </motion.button>
+
           <button
             onClick={handleClose}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer text-white"
+            disabled={isLocked}
+            className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-colors text-white ${
+              isLocked
+                ? "opacity-30 cursor-not-allowed bg-white/10 border-white/10"
+                : "bg-white/20 hover:bg-white/30 border-white/30 cursor-pointer"
+            }`}
             title="Đóng video"
           >
             <X size={20} strokeWidth={2.5} />
@@ -381,8 +536,138 @@ export default function KaraokePlayer({
                 }}
               />
 
+              {/* Transparent click layer to open Toddler HUD on tap */}
+              {!showQuickDrawer && !isSongEnded && !isLocked && !showHUD && (
+                <div
+                  id="karaoke-video-hud-overlay"
+                  onClick={handleOpenHUD}
+                  onPointerDown={handleOpenHUD}
+                  className="absolute inset-0 z-20 cursor-pointer pointer-events-auto select-none"
+                  style={{ backgroundColor: "rgba(0,0,0,0.01)", WebkitTapHighlightColor: "transparent" }}
+                  title="Chạm vào màn hình để hiện các nút điều khiển cho bé"
+                />
+              )}
+
+
+              {/* Toddler Interactive Player HUD on Screen Tap (YouTube Kids style) */}
+              <AnimatePresence>
+                {showHUD && !isLocked && !isSongEnded && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    onClick={handleCloseHUD}
+                    className="absolute inset-0 z-30 bg-black/45 backdrop-blur-[2px] flex flex-col justify-between p-3.5 sm:p-5 cursor-pointer select-none"
+                  >
+                    {/* Top HUD Hint Bar */}
+                    <div
+                      className="flex items-center justify-between pointer-events-auto"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-white/85 text-[11px] font-bold border border-white/20 flex items-center gap-1.5 shadow-md">
+                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+                        <span>Chạm màn hình để ẩn nút</span>
+                      </div>
+
+                      <button
+                        onClick={handleCloseHUD}
+                        className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center border border-white/25 transition-colors cursor-pointer"
+                        title="Ẩn điều khiển"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+
+                    {/* Center Chunky YouTube Kids Controls: Previous, Giant Play/Pause, Next */}
+                    <div
+                      className="flex items-center justify-center gap-3.5 sm:gap-6 my-auto pointer-events-auto"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {/* Previous Song Button */}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={handlePreviousSong}
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 hover:bg-white/30 active:bg-purple-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
+                        title="Xem bài hát trước"
+                      >
+                        <SkipBack size={24} fill="white" />
+                      </motion.button>
+
+                      {/* Giant Center Play / Pause Button */}
+                      <motion.button
+                        whileHover={{ scale: 1.08 }}
+                        whileTap={{ scale: 0.92 }}
+                        onClick={togglePlay}
+                        className={`w-18 h-18 sm:w-22 sm:h-22 rounded-full flex items-center justify-center text-white shadow-[0_0_35px_rgba(168,85,247,0.6)] border-4 border-white/70 transition-transform cursor-pointer ${
+                          isPlaying
+                            ? "bg-gradient-to-tr from-purple-500 via-pink-500 to-rose-500"
+                            : "bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-500 animate-pulse"
+                        }`}
+                        title={isPlaying ? "Tạm dừng bài hát" : "Tiếp tục phát"}
+                      >
+                        {isPlaying ? (
+                          <Pause size={36} fill="white" />
+                        ) : (
+                          <Play size={38} fill="white" className="ml-1" />
+                        )}
+                      </motion.button>
+
+                      {/* Next Song Button */}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={handleNextSongShortcut}
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 hover:bg-white/30 active:bg-purple-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
+                        title="Xem bài hát tiếp theo"
+                      >
+                        <SkipForward size={24} fill="white" />
+                      </motion.button>
+
+                      {/* Quick Replay Button */}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={handleReplaySong}
+                        className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/15 hover:bg-white/25 text-white/90 flex items-center justify-center shadow-lg border border-white/20 backdrop-blur-md transition-transform hidden sm:flex cursor-pointer"
+                        title="Xem lại từ đầu"
+                      >
+                        <RotateCcw size={18} />
+                      </motion.button>
+                    </div>
+
+                    {/* Bottom HUD Quick Row */}
+                    <div
+                      className="flex items-center justify-between pointer-events-auto"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <button
+                        onClick={() => {
+                          playSFX("pop");
+                          setShowQuickDrawer(true);
+                          setShowHUD(false);
+                        }}
+                        className="px-3.5 py-1.5 rounded-full bg-purple-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg border border-purple-300 cursor-pointer"
+                      >
+                        <span>🎈</span>
+                        <span>Xem danh sách gợi ý</span>
+                      </button>
+
+                      <button
+                        onClick={handleReplaySong}
+                        className="sm:hidden text-white/90 hover:text-white text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/20 cursor-pointer"
+                      >
+                        <RotateCcw size={12} />
+                        <span>Xem lại</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {/* Floating YouTube Kids Quick Button on Song */}
-              {!showQuickDrawer && !isSongEnded && (
+              {!showQuickDrawer && !isSongEnded && !isLocked && !showHUD && (
                 <motion.button
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -429,6 +714,59 @@ export default function KaraokePlayer({
                   />
                 )}
               </AnimatePresence>
+
+              {/* Toddler 3-Tap Safety Screen Lock Overlay (YouTube Kids Standard) */}
+              {isLocked && (
+                <div
+                  onClick={handleUnlockTap}
+                  className="absolute inset-0 z-50 bg-black/75 flex flex-col items-center justify-center backdrop-blur-sm cursor-pointer select-none p-4"
+                >
+                  <motion.div
+                    key={unlockTapCount}
+                    initial={{ scale: 0.9, opacity: 0.8 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="bg-slate-900/95 border-2 border-amber-400 rounded-3xl p-5 sm:p-7 max-w-sm w-full text-center shadow-[0_0_50px_rgba(251,191,36,0.35)] flex flex-col items-center gap-3"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-amber-400/20 border-2 border-amber-400 flex items-center justify-center text-amber-300 shadow-inner">
+                      <Lock size={30} strokeWidth={2.5} />
+                    </div>
+
+                    <h3
+                      className="text-white text-base sm:text-lg font-black"
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {unlockTapCount === 0 && "Màn hình đang khóa"}
+                      {unlockTapCount === 1 && "Chạm thêm 2 lần nữa nhé!"}
+                      {unlockTapCount === 2 && "Chạm thêm 1 lần nữa là mở nè!"}
+                      {unlockTapCount >= 3 && "Mở khóa thành công! 🎉"}
+                    </h3>
+
+                    <p className="text-amber-200/80 text-xs sm:text-sm">
+                      {unlockTapCount < 3
+                        ? "Bé hoặc Ba Mẹ chạm 3 lần liên tiếp để mở khóa"
+                        : "Đang mở màn hình cho bé..."}
+                    </p>
+
+                    {/* 3 Progress Dots */}
+                    <div className="flex items-center gap-2.5 mt-1">
+                      {[0, 1, 2].map((dotIdx) => (
+                        <div
+                          key={dotIdx}
+                          className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
+                            dotIdx < unlockTapCount
+                              ? "bg-amber-400 scale-125 shadow-md shadow-amber-400"
+                              : "bg-white/20 border border-white/30"
+                          }`}
+                        />
+                      ))}
+                    </div>
+
+                    <span className="text-[11px] text-white/50 mt-1">
+                      ({unlockTapCount}/3 chạm)
+                    </span>
+                  </motion.div>
+                </div>
+              )}
             </div>
           </div>
         )}
