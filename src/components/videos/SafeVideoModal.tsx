@@ -18,6 +18,7 @@ import {
   RotateCcw,
   SkipBack,
   SkipForward,
+  Search,
 } from "lucide-react";
 import { EducationalVideo, educationalVideos, getRecommendedVideos } from "@/data/educationalVideos";
 import { useAppStore } from "@/stores/appStore";
@@ -47,7 +48,7 @@ export default function SafeVideoModal({
   const [hasAwardedStars, setHasAwardedStars] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
   const [unlockTapCount, setUnlockTapCount] = useState(0);
-  const [showVocabPanel, setShowVocabPanel] = useState(true);
+  const [showVocabPanel, setShowVocabPanel] = useState(false);
   const [isVideoEnded, setIsVideoEnded] = useState(false);
   const [showQuickDrawer, setShowQuickDrawer] = useState(false);
   const [isAutoPlayNext, setIsAutoPlayNext] = useState(true);
@@ -55,6 +56,8 @@ export default function SafeVideoModal({
   const [isPlaying, setIsPlaying] = useState(true);
   const [showHUD, setShowHUD] = useState(false);
   const [historyStack, setHistoryStack] = useState<string[]>([]);
+  const [vocabSearch, setVocabSearch] = useState("");
+  const [isAutoPlayingVocab, setIsAutoPlayingVocab] = useState(false);
 
   const openTimeRef = useRef<number>(Date.now());
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -67,6 +70,7 @@ export default function SafeVideoModal({
     setIsVideoEnded(false);
     setShowQuickDrawer(false);
     setShowHUD(false);
+    setShowVocabPanel(false);
     setHasAwardedStars(false);
     setIsPlaying(true);
     openTimeRef.current = Date.now();
@@ -157,9 +161,9 @@ export default function SafeVideoModal({
     return () => clearTimeout(timer);
   }, [addStars, hasAwardedStars, currentVideo.id]);
 
-  // Randomized 6 recommendations like YouTube Kids
+  // Rich pool of 20 recommendations like YouTube Kids
   const [recommendations, setRecommendations] = useState<RecommendedItem[]>(() =>
-    getRecommendedVideos(currentVideo, 6).map((v) => ({
+    getRecommendedVideos(currentVideo, 20).map((v) => ({
       id: v.id,
       title: v.title,
       thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
@@ -172,7 +176,7 @@ export default function SafeVideoModal({
 
   useEffect(() => {
     setRecommendations(
-      getRecommendedVideos(currentVideo, 6).map((v) => ({
+      getRecommendedVideos(currentVideo, 20).map((v) => ({
         id: v.id,
         title: v.title,
         thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
@@ -186,7 +190,7 @@ export default function SafeVideoModal({
 
   const handleRefreshRecommendations = () => {
     setRecommendations(
-      getRecommendedVideos(currentVideo, 6).map((v) => ({
+      getRecommendedVideos(currentVideo, 20).map((v) => ({
         id: v.id,
         title: v.title,
         thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
@@ -305,6 +309,43 @@ export default function SafeVideoModal({
     playSFX("tap");
     speak(word, "en-US", 0.85);
   };
+
+  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const filteredVocab = (currentVideo.keyVocab || []).filter(
+    (item) =>
+      item.en.toLowerCase().includes(vocabSearch.toLowerCase()) ||
+      item.vi.toLowerCase().includes(vocabSearch.toLowerCase())
+  );
+
+  const handlePlayAllVocab = () => {
+    if (isAutoPlayingVocab) {
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+      setIsAutoPlayingVocab(false);
+      return;
+    }
+    if (filteredVocab.length === 0) return;
+    setIsAutoPlayingVocab(true);
+    let idx = 0;
+    const playNext = () => {
+      if (idx >= filteredVocab.length) {
+        setIsAutoPlayingVocab(false);
+        return;
+      }
+      const item = filteredVocab[idx];
+      playSFX("tap");
+      speak(item.en, "en-US", 0.85);
+      idx++;
+      autoPlayTimeoutRef.current = setTimeout(playNext, 1800);
+    };
+    playNext();
+  };
+
+  useEffect(() => {
+    return () => {
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+    };
+  }, []);
 
   // Continuous Handshake & Message Listener for YouTube Iframe Player
   useEffect(() => {
@@ -430,14 +471,14 @@ export default function SafeVideoModal({
               playSFX("tap");
               setShowQuickDrawer(!showQuickDrawer);
             }}
-            className={`px-2.5 sm:px-3 py-1.5 rounded-full border text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
+            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
               showQuickDrawer
                 ? "bg-cyan-500 text-white border-cyan-400 shadow-md shadow-cyan-500/30"
-                : "bg-white/15 border-white/25 text-white/90 hover:bg-white/25"
+                : "bg-white/20 border-white/30 text-white hover:bg-white/30"
             }`}
             title="Xem danh sách video gợi ý như YouTube Kids"
           >
-            <span>🎈</span>
+            <span className="text-sm sm:text-base">🎈</span>
             <span className="hidden md:inline">Gợi Ý Video</span>
             <span className="md:hidden">Gợi Ý</span>
           </motion.button>
@@ -461,15 +502,16 @@ export default function SafeVideoModal({
               playSFX("tap");
               setShowVocabPanel(!showVocabPanel);
             }}
-            className={`px-2.5 sm:px-3 py-1.5 rounded-full border text-xs font-black flex items-center gap-1 transition-all cursor-pointer shadow-sm ${
-              !showVocabPanel
-                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/40 hover:bg-amber-300 scale-102"
+            className={`px-2.5 sm:px-3 py-1.5 rounded-full border text-xs sm:text-sm font-bold flex items-center gap-1 transition-all cursor-pointer shadow-sm ${
+              showVocabPanel
+                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/40 hover:bg-amber-300 font-black"
                 : "bg-white/20 text-white/95 border-white/30 hover:bg-white/30"
             }`}
             title={showVocabPanel ? "Ẩn góc từ vựng để mở rộng video" : "Bật góc từ vựng & mẹo học"}
           >
             <BookOpen size={15} />
             <span className="hidden sm:inline">{showVocabPanel ? "Ẩn Từ Vựng" : "Từ Vựng"}</span>
+            <span className="sm:hidden">{showVocabPanel ? "Ẩn Từ" : "Từ Vựng"}</span>
           </motion.button>
 
           {/* Favorite Button */}
@@ -665,10 +707,10 @@ export default function SafeVideoModal({
                         setShowQuickDrawer(true);
                         setShowHUD(false);
                       }}
-                      className="px-3.5 py-1.5 rounded-full bg-cyan-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg border border-cyan-300 cursor-pointer"
+                      className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 active:scale-95 text-white text-xs sm:text-sm font-extrabold flex items-center gap-2 shadow-lg border-2 border-cyan-300 cursor-pointer"
                     >
-                      <span>🎈</span>
-                      <span>Xem danh sách gợi ý</span>
+                      <span className="text-base sm:text-lg">🎈</span>
+                      <span>Xem danh sách video gợi ý</span>
                     </button>
 
                     <button
@@ -694,13 +736,13 @@ export default function SafeVideoModal({
                   playSFX("pop");
                   setShowQuickDrawer(true);
                 }}
-                className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-950/85 hover:bg-slate-900 text-white border border-white/25 backdrop-blur-md text-xs font-bold flex items-center gap-2 shadow-2xl cursor-pointer"
+                className="absolute bottom-3.5 left-3 sm:bottom-5 sm:left-5 z-30 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-white/30 hover:border-amber-400/80 backdrop-blur-md text-sm sm:text-base font-extrabold flex items-center gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.7)] hover:shadow-[0_0_25px_rgba(251,191,36,0.35)] transition-all cursor-pointer select-none"
                 title="Bấm để mở danh sách video gợi ý như YouTube Kids"
               >
-                <span className="text-base sm:text-lg animate-bounce">🎈</span>
+                <span className="text-xl sm:text-2xl animate-bounce">🎈</span>
                 <span className="hidden sm:inline">Bấm chọn video khác</span>
-                <span className="sm:hidden">Video khác</span>
-                <span className="text-amber-300 text-[10px] sm:text-[11px] bg-amber-400/20 px-1.5 py-0.5 rounded-full font-black">
+                <span className="sm:hidden">Chọn video khác</span>
+                <span className="text-amber-300 text-xs sm:text-sm bg-amber-400/25 border border-amber-400/35 px-2.5 py-1 rounded-full font-black">
                   🎲 Gợi ý
                 </span>
               </motion.button>
@@ -732,24 +774,7 @@ export default function SafeVideoModal({
               )}
             </AnimatePresence>
 
-            {/* Floating Re-open Vocab Button at Top-Right of Video when Panel is Hidden */}
-            {!showVocabPanel && (
-              <motion.button
-                initial={{ opacity: 0, scale: 0.85, x: 20 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  playSFX("tap");
-                  setShowVocabPanel(true);
-                }}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 px-3.5 py-2 rounded-2xl bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-1.5 shadow-[0_4px_25px_rgba(251,191,36,0.6)] border-2 border-amber-300 hover:bg-amber-300 transition-all cursor-pointer select-none"
-                title="Bật góc từ vựng và mẹo học cho bé"
-              >
-                <BookOpen size={16} className="text-slate-950" />
-                <span>Bật Góc Từ Vựng 📖</span>
-              </motion.button>
-            )}
+
 
             {/* Toddler 3-Tap Safety Screen Lock Overlay (YouTube Kids Standard) */}
             {isLocked && (
@@ -875,46 +900,97 @@ export default function SafeVideoModal({
                   </div>
                 )}
 
-                {/* Key Vocabulary Chips */}
+                {/* Key Vocabulary Section */}
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-bold text-white/80 flex items-center gap-1">
+                  <div className="flex items-center justify-between mb-2 gap-2">
+                    <span className="text-xs font-bold text-white/90 flex items-center gap-1.5">
                       <Sparkles size={14} className="text-yellow-400" />
-                      Từ vựng bé học được qua video (Chạm để nghe):
+                      <span>
+                        Từ vựng ({filteredVocab.length}
+                        {vocabSearch && filteredVocab.length !== currentVideo.keyVocab.length ? `/${currentVideo.keyVocab.length}` : ""} từ):
+                      </span>
                     </span>
+
+                    <button
+                      onClick={handlePlayAllVocab}
+                      className={`px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                        isAutoPlayingVocab
+                          ? "bg-amber-400 text-slate-950 border border-amber-300 font-black animate-pulse"
+                          : "bg-white/15 hover:bg-white/25 text-white/90 border border-white/20"
+                      }`}
+                      title="Phát âm lần lượt từng từ vựng cho bé nghe"
+                    >
+                      <Volume2 size={12} />
+                      <span>{isAutoPlayingVocab ? "Dừng đọc" : "Đọc tất cả"}</span>
+                    </button>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
-                    {currentVideo.keyVocab.map((item, idx) => (
-                      <motion.button
-                        key={idx}
-                        whileTap={{ scale: 0.96 }}
-                        onClick={() => handleSpeakWord(item.en)}
-                        className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:bg-primary/30 border border-white/10 flex items-center justify-between text-left transition-all group cursor-pointer"
-                      >
-                        <div className="flex items-center gap-2.5 min-w-0">
-                          <span className="text-2xl shrink-0 group-hover:scale-110 transition-transform">
-                            {item.emoji || "✨"}
-                          </span>
-                          <div className="min-w-0">
-                            <span
-                              className="font-bold text-yellow-300 text-sm block leading-none"
-                              style={{ fontFamily: "var(--font-heading)" }}
-                            >
-                              {item.en}
+                  {/* Search filter if video has more than 6 words */}
+                  {currentVideo.keyVocab.length > 6 && (
+                    <div className="relative mb-2.5">
+                      <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" />
+                      <input
+                        type="text"
+                        value={vocabSearch}
+                        onChange={(e) => setVocabSearch(e.target.value)}
+                        placeholder={`Tìm trong ${currentVideo.keyVocab.length} từ vựng...`}
+                        className="w-full pl-8 pr-7 py-1.5 rounded-xl bg-white/10 text-white placeholder-white/40 text-xs border border-white/15 focus:outline-none focus:border-amber-400/60"
+                      />
+                      {vocabSearch && (
+                        <button
+                          onClick={() => setVocabSearch("")}
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white cursor-pointer"
+                        >
+                          <X size={12} />
+                        </button>
+                      )}
+                    </div>
+                  )}
+
+                  {filteredVocab.length === 0 ? (
+                    <div className="text-center py-6 text-white/60 text-xs bg-white/5 rounded-xl border border-white/10">
+                      <span>Không tìm thấy từ vựng &quot;{vocabSearch}&quot;</span>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+                      {filteredVocab.map((item, idx) => (
+                        <motion.button
+                          key={idx}
+                          whileTap={{ scale: 0.96 }}
+                          onClick={() => handleSpeakWord(item.en)}
+                          className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:bg-primary/30 border border-white/10 flex items-center justify-between text-left transition-all group cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <span className="text-2xl shrink-0 group-hover:scale-110 transition-transform">
+                              {item.emoji || "✨"}
                             </span>
-                            <span className="text-xs text-white/80 mt-0.5 block truncate">
-                              {item.vi}
-                            </span>
+                            <div className="min-w-0">
+                              <div className="flex items-baseline gap-1.5 flex-wrap">
+                                <span
+                                  className="font-bold text-yellow-300 text-sm block leading-none"
+                                  style={{ fontFamily: "var(--font-heading)" }}
+                                >
+                                  {item.en}
+                                </span>
+                                {item.phonetic && (
+                                  <span className="text-[10px] text-amber-300/70 font-mono">
+                                    {item.phonetic}
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-xs text-white/80 mt-0.5 block truncate">
+                                {item.vi}
+                              </span>
+                            </div>
                           </div>
-                        </div>
 
-                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 group-hover:text-white group-hover:bg-primary transition-colors shrink-0">
-                          <Volume2 size={15} />
-                        </div>
-                      </motion.button>
-                    ))}
-                  </div>
+                          <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/70 group-hover:text-white group-hover:bg-primary transition-colors shrink-0">
+                            <Volume2 size={14} />
+                          </div>
+                        </motion.button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Video Description */}

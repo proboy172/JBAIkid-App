@@ -36,7 +36,7 @@ import songsViData from "./songs-vi.json";
 export const songsEn: Song[] = songsEnData as Song[];
 export const songsVi: Song[] = songsViData as Song[];
 
-export function getRecommendedSongs(currentSong: Song, count = 6): Song[] {
+export function getRecommendedSongs(currentSong: Song, count = 16): Song[] {
   const isEn = songsEn.some((s) => s.id === currentSong.id);
   const primaryPool = isEn ? songsEn : songsVi;
   const secondaryPool = isEn ? songsVi : songsEn;
@@ -55,7 +55,7 @@ export function getRecommendedSongs(currentSong: Song, count = 6): Song[] {
 
   const picks: Song[] = [];
   for (const s of sameLang) {
-    if (picks.length >= count - 2) break;
+    if (picks.length >= count - 4) break;
     picks.push(s);
   }
   for (const s of otherLang) {

@@ -41,7 +41,7 @@ export function useSpeech() {
     synth.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = lang;
-    utterance.rate = customRate !== undefined ? customRate : (lang === "en-US" ? 0.8 : 0.9);
+    utterance.rate = customRate !== undefined ? customRate : (lang === "en-US" ? 0.8 : 0.65);
     utterance.pitch = 1.1;
 
     // Android/WebView requires speech to be triggered by a user gesture

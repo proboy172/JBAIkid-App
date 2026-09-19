@@ -287,7 +287,7 @@ export default function AITeacherPage() {
       if (typeof window !== 'undefined' && window.speechSynthesis) {
         const ut = new SpeechSynthesisUtterance(cleanText);
         ut.lang = 'vi-VN';
-        ut.rate = 1.1;
+        ut.rate = 0.85;
         ut.pitch = 1.2;
         ut.onend = () => {
           setIsTalking(false);

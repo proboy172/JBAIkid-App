@@ -118,7 +118,17 @@ export default function SpeechPracticeModal({
           {phonetic && (
             <p className="text-sm font-semibold text-primary mt-0.5">{phonetic}</p>
           )}
-          <p className="text-sm text-gray-600 font-medium mt-1">{wordVi}</p>
+          <button
+            onClick={() => {
+              playSFX("tap");
+              speak(wordVi, "vi-VN", 0.65);
+            }}
+            className="text-sm text-gray-600 font-medium mt-1 hover:text-primary transition-colors flex items-center gap-1 cursor-pointer"
+            title="Nghe phát âm tiếng Việt chậm rãi"
+          >
+            <span>{wordVi}</span>
+            <span className="text-xs opacity-60">🔊</span>
+          </button>
 
           {/* Sample Audio Button */}
           <button

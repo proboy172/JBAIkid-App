@@ -195,9 +195,9 @@ export default function MatchGamePage() {
                   } ${isMatched ? "pointer-events-none" : ""}`}
                 >
                   <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center overflow-hidden">
-                    {item.illustrationUrl || item.photoUrl ? (
+                    {item.photoUrl || item.illustrationUrl ? (
                       <img
-                        src={item.illustrationUrl || item.photoUrl}
+                        src={item.photoUrl || item.illustrationUrl}
                         alt={item.en}
                         className="w-full h-full object-contain rounded-lg"
                         onError={(e) => {
@@ -209,7 +209,7 @@ export default function MatchGamePage() {
                     ) : null}
                     <span
                       className="emoji-fallback text-3xl sm:text-4xl"
-                      style={{ display: item.illustrationUrl || item.photoUrl ? "none" : "block" }}
+                      style={{ display: item.photoUrl || item.illustrationUrl ? "none" : "block" }}
                     >
                       {item.emoji}
                     </span>

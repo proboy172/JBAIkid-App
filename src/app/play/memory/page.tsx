@@ -228,9 +228,9 @@ export default function MemoryGamePage() {
                     >
                       {card.type === "emoji" ? (
                         <div className="w-full h-full flex items-center justify-center p-1 overflow-hidden">
-                          {card.item.illustrationUrl || card.item.photoUrl ? (
+                          {card.item.photoUrl || card.item.illustrationUrl ? (
                             <img
-                              src={card.item.illustrationUrl || card.item.photoUrl}
+                              src={card.item.photoUrl || card.item.illustrationUrl}
                               alt={card.item.en}
                               className="w-full h-full object-contain max-h-[85px] sm:max-h-[100px] rounded-xl"
                               onError={(e) => {
@@ -242,7 +242,7 @@ export default function MemoryGamePage() {
                           ) : null}
                           <span
                             className="emoji-fallback text-4xl sm:text-5xl md:text-6xl"
-                            style={{ display: card.item.illustrationUrl || card.item.photoUrl ? "none" : "block" }}
+                            style={{ display: card.item.photoUrl || card.item.illustrationUrl ? "none" : "block" }}
                           >
                             {card.item.emoji}
                           </span>

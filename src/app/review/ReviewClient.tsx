@@ -45,27 +45,15 @@ export default function ReviewClient() {
   const currentCard = dueWords[currentIndex];
   const currentVocab = currentCard ? findVocabItem(currentCard.wordEn) : undefined;
 
-  const [imageMode, setImageMode] = useState<"photo" | "illustration">("photo");
   const [imageLoading, setImageLoading] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("jbaikid_image_mode");
-      if (saved === "photo" || saved === "illustration") {
-        setImageMode(saved as "photo" | "illustration");
-      }
-    }
-  }, []);
-
-  useEffect(() => {
     setImageLoading(true);
     setImageError(false);
-  }, [currentIndex, imageMode]);
+  }, [currentIndex]);
 
-  const currentImageUrl = imageMode === "photo"
-    ? (currentVocab?.photoUrl || currentVocab?.illustrationUrl)
-    : (currentVocab?.illustrationUrl || currentVocab?.photoUrl);
+  const currentImageUrl = currentVocab?.photoUrl || currentVocab?.illustrationUrl;
 
   const handleRate = useCallback(
     (quality: SRSQuality) => {
@@ -228,39 +216,9 @@ export default function ReviewClient() {
                   <div className="flash-card-front glass-card flex flex-col items-center justify-between p-3 sm:p-4 cursor-pointer border-2 border-purple-200">
                     {/* Top Mode Toggle + Real Sound */}
                     <div className="w-full flex items-center justify-between gap-1 px-1">
-                      {currentVocab.photoUrl && currentVocab.illustrationUrl ? (
-                        <div
-                          className="flex items-center bg-slate-100/90 rounded-xl p-0.5 shadow-inner border border-slate-200"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setImageMode("photo");
-                              if (typeof window !== "undefined") localStorage.setItem("jbaikid_image_mode", "photo");
-                            }}
-                            className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${
-                              imageMode === "photo"
-                                ? "bg-white text-indigo-700 shadow-sm"
-                                : "text-slate-500 hover:text-slate-700"
-                            }`}
-                          >
-                            <span>📸 Ảnh thật</span>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setImageMode("illustration");
-                              if (typeof window !== "undefined") localStorage.setItem("jbaikid_image_mode", "illustration");
-                            }}
-                            className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${
-                              imageMode === "illustration"
-                                ? "bg-white text-purple-700 shadow-sm"
-                                : "text-slate-500 hover:text-slate-700"
-                            }`}
-                          >
-                            <span>🎨 Hình 3D</span>
-                          </button>
+                      {currentVocab.photoUrl ? (
+                        <div className="flex items-center gap-1 bg-slate-100/90 rounded-xl px-2 py-0.5 shadow-inner border border-slate-200 text-[10px] sm:text-xs font-bold text-slate-600">
+                          <span>📸 Ảnh thật</span>
                         </div>
                       ) : (
                         <div />
@@ -282,16 +240,17 @@ export default function ReviewClient() {
                       )}
                     </div>
 
-                    {/* Visual Container */}
+                    {/* Visual Container: Real Photo */}
                     <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/80 my-1">
                       {currentImageUrl && !imageError ? (
                         <img
-                          key={`${currentVocab.en}-${imageMode}`}
+                          key={currentVocab.en}
                           src={currentImageUrl}
                           alt={currentVocab.en}
-                          className={`w-full h-full object-cover rounded-2xl transition-opacity duration-300 ${
+                          className={`w-full h-full object-cover rounded-2xl transition-opacity duration-200 ${
                             imageLoading ? "opacity-0" : "opacity-100"
                           }`}
+                          loading="eager"
                           onLoad={() => setImageLoading(false)}
                           onError={() => {
                             setImageError(true);

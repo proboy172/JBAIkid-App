@@ -23,7 +23,8 @@ export default function ParentPage() {
   const [error, setError] = useState(false);
   const { 
     learnedWords, streak, totalStars, quizHighScore, resetProgress, 
-    screenTimeLimit, setScreenTimeLimit, aiApiKeys, addApiKey, removeApiKey,
+    screenTimeLimit, setScreenTimeLimit, dailyPlayTime, resetDailyPlayTime,
+    aiApiKeys, addApiKey, removeApiKey,
     getWeeklyStudyStats, clearTempCache, getDueWords, srsCards
   } = useAppStore();
   const [showReset, setShowReset] = useState(false);
@@ -376,17 +377,50 @@ export default function ParentPage() {
 
             {/* Screen Time Limiter */}
             <div className="mb-6">
-              <div className="flex items-center gap-2 mb-3">
-                <Clock size={18} className="text-primary" />
-                <span className="font-semibold text-sm">Thời gian học tối đa mỗi ngày</span>
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <Clock size={18} className="text-primary" />
+                  <span className="font-semibold text-sm">Thời gian học tối đa mỗi ngày</span>
+                </div>
+                <span className="text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-full border border-slate-200">
+                  Đã dùng: <strong className="text-primary">{Math.floor(dailyPlayTime / 60)} phút</strong>
+                </span>
               </div>
+
+              {/* Status Warning if time expired */}
+              {screenTimeLimit > 0 && dailyPlayTime >= screenTimeLimit * 60 && (
+                <div className="mb-3 p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-800 flex items-center justify-between gap-2">
+                  <div>
+                    <span className="font-bold block">⚠️ Hôm nay bé đã học đủ {Math.floor(dailyPlayTime / 60)} phút.</span>
+                    <span className="text-[11px] text-amber-700">Ứng dụng đã kích hoạt khóa bảo vệ mắt. Bấm nút bên để cấp lượt học mới.</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playSFX("correct");
+                      resetDailyPlayTime();
+                    }}
+                    className="shrink-0 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm active:scale-95 transition-all cursor-pointer"
+                  >
+                    🔄 Cấp lượt mới
+                  </button>
+                </div>
+              )}
+
               <div className="grid grid-cols-4 gap-2">
                 {[15, 30, 60, 0].map((limit) => (
                   <motion.button
                     key={limit}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setScreenTimeLimit(limit)}
-                    className={`py-2 px-1 rounded-xl text-xs font-bold transition-colors ${
+                    onClick={() => {
+                      playSFX("tap");
+                      setScreenTimeLimit(limit);
+                      // If setting a limit and child already used up this limit today, automatically refresh daily play time so the child gets a fresh session!
+                      if (limit > 0 && dailyPlayTime >= limit * 60) {
+                        resetDailyPlayTime();
+                      }
+                    }}
+                    className={`py-2 px-1 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
                       screenTimeLimit === limit
                         ? "bg-primary text-white shadow-md"
                         : "bg-gray-100 text-text-light hover:bg-gray-200"
@@ -396,9 +430,25 @@ export default function ParentPage() {
                   </motion.button>
                 ))}
               </div>
-              <p className="text-[10px] text-text-light mt-2 italic">
-                Ứng dụng sẽ tự động khóa lại khi hết thời gian, giúp bảo vệ mắt cho bé.
-              </p>
+
+              <div className="flex items-center justify-between mt-2.5">
+                <p className="text-[11px] text-text-light italic">
+                  {screenTimeLimit === 0
+                    ? "✨ Đang tắt giới hạn thời gian (Bé học thoải mái)."
+                    : `Tự động nhắc nghỉ ngơi khi bé học đủ ${screenTimeLimit} phút mỗi ngày.`}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    playSFX("tap");
+                    resetDailyPlayTime();
+                  }}
+                  className="text-xs font-bold text-amber-600 hover:text-amber-800 underline transition-colors cursor-pointer"
+                  title="Đặt lại số phút bé đã học hôm nay về 0"
+                >
+                  🔄 Đặt lại về 0 phút
+                </button>
+              </div>
             </div>
 
             {/* AI API Keys Config */}

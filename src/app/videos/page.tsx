@@ -39,9 +39,9 @@ function VideosContent() {
   const [activeTab, setActiveTab] = useState<MainTab>(() => {
     if (initialTabParam === "sing_en" || initialTabParam === "sing") return "sing_en";
     if (initialTabParam === "sing_vi") return "sing_vi";
-    if (initialTabParam === "edu") return "edu";
     if (initialTabParam === "favorites") return "favorites";
-    return "all";
+    if (initialTabParam === "all") return "all";
+    return "edu";
   });
 
   const { totalStars } = useAppStore();
@@ -58,8 +58,9 @@ function VideosContent() {
   useEffect(() => {
     if (initialTabParam === "sing_en" || initialTabParam === "sing") setActiveTab("sing_en");
     else if (initialTabParam === "sing_vi") setActiveTab("sing_vi");
-    else if (initialTabParam === "edu") setActiveTab("edu");
     else if (initialTabParam === "favorites") setActiveTab("favorites");
+    else if (initialTabParam === "all") setActiveTab("all");
+    else setActiveTab("edu");
   }, [initialTabParam]);
 
   // Load favorites from localStorage
@@ -87,17 +88,8 @@ function VideosContent() {
     });
   };
 
-  // Main YouTube Kids categories definition
+  // Main YouTube Kids categories definition - Danh mục Bé Học đặt đầu tiên
   const tabs = [
-    {
-      id: "all" as MainTab,
-      label: "Tất Cả",
-      emoji: "🌟",
-      badge: `${educationalVideos.length + songsEn.length + songsVi.length}`,
-      color: "#F59E0B",
-      bgGradient: "from-amber-500 to-orange-500",
-      activeShadow: "shadow-amber-200",
-    },
     {
       id: "edu" as MainTab,
       label: "Video Bé Học",
@@ -106,6 +98,15 @@ function VideosContent() {
       color: "#06B6D4",
       bgGradient: "from-cyan-500 to-blue-500",
       activeShadow: "shadow-cyan-200",
+    },
+    {
+      id: "all" as MainTab,
+      label: "Tất Cả",
+      emoji: "🌟",
+      badge: `${educationalVideos.length + songsEn.length + songsVi.length}`,
+      color: "#F59E0B",
+      bgGradient: "from-amber-500 to-orange-500",
+      activeShadow: "shadow-amber-200",
     },
     {
       id: "sing_en" as MainTab,
@@ -257,6 +258,8 @@ function VideosContent() {
           <KaraokePlayer
             song={activeSong}
             onClose={() => setActiveSong(null)}
+            isFavorite={favorites.includes(activeSong.id)}
+            onToggleFavorite={() => toggleFavorite(activeSong.id)}
             onSelectSong={(newSong) => setActiveSong(newSong)}
           />
         )}

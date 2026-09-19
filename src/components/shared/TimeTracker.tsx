@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppStore } from "@/stores/appStore";
+import { playSFX } from "@/utils/soundEffects";
 import Mascot from "./Mascot";
 
 const generateMathProblem = () => {
@@ -12,7 +14,8 @@ const generateMathProblem = () => {
 };
 
 export default function TimeTracker() {
-  const { dailyPlayTime, screenTimeLimit, addPlayTime } = useAppStore();
+  const pathname = usePathname();
+  const { dailyPlayTime, screenTimeLimit, addPlayTime, resetDailyPlayTime, setScreenTimeLimit } = useAppStore();
   const [isLocked, setIsLocked] = useState(false);
   const bufferedSecondsRef = useRef(0);
   
@@ -33,6 +36,11 @@ export default function TimeTracker() {
   useEffect(() => {
     // 1-second in-memory tick for exact lock timing, flushed to disk every 30 seconds
     const interval = setInterval(() => {
+      // Do not accumulate time if the tab is hidden / in background
+      if (typeof document !== "undefined" && document.hidden) return;
+      // Do not accumulate child play time if parent is on /parent settings
+      if (pathname === "/parent") return;
+
       bufferedSecondsRef.current += 1;
       
       // Check lock condition against combined persisted + buffered time
@@ -59,24 +67,35 @@ export default function TimeTracker() {
       window.removeEventListener("beforeunload", handleBeforeUnload);
       flushTime();
     };
-  }, [dailyPlayTime, screenTimeLimit, flushTime]);
+  }, [dailyPlayTime, screenTimeLimit, flushTime, pathname]);
 
-  const handleOverrideSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (parseInt(userAnswer) === mathProblem.answer) {
-      // Temporarily add 15 minutes to limit so they can keep playing
-      useAppStore.getState().setScreenTimeLimit(screenTimeLimit + 15);
+  const handleUnlockWithAction = (action: "add15" | "resetToday" | "unlimited") => {
+    if (parseInt(userAnswer.trim()) === mathProblem.answer) {
+      playSFX("correct");
+      if (action === "add15") {
+        const currentEffectiveMins = Math.ceil((dailyPlayTime + bufferedSecondsRef.current) / 60);
+        const newLimit = Math.max(screenTimeLimit, currentEffectiveMins) + 15;
+        setScreenTimeLimit(newLimit);
+      } else if (action === "resetToday") {
+        resetDailyPlayTime();
+        bufferedSecondsRef.current = 0;
+      } else if (action === "unlimited") {
+        setScreenTimeLimit(0);
+      }
+      setIsLocked(false);
       setShowOverride(false);
       setUserAnswer("");
       setMathProblem(generateMathProblem());
     } else {
+      playSFX("boop");
       setError(true);
       setUserAnswer("");
-      setTimeout(() => setError(false), 500);
+      setTimeout(() => setError(false), 600);
     }
   };
 
-  if (!isLocked) return null;
+  // Never lock parents out while on the parent settings page
+  if (pathname === "/parent" || !isLocked) return null;
 
   return (
     <AnimatePresence>
@@ -88,8 +107,8 @@ export default function TimeTracker() {
         <motion.div
           initial={{ scale: 0.8, y: 50 }}
           animate={{ scale: 1, y: 0 }}
-          className="relative w-full max-w-sm glass-card p-8 flex flex-col items-center gap-4 text-center"
-          style={{ background: "rgba(255,255,255,0.95)" }}
+          className="relative w-full max-w-sm glass-card p-6 sm:p-8 flex flex-col items-center gap-4 text-center"
+          style={{ background: "rgba(255,255,255,0.98)" }}
         >
           {!showOverride ? (
             <>
@@ -100,15 +119,18 @@ export default function TimeTracker() {
               >
                 Hết giờ học rồi!
               </h2>
-              <p className="text-slate-600 text-sm">
-                Con đã học rất ngoan hôm nay. Hãy để mắt nghỉ ngơi và hẹn gặp lại ngày mai nhé!
+              <p className="text-slate-600 text-sm leading-relaxed">
+                Hôm nay bé đã học đủ <strong className="text-primary">{screenTimeLimit} phút</strong> quy định. Hãy để mắt nghỉ ngơi nhé!
               </p>
               
               <button 
-                onClick={() => setShowOverride(true)}
-                className="mt-6 text-xs text-slate-400 underline font-medium"
+                onClick={() => {
+                  playSFX("tap");
+                  setShowOverride(true);
+                }}
+                className="mt-4 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs text-slate-700 font-bold transition-colors"
               >
-                Khu vực Phụ huynh (Thêm thời gian)
+                👨‍👩‍👧 Dành cho Phụ huynh (Mở khóa)
               </button>
             </>
           ) : (
@@ -119,42 +141,65 @@ export default function TimeTracker() {
               >
                 Xác Nhận Phụ Huynh
               </h2>
-              <p className="text-slate-600 text-sm mb-4">
-                Giải phép toán để thêm 15 phút học
+              <p className="text-slate-600 text-xs mb-2">
+                Giải phép tính để mở khóa cho bé học tiếp:
               </p>
 
               <motion.div 
                 animate={error ? { x: [-10, 10, -10, 10, 0] } : {}}
-                className="bg-slate-100 p-4 rounded-2xl w-full mb-4"
+                className="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl w-full mb-3"
               >
-                <span className="text-2xl font-black text-slate-800" style={{ fontFamily: "var(--font-heading)" }}>
+                <span className="text-2xl font-black text-amber-900" style={{ fontFamily: "var(--font-heading)" }}>
                   {mathProblem.a} + {mathProblem.b} = ?
                 </span>
               </motion.div>
 
-              <form onSubmit={handleOverrideSubmit} className="flex flex-col gap-3 w-full">
+              <div className="flex flex-col gap-2.5 w-full">
                 <input 
                   type="number"
                   value={userAnswer}
                   onChange={(e) => setUserAnswer(e.target.value)}
                   placeholder="Nhập kết quả..."
-                  className="w-full text-center text-xl font-bold p-4 rounded-2xl bg-white border border-slate-200 focus:outline-none focus:ring-4 focus:ring-primary/20"
+                  className="w-full text-center text-xl font-bold p-3 rounded-2xl bg-white border-2 border-slate-200 focus:outline-none focus:border-primary"
                   autoFocus
                 />
-                <button 
-                  type="submit"
-                  className="w-full bg-primary text-white font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-transform"
-                >
-                  Xác nhận
-                </button>
+
                 <button 
                   type="button"
-                  onClick={() => setShowOverride(false)}
-                  className="w-full bg-slate-200 text-slate-600 font-bold py-3 rounded-2xl active:scale-95 transition-transform mt-1"
+                  onClick={() => handleUnlockWithAction("add15")}
+                  className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-all text-xs sm:text-sm"
+                >
+                  ➕ Thêm 15 phút học cho bé
+                </button>
+
+                <button 
+                  type="button"
+                  onClick={() => handleUnlockWithAction("resetToday")}
+                  className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-all text-xs sm:text-sm"
+                >
+                  🔄 Đặt lại lượt mới ({screenTimeLimit} phút)
+                </button>
+
+                <button 
+                  type="button"
+                  onClick={() => handleUnlockWithAction("unlimited")}
+                  className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 rounded-xl active:scale-95 transition-all text-xs"
+                >
+                  ♾️ Tắt giới hạn hôm nay (Vô hạn)
+                </button>
+
+                <button 
+                  type="button"
+                  onClick={() => {
+                    playSFX("tap");
+                    setShowOverride(false);
+                    setUserAnswer("");
+                  }}
+                  className="w-full text-slate-400 hover:text-slate-600 font-medium py-1 text-xs transition-colors"
                 >
                   Quay lại
                 </button>
-              </form>
+              </div>
             </>
           )}
         </motion.div>

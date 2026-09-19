@@ -1,7 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, X, RotateCcw, Shuffle, Sparkles, Check, Zap } from "lucide-react";
+import { Play, X, RotateCcw, Shuffle, Sparkles, Check, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import { RecommendedItem } from "./VideoEndRecommendation";
 import { playSFX } from "@/utils/soundEffects";
 
@@ -26,6 +27,21 @@ export default function YouTubeKidsVideoDrawer({
   onToggleAutoPlayNext,
   onRandomSurprise,
 }: YouTubeKidsVideoDrawerProps) {
+  const scrollTrayRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    playSFX("tap");
+    if (scrollTrayRef.current) {
+      scrollTrayRef.current.scrollBy({ left: -340, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    playSFX("tap");
+    if (scrollTrayRef.current) {
+      scrollTrayRef.current.scrollBy({ left: 340, behavior: "smooth" });
+    }
+  };
   return (
     <AnimatePresence>
       {isOpen && (
@@ -60,12 +76,12 @@ export default function YouTubeKidsVideoDrawer({
                 <span className="text-xl sm:text-2xl animate-bounce">🎈</span>
                 <div>
                   <h3
-                    className="text-white text-xs sm:text-sm md:text-base font-extrabold flex items-center gap-1.5"
+                    className="text-white text-xs sm:text-sm md:text-base font-extrabold flex items-center gap-1.5 flex-wrap"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     <span>Bé muốn xem bài nào tiếp theo?</span>
-                    <span className="hidden sm:inline text-[11px] font-medium text-cyan-300">
-                      (Chạm vào bài để xem ngay)
+                    <span className="text-[10px] sm:text-[11px] font-bold text-amber-300 bg-amber-400/20 px-2 py-0.5 rounded-full border border-amber-400/30">
+                      {recommendations.length} video gợi ý
                     </span>
                   </h3>
                 </div>
@@ -90,7 +106,7 @@ export default function YouTubeKidsVideoDrawer({
                   </motion.button>
                 )}
 
-                {/* Refresh 6 cards */}
+                {/* Refresh cards */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.92 }}
@@ -99,7 +115,7 @@ export default function YouTubeKidsVideoDrawer({
                     onRefresh();
                   }}
                   className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-cyan-300 border border-cyan-400/30 text-[10px] sm:text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
-                  title="Đổi 6 video khác"
+                  title="Đổi danh sách video khác"
                 >
                   <Shuffle size={12} />
                   <span>Đổi bài khác</span>
@@ -138,69 +154,92 @@ export default function YouTubeKidsVideoDrawer({
               </div>
             </div>
 
-            {/* Horizontal Scrollable Video Cards Tray */}
-            <div className="flex items-center gap-2.5 sm:gap-3.5 overflow-x-auto no-scrollbar py-1 px-0.5 scroll-smooth">
-              {recommendations.map((item, idx) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.04 }}
-                  whileHover={{ scale: 1.04, y: -2 }}
-                  whileTap={{ scale: 0.94 }}
-                  onClick={() => {
-                    playSFX("pop");
-                    onSelect(item.id);
-                  }}
-                  className="group relative w-40 sm:w-48 md:w-52 shrink-0 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-cyan-400/80 rounded-2xl p-2 transition-all cursor-pointer shadow-lg hover:shadow-cyan-500/30"
-                >
-                  {/* Thumbnail */}
-                  <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-950 mb-1.5 shadow-inner">
-                    <img
-                      src={item.thumbnail}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+            {/* Horizontal Scrollable Video Cards Tray with Arrows */}
+            <div className="relative group/tray">
+              {/* Scroll Left Button */}
+              <button
+                onClick={scrollLeft}
+                className="hidden sm:flex absolute -left-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/90 text-white border border-white/30 items-center justify-center shadow-xl hover:bg-cyan-600 transition-all cursor-pointer opacity-75 hover:opacity-100"
+                title="Xem video phía trước"
+              >
+                <ChevronLeft size={18} />
+              </button>
 
-                    {/* Duration badge */}
-                    {item.duration && (
-                      <span className="absolute bottom-1 right-1 text-[9px] font-bold text-white px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-md border border-white/20">
-                        {item.duration}
-                      </span>
-                    )}
+              <div 
+                ref={scrollTrayRef}
+                className="flex items-center gap-2.5 sm:gap-3.5 overflow-x-auto no-scrollbar py-1 px-1 scroll-smooth"
+              >
+                {recommendations.map((item, idx) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.03 }}
+                    whileHover={{ scale: 1.04, y: -2 }}
+                    whileTap={{ scale: 0.94 }}
+                    onClick={() => {
+                      playSFX("pop");
+                      onSelect(item.id);
+                    }}
+                    className="group relative w-40 sm:w-48 md:w-52 shrink-0 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-cyan-400/80 rounded-2xl p-2 transition-all cursor-pointer shadow-lg hover:shadow-cyan-500/30"
+                  >
+                    {/* Thumbnail */}
+                    <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-950 mb-1.5 shadow-inner">
+                      <img
+                        src={item.thumbnail}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
-                    {/* Priority label for first card */}
-                    {idx === 0 && (
-                      <span className="absolute top-1 left-1 text-[8px] sm:text-[9px] font-black text-slate-950 px-1.5 py-0.5 rounded bg-amber-400 shadow-md">
-                        Tiếp theo
-                      </span>
-                    )}
+                      {/* Duration badge */}
+                      {item.duration && (
+                        <span className="absolute bottom-1 right-1 text-[9px] font-bold text-white px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-md border border-white/20">
+                          {item.duration}
+                        </span>
+                      )}
 
-                    {/* Hover Play Button */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-cyan-500 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                        <Play size={14} fill="white" className="ml-0.5" />
+                      {/* Priority label for first card */}
+                      {idx === 0 && (
+                        <span className="absolute top-1 left-1 text-[8px] sm:text-[9px] font-black text-slate-950 px-1.5 py-0.5 rounded bg-amber-400 shadow-md">
+                          Tiếp theo
+                        </span>
+                      )}
+
+                      {/* Hover Play Button */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-cyan-500 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                          <Play size={14} fill="white" className="ml-0.5" />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Channel & Title */}
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1 text-[10px] text-amber-300 font-bold mb-0.5">
-                      <span>{item.avatarOrEmoji}</span>
-                      <span className="truncate">{item.channelOrArtist}</span>
+                    {/* Channel & Title */}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1 text-[10px] text-amber-300 font-bold mb-0.5">
+                        <span>{item.avatarOrEmoji}</span>
+                        <span className="truncate">{item.channelOrArtist}</span>
+                      </div>
+                      <h4
+                        className="text-white text-[11px] sm:text-xs font-bold line-clamp-2 leading-snug group-hover:text-cyan-300 transition-colors"
+                        style={{ fontFamily: "var(--font-heading)" }}
+                      >
+                        {item.title}
+                      </h4>
                     </div>
-                    <h4
-                      className="text-white text-[11px] sm:text-xs font-bold line-clamp-2 leading-snug group-hover:text-cyan-300 transition-colors"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      {item.title}
-                    </h4>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Scroll Right Button */}
+              <button
+                onClick={scrollRight}
+                className="hidden sm:flex absolute -right-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/90 text-white border border-white/30 items-center justify-center shadow-xl hover:bg-cyan-600 transition-all cursor-pointer opacity-75 hover:opacity-100"
+                title="Xem thêm video tiếp theo"
+              >
+                <ChevronRight size={18} />
+              </button>
             </div>
           </motion.div>
         </motion.div>

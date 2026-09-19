@@ -43,7 +43,7 @@ export default function VideoEndRecommendation({
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const heroItem = recommendations[0];
-  const otherItems = recommendations.slice(1, 6);
+  const otherItems = recommendations.slice(1, 11);
 
   // Confetti burst on appearance
   useEffect(() => {

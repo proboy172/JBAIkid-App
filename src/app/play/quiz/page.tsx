@@ -263,9 +263,9 @@ export default function PlayPage() {
                 id={`choice-${item.en.toLowerCase()}`}
               >
                 <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden flex items-center justify-center bg-slate-50/80 shadow-sm border border-slate-100">
-                  {item.illustrationUrl || item.photoUrl ? (
+                  {item.photoUrl || item.illustrationUrl ? (
                     <img
-                      src={item.illustrationUrl || item.photoUrl}
+                      src={item.photoUrl || item.illustrationUrl}
                       alt={item.en}
                       className="w-full h-full object-cover rounded-2xl"
                       onError={(e) => {
@@ -277,7 +277,7 @@ export default function PlayPage() {
                   ) : null}
                   <span
                     className="emoji-fallback text-4xl sm:text-5xl md:text-6xl"
-                    style={{ display: item.illustrationUrl || item.photoUrl ? "none" : "block" }}
+                    style={{ display: item.photoUrl || item.illustrationUrl ? "none" : "block" }}
                   >
                     {item.emoji}
                   </span>

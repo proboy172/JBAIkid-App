@@ -43,28 +43,17 @@ export default function FlashCardClient() {
   const current = items[index];
   const syllables = current ? getWordSyllables(current.en) : [];
 
-  // Dual-mode visuals: Montessori Real Photos vs Cute 3D Cartoon Illustrations
-  const [imageMode, setImageMode] = useState<"photo" | "illustration">("photo");
+  // Montessori Real Photos as primary visual
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("jbaikid_image_mode");
-      if (saved === "photo" || saved === "illustration") {
-        setImageMode(saved as "photo" | "illustration");
-      }
-    }
-  }, []);
-
-  useEffect(() => {
     setImageLoading(true);
     setImageError(false);
-  }, [index, imageMode]);
+  }, [index]);
 
-  const currentImageUrl = imageMode === "photo"
-    ? (current?.photoUrl || current?.illustrationUrl)
-    : (current?.illustrationUrl || current?.photoUrl);
+  // Always show real photo directly (authentic Montessori learning)
+  const currentImageUrl = current?.photoUrl || current?.illustrationUrl;
 
   const playPhonicsSequence = useCallback(async () => {
     if (!current || syllables.length === 0 || isPlayingPhonics) return;
@@ -140,7 +129,7 @@ export default function FlashCardClient() {
         markWordLearned(category, current.en);
         addStars(1);
       }
-      speak(current.vi, "vi-VN", 0.85);
+      speak(current.vi, "vi-VN", 0.65);
     }, 1800);
 
     // 3. Move to next card after 4.2s
@@ -434,43 +423,11 @@ export default function FlashCardClient() {
                   className="flash-card-front glass-card flex flex-col items-center justify-between p-3.5 sm:p-4 cursor-pointer relative overflow-hidden"
                   style={{ border: `3px solid ${cat.color}33` }}
                 >
-                  {/* Top Bar: Visual Mode Switcher + Sound Button */}
+                  {/* Top Bar: Authentic Photo Badge + Real Sound Button */}
                   <div className="w-full flex items-center justify-between gap-1 z-20">
-                    {(current.photoUrl || current.illustrationUrl) ? (
-                      <div 
-                        className="flex items-center gap-0.5 bg-slate-100/90 backdrop-blur-sm p-0.5 sm:p-1 rounded-xl shadow-inner"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <button
-                          type="button"
-                          onClick={() => {
-                            playSFX("tap");
-                            setImageMode("photo");
-                            if (typeof window !== "undefined") localStorage.setItem("jbaikid_image_mode", "photo");
-                          }}
-                          className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
-                            imageMode === "photo"
-                              ? "bg-white text-slate-800 shadow-sm font-extrabold scale-105"
-                              : "text-slate-500 hover:text-slate-700"
-                          }`}
-                        >
-                          <span>📸 Ảnh thật</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            playSFX("tap");
-                            setImageMode("illustration");
-                            if (typeof window !== "undefined") localStorage.setItem("jbaikid_image_mode", "illustration");
-                          }}
-                          className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 ${
-                            imageMode === "illustration"
-                              ? "bg-white text-slate-800 shadow-sm font-extrabold scale-105"
-                              : "text-slate-500 hover:text-slate-700"
-                          }`}
-                        >
-                          <span>🎨 Hình 3D</span>
-                        </button>
+                    {current.photoUrl ? (
+                      <div className="flex items-center gap-1 bg-slate-100/90 backdrop-blur-sm px-2.5 py-1 rounded-xl shadow-inner text-[11px] font-bold text-slate-600">
+                        <span>📸 Ảnh thật</span>
                       </div>
                     ) : (
                       <div />
@@ -492,17 +449,18 @@ export default function FlashCardClient() {
                     )}
                   </div>
 
-                  {/* Visual Presentation: Real Photo / 3D Illustration / Emoji */}
+                  {/* Visual Presentation: Montessori Real Photo Always Direct */}
                   <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/80 my-0.5">
                     {currentImageUrl && !imageError ? (
                       <>
                         <img
-                          key={`${current.en}-${imageMode}`}
+                          key={current.en}
                           src={currentImageUrl}
                           alt={current.en}
-                          className={`w-full h-full object-cover rounded-2xl transition-opacity duration-300 ${
+                          className={`w-full h-full object-cover rounded-2xl transition-opacity duration-200 ${
                             imageLoading ? "opacity-0" : "opacity-100"
                           }`}
+                          loading="eager"
                           onLoad={() => setImageLoading(false)}
                           onError={() => {
                             setImageError(true);
@@ -617,10 +575,23 @@ export default function FlashCardClient() {
                     </span>
                   </div>
 
-                  <div className="my-auto text-center py-1">
-                    <p className="text-2xl sm:text-3xl font-black text-gray-800 tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
-                      {current.vi}
-                    </p>
+                  <div 
+                    className="my-auto text-center py-1 cursor-pointer group"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      playSFX("tap");
+                      speak(current.vi, "vi-VN", 0.65);
+                    }}
+                    title="Chạm để nghe tiếng Việt chậm rãi"
+                  >
+                    <div className="flex items-center justify-center gap-1.5">
+                      <p className="text-2xl sm:text-3xl font-black text-gray-800 tracking-tight group-hover:text-primary transition-colors" style={{ fontFamily: "var(--font-heading)" }}>
+                        {current.vi}
+                      </p>
+                      <span className="p-1 rounded-full bg-primary/10 text-primary text-xs opacity-70 group-hover:opacity-100 transition-opacity">
+                        🔊
+                      </span>
+                    </div>
                     <div className="mt-1 text-xs text-gray-500 flex items-center justify-center gap-1 bg-white/70 px-3 py-0.5 rounded-full inline-flex border border-gray-100">
                       <span>Âm tiết:</span>
                       <span className="font-bold text-primary">{syllables.join(" • ")}</span>
@@ -769,7 +740,7 @@ export default function FlashCardClient() {
           )}
           <motion.button
             whileTap={{ scale: 0.92 }}
-            onClick={() => speak(current.vi, "vi-VN")}
+            onClick={() => speak(current.vi, "vi-VN", 0.65)}
             className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-xs sm:text-sm font-semibold shadow-sm flex items-center gap-2"
             id="btn-speak-vi"
           >

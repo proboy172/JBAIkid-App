@@ -92,6 +92,7 @@ interface ProgressState {
   incrementPlayTime: () => void;
   addPlayTime: (seconds: number) => void;
   setScreenTimeLimit: (limit: number) => void;
+  resetDailyPlayTime: () => void;
 
   // Music BGM
   bgmEnabled: boolean;
@@ -418,6 +419,10 @@ export const useAppStore = create<ProgressState>()(
 
       setScreenTimeLimit: (limit: number) => {
         set({ screenTimeLimit: limit });
+      },
+
+      resetDailyPlayTime: () => {
+        set({ dailyPlayTime: 0 });
       },
 
       getWeeklyStudyStats: () => {
