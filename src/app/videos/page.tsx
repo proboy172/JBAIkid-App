@@ -674,7 +674,7 @@ function VideosContent() {
                       }}
                       className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-0.5 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-xl transition-all border border-amber-200"
                     >
-                      <span>Xem cả 22 video</span>
+                      <span>Xem cả {educationalVideos.filter((v) => v.channel === "Wild Safari").length} video</span>
                       <ChevronRight size={14} />
                     </button>
                   </div>
