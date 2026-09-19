@@ -194,7 +194,26 @@ export default function MatchGamePage() {
                     isSelected ? "border-emerald-400 bg-emerald-50" : "border-transparent bg-white"
                   } ${isMatched ? "pointer-events-none" : ""}`}
                 >
-                  {item.emoji}
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center overflow-hidden">
+                    {item.illustrationUrl || item.photoUrl ? (
+                      <img
+                        src={item.illustrationUrl || item.photoUrl}
+                        alt={item.en}
+                        className="w-full h-full object-contain rounded-lg"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLElement).style.display = "none";
+                          const fallback = e.currentTarget.parentElement?.querySelector(".emoji-fallback") as HTMLElement;
+                          if (fallback) fallback.style.display = "block";
+                        }}
+                      />
+                    ) : null}
+                    <span
+                      className="emoji-fallback text-3xl sm:text-4xl"
+                      style={{ display: item.illustrationUrl || item.photoUrl ? "none" : "block" }}
+                    >
+                      {item.emoji}
+                    </span>
+                  </div>
                 </motion.button>
               );
             })}

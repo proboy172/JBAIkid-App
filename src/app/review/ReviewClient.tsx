@@ -11,7 +11,7 @@ import { useSpeech } from "@/hooks/useSpeech";
 import { useConfetti } from "@/hooks/useConfetti";
 import { useAppStore, type SRSCard, type SRSQuality } from "@/stores/appStore";
 import { Volume2, RotateCcw } from "lucide-react";
-import { playSFX } from "@/utils/soundEffects";
+import { playSFX, playRealLifeSound } from "@/utils/soundEffects";
 
 export default function ReviewClient() {
   const { getDueWords, reviewWord, addStars } = useAppStore();
@@ -44,6 +44,28 @@ export default function ReviewClient() {
 
   const currentCard = dueWords[currentIndex];
   const currentVocab = currentCard ? findVocabItem(currentCard.wordEn) : undefined;
+
+  const [imageMode, setImageMode] = useState<"photo" | "illustration">("photo");
+  const [imageLoading, setImageLoading] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("jbaikid_image_mode");
+      if (saved === "photo" || saved === "illustration") {
+        setImageMode(saved as "photo" | "illustration");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    setImageLoading(true);
+    setImageError(false);
+  }, [currentIndex, imageMode]);
+
+  const currentImageUrl = imageMode === "photo"
+    ? (currentVocab?.photoUrl || currentVocab?.illustrationUrl)
+    : (currentVocab?.illustrationUrl || currentVocab?.photoUrl);
 
   const handleRate = useCallback(
     (quality: SRSQuality) => {
@@ -195,7 +217,7 @@ export default function ReviewClient() {
             >
               {/* Card */}
               <div
-                className="flash-card-container w-full h-[240px] sm:h-[270px]"
+                className="flash-card-container w-full h-[320px] sm:h-[360px]"
                 onClick={() => {
                   playSFX("pop");
                   setFlipped((f) => !f);
@@ -203,34 +225,139 @@ export default function ReviewClient() {
               >
                 <div className={`flash-card-inner ${flipped ? "flipped" : ""}`}>
                   {/* Front */}
-                  <div className="flash-card-front glass-card flex flex-col items-center justify-center gap-2 p-4 sm:p-5 cursor-pointer border-2 border-purple-200">
-                    <span className="text-5xl sm:text-6xl">{currentVocab.emoji}</span>
-                    <h2
-                      className="text-2xl sm:text-3xl font-extrabold"
-                      style={{ fontFamily: "var(--font-heading)", color: "var(--color-secondary)" }}
-                    >
-                      {currentVocab.en}
-                    </h2>
-                    <p className="text-xs text-text-light mt-1">👆 Chạm để xem đáp án</p>
+                  <div className="flash-card-front glass-card flex flex-col items-center justify-between p-3 sm:p-4 cursor-pointer border-2 border-purple-200">
+                    {/* Top Mode Toggle + Real Sound */}
+                    <div className="w-full flex items-center justify-between gap-1 px-1">
+                      {currentVocab.photoUrl && currentVocab.illustrationUrl ? (
+                        <div
+                          className="flex items-center bg-slate-100/90 rounded-xl p-0.5 shadow-inner border border-slate-200"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setImageMode("photo");
+                              if (typeof window !== "undefined") localStorage.setItem("jbaikid_image_mode", "photo");
+                            }}
+                            className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${
+                              imageMode === "photo"
+                                ? "bg-white text-indigo-700 shadow-sm"
+                                : "text-slate-500 hover:text-slate-700"
+                            }`}
+                          >
+                            <span>📸 Ảnh thật</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setImageMode("illustration");
+                              if (typeof window !== "undefined") localStorage.setItem("jbaikid_image_mode", "illustration");
+                            }}
+                            className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-xs font-bold transition-all ${
+                              imageMode === "illustration"
+                                ? "bg-white text-purple-700 shadow-sm"
+                                : "text-slate-500 hover:text-slate-700"
+                            }`}
+                          >
+                            <span>🎨 Hình 3D</span>
+                          </button>
+                        </div>
+                      ) : (
+                        <div />
+                      )}
+
+                      {(currentVocab.realSound || currentVocab.realSoundType) && (
+                        <motion.button
+                          whileTap={{ scale: 0.9 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            playRealLifeSound(currentVocab.realSoundType, currentVocab.realSound);
+                          }}
+                          className="px-2 py-0.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-[10px] sm:text-xs font-bold shadow-sm flex items-center gap-1 transition-all"
+                          title="Nghe âm thanh thực tế"
+                        >
+                          <span className="animate-bounce">🔊</span>
+                          <span>{currentVocab.soundLabel ? currentVocab.soundLabel.replace("Tiếng ", "") : "Âm thanh"}</span>
+                        </motion.button>
+                      )}
+                    </div>
+
+                    {/* Visual Container */}
+                    <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/80 my-1">
+                      {currentImageUrl && !imageError ? (
+                        <img
+                          key={`${currentVocab.en}-${imageMode}`}
+                          src={currentImageUrl}
+                          alt={currentVocab.en}
+                          className={`w-full h-full object-cover rounded-2xl transition-opacity duration-300 ${
+                            imageLoading ? "opacity-0" : "opacity-100"
+                          }`}
+                          onLoad={() => setImageLoading(false)}
+                          onError={() => {
+                            setImageError(true);
+                            setImageLoading(false);
+                          }}
+                        />
+                      ) : (
+                        <span className="text-6xl drop-shadow-sm select-none">{currentVocab.emoji}</span>
+                      )}
+                    </div>
+
+                    <div className="text-center">
+                      <h2
+                        className="text-2xl sm:text-3xl font-extrabold"
+                        style={{ fontFamily: "var(--font-heading)", color: "var(--color-secondary)" }}
+                      >
+                        {currentVocab.en}
+                      </h2>
+                      <p className="text-xs text-text-light mt-0.5">👆 Chạm để xem đáp án</p>
+                    </div>
                   </div>
 
                   {/* Back */}
                   <div
-                    className="flash-card-back glass-card flex flex-col items-center justify-center gap-1.5 p-4 sm:p-5 cursor-pointer border-2 border-purple-200"
+                    className="flash-card-back glass-card flex flex-col items-center justify-between p-3 sm:p-4 cursor-pointer border-2 border-purple-200"
                     style={{ background: "linear-gradient(135deg, #f3e8ff22, white)" }}
                   >
-                    <span className="text-4xl sm:text-5xl">{currentVocab.emoji}</span>
-                    <h2
-                      className="text-xl sm:text-2xl font-extrabold"
-                      style={{ fontFamily: "var(--font-heading)", color: "var(--color-secondary)" }}
-                    >
-                      {currentVocab.en}
-                    </h2>
-                    <p className="text-sm text-text-light font-mono">{currentVocab.phonetic}</p>
-                    <div className="h-px w-14 bg-gray-200 my-0.5" />
-                    <p className="text-lg sm:text-xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>
-                      {currentVocab.vi}
-                    </p>
+                    {/* Compact Image */}
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden flex items-center justify-center bg-white shadow-sm border border-purple-100 mt-1">
+                      {currentImageUrl && !imageError ? (
+                        <img
+                          src={currentImageUrl}
+                          alt={currentVocab.en}
+                          className="w-full h-full object-cover rounded-xl"
+                        />
+                      ) : (
+                        <span className="text-3xl sm:text-4xl">{currentVocab.emoji}</span>
+                      )}
+                    </div>
+
+                    <div className="text-center my-0.5">
+                      <h2
+                        className="text-xl sm:text-2xl font-extrabold"
+                        style={{ fontFamily: "var(--font-heading)", color: "var(--color-secondary)" }}
+                      >
+                        {currentVocab.en}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-text-light font-mono">{currentVocab.phonetic}</p>
+                      <p className="text-base sm:text-lg font-bold mt-0.5 text-purple-700" style={{ fontFamily: "var(--font-heading)" }}>
+                        {currentVocab.vi}
+                      </p>
+                    </div>
+
+                    {/* Bilingual practical sentence */}
+                    {currentVocab.exampleSentenceEn && (
+                      <div className="w-full max-w-[280px] p-2 rounded-xl bg-purple-50/90 border border-purple-100 text-center mb-1">
+                        <p className="text-xs sm:text-sm font-semibold text-purple-950 leading-snug">
+                          {currentVocab.exampleSentenceEn}
+                        </p>
+                        {currentVocab.exampleSentenceVi && (
+                          <p className="text-[11px] sm:text-xs text-purple-700/80 mt-0.5 leading-tight">
+                            {currentVocab.exampleSentenceVi}
+                          </p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

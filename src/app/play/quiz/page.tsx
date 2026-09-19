@@ -262,7 +262,26 @@ export default function PlayPage() {
                 }`}
                 id={`choice-${item.en.toLowerCase()}`}
               >
-                <span className="text-4xl sm:text-5xl md:text-6xl">{item.emoji}</span>
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden flex items-center justify-center bg-slate-50/80 shadow-sm border border-slate-100">
+                  {item.illustrationUrl || item.photoUrl ? (
+                    <img
+                      src={item.illustrationUrl || item.photoUrl}
+                      alt={item.en}
+                      className="w-full h-full object-cover rounded-2xl"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLElement).style.display = "none";
+                        const fallback = e.currentTarget.parentElement?.querySelector(".emoji-fallback") as HTMLElement;
+                        if (fallback) fallback.style.display = "block";
+                      }}
+                    />
+                  ) : null}
+                  <span
+                    className="emoji-fallback text-4xl sm:text-5xl md:text-6xl"
+                    style={{ display: item.illustrationUrl || item.photoUrl ? "none" : "block" }}
+                  >
+                    {item.emoji}
+                  </span>
+                </div>
                 <span className="text-xs sm:text-sm md:text-base font-bold text-text-light text-center">{item.vi}</span>
               </motion.button>
             );
