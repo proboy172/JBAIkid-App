@@ -403,7 +403,7 @@ export default function FlashCardClient() {
           >
             {/* Card */}
             <div
-              className="flash-card-container w-full h-[350px] sm:h-[385px] md:h-[400px]"
+              className="flash-card-container w-full h-[375px] sm:h-[410px] md:h-[430px]"
               onClick={() => {
                 playSFX("pop");
                 setFlipped((f) => !f);
@@ -426,8 +426,8 @@ export default function FlashCardClient() {
                   {/* Top Bar: Authentic Photo Badge + Real Sound Button */}
                   <div className="w-full flex items-center justify-between gap-1 z-20">
                     {current.photoUrl ? (
-                      <div className="flex items-center gap-1 bg-slate-100/90 backdrop-blur-sm px-2.5 py-1 rounded-xl shadow-inner text-[11px] font-bold text-slate-600">
-                        <span>📸 Ảnh thật</span>
+                      <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200/80 px-2.5 py-1 rounded-full shadow-xs text-[11px] font-bold">
+                        <span>📸 Ảnh thực tế • Montessori</span>
                       </div>
                     ) : (
                       <div />
@@ -450,7 +450,7 @@ export default function FlashCardClient() {
                   </div>
 
                   {/* Visual Presentation: Montessori Real Photo Always Direct */}
-                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/80 my-0.5">
+                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/90 my-1">
                     {currentImageUrl && !imageError ? (
                       <>
                         <img
@@ -491,6 +491,18 @@ export default function FlashCardClient() {
                   >
                     {current.en}
                   </h2>
+
+                  {/* Association Prompt for Toddler */}
+                  {current.association && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="flex items-center gap-1.5 px-3 py-1 bg-amber-50/95 border border-amber-200/90 rounded-full text-xs sm:text-sm font-bold text-amber-900 shadow-sm max-w-full text-center my-0.5"
+                    >
+                      <span className="text-amber-500">💡</span>
+                      <span className="truncate">{current.association}</span>
+                    </motion.div>
+                  )}
 
                   {/* Interactive Syllables Breakdown Pill Strip */}
                   <div 
@@ -592,6 +604,12 @@ export default function FlashCardClient() {
                         🔊
                       </span>
                     </div>
+                    {current.association && (
+                      <div className="mt-2 text-xs sm:text-sm font-semibold text-amber-900 bg-amber-50/95 px-3 py-1.5 rounded-xl border border-amber-200/80 inline-flex items-center gap-1.5 shadow-xs max-w-full text-center">
+                        <span className="text-amber-600">💡 Liên tưởng:</span>
+                        <span>{current.association}</span>
+                      </div>
+                    )}
                     <div className="mt-1 text-xs text-gray-500 flex items-center justify-center gap-1 bg-white/70 px-3 py-0.5 rounded-full inline-flex border border-gray-100">
                       <span>Âm tiết:</span>
                       <span className="font-bold text-primary">{syllables.join(" • ")}</span>
