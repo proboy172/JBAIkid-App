@@ -9,7 +9,8 @@
     "start": "next start",
     "serve": "node serve.js",
     "lint": "eslint",
-    "sync": "node auto-sync.js"
+    "sync": "node auto-sync.js",
+    "deploy": "next build && firebase deploy --only hosting:jbaikid"
   },
   "dependencies": {
     "@capacitor-community/speech-recognition": "^7.0.1",
