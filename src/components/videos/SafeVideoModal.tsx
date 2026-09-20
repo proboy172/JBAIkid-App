@@ -33,6 +33,7 @@ interface SafeVideoModalProps {
   isFavorite: boolean;
   onToggleFavorite: () => void;
   onSelectVideo?: (newVideo: EducationalVideo) => void;
+  randomMode?: boolean;
 }
 
 export default function SafeVideoModal({
@@ -41,6 +42,7 @@ export default function SafeVideoModal({
   isFavorite,
   onToggleFavorite,
   onSelectVideo,
+  randomMode = false,
 }: SafeVideoModalProps) {
   const { addStars } = useAppStore();
   const { speak } = useSpeech();
@@ -163,7 +165,7 @@ export default function SafeVideoModal({
 
   // Rich pool of 20 recommendations like YouTube Kids
   const [recommendations, setRecommendations] = useState<RecommendedItem[]>(() =>
-    getRecommendedVideos(currentVideo, 20).map((v) => ({
+    getRecommendedVideos(currentVideo, 20, randomMode).map((v) => ({
       id: v.id,
       title: v.title,
       thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
@@ -176,7 +178,7 @@ export default function SafeVideoModal({
 
   useEffect(() => {
     setRecommendations(
-      getRecommendedVideos(currentVideo, 20).map((v) => ({
+      getRecommendedVideos(currentVideo, 20, randomMode).map((v) => ({
         id: v.id,
         title: v.title,
         thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
@@ -186,11 +188,11 @@ export default function SafeVideoModal({
         categoryName: v.categoryNameVi,
       }))
     );
-  }, [currentVideo]);
+  }, [currentVideo, randomMode]);
 
   const handleRefreshRecommendations = () => {
     setRecommendations(
-      getRecommendedVideos(currentVideo, 20).map((v) => ({
+      getRecommendedVideos(currentVideo, 20, randomMode).map((v) => ({
         id: v.id,
         title: v.title,
         thumbnail: `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`,
@@ -247,19 +249,24 @@ export default function SafeVideoModal({
         return;
       }
     }
-    // Fallback: pick a previous video in same category
-    const sameCategory = educationalVideos.filter(
-      (v) => v.category === currentVideo.category && v.id !== currentVideo.id
-    );
-    if (sameCategory.length > 0) {
-      const fallbackVid = sameCategory[Math.floor(Math.random() * sameCategory.length)];
+    // Fallback: pick a previous video (if in randomMode, pick across all videos)
+    const fallbackPool = randomMode
+      ? educationalVideos.filter((v) => v.id !== currentVideo.id)
+      : educationalVideos.filter(
+          (v) => v.category === currentVideo.category && v.id !== currentVideo.id
+        );
+    if (fallbackPool.length > 0) {
+      const fallbackVid = fallbackPool[Math.floor(Math.random() * fallbackPool.length)];
       handleSelectNextVideo(fallbackVid.id);
     }
   };
 
   const handleNextVideoShortcut = () => {
     playSFX("tap");
-    if (recommendations.length > 0) {
+    if (randomMode) {
+      // In random mode: surprise random video across entire library
+      handleRandomSurprise();
+    } else if (recommendations.length > 0) {
       handleSelectNextVideo(recommendations[0].id);
     } else {
       handleRandomSurprise();
@@ -728,22 +735,23 @@ export default function SafeVideoModal({
             {/* Floating YouTube Kids Quick Button on Video */}
             {!showQuickDrawer && !isVideoEnded && !isLocked && !showHUD && (
               <motion.button
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.93 }}
                 onClick={() => {
                   playSFX("pop");
                   setShowQuickDrawer(true);
                 }}
-                className="absolute bottom-3.5 left-3 sm:bottom-5 sm:left-5 z-30 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-white/30 hover:border-amber-400/80 backdrop-blur-md text-sm sm:text-base font-extrabold flex items-center gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.7)] hover:shadow-[0_0_25px_rgba(251,191,36,0.35)] transition-all cursor-pointer select-none"
-                title="Bấm để mở danh sách video gợi ý như YouTube Kids"
+                className="absolute top-3.5 left-3 sm:top-4 sm:left-4 z-30 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none"
+                title="Mở danh sách video gợi ý"
               >
                 <span className="text-xl sm:text-2xl animate-bounce">🎈</span>
-                <span className="hidden sm:inline">Bấm chọn video khác</span>
-                <span className="sm:hidden">Chọn video khác</span>
-                <span className="text-amber-300 text-xs sm:text-sm bg-amber-400/25 border border-amber-400/35 px-2.5 py-1 rounded-full font-black">
-                  🎲 Gợi ý
+                <span
+                  className="text-amber-300 text-sm sm:text-base font-black tracking-wide"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  Video gợi ý
                 </span>
               </motion.button>
             )}

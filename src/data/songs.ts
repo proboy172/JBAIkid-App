@@ -36,11 +36,7 @@ import songsViData from "./songs-vi.json";
 export const songsEn: Song[] = songsEnData as Song[];
 export const songsVi: Song[] = songsViData as Song[];
 
-export function getRecommendedSongs(currentSong: Song, count = 16): Song[] {
-  const isEn = songsEn.some((s) => s.id === currentSong.id);
-  const primaryPool = isEn ? songsEn : songsVi;
-  const secondaryPool = isEn ? songsVi : songsEn;
-
+export function getRecommendedSongs(currentSong: Song, count = 16, randomMode = false): Song[] {
   const shuffle = <T>(arr: T[]): T[] => {
     const copy = [...arr];
     for (let i = copy.length - 1; i > 0; i--) {
@@ -49,6 +45,16 @@ export function getRecommendedSongs(currentSong: Song, count = 16): Song[] {
     }
     return copy;
   };
+
+  const allOtherSongs = [...songsEn, ...songsVi].filter((s) => s.id !== currentSong.id);
+
+  if (randomMode) {
+    return shuffle(allOtherSongs).slice(0, count);
+  }
+
+  const isEn = songsEn.some((s) => s.id === currentSong.id);
+  const primaryPool = isEn ? songsEn : songsVi;
+  const secondaryPool = isEn ? songsVi : songsEn;
 
   const sameLang = shuffle(primaryPool.filter((s) => s.id !== currentSong.id));
   const otherLang = shuffle(secondaryPool);

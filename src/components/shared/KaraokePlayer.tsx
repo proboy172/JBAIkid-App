@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -31,6 +31,7 @@ interface KaraokePlayerProps {
   isFavorite?: boolean;
   onToggleFavorite?: () => void;
   onSelectSong?: (newSong: Song) => void;
+  randomMode?: boolean;
 }
 
 export default function KaraokePlayer({
@@ -39,6 +40,7 @@ export default function KaraokePlayer({
   isFavorite = false,
   onToggleFavorite,
   onSelectSong,
+  randomMode = false,
 }: KaraokePlayerProps) {
   const { addStars } = useAppStore();
   const { speak } = useSpeech();
@@ -79,7 +81,7 @@ export default function KaraokePlayer({
 
   // Rich pool of 20 song recommendations matching SafeVideoModal
   const [songRecommendations, setSongRecommendations] = useState<RecommendedItem[]>(() =>
-    getRecommendedSongs(currentSong, 20).map((s) => ({
+    getRecommendedSongs(currentSong, 20, randomMode).map((s) => ({
       id: s.id,
       title: s.title,
       thumbnail: s.youtubeId
@@ -94,7 +96,7 @@ export default function KaraokePlayer({
 
   useEffect(() => {
     setSongRecommendations(
-      getRecommendedSongs(currentSong, 20).map((s) => ({
+      getRecommendedSongs(currentSong, 20, randomMode).map((s) => ({
         id: s.id,
         title: s.title,
         thumbnail: s.youtubeId
@@ -106,11 +108,11 @@ export default function KaraokePlayer({
         categoryName: "Karaoke Thiếu Nhi",
       }))
     );
-  }, [currentSong]);
+  }, [currentSong, randomMode]);
 
   const handleRefreshSongRecommendations = () => {
     setSongRecommendations(
-      getRecommendedSongs(currentSong, 20).map((s) => ({
+      getRecommendedSongs(currentSong, 20, randomMode).map((s) => ({
         id: s.id,
         title: s.title,
         thumbnail: s.youtubeId
@@ -180,6 +182,9 @@ export default function KaraokePlayer({
 
           // Near-end detection via infoDelivery
           const ct = data.info.currentTime;
+          if (typeof ct === "number") {
+            setCurrentTime(ct);
+          }
           const dur = data.info.duration;
           if (typeof ct === "number" && typeof dur === "number" && dur > 5 && ct >= dur - 1.5) {
             handleSongFinished();
@@ -313,7 +318,9 @@ export default function KaraokePlayer({
 
   const handleNextSongShortcut = () => {
     playSFX("tap");
-    if (songRecommendations.length > 0) {
+    if (randomMode) {
+      handleRandomSongSurprise();
+    } else if (songRecommendations.length > 0) {
       handleSelectNextSong(songRecommendations[0].id);
     } else {
       handleRandomSongSurprise();
@@ -486,6 +493,7 @@ export default function KaraokePlayer({
             <span className="hidden lg:inline">Ngẫu nhiên</span>
           </motion.button>
 
+
           {/* 3. Toggle Lyrics & Learning Button */}
           {hasLyrics && (
             <motion.button
@@ -568,23 +576,8 @@ export default function KaraokePlayer({
           }`}
         >
           <div className="w-full h-full relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/15 bg-black">
-            {/* Local Video playback if available */}
-            {currentSong.localVideo ? (
-              <video
-                ref={videoRef}
-                key={`${currentSong.id}-${iframeKey}`}
-                src={currentSong.localVideo}
-                autoPlay
-                playsInline
-                controls={false}
-                onTimeUpdate={handleTimeUpdate}
-                onEnded={handleSongFinished}
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-                className="absolute inset-0 w-full h-full object-contain bg-black"
-              />
-            ) : (
-              /* YouTube Embed Player */
+            {/* YouTube Embed Player (Optimized for Web App / PWA) */}
+            {currentSong.youtubeId ? (
               <iframe
                 ref={iframeRef}
                 key={`${currentSong.id}-${iframeKey}`}
@@ -606,7 +599,22 @@ export default function KaraokePlayer({
                   } catch {}
                 }}
               />
-            )}
+            ) : currentSong.localVideo ? (
+              <video
+                ref={videoRef}
+                key={`${currentSong.id}-${iframeKey}`}
+                src={currentSong.localVideo}
+                autoPlay
+                playsInline
+                controls={false}
+                onTimeUpdate={handleTimeUpdate}
+                onEnded={handleSongFinished}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                className="absolute inset-0 w-full h-full object-contain bg-black"
+              />
+            ) : null}
+
 
             {/* Transparent click layer to open Toddler HUD on tap */}
             {!showQuickDrawer && !isSongEnded && !isLocked && !showHUD && (
@@ -740,22 +748,23 @@ export default function KaraokePlayer({
             {/* Floating YouTube Kids Quick Button on Song */}
             {!showQuickDrawer && !isSongEnded && !isLocked && !showHUD && (
               <motion.button
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.94 }}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.93 }}
                 onClick={() => {
                   playSFX("pop");
                   setShowQuickDrawer(true);
                 }}
-                className="absolute bottom-3.5 left-3 sm:bottom-5 sm:left-5 z-30 px-4 sm:px-5 py-2.5 sm:py-3.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-white/30 hover:border-amber-400/80 backdrop-blur-md text-sm sm:text-base font-extrabold flex items-center gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.7)] hover:shadow-[0_0_25px_rgba(251,191,36,0.35)] transition-all cursor-pointer select-none"
-                title="Bấm để mở danh sách bài hát gợi ý như YouTube Kids"
+                className="absolute top-3.5 left-3 sm:top-4 sm:left-4 z-30 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none"
+                title="Mở danh sách video gợi ý"
               >
                 <span className="text-xl sm:text-2xl animate-bounce">🎈</span>
-                <span className="hidden sm:inline">Bấm chọn bài hát khác</span>
-                <span className="sm:hidden">Chọn bài khác</span>
-                <span className="text-amber-300 text-xs sm:text-sm bg-amber-400/25 border border-amber-400/35 px-2.5 py-1 rounded-full font-black">
-                  🎲 Gợi ý
+                <span
+                  className="text-amber-300 text-sm sm:text-base font-black tracking-wide"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  Video gợi ý
                 </span>
               </motion.button>
             )}
@@ -972,17 +981,17 @@ export default function KaraokePlayer({
                       {currentSong.lyrics.map((line, idx) => (
                         <div
                           key={idx}
-                          className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-start justify-between gap-2 transition-colors"
+                          className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-start justify-between gap-2 transition-colors"
                         >
                           <div className="flex-1 min-w-0">
                             <p
-                              className="text-sm font-bold text-white leading-snug"
+                              className="text-sm sm:text-base font-bold text-white leading-snug"
                               style={{ fontFamily: "var(--font-heading)" }}
                             >
                               {line.text}
                             </p>
                             {showTranslation && line.translation && (
-                              <p className="text-xs text-amber-300/85 mt-1 italic font-medium">
+                              <p className="text-xs text-amber-200/75 mt-1 italic font-medium">
                                 {line.translation}
                               </p>
                             )}
