@@ -204,7 +204,7 @@ export default function HomePage() {
                   ? (immersionMode ? "Yay! Treasure chest unlocked, claim your stars! 🎁" : "Bé ơi! Hòm kho báu đã mở, bấm nhận sao nào! 🎁")
                   : dueCount > 0
                   ? (immersionMode ? `You have ${dueCount} words to review today!` : `Có ${dueCount} từ cần ôn tập nè!`)
-                  : (immersionMode ? "Hello star! Tap Bino to play! ✨" : "Chào con! Chạm vào Bino để chơi nhé! ✨")
+                  : (immersionMode ? "Hello star! Tap JB-Bot to play! ✨" : "Chào con! Chạm vào JB-Bot để chơi nhé! ✨")
               }
               size={85}
             />

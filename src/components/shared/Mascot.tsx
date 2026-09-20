@@ -7,10 +7,10 @@ import { playSFX, speakCheer } from "@/utils/soundEffects";
 type MascotMood = "wave" | "cheer" | "sad" | "love";
 
 const moodImages: Record<MascotMood, string> = {
-  wave: "/mascot/bino-wave.png",
-  cheer: "/mascot/bino-cheer.png",
-  sad: "/mascot/bino-sad.png",
-  love: "/mascot/bino-love.png",
+  wave: "/mascot/jbbot-wave.png",
+  cheer: "/mascot/jbbot-cheer.png",
+  sad: "/mascot/jbbot-sad.png",
+  love: "/mascot/jbbot-love.png",
 };
 
 interface MascotProps {
@@ -47,7 +47,7 @@ export default function Mascot({
     <div 
       className={`flex flex-col items-center gap-1 cursor-pointer select-none group ${className}`}
       onClick={handleTapMascot}
-      title="Chạm vào Bino để chào nhé!"
+      title="Chạm vào JB-Bot để chào nhé!"
     >
       {/* Speech Bubble */}
       <AnimatePresence>
@@ -59,7 +59,7 @@ export default function Mascot({
             className="relative bg-white rounded-2xl px-3 py-1.5 shadow-md border border-gray-100 max-w-[220px] transition-transform group-hover:scale-105"
           >
             <p className="text-xs font-bold text-center" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
-              {isJumping ? "Yeeey! Chào bé yêu! 🎉" : message}
+              {isJumping ? "Yeeey! JB-Bot chào bé yêu! 🎉" : message}
             </p>
             {/* Tail */}
             <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-gray-100 rotate-45" />
@@ -70,7 +70,7 @@ export default function Mascot({
       {/* Mascot Image */}
       <motion.img
         src={moodImages[activeMood]}
-        alt="Bino Mascot"
+        alt="JB-Bot Mascot"
         width={size}
         height={size}
         className="drop-shadow-xl transition-transform"
