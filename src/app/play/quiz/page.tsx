@@ -95,7 +95,7 @@ export default function PlayPage() {
         <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10 max-w-xl mx-auto w-full">
           <BackButton label="Game Center" />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center px-4 pb-20 lg:pb-14 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -137,7 +137,7 @@ export default function PlayPage() {
     return (
       <div className="min-h-dvh flex flex-col">
         <ConfettiOverlay pieces={pieces} />
-        <div className="flex-1 flex flex-col items-center justify-center px-4 pb-20 lg:pb-14 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -211,7 +211,7 @@ export default function PlayPage() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-20 lg:pb-14 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
         {/* Prompt */}
         <motion.div
           key={qIndex}

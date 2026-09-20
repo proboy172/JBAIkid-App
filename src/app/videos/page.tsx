@@ -611,7 +611,7 @@ function VideosContent() {
       </div>
 
       {/* Content Section */}
-      <div className="flex-1 px-3 sm:px-6 pb-24 lg:pb-16 scroll-area relative z-10 max-w-6xl mx-auto w-full">
+      <div className="flex-1 px-3 sm:px-6 pb-36 sm:pb-40 lg:pb-44 scroll-area relative z-10 max-w-6xl mx-auto w-full">
         {/* Search Result View (when query is active) */}
         {searchQuery.trim() ? (
           <div>
@@ -801,7 +801,7 @@ function VideosContent() {
 
                 {/* Load More Button for All Tab */}
                 {visibleAllCount < shuffledAllVideos.length && (
-                  <div className="mt-8 flex flex-col items-center justify-center">
+                  <div className="mt-8 mb-6 sm:mb-8 flex flex-col items-center justify-center">
                     <button
                       onClick={() => {
                         playSFX("tap");
@@ -856,7 +856,7 @@ function VideosContent() {
 
                     {/* Load More Button - Reduces DOM & VRAM Load for Cool Tablet Experience */}
                     {visibleEduCount < filteredEduVideos.length && (
-                      <div className="mt-8 flex flex-col items-center justify-center">
+                      <div className="mt-8 mb-6 sm:mb-8 flex flex-col items-center justify-center">
                         <button
                           onClick={() => {
                             playSFX("tap");

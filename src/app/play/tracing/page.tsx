@@ -295,7 +295,7 @@ export default function TracingPage() {
       </div>
 
       {/* Main Canvas & Tracing Stage */}
-      <div className="flex-1 px-4 pb-24 lg:pb-16 flex flex-col items-center justify-center relative z-10 max-w-4xl mx-auto w-full">
+      <div className="flex-1 px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto flex flex-col items-center justify-center relative z-10 max-w-4xl mx-auto w-full">
         
         {/* Top Info Banner */}
         <div className="flex items-center justify-between w-full max-w-sm mb-2 px-1">

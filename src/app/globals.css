@@ -71,13 +71,14 @@ body {
 
 .glass-card {
   background: var(--color-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transform: translateZ(0);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 24px;
   box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.06),
-    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 20px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.03),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
@@ -353,6 +354,32 @@ body {
   border-top: 1px solid rgba(226, 232, 240, 0.9);
   box-shadow: 0 -6px 28px rgba(0, 0, 0, 0.06);
   padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+/* Landscape & Compact Height Viewport Optimization for BottomNav */
+@media (max-height: 560px) {
+  .bottom-nav {
+    padding-bottom: max(env(safe-area-inset-bottom, 2px), 2px) !important;
+  }
+  .bottom-nav > div {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+  .bottom-nav a {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    gap: 1px !important;
+  }
+  .bottom-nav a span[class*="text-2xl"],
+  .bottom-nav a span[class*="text-3xl"],
+  .bottom-nav a span[class*="text-4xl"] {
+    font-size: 1.35rem !important;
+    line-height: 1.35rem !important;
+  }
+  .bottom-nav a span[class*="text-"] {
+    font-size: 10px !important;
+    line-height: 11px !important;
+  }
 }
 
 body.video-modal-open .bottom-nav,

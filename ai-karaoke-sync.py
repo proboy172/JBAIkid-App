@@ -11,68 +11,13 @@ def clean_word(word):
     """Chuẩn hóa từ để so sánh: bỏ dấu câu, viết thường"""
     return word.translate(str.maketrans('', '', string.punctuation)).lower().strip()
 
-def get_songs(filepath, varname):
+def get_songs(filepath, varname=None):
     with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    start_marker = f'export const {varname}: Song[] = ['
-    start_idx = content.find(start_marker)
-    end_idx = content.rfind('];')
-    
-    if start_idx == -1 or end_idx == -1: return []
-    
-    node_script = f"""
-    const fs = require('fs');
-    const code = fs.readFileSync('{filepath}', 'utf8');
-    const startMarker = `export const {varname}: Song[] = [`;
-    const startIndex = code.indexOf(startMarker);
-    const endIndex = code.lastIndexOf('];');
-    const arrayStr = code.substring(startIndex + startMarker.length - 1, endIndex + 1);
-    const songs = eval('(' + arrayStr + ')');
-    fs.writeFileSync('temp_sync_songs.json', JSON.stringify(songs, null, 2));
-    """
-    with open("temp_sync_node.js", "w", encoding="utf-8") as f:
-        f.write(node_script)
-    subprocess.run(["node", "temp_sync_node.js"], check=True)
-    
-    with open("temp_sync_songs.json", "r", encoding="utf-8") as f:
-        songs = json.load(f)
-    return songs
+        return json.load(f)
 
 def save_songs(filepath, varname, songs):
-    tsContent = 'import { Song } from "./songs";\n\n'
-    tsContent += '// ====================================================================\n'
-    tsContent += '// DỮ LIỆU ĐÃ ĐƯỢC WHISPER AI PHÂN TÍCH VÀ ĐỒNG BỘ TỰ ĐỘNG (CHUẨN 100%)\n'
-    tsContent += '// Timestamp lấy từ file audio gốc của video.\n'
-    tsContent += '// ====================================================================\n\n'
-    tsContent += f'export const {varname}: Song[] = [\n'
-
-    for i, s in enumerate(songs):
-        tsContent += '  {\n'
-        tsContent += f'    id: "{s["id"]}",\n'
-        tsContent += f'    title: "{s["title"]}",\n'
-        tsContent += f'    emoji: "{s["emoji"]}",\n'
-        tsContent += f'    color: "{s["color"]}",\n'
-        if "youtubeId" in s: tsContent += f'    youtubeId: "{s["youtubeId"]}",\n'
-        if "localVideo" in s: tsContent += f'    localVideo: "{s["localVideo"]}",\n'
-        if "bpm" in s: tsContent += f'    bpm: {s["bpm"]},\n'
-        if "introDuration" in s: tsContent += f'    introDuration: {s["introDuration"]},\n'
-        
-        tsContent += '    lyrics: [\n'
-        for j, l in enumerate(s['lyrics']):
-            tsContent += '      { \n'
-            tsContent += f'        time: {l["time"]},\n'
-            tsContent += f'        text: {json.dumps(l["text"])},\n'
-            tsContent += '        words: [\n'
-            words_str = ", ".join([f'{{ text: {json.dumps(w["text"])}, duration: {w.get("duration", 0.5)} }}' for w in l.get("words", [])])
-            tsContent += f'          {words_str}\n'
-            tsContent += '        ]\n'
-            tsContent += f'      }}{"," if j < len(s["lyrics"])-1 else ""}\n'
-        tsContent += f'    ]\n  }}{"," if i < len(songs)-1 else ""}\n'
-    tsContent += '];\n'
-
-    with open(filepath, "w", encoding="utf-8") as f:
-        f.write(tsContent)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(songs, f, ensure_ascii=False, indent=2)
 
 
 def align_line_to_whisper(line_words_text, whisper_words, search_start, search_end):
@@ -280,12 +225,12 @@ if __name__ == "__main__":
     if args.lang in ["en", "all"]:
         print("Loading Whisper model (small.en) for English...")
         model_en = whisper.load_model("small.en")
-        process_songs("en", 'src/data/songs-en.ts', 'songsEnNew', model_en, target_ids)
+        process_songs("en", 'src/data/songs-en.json', 'songsEn', model_en, target_ids)
         del model_en  # Free memory
         
     if args.lang in ["vi", "all"]:
         print("Loading Whisper model (base) for Vietnamese...")
         model_vi = whisper.load_model("base")
-        process_songs("vi", 'src/data/songs-vi.ts', 'songsViNew', model_vi, target_ids)
+        process_songs("vi", 'src/data/songs-vi.json', 'songsVi', model_vi, target_ids)
         
     print("\n--- AI SYNC PROCESS COMPLETE ---")

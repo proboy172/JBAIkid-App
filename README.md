@@ -1,109 +1,90 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/proboy172/JBAIkid-App/main/public/icon.png" width="120" alt="JBAIkid Logo" />
-  <h1>🌟 JBAIkid - Học Hay, Hát Giỏi 🌟</h1>
-  <p><strong>Nền tảng Giải trí & Học tập Tiếng Anh Offline 100% dành riêng cho Trẻ Em</strong></p>
+  <h1>🌟 JBAIkid - Học Hay, Vui Sáng Tạo 🌟</h1>
+  <p><strong>Nền tảng Học tập & Giải trí Tiếng Anh An Toàn Tuyệt Đối cho Trẻ Em (Web App / PWA)</strong></p>
 
-  [![Build Android APK](https://github.com/proboy172/JBAIkid-App/actions/workflows/build-apk.yml/badge.svg)](https://github.com/proboy172/JBAIkid-App/actions/workflows/build-apk.yml)
-  [![Capacitor](https://img.shields.io/badge/Capacitor-Native-blue?logo=capacitor)](https://capacitorjs.com/)
   [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+  [![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev/)
+  [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v3.4-38bdf8?logo=tailwindcss)](https://tailwindcss.com/)
+  [![Kid-Safe](https://img.shields.io/badge/Safety-COPPA%20Compliant%20%7C%20No%20Ads-green)](#)
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 </div>
 
 ---
 
-## 📌 Về Ứng Dụng (About)
+## 📌 Giới Thiệu (About JBAIkid)
 
-**JBAIkid** là một siêu ứng dụng di động giáo dục - giải trí được thiết kế đặc biệt dành cho trẻ mầm non và tiểu học. Khác biệt với các ứng dụng thông thường, JBAIkid hoạt động **hoàn toàn Offline (không cần mạng)**, đảm bảo môi trường học tập an toàn tuyệt đối, không quảng cáo, không nội dung độc hại.
+**JBAIkid** là nền tảng Web App giáo dục – giải trí tương tác được thiết kế riêng cho trẻ mầm non và tiểu học. Ứng dụng chạy trực tiếp trên trình duyệt Web (hỗ trợ cài đặt PWA trên máy tính bảng, iPad, máy tính và điện thoại), mang đến môi trường học tập **an toàn 100%, không quảng cáo (Ad-Free), không mã theo dõi độc hại**.
 
-Sản phẩm được phát triển bằng **Next.js** và "hóa cốt" thành ứng dụng Android Native bằng **Capacitor**, tích hợp trí tuệ nhân tạo (Whisper AI) để xử lý dữ liệu chuẩn xác nhất.
+---
 
 ## 🚀 Tính Năng Nổi Bật (Key Features)
 
-### 🎵 Karaoke Đồng Bộ Bằng AI
-- Hơn 30 bài hát song ngữ Anh - Việt.
-- Lời bài hát (Karaoke Lyrics) được đồng bộ **đến từng chữ (Word-level)** bằng thuật toán **Whisper AI** và Heuristic Sync, mang lại trải nghiệm ngân nga cực mượt.
-- Tự động phát (Autoplay) và Tự động lặp lại thông minh.
+### 📚 Kho Video Giáo Dục Chọn Lọc (148+ Video Đã Thẩm Định 100%)
+- Tuyển tập 148 video chất lượng cao từ các kênh giáo dục trẻ em hàng đầu (VTV7 Kids, Cocomelon, Super Simple Songs, ChuChu TV, Pinkfong, Numberblocks, SciShow Kids...).
+- Phân loại rõ ràng: **Tiếng Anh, Toán tư duy, Khoa học & Tự nhiên, Bài hát thiếu nhi, Kỹ năng sống**.
+- Toàn bộ video được kiểm duyệt và xác thực đường truyền, loại bỏ 100% video lỗi/không khả dụng.
 
-### 🗣️ Học Từ Vựng Thực Tế ảo (Flashcards + Voice)
-- Học từ vựng qua thẻ bài hình ảnh sinh động.
-- **Tích hợp Native Speech Recognition**: Sử dụng công nghệ nhận diện giọng nói gốc của Android để nghe và chấm điểm phát âm tiếng Anh của bé ngay lập tức.
-- Phát âm từ vựng chuẩn bản xứ (Web Speech API).
+### 🎵 Trình Phát Video Bài Hát & Học Từ Vựng
+- Hơn 40 bài hát song ngữ Anh - Việt quen thuộc cho bé.
+- Khung hiển thị **Từ vựng trọng tâm** kèm phát âm chuẩn bản ngữ qua Web Speech Audio.
+- Bảng phụ đề và lời dịch song ngữ trực quan cho phụ huynh cùng học với bé, giữ khung hình video sạch sẽ và rõ nét.
+
+### 🗣️ Học Tương Tác & Luyện Phát Âm
+- **Cô giáo AI (AI Teacher)**: Trò chuyện và giải đáp thắc mắc của bé bằng giọng đọc thân thiện.
+- **Cuộc gọi Chú Cảnh Sát (Police Call)**: Tình huống rèn luyện kỹ năng an toàn và thói quen tốt.
+- **Thẻ Flashcards**: Học từ vựng theo chủ đề với hình ảnh minh họa sinh động và chấm điểm phát âm.
 
 ### 🎮 Trạm Game Tư Duy (Minigames)
-Hệ thống game được thiết kế giúp bé kiếm "Sao" sau những giờ học:
-- **Lật Thẻ Nhớ (Memory Game)**: Luyện trí nhớ ngắn hạn.
-- **Nghe & Chọn (Quiz Game)**: Nghe phát âm và nhặt đúng hình.
-- **Nối Hình (Match Game)**: Rèn luyện logic nối từ và hình.
+- **Lật Thẻ Nhớ (Memory Game)**: Rèn luyện trí nhớ thị giác.
+- **Nghe & Chọn (Quiz Game)**: Luyện nghe nhận biết từ vựng.
+- **Nối Hình (Match Game)**: Rèn phản xạ ghép cặp từ và hình ảnh.
 
 ### 🎁 Cửa Hàng Nhãn Dán (Sticker Store)
-- Bé dùng sao (Star) tích lũy được từ việc học và chơi game để đổi lấy các Nhãn Dán (Stickers) cực ngầu (Khủng long, Siêu xe, Động vật...).
-
-### 🛡️ Lưu Trữ Vĩnh Viễn (Native Persistence)
-- Sử dụng **Capacitor Preferences** chọc sâu vào lõi thiết bị Android. Tiến trình học, điểm số và số sao của bé được bảo vệ tuyệt đối, không bị mất ngay cả khi phụ huynh lỡ tay "Xóa Cache" điện thoại.
+- Bé tích lũy "Sao Thưởng" qua mỗi bài học, video và trò chơi để đổi các nhãn dán sticker ngộ nghĩnh.
+- Lưu trữ dữ liệu học tập an toàn trên trình duyệt qua Local Storage / Preferences.
 
 ---
 
-## 🛠️ Công Nghệ Sử Dụng (Tech Stack)
+## 🛠️ Ngăn Xếp Công Nghệ (Tech Stack)
 
-- **Frontend:** Next.js (App Router), React, TailwindCSS, Framer Motion.
-- **Mobile Engine:** Capacitor (Android).
-- **Native Plugins:** 
-  - `@capacitor/preferences` (Lưu trữ)
-  - `@capacitor-community/speech-recognition` (Thu âm)
-- **AI Processing (Build-time):** OpenAI Whisper (Python), FFmpeg, Heuristic Timings.
-- **CI/CD:** GitHub Actions (Tự động biên dịch ra tệp APK).
+- **Core Framework:** Next.js 15 (App Router, Static Export `output: "export"`).
+- **UI & Animation:** React 19, TailwindCSS, Framer Motion, Lucide Icons.
+- **Audio & Speech:** Web Speech API, Web Audio Context Singleton.
+- **Deployment Target:** Web App / PWA (Firebase Hosting, Vercel, Cloudflare Pages).
+- **Data Pipeline:** Node.js / Python kiểm định chất lượng nội dung và định dạng JSON tĩnh tối ưu bộ nhớ.
 
 ---
 
-## 📦 Cách Tải & Cài Đặt (Installation)
+## 💻 Hướng Dẫn Cài Đặt & Phát Triển (Development)
 
-### Dành Cho Phụ Huynh (Người dùng)
-Bạn không cần biết lập trình! Chỉ cần tải file ứng dụng và cài đặt:
-1. Vào mục **[Actions](https://github.com/proboy172/JBAIkid-App/actions)** trên kho lưu trữ này.
-2. Bấm vào luồng chạy **Build Android APK** gần nhất có dấu tích xanh (✅).
-3. Kéo xuống dưới cùng phần **Artifacts**, tải file `JBAIkid-App.zip` về giải nén ra sẽ có file `.apk`.
-4. Gửi file `.apk` vào điện thoại Android của bé và cài đặt. Mọi video bài hát đã được nhúng sẵn, bé có thể xem ngay không cần WiFi!
-
-### Dành Cho Lập Trình Viên (Developers)
-
-**1. Clone dự án về máy:**
-```bash
-git clone https://github.com/proboy172/JBAIkid-App.git
-cd JBAIkid-App
-```
-
-**2. Cài đặt thư viện:**
+### 1. Cài đặt thư viện:
 ```bash
 npm install
 ```
 
-**3. Chạy thử nghiệm trên Web (Development):**
+### 2. Khởi chạy môi trường phát triển (Development Server):
 ```bash
 npm run dev
 ```
+Truy cập ứng dụng tại `http://localhost:3000`.
 
-**4. Build ra file Android (.apk) ngay trên máy tính của bạn:**
-Yêu cầu: Máy tính phải cài đặt sẵn `Java JDK 17` và `Android Studio`.
+### 3. Đóng gói bản chạy sản xuất (Production Static Build):
 ```bash
-# Build Web thành thư mục /out
 npm run build
-
-# Đồng bộ dữ liệu tĩnh xuống thư mục lõi Android
-npx cap sync android
-
-# Mở Android Studio để tự tay Build APK
-npx cap open android
 ```
+Toàn bộ mã nguồn tĩnh được xuất ra thư mục `/out`, sẵn sàng deploy lên bất kỳ nền tảng Web Hosting tĩnh nào (Firebase, Vercel, Netlify, Nginx, GitHub Pages).
 
 ---
 
-## 🏗️ Cấu Trúc Dự Án (Project Structure)
-- `src/app`: Giao diện ứng dụng (UI/UX) chia theo chức năng.
-- `src/components`: Các mảnh ghép giao diện (Nút bấm, Header, Hiệu ứng pháo hoa).
-- `src/data`: Cấu trúc dữ liệu bài hát, từ vựng (Đã được nắn chỉnh AI).
-- `public/videos`: Chứa file video siêu nén (Offline 100%).
-- `android/`: Nền tảng gốc của ứng dụng Android sau khi được hóa cốt từ Web.
-- `*.py / *.js` ở thư mục gốc: Các công cụ cào dữ liệu, gọi AI Whisper và cắt video tự động.
+## 🏗️ Cấu Trúc Thư Mục (Project Structure)
+
+- `src/app/`: Các trang giao diện (Trang chủ, Videos giáo dục, Video bài hát, AI Teacher, Minigames, Sticker Store).
+- `src/components/`: Các thành phần giao diện tái sử dụng (SafeVideoModal, KaraokePlayer, Audio Controls, Navigation).
+- `src/data/`: Cơ sở dữ liệu tĩnh đã được làm sạch và chuẩn hóa (`educationalVideos.json`, `songs-en.json`, `songs-vi.json`, `flashcards.ts`).
+- `src/hooks/`: Các React hooks tối ưu (`useSpeechRecognition`, `useAudio`).
+- `src/utils/`: Tiện ích âm thanh singleton và bộ phát audio an toàn.
+- `public/`: Tài nguyên tĩnh, biểu tượng, hình ảnh minh họa cho bé.
 
 ---
-*Phát triển bằng tình yêu thương dành cho trẻ nhỏ ❤️*
+*Phát triển với tình yêu thương và cam kết an toàn cho trẻ nhỏ ❤️*

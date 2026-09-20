@@ -97,6 +97,7 @@ export function useSpeechRecognition() {
             }
 
             setIsRecording(true);
+            await SpeechRecognition.removeAllListeners();
             await SpeechRecognition.start({
               language: "en-US",
               maxResults: 1,
@@ -104,20 +105,33 @@ export function useSpeechRecognition() {
               partialResults: false,
             });
 
+            let isHandled = false;
+            const cleanup = () => {
+              if (timeoutId) clearTimeout(timeoutId);
+              SpeechRecognition.removeAllListeners().catch(() => {});
+            };
+
+            const timeoutId = setTimeout(() => {
+              if (!isHandled) {
+                isHandled = true;
+                cleanup();
+                SpeechRecognition.stop().catch(() => {});
+                setIsRecording(false);
+                resolve(null);
+              }
+            }, 6000);
+
             SpeechRecognition.addListener("partialResults", (data: any) => {
-              if (data.matches && data.matches.length > 0) {
+              if (!isHandled && data.matches && data.matches.length > 0) {
+                isHandled = true;
+                cleanup();
                 const text = data.matches[0];
                 const res = evaluatePronunciation(text, targetWord);
                 setIsRecording(false);
-                SpeechRecognition.stop();
+                SpeechRecognition.stop().catch(() => {});
                 resolve(res);
               }
             });
-
-            setTimeout(() => {
-              SpeechRecognition.stop();
-              setIsRecording(false);
-            }, 6000);
 
             return;
           }

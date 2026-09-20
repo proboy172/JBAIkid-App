@@ -114,7 +114,7 @@ export default function MemoryGamePage() {
         <div className="pt-10 pb-4 px-5 relative z-10">
           <BackButton label="Game Center" />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center">
             <span className="text-8xl block mb-4">❓</span>
             <h1 className="text-3xl font-extrabold mb-2" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
@@ -142,7 +142,7 @@ export default function MemoryGamePage() {
     return (
       <div className="min-h-dvh flex flex-col">
         <ConfettiOverlay pieces={pieces} />
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center glass-card p-8 max-w-sm w-full">
             <span className="text-7xl block mb-3">{stars >= 3 ? "🏆" : stars >= 2 ? "🌟" : "👍"}</span>
             <h2 className="text-3xl font-extrabold mb-2" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
@@ -183,7 +183,7 @@ export default function MemoryGamePage() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 pb-20 lg:pb-14 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 landscape:grid-cols-6 gap-2 sm:gap-3 w-full max-w-sm sm:max-w-xl md:max-w-4xl mx-auto">
           <AnimatePresence>
             {cards.map((card) => {

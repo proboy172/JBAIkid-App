@@ -99,7 +99,7 @@ export default function LearnPage() {
       </motion.div>
 
       {/* Content Area */}
-      <div className="flex-1 px-4 sm:px-5 pb-24 lg:pb-16 pt-1 scroll-area relative z-10 w-full">
+      <div className="flex-1 px-4 sm:px-5 pb-36 sm:pb-40 lg:pb-44 pt-1 scroll-area relative z-10 w-full">
         {viewMode === "map" ? (
           /* ================= ADVENTURE MAP VIEW ================= */
           <div className="max-w-md mx-auto flex flex-col items-center gap-6 sm:gap-8 w-full py-2">

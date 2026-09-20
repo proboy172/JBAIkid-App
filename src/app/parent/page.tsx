@@ -72,7 +72,7 @@ export default function ParentPage() {
           <BackButton label="Home" />
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -145,7 +145,7 @@ export default function ParentPage() {
         </motion.div>
       </div>
 
-      <div className="flex-1 px-4 sm:px-5 pb-24 lg:pb-16 scroll-area relative z-10 w-full">
+      <div className="flex-1 px-4 sm:px-5 pb-32 sm:pb-36 lg:pb-40 scroll-area relative z-10 w-full">
         <div className="max-w-4xl mx-auto flex flex-col gap-4 w-full">
           {/* Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

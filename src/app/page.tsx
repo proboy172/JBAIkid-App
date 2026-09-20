@@ -186,7 +186,7 @@ export default function HomePage() {
       </div>
 
       {/* Main Responsive Body: Stacked on Portrait, Side-by-Side on Landscape */}
-      <div className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-2 flex flex-col lg:flex-row items-center justify-center gap-5 lg:gap-8 relative z-10 pb-24 lg:pb-16">
+      <div className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-2 flex flex-col lg:flex-row items-center justify-center gap-5 lg:gap-8 relative z-10 pb-32 sm:pb-36 lg:pb-40">
         
         {/* Left Panel: Hero & Daily Progress */}
         <div className="w-full lg:w-[350px] xl:w-[380px] shrink-0 flex flex-col items-center text-center">

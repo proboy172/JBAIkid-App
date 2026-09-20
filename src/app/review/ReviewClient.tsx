@@ -102,7 +102,7 @@ export default function ReviewClient() {
         <div className="pt-10 pb-4 px-5 relative z-10">
           <BackButton label="Home" />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <Mascot mood="love" message="Bé giỏi quá! Không có bài ôn nào hôm nay!" size={120} />
           <h2
             className="text-2xl font-extrabold mt-4 text-center"
@@ -125,7 +125,7 @@ export default function ReviewClient() {
     return (
       <div className="min-h-dvh flex flex-col">
         <ConfettiOverlay pieces={pieces} />
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -192,7 +192,7 @@ export default function ReviewClient() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-20 lg:pb-14 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
         {currentVocab ? (
           <AnimatePresence mode="wait">
             <motion.div

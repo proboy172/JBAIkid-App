@@ -8,51 +8,323 @@
     "lyrics": [
       {
         "time": 15.1,
-        "text": "Ba là cây nến vàng"
+        "text": "Ba là cây nến vàng",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 1.23
+          },
+          {
+            "text": "là",
+            "duration": 1.23
+          },
+          {
+            "text": "cây",
+            "duration": 1.23
+          },
+          {
+            "text": "nến",
+            "duration": 1.23
+          },
+          {
+            "text": "vàng",
+            "duration": 1.61
+          }
+        ]
       },
       {
         "time": 22.7,
-        "text": "Mẹ là cây nến xanh"
+        "text": "Mẹ là cây nến xanh",
+        "words": [
+          {
+            "text": "Mẹ",
+            "duration": 1.21
+          },
+          {
+            "text": "là",
+            "duration": 1.21
+          },
+          {
+            "text": "cây",
+            "duration": 1.21
+          },
+          {
+            "text": "nến",
+            "duration": 1.21
+          },
+          {
+            "text": "xanh",
+            "duration": 1.59
+          }
+        ]
       },
       {
         "time": 30.2,
-        "text": "Con là cây nến hồng"
+        "text": "Con là cây nến hồng",
+        "words": [
+          {
+            "text": "Con",
+            "duration": 1.23
+          },
+          {
+            "text": "là",
+            "duration": 1.23
+          },
+          {
+            "text": "cây",
+            "duration": 1.23
+          },
+          {
+            "text": "nến",
+            "duration": 1.23
+          },
+          {
+            "text": "hồng",
+            "duration": 1.61
+          }
+        ]
       },
       {
         "time": 37.8,
-        "text": "Ba ngọn nến lung linh"
+        "text": "Ba ngọn nến lung linh",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 1.52
+          },
+          {
+            "text": "ngọn",
+            "duration": 1.52
+          },
+          {
+            "text": "nến",
+            "duration": 1.52
+          },
+          {
+            "text": "lung",
+            "duration": 1.52
+          },
+          {
+            "text": "linh",
+            "duration": 2.0
+          }
+        ]
       },
       {
         "time": 60.6,
-        "text": "Thắp sáng một gia đình"
+        "text": "Thắp sáng một gia đình",
+        "words": [
+          {
+            "text": "Thắp",
+            "duration": 1.52
+          },
+          {
+            "text": "sáng",
+            "duration": 1.52
+          },
+          {
+            "text": "một",
+            "duration": 1.52
+          },
+          {
+            "text": "gia",
+            "duration": 1.52
+          },
+          {
+            "text": "đình",
+            "duration": 2.0
+          }
+        ]
       },
       {
         "time": 75.9,
-        "text": "Gia đình nhỏ, niềm vui to"
+        "text": "Gia đình nhỏ, niềm vui to",
+        "words": [
+          {
+            "text": "Gia",
+            "duration": 0.54
+          },
+          {
+            "text": "đình",
+            "duration": 0.54
+          },
+          {
+            "text": "nhỏ,",
+            "duration": 0.54
+          },
+          {
+            "text": "niềm",
+            "duration": 0.54
+          },
+          {
+            "text": "vui",
+            "duration": 0.54
+          },
+          {
+            "text": "to",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 79.9,
-        "text": "Ba bắt cá dưới sông"
+        "text": "Ba bắt cá dưới sông",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 0.65
+          },
+          {
+            "text": "bắt",
+            "duration": 0.65
+          },
+          {
+            "text": "cá",
+            "duration": 0.65
+          },
+          {
+            "text": "dưới",
+            "duration": 0.65
+          },
+          {
+            "text": "sông",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 83.9,
-        "text": "Mẹ trồng rau trên vườn"
+        "text": "Mẹ trồng rau trên vườn",
+        "words": [
+          {
+            "text": "Mẹ",
+            "duration": 0.65
+          },
+          {
+            "text": "trồng",
+            "duration": 0.65
+          },
+          {
+            "text": "rau",
+            "duration": 0.65
+          },
+          {
+            "text": "trên",
+            "duration": 0.65
+          },
+          {
+            "text": "vườn",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 87.9,
-        "text": "Con chăn trâu trên đồng"
+        "text": "Con chăn trâu trên đồng",
+        "words": [
+          {
+            "text": "Con",
+            "duration": 0.65
+          },
+          {
+            "text": "chăn",
+            "duration": 0.65
+          },
+          {
+            "text": "trâu",
+            "duration": 0.65
+          },
+          {
+            "text": "trên",
+            "duration": 0.65
+          },
+          {
+            "text": "đồng",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 91.9,
-        "text": "Cả nhà cùng chung sống"
+        "text": "Cả nhà cùng chung sống",
+        "words": [
+          {
+            "text": "Cả",
+            "duration": 0.65
+          },
+          {
+            "text": "nhà",
+            "duration": 0.65
+          },
+          {
+            "text": "cùng",
+            "duration": 0.65
+          },
+          {
+            "text": "chung",
+            "duration": 0.65
+          },
+          {
+            "text": "sống",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 95.9,
-        "text": "Cả nhà ta bé ơi"
+        "text": "Cả nhà ta bé ơi",
+        "words": [
+          {
+            "text": "Cả",
+            "duration": 0.65
+          },
+          {
+            "text": "nhà",
+            "duration": 0.65
+          },
+          {
+            "text": "ta",
+            "duration": 0.65
+          },
+          {
+            "text": "bé",
+            "duration": 0.65
+          },
+          {
+            "text": "ơi",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 99.9,
-        "text": "Rất là vui, rất là vui"
+        "text": "Rất là vui, rất là vui",
+        "words": [
+          {
+            "text": "Rất",
+            "duration": 0.71
+          },
+          {
+            "text": "là",
+            "duration": 0.71
+          },
+          {
+            "text": "vui,",
+            "duration": 0.71
+          },
+          {
+            "text": "rất",
+            "duration": 0.71
+          },
+          {
+            "text": "là",
+            "duration": 0.71
+          },
+          {
+            "text": "vui",
+            "duration": 0.94
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -67,35 +339,183 @@
     "lyrics": [
       {
         "time": 12,
-        "text": "Con cò bé bé"
+        "text": "Con cò bé bé",
+        "words": [
+          {
+            "text": "Con",
+            "duration": 0.81
+          },
+          {
+            "text": "cò",
+            "duration": 0.81
+          },
+          {
+            "text": "bé",
+            "duration": 0.81
+          },
+          {
+            "text": "bé",
+            "duration": 1.06
+          }
+        ]
       },
       {
         "time": 16,
-        "text": "Nó đậu cành tre"
+        "text": "Nó đậu cành tre",
+        "words": [
+          {
+            "text": "Nó",
+            "duration": 0.81
+          },
+          {
+            "text": "đậu",
+            "duration": 0.81
+          },
+          {
+            "text": "cành",
+            "duration": 0.81
+          },
+          {
+            "text": "tre",
+            "duration": 1.06
+          }
+        ]
       },
       {
         "time": 20,
-        "text": "Đi không hỏi mẹ"
+        "text": "Đi không hỏi mẹ",
+        "words": [
+          {
+            "text": "Đi",
+            "duration": 0.81
+          },
+          {
+            "text": "không",
+            "duration": 0.81
+          },
+          {
+            "text": "hỏi",
+            "duration": 0.81
+          },
+          {
+            "text": "mẹ",
+            "duration": 1.06
+          }
+        ]
       },
       {
         "time": 24,
-        "text": "Biết đi đường nào"
+        "text": "Biết đi đường nào",
+        "words": [
+          {
+            "text": "Biết",
+            "duration": 0.81
+          },
+          {
+            "text": "đi",
+            "duration": 0.81
+          },
+          {
+            "text": "đường",
+            "duration": 0.81
+          },
+          {
+            "text": "nào",
+            "duration": 1.06
+          }
+        ]
       },
       {
         "time": 28,
-        "text": "Khi đi em hỏi"
+        "text": "Khi đi em hỏi",
+        "words": [
+          {
+            "text": "Khi",
+            "duration": 0.81
+          },
+          {
+            "text": "đi",
+            "duration": 0.81
+          },
+          {
+            "text": "em",
+            "duration": 0.81
+          },
+          {
+            "text": "hỏi",
+            "duration": 1.06
+          }
+        ]
       },
       {
         "time": 32,
-        "text": "Khi về em chào"
+        "text": "Khi về em chào",
+        "words": [
+          {
+            "text": "Khi",
+            "duration": 0.81
+          },
+          {
+            "text": "về",
+            "duration": 0.81
+          },
+          {
+            "text": "em",
+            "duration": 0.81
+          },
+          {
+            "text": "chào",
+            "duration": 1.06
+          }
+        ]
       },
       {
         "time": 36,
-        "text": "Miệng em chúm chím"
+        "text": "Miệng em chúm chím",
+        "words": [
+          {
+            "text": "Miệng",
+            "duration": 0.81
+          },
+          {
+            "text": "em",
+            "duration": 0.81
+          },
+          {
+            "text": "chúm",
+            "duration": 0.81
+          },
+          {
+            "text": "chím",
+            "duration": 1.06
+          }
+        ]
       },
       {
         "time": 40,
-        "text": "Mẹ có yêu không nào"
+        "text": "Mẹ có yêu không nào",
+        "words": [
+          {
+            "text": "Mẹ",
+            "duration": 0.85
+          },
+          {
+            "text": "có",
+            "duration": 0.85
+          },
+          {
+            "text": "yêu",
+            "duration": 0.85
+          },
+          {
+            "text": "không",
+            "duration": 0.85
+          },
+          {
+            "text": "nào",
+            "duration": 1.12
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -110,35 +530,251 @@
     "lyrics": [
       {
         "time": 15,
-        "text": "Ngày xưa xưa ơi là xưa"
+        "text": "Ngày xưa xưa ơi là xưa",
+        "words": [
+          {
+            "text": "Ngày",
+            "duration": 0.54
+          },
+          {
+            "text": "xưa",
+            "duration": 0.54
+          },
+          {
+            "text": "xưa",
+            "duration": 0.54
+          },
+          {
+            "text": "ơi",
+            "duration": 0.54
+          },
+          {
+            "text": "là",
+            "duration": 0.54
+          },
+          {
+            "text": "xưa",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 19,
-        "text": "Ở một nơi đồng quê bát ngát"
+        "text": "Ở một nơi đồng quê bát ngát",
+        "words": [
+          {
+            "text": "Ở",
+            "duration": 0.46
+          },
+          {
+            "text": "một",
+            "duration": 0.46
+          },
+          {
+            "text": "nơi",
+            "duration": 0.46
+          },
+          {
+            "text": "đồng",
+            "duration": 0.46
+          },
+          {
+            "text": "quê",
+            "duration": 0.46
+          },
+          {
+            "text": "bát",
+            "duration": 0.46
+          },
+          {
+            "text": "ngát",
+            "duration": 0.61
+          }
+        ]
       },
       {
         "time": 23,
-        "text": "Nhà kia có hai chị em"
+        "text": "Nhà kia có hai chị em",
+        "words": [
+          {
+            "text": "Nhà",
+            "duration": 0.54
+          },
+          {
+            "text": "kia",
+            "duration": 0.54
+          },
+          {
+            "text": "có",
+            "duration": 0.54
+          },
+          {
+            "text": "hai",
+            "duration": 0.54
+          },
+          {
+            "text": "chị",
+            "duration": 0.54
+          },
+          {
+            "text": "em",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 27,
-        "text": "Tên được cha gọi là Tấm Cám"
+        "text": "Tên được cha gọi là Tấm Cám",
+        "words": [
+          {
+            "text": "Tên",
+            "duration": 0.46
+          },
+          {
+            "text": "được",
+            "duration": 0.46
+          },
+          {
+            "text": "cha",
+            "duration": 0.46
+          },
+          {
+            "text": "gọi",
+            "duration": 0.46
+          },
+          {
+            "text": "là",
+            "duration": 0.46
+          },
+          {
+            "text": "Tấm",
+            "duration": 0.46
+          },
+          {
+            "text": "Cám",
+            "duration": 0.61
+          }
+        ]
       },
       {
         "time": 31,
-        "text": "Từ thuở ấu thơ Tấm đã mơ"
+        "text": "Từ thuở ấu thơ Tấm đã mơ",
+        "words": [
+          {
+            "text": "Từ",
+            "duration": 0.46
+          },
+          {
+            "text": "thuở",
+            "duration": 0.46
+          },
+          {
+            "text": "ấu",
+            "duration": 0.46
+          },
+          {
+            "text": "thơ",
+            "duration": 0.46
+          },
+          {
+            "text": "Tấm",
+            "duration": 0.46
+          },
+          {
+            "text": "đã",
+            "duration": 0.46
+          },
+          {
+            "text": "mơ",
+            "duration": 0.61
+          }
+        ]
       },
       {
         "time": 35,
-        "text": "Về bống bống bang bang"
+        "text": "Về bống bống bang bang",
+        "words": [
+          {
+            "text": "Về",
+            "duration": 0.65
+          },
+          {
+            "text": "bống",
+            "duration": 0.65
+          },
+          {
+            "text": "bống",
+            "duration": 0.65
+          },
+          {
+            "text": "bang",
+            "duration": 0.65
+          },
+          {
+            "text": "bang",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 39,
-        "text": "Bống bống bang bang"
+        "text": "Bống bống bang bang",
+        "words": [
+          {
+            "text": "Bống",
+            "duration": 0.81
+          },
+          {
+            "text": "bống",
+            "duration": 0.81
+          },
+          {
+            "text": "bang",
+            "duration": 0.81
+          },
+          {
+            "text": "bang",
+            "duration": 1.06
+          }
+        ]
       },
       {
         "time": 43,
-        "text": "Lên ăn cơm vàng cơm bạc nhà ta"
+        "text": "Lên ăn cơm vàng cơm bạc nhà ta",
+        "words": [
+          {
+            "text": "Lên",
+            "duration": 0.53
+          },
+          {
+            "text": "ăn",
+            "duration": 0.53
+          },
+          {
+            "text": "cơm",
+            "duration": 0.53
+          },
+          {
+            "text": "vàng",
+            "duration": 0.53
+          },
+          {
+            "text": "cơm",
+            "duration": 0.53
+          },
+          {
+            "text": "bạc",
+            "duration": 0.53
+          },
+          {
+            "text": "nhà",
+            "duration": 0.53
+          },
+          {
+            "text": "ta",
+            "duration": 0.7
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -153,43 +789,383 @@
     "lyrics": [
       {
         "time": 18.7,
-        "text": "Cháu lên ba cháu đi mẫu giáo"
+        "text": "Cháu lên ba cháu đi mẫu giáo",
+        "words": [
+          {
+            "text": "Cháu",
+            "duration": 1.09
+          },
+          {
+            "text": "lên",
+            "duration": 1.09
+          },
+          {
+            "text": "ba",
+            "duration": 1.09
+          },
+          {
+            "text": "cháu",
+            "duration": 1.09
+          },
+          {
+            "text": "đi",
+            "duration": 1.09
+          },
+          {
+            "text": "mẫu",
+            "duration": 1.09
+          },
+          {
+            "text": "giáo",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 43.2,
-        "text": "Cô thương cháu vì cháu không khóc nhè"
+        "text": "Cô thương cháu vì cháu không khóc nhè",
+        "words": [
+          {
+            "text": "Cô",
+            "duration": 0.95
+          },
+          {
+            "text": "thương",
+            "duration": 0.95
+          },
+          {
+            "text": "cháu",
+            "duration": 0.95
+          },
+          {
+            "text": "vì",
+            "duration": 0.95
+          },
+          {
+            "text": "cháu",
+            "duration": 0.95
+          },
+          {
+            "text": "không",
+            "duration": 0.95
+          },
+          {
+            "text": "khóc",
+            "duration": 0.95
+          },
+          {
+            "text": "nhè",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 110.3,
-        "text": "Không khóc nhè để mẹ trồng cây trái"
+        "text": "Không khóc nhè để mẹ trồng cây trái",
+        "words": [
+          {
+            "text": "Không",
+            "duration": 0.83
+          },
+          {
+            "text": "khóc",
+            "duration": 0.83
+          },
+          {
+            "text": "nhè",
+            "duration": 0.83
+          },
+          {
+            "text": "để",
+            "duration": 0.83
+          },
+          {
+            "text": "mẹ",
+            "duration": 0.83
+          },
+          {
+            "text": "trồng",
+            "duration": 0.83
+          },
+          {
+            "text": "cây",
+            "duration": 0.83
+          },
+          {
+            "text": "trái",
+            "duration": 1.09
+          }
+        ]
       },
       {
         "time": 118.5,
-        "text": "Ba vào nhà máy, ông bà vui cấy cày"
+        "text": "Ba vào nhà máy, ông bà vui cấy cày",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 0.72
+          },
+          {
+            "text": "vào",
+            "duration": 0.72
+          },
+          {
+            "text": "nhà",
+            "duration": 0.72
+          },
+          {
+            "text": "máy,",
+            "duration": 0.72
+          },
+          {
+            "text": "ông",
+            "duration": 0.72
+          },
+          {
+            "text": "bà",
+            "duration": 0.72
+          },
+          {
+            "text": "vui",
+            "duration": 0.72
+          },
+          {
+            "text": "cấy",
+            "duration": 0.72
+          },
+          {
+            "text": "cày",
+            "duration": 0.94
+          }
+        ]
       },
       {
         "time": 126.5,
-        "text": "Là lá la la, là lá la la"
+        "text": "Là lá la la, là lá la la",
+        "words": [
+          {
+            "text": "Là",
+            "duration": 0.95
+          },
+          {
+            "text": "lá",
+            "duration": 0.95
+          },
+          {
+            "text": "la",
+            "duration": 0.95
+          },
+          {
+            "text": "la,",
+            "duration": 0.95
+          },
+          {
+            "text": "là",
+            "duration": 0.95
+          },
+          {
+            "text": "lá",
+            "duration": 0.95
+          },
+          {
+            "text": "la",
+            "duration": 0.95
+          },
+          {
+            "text": "la",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 138.8,
-        "text": "Cháu lên ba cháu đi mẫu giáo"
+        "text": "Cháu lên ba cháu đi mẫu giáo",
+        "words": [
+          {
+            "text": "Cháu",
+            "duration": 0.93
+          },
+          {
+            "text": "lên",
+            "duration": 0.93
+          },
+          {
+            "text": "ba",
+            "duration": 0.93
+          },
+          {
+            "text": "cháu",
+            "duration": 0.93
+          },
+          {
+            "text": "đi",
+            "duration": 0.93
+          },
+          {
+            "text": "mẫu",
+            "duration": 0.93
+          },
+          {
+            "text": "giáo",
+            "duration": 1.23
+          }
+        ]
       },
       {
         "time": 146.9,
-        "text": "Cô thương cháu vì cháu không khóc nhè"
+        "text": "Cô thương cháu vì cháu không khóc nhè",
+        "words": [
+          {
+            "text": "Cô",
+            "duration": 0.95
+          },
+          {
+            "text": "thương",
+            "duration": 0.95
+          },
+          {
+            "text": "cháu",
+            "duration": 0.95
+          },
+          {
+            "text": "vì",
+            "duration": 0.95
+          },
+          {
+            "text": "cháu",
+            "duration": 0.95
+          },
+          {
+            "text": "không",
+            "duration": 0.95
+          },
+          {
+            "text": "khóc",
+            "duration": 0.95
+          },
+          {
+            "text": "nhè",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 159.1,
-        "text": "Không khóc nhè để mẹ trồng cây trái"
+        "text": "Không khóc nhè để mẹ trồng cây trái",
+        "words": [
+          {
+            "text": "Không",
+            "duration": 0.84
+          },
+          {
+            "text": "khóc",
+            "duration": 0.84
+          },
+          {
+            "text": "nhè",
+            "duration": 0.84
+          },
+          {
+            "text": "để",
+            "duration": 0.84
+          },
+          {
+            "text": "mẹ",
+            "duration": 0.84
+          },
+          {
+            "text": "trồng",
+            "duration": 0.84
+          },
+          {
+            "text": "cây",
+            "duration": 0.84
+          },
+          {
+            "text": "trái",
+            "duration": 1.1
+          }
+        ]
       },
       {
         "time": 167.4,
-        "text": "Ba vào nhà máy, ông bà vui cấy cày"
+        "text": "Ba vào nhà máy, ông bà vui cấy cày",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 0.71
+          },
+          {
+            "text": "vào",
+            "duration": 0.71
+          },
+          {
+            "text": "nhà",
+            "duration": 0.71
+          },
+          {
+            "text": "máy,",
+            "duration": 0.71
+          },
+          {
+            "text": "ông",
+            "duration": 0.71
+          },
+          {
+            "text": "bà",
+            "duration": 0.71
+          },
+          {
+            "text": "vui",
+            "duration": 0.71
+          },
+          {
+            "text": "cấy",
+            "duration": 0.71
+          },
+          {
+            "text": "cày",
+            "duration": 0.93
+          }
+        ]
       },
       {
         "time": 175.3,
-        "text": "Là lá la la, là lá la la"
+        "text": "Là lá la la, là lá la la",
+        "words": [
+          {
+            "text": "Là",
+            "duration": 0.53
+          },
+          {
+            "text": "lá",
+            "duration": 0.53
+          },
+          {
+            "text": "la",
+            "duration": 0.53
+          },
+          {
+            "text": "la,",
+            "duration": 0.53
+          },
+          {
+            "text": "là",
+            "duration": 0.53
+          },
+          {
+            "text": "lá",
+            "duration": 0.53
+          },
+          {
+            "text": "la",
+            "duration": 0.53
+          },
+          {
+            "text": "la",
+            "duration": 0.7
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -204,35 +1180,275 @@
     "lyrics": [
       {
         "time": 16.1,
-        "text": "Meo meo meo, rửa mặt như mèo"
+        "text": "Meo meo meo, rửa mặt như mèo",
+        "words": [
+          {
+            "text": "Meo",
+            "duration": 0.51
+          },
+          {
+            "text": "meo",
+            "duration": 0.51
+          },
+          {
+            "text": "meo,",
+            "duration": 0.51
+          },
+          {
+            "text": "rửa",
+            "duration": 0.51
+          },
+          {
+            "text": "mặt",
+            "duration": 0.51
+          },
+          {
+            "text": "như",
+            "duration": 0.51
+          },
+          {
+            "text": "mèo",
+            "duration": 0.67
+          }
+        ]
       },
       {
         "time": 20.5,
-        "text": "Xấu xấu lắm, chẳng được mẹ yêu"
+        "text": "Xấu xấu lắm, chẳng được mẹ yêu",
+        "words": [
+          {
+            "text": "Xấu",
+            "duration": 0.96
+          },
+          {
+            "text": "xấu",
+            "duration": 0.96
+          },
+          {
+            "text": "lắm,",
+            "duration": 0.96
+          },
+          {
+            "text": "chẳng",
+            "duration": 0.96
+          },
+          {
+            "text": "được",
+            "duration": 0.96
+          },
+          {
+            "text": "mẹ",
+            "duration": 0.96
+          },
+          {
+            "text": "yêu",
+            "duration": 1.26
+          }
+        ]
       },
       {
         "time": 28.8,
-        "text": "Khăn mặt đâu mà ngồi liếm mép"
+        "text": "Khăn mặt đâu mà ngồi liếm mép",
+        "words": [
+          {
+            "text": "Khăn",
+            "duration": 1.09
+          },
+          {
+            "text": "mặt",
+            "duration": 1.09
+          },
+          {
+            "text": "đâu",
+            "duration": 1.09
+          },
+          {
+            "text": "mà",
+            "duration": 1.09
+          },
+          {
+            "text": "ngồi",
+            "duration": 1.09
+          },
+          {
+            "text": "liếm",
+            "duration": 1.09
+          },
+          {
+            "text": "mép",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 40.5,
-        "text": "Đau mắt rồi, lại khóc meo meo"
+        "text": "Đau mắt rồi, lại khóc meo meo",
+        "words": [
+          {
+            "text": "Đau",
+            "duration": 1.09
+          },
+          {
+            "text": "mắt",
+            "duration": 1.09
+          },
+          {
+            "text": "rồi,",
+            "duration": 1.09
+          },
+          {
+            "text": "lại",
+            "duration": 1.09
+          },
+          {
+            "text": "khóc",
+            "duration": 1.09
+          },
+          {
+            "text": "meo",
+            "duration": 1.09
+          },
+          {
+            "text": "meo",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 81.7,
-        "text": "Meo meo meo, rửa mặt như mèo"
+        "text": "Meo meo meo, rửa mặt như mèo",
+        "words": [
+          {
+            "text": "Meo",
+            "duration": 1.09
+          },
+          {
+            "text": "meo",
+            "duration": 1.09
+          },
+          {
+            "text": "meo,",
+            "duration": 1.09
+          },
+          {
+            "text": "rửa",
+            "duration": 1.09
+          },
+          {
+            "text": "mặt",
+            "duration": 1.09
+          },
+          {
+            "text": "như",
+            "duration": 1.09
+          },
+          {
+            "text": "mèo",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 106.3,
-        "text": "Xấu xấu lắm, chẳng được mẹ yêu"
+        "text": "Xấu xấu lắm, chẳng được mẹ yêu",
+        "words": [
+          {
+            "text": "Xấu",
+            "duration": 1.09
+          },
+          {
+            "text": "xấu",
+            "duration": 1.09
+          },
+          {
+            "text": "lắm,",
+            "duration": 1.09
+          },
+          {
+            "text": "chẳng",
+            "duration": 1.09
+          },
+          {
+            "text": "được",
+            "duration": 1.09
+          },
+          {
+            "text": "mẹ",
+            "duration": 1.09
+          },
+          {
+            "text": "yêu",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 130.9,
-        "text": "Khăn mặt đâu mà ngồi liếm mép"
+        "text": "Khăn mặt đâu mà ngồi liếm mép",
+        "words": [
+          {
+            "text": "Khăn",
+            "duration": 0.46
+          },
+          {
+            "text": "mặt",
+            "duration": 0.46
+          },
+          {
+            "text": "đâu",
+            "duration": 0.46
+          },
+          {
+            "text": "mà",
+            "duration": 0.46
+          },
+          {
+            "text": "ngồi",
+            "duration": 0.46
+          },
+          {
+            "text": "liếm",
+            "duration": 0.46
+          },
+          {
+            "text": "mép",
+            "duration": 0.61
+          }
+        ]
       },
       {
         "time": 134.9,
-        "text": "Đau mắt rồi, lại khóc meo meo"
+        "text": "Đau mắt rồi, lại khóc meo meo",
+        "words": [
+          {
+            "text": "Đau",
+            "duration": 0.61
+          },
+          {
+            "text": "mắt",
+            "duration": 0.61
+          },
+          {
+            "text": "rồi,",
+            "duration": 0.61
+          },
+          {
+            "text": "lại",
+            "duration": 0.61
+          },
+          {
+            "text": "khóc",
+            "duration": 0.61
+          },
+          {
+            "text": "meo",
+            "duration": 0.61
+          },
+          {
+            "text": "meo",
+            "duration": 0.8
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -247,43 +1463,303 @@
     "lyrics": [
       {
         "time": 10.8,
-        "text": "Kìa chú là chú ếch con"
+        "text": "Kìa chú là chú ếch con",
+        "words": [
+          {
+            "text": "Kìa",
+            "duration": 1.24
+          },
+          {
+            "text": "chú",
+            "duration": 1.24
+          },
+          {
+            "text": "là",
+            "duration": 1.24
+          },
+          {
+            "text": "chú",
+            "duration": 1.24
+          },
+          {
+            "text": "ếch",
+            "duration": 1.24
+          },
+          {
+            "text": "con",
+            "duration": 1.63
+          }
+        ]
       },
       {
         "time": 20,
-        "text": "Có hai là hai mắt tròn"
+        "text": "Có hai là hai mắt tròn",
+        "words": [
+          {
+            "text": "Có",
+            "duration": 1.21
+          },
+          {
+            "text": "hai",
+            "duration": 1.21
+          },
+          {
+            "text": "là",
+            "duration": 1.21
+          },
+          {
+            "text": "hai",
+            "duration": 1.21
+          },
+          {
+            "text": "mắt",
+            "duration": 1.21
+          },
+          {
+            "text": "tròn",
+            "duration": 1.59
+          }
+        ]
       },
       {
         "time": 29,
-        "text": "Chú ngồi học bài một mình"
+        "text": "Chú ngồi học bài một mình",
+        "words": [
+          {
+            "text": "Chú",
+            "duration": 0.67
+          },
+          {
+            "text": "ngồi",
+            "duration": 0.67
+          },
+          {
+            "text": "học",
+            "duration": 0.67
+          },
+          {
+            "text": "bài",
+            "duration": 0.67
+          },
+          {
+            "text": "một",
+            "duration": 0.67
+          },
+          {
+            "text": "mình",
+            "duration": 0.89
+          }
+        ]
       },
       {
         "time": 34,
-        "text": "Bên hố bom kề vườn xoan"
+        "text": "Bên hố bom kề vườn xoan",
+        "words": [
+          {
+            "text": "Bên",
+            "duration": 0.87
+          },
+          {
+            "text": "hố",
+            "duration": 0.87
+          },
+          {
+            "text": "bom",
+            "duration": 0.87
+          },
+          {
+            "text": "kề",
+            "duration": 0.87
+          },
+          {
+            "text": "vườn",
+            "duration": 0.87
+          },
+          {
+            "text": "xoan",
+            "duration": 1.15
+          }
+        ]
       },
       {
         "time": 40.5,
-        "text": "Bao nhiêu cô cá tung tăng"
+        "text": "Bao nhiêu cô cá tung tăng",
+        "words": [
+          {
+            "text": "Bao",
+            "duration": 1.27
+          },
+          {
+            "text": "nhiêu",
+            "duration": 1.27
+          },
+          {
+            "text": "cô",
+            "duration": 1.27
+          },
+          {
+            "text": "cá",
+            "duration": 1.27
+          },
+          {
+            "text": "tung",
+            "duration": 1.27
+          },
+          {
+            "text": "tăng",
+            "duration": 1.67
+          }
+        ]
       },
       {
         "time": 57.2,
-        "text": "Cùng bao nhiêu chú cá rô"
+        "text": "Cùng bao nhiêu chú cá rô",
+        "words": [
+          {
+            "text": "Cùng",
+            "duration": 1.22
+          },
+          {
+            "text": "bao",
+            "duration": 1.22
+          },
+          {
+            "text": "nhiêu",
+            "duration": 1.22
+          },
+          {
+            "text": "chú",
+            "duration": 1.22
+          },
+          {
+            "text": "cá",
+            "duration": 1.22
+          },
+          {
+            "text": "rô",
+            "duration": 1.61
+          }
+        ]
       },
       {
         "time": 66.3,
-        "text": "Kìa chú là chú ếch con"
+        "text": "Kìa chú là chú ếch con",
+        "words": [
+          {
+            "text": "Kìa",
+            "duration": 1.21
+          },
+          {
+            "text": "chú",
+            "duration": 1.21
+          },
+          {
+            "text": "là",
+            "duration": 1.21
+          },
+          {
+            "text": "chú",
+            "duration": 1.21
+          },
+          {
+            "text": "ếch",
+            "duration": 1.21
+          },
+          {
+            "text": "con",
+            "duration": 1.59
+          }
+        ]
       },
       {
         "time": 75.3,
-        "text": "Có hai là hai mắt tròn"
+        "text": "Có hai là hai mắt tròn",
+        "words": [
+          {
+            "text": "Có",
+            "duration": 0.58
+          },
+          {
+            "text": "hai",
+            "duration": 0.58
+          },
+          {
+            "text": "là",
+            "duration": 0.58
+          },
+          {
+            "text": "hai",
+            "duration": 0.58
+          },
+          {
+            "text": "mắt",
+            "duration": 0.58
+          },
+          {
+            "text": "tròn",
+            "duration": 0.76
+          }
+        ]
       },
       {
         "time": 79.6,
-        "text": "Chú ngồi học bài một mình"
+        "text": "Chú ngồi học bài một mình",
+        "words": [
+          {
+            "text": "Chú",
+            "duration": 0.98
+          },
+          {
+            "text": "ngồi",
+            "duration": 0.98
+          },
+          {
+            "text": "học",
+            "duration": 0.98
+          },
+          {
+            "text": "bài",
+            "duration": 0.98
+          },
+          {
+            "text": "một",
+            "duration": 0.98
+          },
+          {
+            "text": "mình",
+            "duration": 1.29
+          }
+        ]
       },
       {
         "time": 86.9,
-        "text": "Bên hố bom kề vườn xoan"
+        "text": "Bên hố bom kề vườn xoan",
+        "words": [
+          {
+            "text": "Bên",
+            "duration": 0.71
+          },
+          {
+            "text": "hố",
+            "duration": 0.71
+          },
+          {
+            "text": "bom",
+            "duration": 0.71
+          },
+          {
+            "text": "kề",
+            "duration": 0.71
+          },
+          {
+            "text": "vườn",
+            "duration": 0.71
+          },
+          {
+            "text": "xoan",
+            "duration": 0.94
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -298,35 +1774,227 @@
     "lyrics": [
       {
         "time": 14,
-        "text": "Hai con thằn lằn con"
+        "text": "Hai con thằn lằn con",
+        "words": [
+          {
+            "text": "Hai",
+            "duration": 0.65
+          },
+          {
+            "text": "con",
+            "duration": 0.65
+          },
+          {
+            "text": "thằn",
+            "duration": 0.65
+          },
+          {
+            "text": "lằn",
+            "duration": 0.65
+          },
+          {
+            "text": "con",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 18,
-        "text": "Đùa nhau cắn nhau đứt đuôi"
+        "text": "Đùa nhau cắn nhau đứt đuôi",
+        "words": [
+          {
+            "text": "Đùa",
+            "duration": 0.54
+          },
+          {
+            "text": "nhau",
+            "duration": 0.54
+          },
+          {
+            "text": "cắn",
+            "duration": 0.54
+          },
+          {
+            "text": "nhau",
+            "duration": 0.54
+          },
+          {
+            "text": "đứt",
+            "duration": 0.54
+          },
+          {
+            "text": "đuôi",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 22,
-        "text": "Cha thằn lằn buồn hiu"
+        "text": "Cha thằn lằn buồn hiu",
+        "words": [
+          {
+            "text": "Cha",
+            "duration": 0.65
+          },
+          {
+            "text": "thằn",
+            "duration": 0.65
+          },
+          {
+            "text": "lằn",
+            "duration": 0.65
+          },
+          {
+            "text": "buồn",
+            "duration": 0.65
+          },
+          {
+            "text": "hiu",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 26,
-        "text": "Gọi chúng đến mới mắng cho"
+        "text": "Gọi chúng đến mới mắng cho",
+        "words": [
+          {
+            "text": "Gọi",
+            "duration": 0.54
+          },
+          {
+            "text": "chúng",
+            "duration": 0.54
+          },
+          {
+            "text": "đến",
+            "duration": 0.54
+          },
+          {
+            "text": "mới",
+            "duration": 0.54
+          },
+          {
+            "text": "mắng",
+            "duration": 0.54
+          },
+          {
+            "text": "cho",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 30,
-        "text": "Hai con thằn lằn con"
+        "text": "Hai con thằn lằn con",
+        "words": [
+          {
+            "text": "Hai",
+            "duration": 0.65
+          },
+          {
+            "text": "con",
+            "duration": 0.65
+          },
+          {
+            "text": "thằn",
+            "duration": 0.65
+          },
+          {
+            "text": "lằn",
+            "duration": 0.65
+          },
+          {
+            "text": "con",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 34,
-        "text": "Đuôi thì to nhưng đã cụt rồi"
+        "text": "Đuôi thì to nhưng đã cụt rồi",
+        "words": [
+          {
+            "text": "Đuôi",
+            "duration": 0.46
+          },
+          {
+            "text": "thì",
+            "duration": 0.46
+          },
+          {
+            "text": "to",
+            "duration": 0.46
+          },
+          {
+            "text": "nhưng",
+            "duration": 0.46
+          },
+          {
+            "text": "đã",
+            "duration": 0.46
+          },
+          {
+            "text": "cụt",
+            "duration": 0.46
+          },
+          {
+            "text": "rồi",
+            "duration": 0.61
+          }
+        ]
       },
       {
         "time": 38,
-        "text": "Ôi đớn đau quá trời"
+        "text": "Ôi đớn đau quá trời",
+        "words": [
+          {
+            "text": "Ôi",
+            "duration": 0.65
+          },
+          {
+            "text": "đớn",
+            "duration": 0.65
+          },
+          {
+            "text": "đau",
+            "duration": 0.65
+          },
+          {
+            "text": "quá",
+            "duration": 0.65
+          },
+          {
+            "text": "trời",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 42,
-        "text": "Chúng khóc la tơi bời"
+        "text": "Chúng khóc la tơi bời",
+        "words": [
+          {
+            "text": "Chúng",
+            "duration": 0.85
+          },
+          {
+            "text": "khóc",
+            "duration": 0.85
+          },
+          {
+            "text": "la",
+            "duration": 0.85
+          },
+          {
+            "text": "tơi",
+            "duration": 0.85
+          },
+          {
+            "text": "bời",
+            "duration": 1.12
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -341,19 +2009,159 @@
     "lyrics": [
       {
         "time": 15,
-        "text": "Một con vịt xòe ra hai cái cánh"
+        "text": "Một con vịt xòe ra hai cái cánh",
+        "words": [
+          {
+            "text": "Một",
+            "duration": 0.71
+          },
+          {
+            "text": "con",
+            "duration": 0.71
+          },
+          {
+            "text": "vịt",
+            "duration": 0.71
+          },
+          {
+            "text": "xòe",
+            "duration": 0.71
+          },
+          {
+            "text": "ra",
+            "duration": 0.71
+          },
+          {
+            "text": "hai",
+            "duration": 0.71
+          },
+          {
+            "text": "cái",
+            "duration": 0.71
+          },
+          {
+            "text": "cánh",
+            "duration": 0.93
+          }
+        ]
       },
       {
         "time": 22,
-        "text": "Nó kêu rằng cáp cáp cáp cạp cạp cạp"
+        "text": "Nó kêu rằng cáp cáp cáp cạp cạp cạp",
+        "words": [
+          {
+            "text": "Nó",
+            "duration": 0.63
+          },
+          {
+            "text": "kêu",
+            "duration": 0.63
+          },
+          {
+            "text": "rằng",
+            "duration": 0.63
+          },
+          {
+            "text": "cáp",
+            "duration": 0.63
+          },
+          {
+            "text": "cáp",
+            "duration": 0.63
+          },
+          {
+            "text": "cáp",
+            "duration": 0.63
+          },
+          {
+            "text": "cạp",
+            "duration": 0.63
+          },
+          {
+            "text": "cạp",
+            "duration": 0.63
+          },
+          {
+            "text": "cạp",
+            "duration": 0.83
+          }
+        ]
       },
       {
         "time": 29,
-        "text": "Gặp hồ nước nó bì bà bì bõm"
+        "text": "Gặp hồ nước nó bì bà bì bõm",
+        "words": [
+          {
+            "text": "Gặp",
+            "duration": 0.71
+          },
+          {
+            "text": "hồ",
+            "duration": 0.71
+          },
+          {
+            "text": "nước",
+            "duration": 0.71
+          },
+          {
+            "text": "nó",
+            "duration": 0.71
+          },
+          {
+            "text": "bì",
+            "duration": 0.71
+          },
+          {
+            "text": "bà",
+            "duration": 0.71
+          },
+          {
+            "text": "bì",
+            "duration": 0.71
+          },
+          {
+            "text": "bõm",
+            "duration": 0.93
+          }
+        ]
       },
       {
         "time": 36,
-        "text": "Lúc lên bờ vẫy cái cánh cho khô"
+        "text": "Lúc lên bờ vẫy cái cánh cho khô",
+        "words": [
+          {
+            "text": "Lúc",
+            "duration": 0.53
+          },
+          {
+            "text": "lên",
+            "duration": 0.53
+          },
+          {
+            "text": "bờ",
+            "duration": 0.53
+          },
+          {
+            "text": "vẫy",
+            "duration": 0.53
+          },
+          {
+            "text": "cái",
+            "duration": 0.53
+          },
+          {
+            "text": "cánh",
+            "duration": 0.53
+          },
+          {
+            "text": "cho",
+            "duration": 0.53
+          },
+          {
+            "text": "khô",
+            "duration": 0.7
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -368,35 +2176,275 @@
     "lyrics": [
       {
         "time": 46.4,
-        "text": "Ba bà đi bán lợn con"
+        "text": "Ba bà đi bán lợn con",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 1.1
+          },
+          {
+            "text": "bà",
+            "duration": 1.1
+          },
+          {
+            "text": "đi",
+            "duration": 1.1
+          },
+          {
+            "text": "bán",
+            "duration": 1.1
+          },
+          {
+            "text": "lợn",
+            "duration": 1.1
+          },
+          {
+            "text": "con",
+            "duration": 1.45
+          }
+        ]
       },
       {
         "time": 54.6,
-        "text": "Bán đi chẳng được lon ton chạy về"
+        "text": "Bán đi chẳng được lon ton chạy về",
+        "words": [
+          {
+            "text": "Bán",
+            "duration": 0.95
+          },
+          {
+            "text": "đi",
+            "duration": 0.95
+          },
+          {
+            "text": "chẳng",
+            "duration": 0.95
+          },
+          {
+            "text": "được",
+            "duration": 0.95
+          },
+          {
+            "text": "lon",
+            "duration": 0.95
+          },
+          {
+            "text": "ton",
+            "duration": 0.95
+          },
+          {
+            "text": "chạy",
+            "duration": 0.95
+          },
+          {
+            "text": "về",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 65.1,
-        "text": "Ba bà đi bán lợn sề"
+        "text": "Ba bà đi bán lợn sề",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 1.27
+          },
+          {
+            "text": "bà",
+            "duration": 1.27
+          },
+          {
+            "text": "đi",
+            "duration": 1.27
+          },
+          {
+            "text": "bán",
+            "duration": 1.27
+          },
+          {
+            "text": "lợn",
+            "duration": 1.27
+          },
+          {
+            "text": "sề",
+            "duration": 1.67
+          }
+        ]
       },
       {
         "time": 74.6,
-        "text": "Bán đi chẳng được lon ton chạy về"
+        "text": "Bán đi chẳng được lon ton chạy về",
+        "words": [
+          {
+            "text": "Bán",
+            "duration": 0.95
+          },
+          {
+            "text": "đi",
+            "duration": 0.95
+          },
+          {
+            "text": "chẳng",
+            "duration": 0.95
+          },
+          {
+            "text": "được",
+            "duration": 0.95
+          },
+          {
+            "text": "lon",
+            "duration": 0.95
+          },
+          {
+            "text": "ton",
+            "duration": 0.95
+          },
+          {
+            "text": "chạy",
+            "duration": 0.95
+          },
+          {
+            "text": "về",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 102.6,
-        "text": "Ba bà đi bán lợn con"
+        "text": "Ba bà đi bán lợn con",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 0.65
+          },
+          {
+            "text": "bà",
+            "duration": 0.65
+          },
+          {
+            "text": "đi",
+            "duration": 0.65
+          },
+          {
+            "text": "bán",
+            "duration": 0.65
+          },
+          {
+            "text": "lợn",
+            "duration": 0.65
+          },
+          {
+            "text": "con",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 107.4,
-        "text": "Bán đi chẳng được lon ton chạy về"
+        "text": "Bán đi chẳng được lon ton chạy về",
+        "words": [
+          {
+            "text": "Bán",
+            "duration": 0.95
+          },
+          {
+            "text": "đi",
+            "duration": 0.95
+          },
+          {
+            "text": "chẳng",
+            "duration": 0.95
+          },
+          {
+            "text": "được",
+            "duration": 0.95
+          },
+          {
+            "text": "lon",
+            "duration": 0.95
+          },
+          {
+            "text": "ton",
+            "duration": 0.95
+          },
+          {
+            "text": "chạy",
+            "duration": 0.95
+          },
+          {
+            "text": "về",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 116.9,
-        "text": "Ba bà đi bán lợn sề"
+        "text": "Ba bà đi bán lợn sề",
+        "words": [
+          {
+            "text": "Ba",
+            "duration": 1.27
+          },
+          {
+            "text": "bà",
+            "duration": 1.27
+          },
+          {
+            "text": "đi",
+            "duration": 1.27
+          },
+          {
+            "text": "bán",
+            "duration": 1.27
+          },
+          {
+            "text": "lợn",
+            "duration": 1.27
+          },
+          {
+            "text": "sề",
+            "duration": 1.67
+          }
+        ]
       },
       {
         "time": 139.9,
-        "text": "Bán đi chẳng được lon ton chạy về"
+        "text": "Bán đi chẳng được lon ton chạy về",
+        "words": [
+          {
+            "text": "Bán",
+            "duration": 0.53
+          },
+          {
+            "text": "đi",
+            "duration": 0.53
+          },
+          {
+            "text": "chẳng",
+            "duration": 0.53
+          },
+          {
+            "text": "được",
+            "duration": 0.53
+          },
+          {
+            "text": "lon",
+            "duration": 0.53
+          },
+          {
+            "text": "ton",
+            "duration": 0.53
+          },
+          {
+            "text": "chạy",
+            "duration": 0.53
+          },
+          {
+            "text": "về",
+            "duration": 0.7
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -411,35 +2459,339 @@
     "lyrics": [
       {
         "time": 7.3,
-        "text": "Gà không biết gáy là con gà con"
+        "text": "Gà không biết gáy là con gà con",
+        "words": [
+          {
+            "text": "Gà",
+            "duration": 0.95
+          },
+          {
+            "text": "không",
+            "duration": 0.95
+          },
+          {
+            "text": "biết",
+            "duration": 0.95
+          },
+          {
+            "text": "gáy",
+            "duration": 0.95
+          },
+          {
+            "text": "là",
+            "duration": 0.95
+          },
+          {
+            "text": "con",
+            "duration": 0.95
+          },
+          {
+            "text": "gà",
+            "duration": 0.95
+          },
+          {
+            "text": "con",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 47.5,
-        "text": "Gà mà biết gáy là con gà trống"
+        "text": "Gà mà biết gáy là con gà trống",
+        "words": [
+          {
+            "text": "Gà",
+            "duration": 0.95
+          },
+          {
+            "text": "mà",
+            "duration": 0.95
+          },
+          {
+            "text": "biết",
+            "duration": 0.95
+          },
+          {
+            "text": "gáy",
+            "duration": 0.95
+          },
+          {
+            "text": "là",
+            "duration": 0.95
+          },
+          {
+            "text": "con",
+            "duration": 0.95
+          },
+          {
+            "text": "gà",
+            "duration": 0.95
+          },
+          {
+            "text": "trống",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 67.3,
-        "text": "Gà mà không biết gáy là con gà mẹ"
+        "text": "Gà mà không biết gáy là con gà mẹ",
+        "words": [
+          {
+            "text": "Gà",
+            "duration": 0.84
+          },
+          {
+            "text": "mà",
+            "duration": 0.84
+          },
+          {
+            "text": "không",
+            "duration": 0.84
+          },
+          {
+            "text": "biết",
+            "duration": 0.84
+          },
+          {
+            "text": "gáy",
+            "duration": 0.84
+          },
+          {
+            "text": "là",
+            "duration": 0.84
+          },
+          {
+            "text": "con",
+            "duration": 0.84
+          },
+          {
+            "text": "gà",
+            "duration": 0.84
+          },
+          {
+            "text": "mẹ",
+            "duration": 1.11
+          }
+        ]
       },
       {
         "time": 110.2,
-        "text": "Đi loanh quanh trong sân có con gà, có con gà"
+        "text": "Đi loanh quanh trong sân có con gà, có con gà",
+        "words": [
+          {
+            "text": "Đi",
+            "duration": 0.59
+          },
+          {
+            "text": "loanh",
+            "duration": 0.59
+          },
+          {
+            "text": "quanh",
+            "duration": 0.59
+          },
+          {
+            "text": "trong",
+            "duration": 0.59
+          },
+          {
+            "text": "sân",
+            "duration": 0.59
+          },
+          {
+            "text": "có",
+            "duration": 0.59
+          },
+          {
+            "text": "con",
+            "duration": 0.59
+          },
+          {
+            "text": "gà,",
+            "duration": 0.59
+          },
+          {
+            "text": "có",
+            "duration": 0.59
+          },
+          {
+            "text": "con",
+            "duration": 0.59
+          },
+          {
+            "text": "gà",
+            "duration": 0.77
+          }
+        ]
       },
       {
         "time": 118.2,
-        "text": "Gà không biết gáy là con gà con"
+        "text": "Gà không biết gáy là con gà con",
+        "words": [
+          {
+            "text": "Gà",
+            "duration": 0.95
+          },
+          {
+            "text": "không",
+            "duration": 0.95
+          },
+          {
+            "text": "biết",
+            "duration": 0.95
+          },
+          {
+            "text": "gáy",
+            "duration": 0.95
+          },
+          {
+            "text": "là",
+            "duration": 0.95
+          },
+          {
+            "text": "con",
+            "duration": 0.95
+          },
+          {
+            "text": "gà",
+            "duration": 0.95
+          },
+          {
+            "text": "con",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 155.9,
-        "text": "Gà mà biết gáy là con gà trống"
+        "text": "Gà mà biết gáy là con gà trống",
+        "words": [
+          {
+            "text": "Gà",
+            "duration": 0.95
+          },
+          {
+            "text": "mà",
+            "duration": 0.95
+          },
+          {
+            "text": "biết",
+            "duration": 0.95
+          },
+          {
+            "text": "gáy",
+            "duration": 0.95
+          },
+          {
+            "text": "là",
+            "duration": 0.95
+          },
+          {
+            "text": "con",
+            "duration": 0.95
+          },
+          {
+            "text": "gà",
+            "duration": 0.95
+          },
+          {
+            "text": "trống",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 169.4,
-        "text": "Gà mà không biết gáy là con gà mẹ"
+        "text": "Gà mà không biết gáy là con gà mẹ",
+        "words": [
+          {
+            "text": "Gà",
+            "duration": 0.84
+          },
+          {
+            "text": "mà",
+            "duration": 0.84
+          },
+          {
+            "text": "không",
+            "duration": 0.84
+          },
+          {
+            "text": "biết",
+            "duration": 0.84
+          },
+          {
+            "text": "gáy",
+            "duration": 0.84
+          },
+          {
+            "text": "là",
+            "duration": 0.84
+          },
+          {
+            "text": "con",
+            "duration": 0.84
+          },
+          {
+            "text": "gà",
+            "duration": 0.84
+          },
+          {
+            "text": "mẹ",
+            "duration": 1.11
+          }
+        ]
       },
       {
         "time": 213.1,
-        "text": "Đi loanh quanh trong sân có con gà, có con gà"
+        "text": "Đi loanh quanh trong sân có con gà, có con gà",
+        "words": [
+          {
+            "text": "Đi",
+            "duration": 0.39
+          },
+          {
+            "text": "loanh",
+            "duration": 0.39
+          },
+          {
+            "text": "quanh",
+            "duration": 0.39
+          },
+          {
+            "text": "trong",
+            "duration": 0.39
+          },
+          {
+            "text": "sân",
+            "duration": 0.39
+          },
+          {
+            "text": "có",
+            "duration": 0.39
+          },
+          {
+            "text": "con",
+            "duration": 0.39
+          },
+          {
+            "text": "gà,",
+            "duration": 0.39
+          },
+          {
+            "text": "có",
+            "duration": 0.39
+          },
+          {
+            "text": "con",
+            "duration": 0.39
+          },
+          {
+            "text": "gà",
+            "duration": 0.51
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -454,43 +2806,355 @@
     "lyrics": [
       {
         "time": 30,
-        "text": "Bắc kim thang cà lang bí rợ"
+        "text": "Bắc kim thang cà lang bí rợ",
+        "words": [
+          {
+            "text": "Bắc",
+            "duration": 0.92
+          },
+          {
+            "text": "kim",
+            "duration": 0.92
+          },
+          {
+            "text": "thang",
+            "duration": 0.92
+          },
+          {
+            "text": "cà",
+            "duration": 0.92
+          },
+          {
+            "text": "lang",
+            "duration": 0.92
+          },
+          {
+            "text": "bí",
+            "duration": 0.92
+          },
+          {
+            "text": "rợ",
+            "duration": 1.21
+          }
+        ]
       },
       {
         "time": 38,
-        "text": "Cột qua kèo là kèo qua cột"
+        "text": "Cột qua kèo là kèo qua cột",
+        "words": [
+          {
+            "text": "Cột",
+            "duration": 0.97
+          },
+          {
+            "text": "qua",
+            "duration": 0.97
+          },
+          {
+            "text": "kèo",
+            "duration": 0.97
+          },
+          {
+            "text": "là",
+            "duration": 0.97
+          },
+          {
+            "text": "kèo",
+            "duration": 0.97
+          },
+          {
+            "text": "qua",
+            "duration": 0.97
+          },
+          {
+            "text": "cột",
+            "duration": 1.27
+          }
+        ]
       },
       {
         "time": 46.4,
-        "text": "Chú bán dầu qua cầu mà té"
+        "text": "Chú bán dầu qua cầu mà té",
+        "words": [
+          {
+            "text": "Chú",
+            "duration": 0.92
+          },
+          {
+            "text": "bán",
+            "duration": 0.92
+          },
+          {
+            "text": "dầu",
+            "duration": 0.92
+          },
+          {
+            "text": "qua",
+            "duration": 0.92
+          },
+          {
+            "text": "cầu",
+            "duration": 0.92
+          },
+          {
+            "text": "mà",
+            "duration": 0.92
+          },
+          {
+            "text": "té",
+            "duration": 1.21
+          }
+        ]
       },
       {
         "time": 54.4,
-        "text": "Chú bán ếch ở lại làm chi"
+        "text": "Chú bán ếch ở lại làm chi",
+        "words": [
+          {
+            "text": "Chú",
+            "duration": 0.67
+          },
+          {
+            "text": "bán",
+            "duration": 0.67
+          },
+          {
+            "text": "ếch",
+            "duration": 0.67
+          },
+          {
+            "text": "ở",
+            "duration": 0.67
+          },
+          {
+            "text": "lại",
+            "duration": 0.67
+          },
+          {
+            "text": "làm",
+            "duration": 0.67
+          },
+          {
+            "text": "chi",
+            "duration": 0.88
+          }
+        ]
       },
       {
         "time": 60.2,
-        "text": "Con le le đánh trống thổi kèn"
+        "text": "Con le le đánh trống thổi kèn",
+        "words": [
+          {
+            "text": "Con",
+            "duration": 1.09
+          },
+          {
+            "text": "le",
+            "duration": 1.09
+          },
+          {
+            "text": "le",
+            "duration": 1.09
+          },
+          {
+            "text": "đánh",
+            "duration": 1.09
+          },
+          {
+            "text": "trống",
+            "duration": 1.09
+          },
+          {
+            "text": "thổi",
+            "duration": 1.09
+          },
+          {
+            "text": "kèn",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 93.8,
-        "text": "Con bìm bịp khánh tận tò tí te tò te"
+        "text": "Con bìm bịp khánh tận tò tí te tò te",
+        "words": [
+          {
+            "text": "Con",
+            "duration": 0.5
+          },
+          {
+            "text": "bìm",
+            "duration": 0.5
+          },
+          {
+            "text": "bịp",
+            "duration": 0.5
+          },
+          {
+            "text": "khánh",
+            "duration": 0.5
+          },
+          {
+            "text": "tận",
+            "duration": 0.5
+          },
+          {
+            "text": "tò",
+            "duration": 0.5
+          },
+          {
+            "text": "tí",
+            "duration": 0.5
+          },
+          {
+            "text": "te",
+            "duration": 0.5
+          },
+          {
+            "text": "tò",
+            "duration": 0.5
+          },
+          {
+            "text": "te",
+            "duration": 0.66
+          }
+        ]
       },
       {
         "time": 100,
-        "text": "Bắc kim thang cà lang bí rợ"
+        "text": "Bắc kim thang cà lang bí rợ",
+        "words": [
+          {
+            "text": "Bắc",
+            "duration": 1.09
+          },
+          {
+            "text": "kim",
+            "duration": 1.09
+          },
+          {
+            "text": "thang",
+            "duration": 1.09
+          },
+          {
+            "text": "cà",
+            "duration": 1.09
+          },
+          {
+            "text": "lang",
+            "duration": 1.09
+          },
+          {
+            "text": "bí",
+            "duration": 1.09
+          },
+          {
+            "text": "rợ",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 116.5,
-        "text": "Cột qua kèo là kèo qua cột"
+        "text": "Cột qua kèo là kèo qua cột",
+        "words": [
+          {
+            "text": "Cột",
+            "duration": 0.98
+          },
+          {
+            "text": "qua",
+            "duration": 0.98
+          },
+          {
+            "text": "kèo",
+            "duration": 0.98
+          },
+          {
+            "text": "là",
+            "duration": 0.98
+          },
+          {
+            "text": "kèo",
+            "duration": 0.98
+          },
+          {
+            "text": "qua",
+            "duration": 0.98
+          },
+          {
+            "text": "cột",
+            "duration": 1.29
+          }
+        ]
       },
       {
         "time": 125,
-        "text": "Chú bán dầu qua cầu mà té"
+        "text": "Chú bán dầu qua cầu mà té",
+        "words": [
+          {
+            "text": "Chú",
+            "duration": 1.09
+          },
+          {
+            "text": "bán",
+            "duration": 1.09
+          },
+          {
+            "text": "dầu",
+            "duration": 1.09
+          },
+          {
+            "text": "qua",
+            "duration": 1.09
+          },
+          {
+            "text": "cầu",
+            "duration": 1.09
+          },
+          {
+            "text": "mà",
+            "duration": 1.09
+          },
+          {
+            "text": "té",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 134.6,
-        "text": "Chú bán ếch ở lại làm chi"
+        "text": "Chú bán ếch ở lại làm chi",
+        "words": [
+          {
+            "text": "Chú",
+            "duration": 0.61
+          },
+          {
+            "text": "bán",
+            "duration": 0.61
+          },
+          {
+            "text": "ếch",
+            "duration": 0.61
+          },
+          {
+            "text": "ở",
+            "duration": 0.61
+          },
+          {
+            "text": "lại",
+            "duration": 0.61
+          },
+          {
+            "text": "làm",
+            "duration": 0.61
+          },
+          {
+            "text": "chi",
+            "duration": 0.8
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -505,47 +3169,313 @@
     "lyrics": [
       {
         "time": 19.6,
-        "text": "Chị ong nâu nâu nâu nâu"
+        "text": "Chị ong nâu nâu nâu nâu",
+        "words": [
+          {
+            "text": "Chị",
+            "duration": 1.27
+          },
+          {
+            "text": "ong",
+            "duration": 1.27
+          },
+          {
+            "text": "nâu",
+            "duration": 1.27
+          },
+          {
+            "text": "nâu",
+            "duration": 1.27
+          },
+          {
+            "text": "nâu",
+            "duration": 1.27
+          },
+          {
+            "text": "nâu",
+            "duration": 1.67
+          }
+        ]
       },
       {
         "time": 29.5,
-        "text": "Chị bay đi đâu đi đâu"
+        "text": "Chị bay đi đâu đi đâu",
+        "words": [
+          {
+            "text": "Chị",
+            "duration": 1.27
+          },
+          {
+            "text": "bay",
+            "duration": 1.27
+          },
+          {
+            "text": "đi",
+            "duration": 1.27
+          },
+          {
+            "text": "đâu",
+            "duration": 1.27
+          },
+          {
+            "text": "đi",
+            "duration": 1.27
+          },
+          {
+            "text": "đâu",
+            "duration": 1.67
+          }
+        ]
       },
       {
         "time": 45.4,
-        "text": "Bác gà trống mới gáy"
+        "text": "Bác gà trống mới gáy",
+        "words": [
+          {
+            "text": "Bác",
+            "duration": 1.52
+          },
+          {
+            "text": "gà",
+            "duration": 1.52
+          },
+          {
+            "text": "trống",
+            "duration": 1.52
+          },
+          {
+            "text": "mới",
+            "duration": 1.52
+          },
+          {
+            "text": "gáy",
+            "duration": 2.0
+          }
+        ]
       },
       {
         "time": 56.6,
-        "text": "Ông mặt trời mới dậy"
+        "text": "Ông mặt trời mới dậy",
+        "words": [
+          {
+            "text": "Ông",
+            "duration": 1.52
+          },
+          {
+            "text": "mặt",
+            "duration": 1.52
+          },
+          {
+            "text": "trời",
+            "duration": 1.52
+          },
+          {
+            "text": "mới",
+            "duration": 1.52
+          },
+          {
+            "text": "dậy",
+            "duration": 2.0
+          }
+        ]
       },
       {
         "time": 70,
-        "text": "Trên những cành hoa em đã thấy chị bay"
+        "text": "Trên những cành hoa em đã thấy chị bay",
+        "words": [
+          {
+            "text": "Trên",
+            "duration": 0.84
+          },
+          {
+            "text": "những",
+            "duration": 0.84
+          },
+          {
+            "text": "cành",
+            "duration": 0.84
+          },
+          {
+            "text": "hoa",
+            "duration": 0.84
+          },
+          {
+            "text": "em",
+            "duration": 0.84
+          },
+          {
+            "text": "đã",
+            "duration": 0.84
+          },
+          {
+            "text": "thấy",
+            "duration": 0.84
+          },
+          {
+            "text": "chị",
+            "duration": 0.84
+          },
+          {
+            "text": "bay",
+            "duration": 1.11
+          }
+        ]
       },
       {
         "time": 102.7,
-        "text": "Bé ngoan của chị ơi"
+        "text": "Bé ngoan của chị ơi",
+        "words": [
+          {
+            "text": "Bé",
+            "duration": 1.52
+          },
+          {
+            "text": "ngoan",
+            "duration": 1.52
+          },
+          {
+            "text": "của",
+            "duration": 1.52
+          },
+          {
+            "text": "chị",
+            "duration": 1.52
+          },
+          {
+            "text": "ơi",
+            "duration": 2.0
+          }
+        ]
       },
       {
         "time": 112.8,
-        "text": "Hôm nay trời nắng tươi"
+        "text": "Hôm nay trời nắng tươi",
+        "words": [
+          {
+            "text": "Hôm",
+            "duration": 1.52
+          },
+          {
+            "text": "nay",
+            "duration": 1.52
+          },
+          {
+            "text": "trời",
+            "duration": 1.52
+          },
+          {
+            "text": "nắng",
+            "duration": 1.52
+          },
+          {
+            "text": "tươi",
+            "duration": 2.0
+          }
+        ]
       },
       {
         "time": 123.8,
-        "text": "Chị bay đi tìm nhụy"
+        "text": "Chị bay đi tìm nhụy",
+        "words": [
+          {
+            "text": "Chị",
+            "duration": 1.52
+          },
+          {
+            "text": "bay",
+            "duration": 1.52
+          },
+          {
+            "text": "đi",
+            "duration": 1.52
+          },
+          {
+            "text": "tìm",
+            "duration": 1.52
+          },
+          {
+            "text": "nhụy",
+            "duration": 2.0
+          }
+        ]
       },
       {
         "time": 137.7,
-        "text": "Làm mật ong nuôi đời"
+        "text": "Làm mật ong nuôi đời",
+        "words": [
+          {
+            "text": "Làm",
+            "duration": 1.47
+          },
+          {
+            "text": "mật",
+            "duration": 1.47
+          },
+          {
+            "text": "ong",
+            "duration": 1.47
+          },
+          {
+            "text": "nuôi",
+            "duration": 1.47
+          },
+          {
+            "text": "đời",
+            "duration": 1.93
+          }
+        ]
       },
       {
         "time": 146.8,
-        "text": "Chị vâng theo bố mẹ"
+        "text": "Chị vâng theo bố mẹ",
+        "words": [
+          {
+            "text": "Chị",
+            "duration": 1.52
+          },
+          {
+            "text": "vâng",
+            "duration": 1.52
+          },
+          {
+            "text": "theo",
+            "duration": 1.52
+          },
+          {
+            "text": "bố",
+            "duration": 1.52
+          },
+          {
+            "text": "mẹ",
+            "duration": 2.0
+          }
+        ]
       },
       {
         "time": 160.6,
-        "text": "Chăm làm không nên lười"
+        "text": "Chăm làm không nên lười",
+        "words": [
+          {
+            "text": "Chăm",
+            "duration": 0.85
+          },
+          {
+            "text": "làm",
+            "duration": 0.85
+          },
+          {
+            "text": "không",
+            "duration": 0.85
+          },
+          {
+            "text": "nên",
+            "duration": 0.85
+          },
+          {
+            "text": "lười",
+            "duration": 1.12
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -560,35 +3490,251 @@
     "lyrics": [
       {
         "time": 10,
-        "text": "Quả gì mà chua chua thế"
+        "text": "Quả gì mà chua chua thế",
+        "words": [
+          {
+            "text": "Quả",
+            "duration": 0.54
+          },
+          {
+            "text": "gì",
+            "duration": 0.54
+          },
+          {
+            "text": "mà",
+            "duration": 0.54
+          },
+          {
+            "text": "chua",
+            "duration": 0.54
+          },
+          {
+            "text": "chua",
+            "duration": 0.54
+          },
+          {
+            "text": "thế",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 14,
-        "text": "Xin thưa rằng quả khế"
+        "text": "Xin thưa rằng quả khế",
+        "words": [
+          {
+            "text": "Xin",
+            "duration": 0.65
+          },
+          {
+            "text": "thưa",
+            "duration": 0.65
+          },
+          {
+            "text": "rằng",
+            "duration": 0.65
+          },
+          {
+            "text": "quả",
+            "duration": 0.65
+          },
+          {
+            "text": "khế",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 18,
-        "text": "Ăn vào thì chắc là chua"
+        "text": "Ăn vào thì chắc là chua",
+        "words": [
+          {
+            "text": "Ăn",
+            "duration": 0.54
+          },
+          {
+            "text": "vào",
+            "duration": 0.54
+          },
+          {
+            "text": "thì",
+            "duration": 0.54
+          },
+          {
+            "text": "chắc",
+            "duration": 0.54
+          },
+          {
+            "text": "là",
+            "duration": 0.54
+          },
+          {
+            "text": "chua",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 22,
-        "text": "Vâng vâng chua thì để nấu canh chua"
+        "text": "Vâng vâng chua thì để nấu canh chua",
+        "words": [
+          {
+            "text": "Vâng",
+            "duration": 0.4
+          },
+          {
+            "text": "vâng",
+            "duration": 0.4
+          },
+          {
+            "text": "chua",
+            "duration": 0.4
+          },
+          {
+            "text": "thì",
+            "duration": 0.4
+          },
+          {
+            "text": "để",
+            "duration": 0.4
+          },
+          {
+            "text": "nấu",
+            "duration": 0.4
+          },
+          {
+            "text": "canh",
+            "duration": 0.4
+          },
+          {
+            "text": "chua",
+            "duration": 0.53
+          }
+        ]
       },
       {
         "time": 26,
-        "text": "Quả gì mà da cật cứng"
+        "text": "Quả gì mà da cật cứng",
+        "words": [
+          {
+            "text": "Quả",
+            "duration": 0.54
+          },
+          {
+            "text": "gì",
+            "duration": 0.54
+          },
+          {
+            "text": "mà",
+            "duration": 0.54
+          },
+          {
+            "text": "da",
+            "duration": 0.54
+          },
+          {
+            "text": "cật",
+            "duration": 0.54
+          },
+          {
+            "text": "cứng",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 30,
-        "text": "Xin thưa rằng quả trứng"
+        "text": "Xin thưa rằng quả trứng",
+        "words": [
+          {
+            "text": "Xin",
+            "duration": 0.65
+          },
+          {
+            "text": "thưa",
+            "duration": 0.65
+          },
+          {
+            "text": "rằng",
+            "duration": 0.65
+          },
+          {
+            "text": "quả",
+            "duration": 0.65
+          },
+          {
+            "text": "trứng",
+            "duration": 0.85
+          }
+        ]
       },
       {
         "time": 34,
-        "text": "Ăn vào thì nó làm sao"
+        "text": "Ăn vào thì nó làm sao",
+        "words": [
+          {
+            "text": "Ăn",
+            "duration": 0.54
+          },
+          {
+            "text": "vào",
+            "duration": 0.54
+          },
+          {
+            "text": "thì",
+            "duration": 0.54
+          },
+          {
+            "text": "nó",
+            "duration": 0.54
+          },
+          {
+            "text": "làm",
+            "duration": 0.54
+          },
+          {
+            "text": "sao",
+            "duration": 0.71
+          }
+        ]
       },
       {
         "time": 38,
-        "text": "Không sao ăn vào người sẽ thêm cao"
+        "text": "Không sao ăn vào người sẽ thêm cao",
+        "words": [
+          {
+            "text": "Không",
+            "duration": 0.53
+          },
+          {
+            "text": "sao",
+            "duration": 0.53
+          },
+          {
+            "text": "ăn",
+            "duration": 0.53
+          },
+          {
+            "text": "vào",
+            "duration": 0.53
+          },
+          {
+            "text": "người",
+            "duration": 0.53
+          },
+          {
+            "text": "sẽ",
+            "duration": 0.53
+          },
+          {
+            "text": "thêm",
+            "duration": 0.53
+          },
+          {
+            "text": "cao",
+            "duration": 0.7
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -603,43 +3749,359 @@
     "lyrics": [
       {
         "time": 17.3,
-        "text": "Trái đất này là của chúng mình"
+        "text": "Trái đất này là của chúng mình",
+        "words": [
+          {
+            "text": "Trái",
+            "duration": 1.09
+          },
+          {
+            "text": "đất",
+            "duration": 1.09
+          },
+          {
+            "text": "này",
+            "duration": 1.09
+          },
+          {
+            "text": "là",
+            "duration": 1.09
+          },
+          {
+            "text": "của",
+            "duration": 1.09
+          },
+          {
+            "text": "chúng",
+            "duration": 1.09
+          },
+          {
+            "text": "mình",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 30.4,
-        "text": "Quả bóng xanh bay giữa trời xanh"
+        "text": "Quả bóng xanh bay giữa trời xanh",
+        "words": [
+          {
+            "text": "Quả",
+            "duration": 1.09
+          },
+          {
+            "text": "bóng",
+            "duration": 1.09
+          },
+          {
+            "text": "xanh",
+            "duration": 1.09
+          },
+          {
+            "text": "bay",
+            "duration": 1.09
+          },
+          {
+            "text": "giữa",
+            "duration": 1.09
+          },
+          {
+            "text": "trời",
+            "duration": 1.09
+          },
+          {
+            "text": "xanh",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 48,
-        "text": "Bồ câu ơi tiếng chim gù thương mến"
+        "text": "Bồ câu ơi tiếng chim gù thương mến",
+        "words": [
+          {
+            "text": "Bồ",
+            "duration": 0.95
+          },
+          {
+            "text": "câu",
+            "duration": 0.95
+          },
+          {
+            "text": "ơi",
+            "duration": 0.95
+          },
+          {
+            "text": "tiếng",
+            "duration": 0.95
+          },
+          {
+            "text": "chim",
+            "duration": 0.95
+          },
+          {
+            "text": "gù",
+            "duration": 0.95
+          },
+          {
+            "text": "thương",
+            "duration": 0.95
+          },
+          {
+            "text": "mến",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 61,
-        "text": "Hải âu ơi cánh chim vờn sóng biển"
+        "text": "Hải âu ơi cánh chim vờn sóng biển",
+        "words": [
+          {
+            "text": "Hải",
+            "duration": 0.95
+          },
+          {
+            "text": "âu",
+            "duration": 0.95
+          },
+          {
+            "text": "ơi",
+            "duration": 0.95
+          },
+          {
+            "text": "cánh",
+            "duration": 0.95
+          },
+          {
+            "text": "chim",
+            "duration": 0.95
+          },
+          {
+            "text": "vờn",
+            "duration": 0.95
+          },
+          {
+            "text": "sóng",
+            "duration": 0.95
+          },
+          {
+            "text": "biển",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 76.3,
-        "text": "Cùng bay nào cho trái đất quay"
+        "text": "Cùng bay nào cho trái đất quay",
+        "words": [
+          {
+            "text": "Cùng",
+            "duration": 1.09
+          },
+          {
+            "text": "bay",
+            "duration": 1.09
+          },
+          {
+            "text": "nào",
+            "duration": 1.09
+          },
+          {
+            "text": "cho",
+            "duration": 1.09
+          },
+          {
+            "text": "trái",
+            "duration": 1.09
+          },
+          {
+            "text": "đất",
+            "duration": 1.09
+          },
+          {
+            "text": "quay",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 96.3,
-        "text": "Cùng bay nào cho trái đất quay"
+        "text": "Cùng bay nào cho trái đất quay",
+        "words": [
+          {
+            "text": "Cùng",
+            "duration": 1.09
+          },
+          {
+            "text": "bay",
+            "duration": 1.09
+          },
+          {
+            "text": "nào",
+            "duration": 1.09
+          },
+          {
+            "text": "cho",
+            "duration": 1.09
+          },
+          {
+            "text": "trái",
+            "duration": 1.09
+          },
+          {
+            "text": "đất",
+            "duration": 1.09
+          },
+          {
+            "text": "quay",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 113.1,
-        "text": "Trái đất này là của chúng mình"
+        "text": "Trái đất này là của chúng mình",
+        "words": [
+          {
+            "text": "Trái",
+            "duration": 1.09
+          },
+          {
+            "text": "đất",
+            "duration": 1.09
+          },
+          {
+            "text": "này",
+            "duration": 1.09
+          },
+          {
+            "text": "là",
+            "duration": 1.09
+          },
+          {
+            "text": "của",
+            "duration": 1.09
+          },
+          {
+            "text": "chúng",
+            "duration": 1.09
+          },
+          {
+            "text": "mình",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 126.3,
-        "text": "Quả bóng xanh bay giữa trời xanh"
+        "text": "Quả bóng xanh bay giữa trời xanh",
+        "words": [
+          {
+            "text": "Quả",
+            "duration": 1.09
+          },
+          {
+            "text": "bóng",
+            "duration": 1.09
+          },
+          {
+            "text": "xanh",
+            "duration": 1.09
+          },
+          {
+            "text": "bay",
+            "duration": 1.09
+          },
+          {
+            "text": "giữa",
+            "duration": 1.09
+          },
+          {
+            "text": "trời",
+            "duration": 1.09
+          },
+          {
+            "text": "xanh",
+            "duration": 1.43
+          }
+        ]
       },
       {
         "time": 141.6,
-        "text": "Bồ câu ơi tiếng chim gù thương mến"
+        "text": "Bồ câu ơi tiếng chim gù thương mến",
+        "words": [
+          {
+            "text": "Bồ",
+            "duration": 0.95
+          },
+          {
+            "text": "câu",
+            "duration": 0.95
+          },
+          {
+            "text": "ơi",
+            "duration": 0.95
+          },
+          {
+            "text": "tiếng",
+            "duration": 0.95
+          },
+          {
+            "text": "chim",
+            "duration": 0.95
+          },
+          {
+            "text": "gù",
+            "duration": 0.95
+          },
+          {
+            "text": "thương",
+            "duration": 0.95
+          },
+          {
+            "text": "mến",
+            "duration": 1.25
+          }
+        ]
       },
       {
         "time": 152.5,
-        "text": "Hải âu ơi cánh chim vờn sóng biển"
+        "text": "Hải âu ơi cánh chim vờn sóng biển",
+        "words": [
+          {
+            "text": "Hải",
+            "duration": 0.53
+          },
+          {
+            "text": "âu",
+            "duration": 0.53
+          },
+          {
+            "text": "ơi",
+            "duration": 0.53
+          },
+          {
+            "text": "cánh",
+            "duration": 0.53
+          },
+          {
+            "text": "chim",
+            "duration": 0.53
+          },
+          {
+            "text": "vờn",
+            "duration": 0.53
+          },
+          {
+            "text": "sóng",
+            "duration": 0.53
+          },
+          {
+            "text": "biển",
+            "duration": 0.7
+          }
+        ]
       }
     ],
     "aiSynced": true,
@@ -654,19 +4116,155 @@
     "lyrics": [
       {
         "time": 16,
-        "text": "Mẹ ơi tại sao con bướm bay cao"
+        "text": "Mẹ ơi tại sao con bướm bay cao",
+        "words": [
+          {
+            "text": "Mẹ",
+            "duration": 0.5
+          },
+          {
+            "text": "ơi",
+            "duration": 0.5
+          },
+          {
+            "text": "tại",
+            "duration": 0.5
+          },
+          {
+            "text": "sao",
+            "duration": 0.5
+          },
+          {
+            "text": "con",
+            "duration": 0.5
+          },
+          {
+            "text": "bướm",
+            "duration": 0.5
+          },
+          {
+            "text": "bay",
+            "duration": 0.5
+          },
+          {
+            "text": "cao",
+            "duration": 0.66
+          }
+        ]
       },
       {
         "time": 21,
-        "text": "Con ong làm mật, con kiến tha mồi"
+        "text": "Con ong làm mật, con kiến tha mồi",
+        "words": [
+          {
+            "text": "Con",
+            "duration": 0.5
+          },
+          {
+            "text": "ong",
+            "duration": 0.5
+          },
+          {
+            "text": "làm",
+            "duration": 0.5
+          },
+          {
+            "text": "mật,",
+            "duration": 0.5
+          },
+          {
+            "text": "con",
+            "duration": 0.5
+          },
+          {
+            "text": "kiến",
+            "duration": 0.5
+          },
+          {
+            "text": "tha",
+            "duration": 0.5
+          },
+          {
+            "text": "mồi",
+            "duration": 0.66
+          }
+        ]
       },
       {
         "time": 26,
-        "text": "Mẹ ơi tại sao trời nhiều mây thế"
+        "text": "Mẹ ơi tại sao trời nhiều mây thế",
+        "words": [
+          {
+            "text": "Mẹ",
+            "duration": 0.5
+          },
+          {
+            "text": "ơi",
+            "duration": 0.5
+          },
+          {
+            "text": "tại",
+            "duration": 0.5
+          },
+          {
+            "text": "sao",
+            "duration": 0.5
+          },
+          {
+            "text": "trời",
+            "duration": 0.5
+          },
+          {
+            "text": "nhiều",
+            "duration": 0.5
+          },
+          {
+            "text": "mây",
+            "duration": 0.5
+          },
+          {
+            "text": "thế",
+            "duration": 0.66
+          }
+        ]
       },
       {
         "time": 31,
-        "text": "Tại sao mẹ ơi mặt trời hiền hòa"
+        "text": "Tại sao mẹ ơi mặt trời hiền hòa",
+        "words": [
+          {
+            "text": "Tại",
+            "duration": 0.53
+          },
+          {
+            "text": "sao",
+            "duration": 0.53
+          },
+          {
+            "text": "mẹ",
+            "duration": 0.53
+          },
+          {
+            "text": "ơi",
+            "duration": 0.53
+          },
+          {
+            "text": "mặt",
+            "duration": 0.53
+          },
+          {
+            "text": "trời",
+            "duration": 0.53
+          },
+          {
+            "text": "hiền",
+            "duration": 0.53
+          },
+          {
+            "text": "hòa",
+            "duration": 0.7
+          }
+        ]
       }
     ],
     "aiSynced": true,

@@ -90,7 +90,7 @@ export default function PlayMenuPage() {
         <p className="text-xs sm:text-sm text-text-light mt-0.5">Chọn một trò chơi để bắt đầu nhé!</p>
       </motion.div>
 
-      <div className="flex-1 px-4 sm:px-6 pb-24 lg:pb-16 scroll-area relative z-10 w-full flex flex-col justify-center">
+      <div className="flex-1 px-4 sm:px-6 pb-32 sm:pb-36 lg:pb-40 scroll-area relative z-10 w-full flex flex-col justify-center">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5 max-w-2xl mx-auto w-full">
           {games.map((game, i) => (
             <Link key={game.id} href={game.href} className="w-full">

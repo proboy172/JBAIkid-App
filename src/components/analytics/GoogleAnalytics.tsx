@@ -21,11 +21,10 @@ function AnalyticsTracking({ gaId }: { gaId?: string }) {
 
 export default function GoogleAnalytics() {
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  const adsenseId = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID;
 
   return (
     <>
-      {/* 1. Google Analytics 4 Tag (gtag.js) */}
+      {/* Google Analytics 4 Tag (gtag.js) */}
       {gaId && (
         <>
           <Script
@@ -50,16 +49,6 @@ export default function GoogleAnalytics() {
             <AnalyticsTracking gaId={gaId} />
           </Suspense>
         </>
-      )}
-
-      {/* 2. Google AdSense Script (Chuẩn bị đặt quảng cáo) */}
-      {adsenseId && (
-        <Script
-          id="google-adsense"
-          strategy="afterInteractive"
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
-          crossOrigin="anonymous"
-        />
       )}
     </>
   );

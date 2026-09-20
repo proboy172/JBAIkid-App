@@ -101,7 +101,7 @@ export default function MatchGamePage() {
         <div className="pt-10 pb-4 px-5 relative z-10">
           <BackButton label="Game Center" />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center">
             <span className="text-8xl block mb-4">🧩</span>
             <h1 className="text-3xl font-extrabold mb-2" style={{ fontFamily: "var(--font-heading)", color: "#34D399" }}>
@@ -127,7 +127,7 @@ export default function MatchGamePage() {
     return (
       <div className="min-h-dvh flex flex-col">
         <ConfettiOverlay pieces={pieces} />
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-28 relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center glass-card p-8 max-w-sm w-full">
             <span className="text-7xl block mb-3">🏆</span>
             <h2 className="text-3xl font-extrabold mb-2" style={{ fontFamily: "var(--font-heading)", color: "#34D399" }}>
@@ -168,7 +168,7 @@ export default function MatchGamePage() {
         </div>
       </div>
 
-      <div className="flex-1 flex px-4 pb-20 lg:pb-14 pt-2 sm:pt-4 relative z-10 items-center justify-center gap-4 sm:gap-8">
+      <div className="flex-1 flex px-4 pb-32 sm:pb-36 lg:pb-40 pt-2 sm:pt-4 overflow-y-auto relative z-10 items-center justify-center gap-4 sm:gap-8">
         
         {/* Left Column: Emojis */}
         <div className="flex flex-col gap-2.5 sm:gap-3 w-1/2 max-w-[130px] sm:max-w-[150px]">

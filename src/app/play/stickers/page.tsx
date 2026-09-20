@@ -263,7 +263,7 @@ export default function StickerBookPage() {
 
       {/* TAB 1: SỔ NHÃN DÁN (COLLECTION / SHOP) */}
       {activeTab === "book" && (
-        <main className="px-4 sm:px-5 pb-20 lg:pb-14 relative z-10 max-w-4xl mx-auto w-full flex-1">
+        <main className="px-4 sm:px-5 pb-28 sm:pb-32 lg:pb-36 relative z-10 max-w-4xl mx-auto w-full flex-1">
           <div className="text-center mb-3 sm:mb-4">
             <h2 className="text-lg sm:text-xl font-black tracking-wide text-white mb-0.5">
               Bộ Sưu Tập Nhãn Dán
@@ -345,7 +345,7 @@ export default function StickerBookPage() {
 
       {/* TAB 2: PHÒNG SÁNG TẠO (INTERACTIVE CANVAS) */}
       {activeTab === "canvas" && (
-        <main className="px-4 sm:px-5 pb-20 lg:pb-14 relative z-10 max-w-4xl mx-auto w-full flex-1 flex flex-col gap-2.5 sm:gap-3">
+        <main className="px-4 sm:px-5 pb-28 sm:pb-32 lg:pb-36 relative z-10 max-w-4xl mx-auto w-full flex-1 flex flex-col gap-2.5 sm:gap-3">
           {/* Top Canvas Controls Bar */}
           <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-800/80 p-2.5 sm:p-3 rounded-2xl border border-slate-700/80">
             {/* Theme Selector */}

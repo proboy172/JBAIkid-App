@@ -391,7 +391,7 @@ export default function FlashCardClient() {
       </div>
 
       {/* Flash Card Area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 pb-20 lg:pb-14 relative z-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
