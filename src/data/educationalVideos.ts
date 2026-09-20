@@ -18,7 +18,8 @@ export interface EducationalVideo {
     | "Steve & Maggie"
     | "Oxford Phonics"
     | "Wild Safari"
-    | "SciShow Kids";
+    | "SciShow Kids"
+    | "Gecko's Garage";
   channelAvatar: string;
   channelColor: string;
   youtubeId: string;
@@ -119,6 +120,14 @@ export const educationalChannels = [
     emoji: "📖",
     color: "#06B6D4",
     description: "Ngữ âm chuẩn quốc tế Cambridge & Oxford",
+  },
+  {
+    id: "geckos-garage",
+    channelName: "Gecko's Garage",
+    name: "Gecko's Garage",
+    emoji: "🚗",
+    color: "#F97316",
+    description: "Xe cộ, gara sửa xe, xe cứu hoả cứu hộ vui nhộn",
   },
 ];
 

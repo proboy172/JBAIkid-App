@@ -44,6 +44,45 @@ const allCombinedBaseItems: AllVideoItem[] = [
   ...songsVi.map((s) => ({ kind: "song_vi" as const, item: s, id: s.id })),
 ];
 
+// Deterministic round-robin interleave across channels for initial SSR render
+function getInterleavedEduVideos(): EducationalVideo[] {
+  const channelNames = [
+    "Wild Safari",
+    "Ms Rachel",
+    "Numberblocks",
+    "Alphablocks",
+    "Caitie's Classroom",
+    "Super Simple",
+    "Danny Go!",
+    "Steve & Maggie",
+    "SciShow Kids",
+    "Oxford Phonics",
+    "Gecko's Garage",
+  ];
+  const queues = channelNames.map((c) =>
+    educationalVideos.filter((v) => v.channel === c)
+  );
+  const otherChannels = educationalVideos.filter(
+    (v) => !channelNames.includes(v.channel as any)
+  );
+  if (otherChannels.length > 0) queues.push(otherChannels);
+
+  const result: EducationalVideo[] = [];
+  let added = true;
+  let round = 0;
+  while (added) {
+    added = false;
+    for (const q of queues) {
+      if (round < q.length) {
+        result.push(q[round]);
+        added = true;
+      }
+    }
+    round++;
+  }
+  return result;
+}
+
 // Deterministic interleave for initial SSR render (prevents hydration mismatch)
 function getInterleavedBaseItems(): AllVideoItem[] {
   const eduList = [...educationalVideos];
@@ -102,6 +141,10 @@ function VideosContent() {
     getInterleavedBaseItems()
   );
   const [isShuffling, setIsShuffling] = useState(false);
+  const [shuffledEduVideos, setShuffledEduVideos] = useState<EducationalVideo[]>(() =>
+    getInterleavedEduVideos()
+  );
+  const [isShufflingEdu, setIsShufflingEdu] = useState(false);
 
   // Shuffle all videos across entire library without topic grouping
   const shuffleAllVideos = useCallback(() => {
@@ -115,6 +158,20 @@ function VideosContent() {
     setShuffledAllVideos(copy);
     setVisibleAllCount(24);
     setTimeout(() => setIsShuffling(false), 350);
+  }, []);
+
+  // Shuffle educational videos across all channels & topics (for "Tất cả" mode)
+  const shuffleEduVideos = useCallback(() => {
+    setIsShufflingEdu(true);
+    playSFX("pop");
+    const copy = [...educationalVideos];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    setShuffledEduVideos(copy);
+    setVisibleEduCount(24);
+    setTimeout(() => setIsShufflingEdu(false), 350);
   }, []);
 
   // Quick play a random video or song
@@ -131,12 +188,19 @@ function VideosContent() {
 
   // Initial random shuffle on client mount so each session starts fresh & random
   useEffect(() => {
-    const copy = [...allCombinedBaseItems];
-    for (let i = copy.length - 1; i > 0; i--) {
+    const copyAll = [...allCombinedBaseItems];
+    for (let i = copyAll.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
+      [copyAll[i], copyAll[j]] = [copyAll[j], copyAll[i]];
     }
-    setShuffledAllVideos(copy);
+    setShuffledAllVideos(copyAll);
+
+    const copyEdu = [...educationalVideos];
+    for (let i = copyEdu.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copyEdu[i], copyEdu[j]] = [copyEdu[j], copyEdu[i]];
+    }
+    setShuffledEduVideos(copyEdu);
   }, []);
 
   // Reset pagination when channel, category or search query changes
@@ -247,7 +311,10 @@ function VideosContent() {
 
   // Filtering Educational Videos
   const filteredEduVideos = useMemo(() => {
-    return educationalVideos.filter((vid) => {
+    // When viewing "Tất cả" (all channels), use the randomized list so videos aren't grouped by topic
+    const sourceList = selectedChannel === "all" ? shuffledEduVideos : educationalVideos;
+
+    return sourceList.filter((vid) => {
       if (selectedChannel !== "all") {
         const chan = educationalChannels.find((c) => c.id === selectedChannel);
         if (chan?.channelName && vid.channel !== chan.channelName) {
@@ -271,7 +338,7 @@ function VideosContent() {
       }
       return true;
     });
-  }, [selectedChannel, selectedEduCategory, activeTab, favorites, searchQuery]);
+  }, [shuffledEduVideos, selectedChannel, selectedEduCategory, activeTab, favorites, searchQuery]);
 
   // Filtering English Songs
   const filteredSongsEn = useMemo(() => {
@@ -339,7 +406,10 @@ function VideosContent() {
             isFavorite={favorites.includes(activeEduVideo.id)}
             onToggleFavorite={() => toggleFavorite(activeEduVideo.id)}
             onSelectVideo={(newVideo) => setActiveEduVideo(newVideo)}
-            randomMode={activeTab === "all"}
+            randomMode={
+              activeTab === "all" ||
+              (activeTab === "edu" && selectedChannel === "all" && selectedEduCategory === "all")
+            }
           />
         )}
       </AnimatePresence>
@@ -353,7 +423,11 @@ function VideosContent() {
             isFavorite={favorites.includes(activeSong.id)}
             onToggleFavorite={() => toggleFavorite(activeSong.id)}
             onSelectSong={(newSong) => setActiveSong(newSong)}
-            randomMode={activeTab === "all"}
+            randomMode={
+              activeTab === "all" ||
+              (activeTab === "sing_en" && songEnTheme === "all") ||
+              (activeTab === "sing_vi" && songViTheme === "all")
+            }
           />
         )}
       </AnimatePresence>
@@ -462,6 +536,9 @@ function VideosContent() {
                       onClick={() => {
                         playSFX("tap");
                         setSelectedChannel(chan.id);
+                        if (chan.id === "all" && selectedEduCategory === "all") {
+                          shuffleEduVideos();
+                        }
                       }}
                       className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shrink-0 transition-all font-bold cursor-pointer border shadow-sm ${
                         isSelected
@@ -515,6 +592,9 @@ function VideosContent() {
                     onClick={() => {
                       playSFX("tap");
                       setSelectedEduCategory(cat.id);
+                      if (cat.id === "all" && selectedChannel === "all") {
+                        shuffleEduVideos();
+                      }
                     }}
                     className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border ${
                       isSelected
@@ -536,11 +616,30 @@ function VideosContent() {
                     playSFX("pop");
                     setSelectedChannel("all");
                     setSelectedEduCategory("all");
+                    shuffleEduVideos();
                   }}
                   className="px-2.5 py-1.5 rounded-full text-xs font-bold text-rose-500 bg-rose-50 hover:bg-rose-100 border border-rose-200 whitespace-nowrap flex items-center gap-1 shrink-0 transition-all cursor-pointer"
                 >
                   <X size={13} />
                   <span>Xem tất cả</span>
+                </motion.button>
+              )}
+
+              {/* Quick Shuffle Button when in All Mode */}
+              {selectedChannel === "all" && selectedEduCategory === "all" && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.92 }}
+                  onClick={shuffleEduVideos}
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
+                    isShufflingEdu
+                      ? "bg-amber-500 text-white border-amber-600 shadow-md animate-pulse"
+                      : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-sm"
+                  }`}
+                  title="Đổi thứ tự ngẫu nhiên toàn bộ video"
+                >
+                  <Sparkles size={13} className={isShufflingEdu ? "animate-spin" : "text-amber-500"} />
+                  <span>{isShufflingEdu ? "Đang trộn..." : "🎲 Trộn ngẫu nhiên"}</span>
                 </motion.button>
               )}
             </div>

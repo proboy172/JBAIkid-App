@@ -735,7 +735,7 @@ export default function SafeVideoModal({
             {/* Floating YouTube Kids Quick Button on Video */}
             {!showQuickDrawer && !isVideoEnded && !isLocked && !showHUD && (
               <motion.button
-                initial={{ opacity: 0, y: -10 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.93 }}
@@ -743,12 +743,12 @@ export default function SafeVideoModal({
                   playSFX("pop");
                   setShowQuickDrawer(true);
                 }}
-                className="absolute top-3.5 left-3 sm:top-4 sm:left-4 z-30 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none"
+                className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-4 z-30 px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none"
                 title="Mở danh sách video gợi ý"
               >
-                <span className="text-xl sm:text-2xl animate-bounce">🎈</span>
+                <span className="text-lg sm:text-xl animate-bounce">🎈</span>
                 <span
-                  className="text-amber-300 text-sm sm:text-base font-black tracking-wide"
+                  className="text-amber-300 text-xs sm:text-sm font-black tracking-wide"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   Video gợi ý
