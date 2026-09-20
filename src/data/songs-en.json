@@ -7346,5 +7346,2436 @@
         "translation": "Bé hãy hát thật vui, hát thật vang nào!"
       }
     ]
+  },
+  {
+    "id": "the-train-song",
+    "title": "The Train Song",
+    "emoji": "🚂",
+    "color": "#3B82F6",
+    "youtubeId": "DO41xyuo1MM",
+    "introDuration": 4,
+    "bpm": 110,
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "Chugga chugga choo choo, here comes the train",
+        "translation": "Xình xịch tu tu, đoàn tàu hỏa đang tới",
+        "words": [
+          {
+            "text": "Chugga",
+            "duration": 0.6
+          },
+          {
+            "text": "chugga",
+            "duration": 0.6
+          },
+          {
+            "text": "choo",
+            "duration": 0.8
+          },
+          {
+            "text": "choo,",
+            "duration": 0.8
+          },
+          {
+            "text": "here",
+            "duration": 0.5
+          },
+          {
+            "text": "comes",
+            "duration": 0.6
+          },
+          {
+            "text": "the",
+            "duration": 0.4
+          },
+          {
+            "text": "train",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 10,
+        "text": "Riding down the track and back again",
+        "translation": "Chạy dọc trên đường ray rồi lại quay về",
+        "words": [
+          {
+            "text": "Riding",
+            "duration": 0.8
+          },
+          {
+            "text": "down",
+            "duration": 0.6
+          },
+          {
+            "text": "the",
+            "duration": 0.4
+          },
+          {
+            "text": "track",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "back",
+            "duration": 0.6
+          },
+          {
+            "text": "again",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 16,
+        "text": "Hear the whistle blowing loud and clear",
+        "translation": "Lắng nghe tiếng còi tàu vang thật to và rõ",
+        "words": [
+          {
+            "text": "Hear",
+            "duration": 0.6
+          },
+          {
+            "text": "the",
+            "duration": 0.4
+          },
+          {
+            "text": "whistle",
+            "duration": 0.8
+          },
+          {
+            "text": "blowing",
+            "duration": 0.8
+          },
+          {
+            "text": "loud",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "clear",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 22,
+        "text": "Choo choo choo, the train is here!",
+        "translation": "Tu tu tu, xe lửa đã đến rồi!",
+        "words": [
+          {
+            "text": "Choo",
+            "duration": 0.6
+          },
+          {
+            "text": "choo",
+            "duration": 0.6
+          },
+          {
+            "text": "choo,",
+            "duration": 0.8
+          },
+          {
+            "text": "the",
+            "duration": 0.4
+          },
+          {
+            "text": "train",
+            "duration": 0.6
+          },
+          {
+            "text": "is",
+            "duration": 0.4
+          },
+          {
+            "text": "here!",
+            "duration": 1.2
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Train",
+        "vi": "Tàu hỏa",
+        "emoji": "🚂",
+        "phonetic": "/treɪn/"
+      },
+      {
+        "en": "Track",
+        "vi": "Đường ray",
+        "emoji": "🛤️",
+        "phonetic": "/træk/"
+      },
+      {
+        "en": "Whistle",
+        "vi": "Còi tàu",
+        "emoji": "📢",
+        "phonetic": "/ˈwɪs.əl/"
+      },
+      {
+        "en": "Loud",
+        "vi": "Kêu to",
+        "emoji": "🔊",
+        "phonetic": "/laʊd/"
+      }
+    ]
+  },
+  {
+    "id": "i-love-my-family",
+    "title": "I Love My Family",
+    "emoji": "👨‍👩‍👧‍👦",
+    "color": "#EC4899",
+    "youtubeId": "AIgJJV6-stM",
+    "introDuration": 3,
+    "bpm": 90,
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "I love my mommy, she loves me",
+        "translation": "Con yêu mẹ của con, và mẹ cũng yêu con",
+        "words": [
+          {
+            "text": "I",
+            "duration": 0.4
+          },
+          {
+            "text": "love",
+            "duration": 0.6
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "mommy,",
+            "duration": 0.8
+          },
+          {
+            "text": "she",
+            "duration": 0.4
+          },
+          {
+            "text": "loves",
+            "duration": 0.6
+          },
+          {
+            "text": "me",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 10,
+        "text": "I love my daddy, she loves me",
+        "translation": "Con yêu bố của con, và bố cũng yêu con",
+        "words": [
+          {
+            "text": "I",
+            "duration": 0.4
+          },
+          {
+            "text": "love",
+            "duration": 0.6
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "daddy,",
+            "duration": 0.8
+          },
+          {
+            "text": "he",
+            "duration": 0.4
+          },
+          {
+            "text": "loves",
+            "duration": 0.6
+          },
+          {
+            "text": "me",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 16,
+        "text": "We are a happy family",
+        "translation": "Chúng ta là một gia đình hạnh phúc",
+        "words": [
+          {
+            "text": "We",
+            "duration": 0.5
+          },
+          {
+            "text": "are",
+            "duration": 0.4
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "happy",
+            "duration": 0.8
+          },
+          {
+            "text": "family",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 22,
+        "text": "Together as sweet as can be",
+        "translation": "Bên nhau ngọt ngào biết bao nhiêu",
+        "words": [
+          {
+            "text": "Together",
+            "duration": 0.9
+          },
+          {
+            "text": "as",
+            "duration": 0.4
+          },
+          {
+            "text": "sweet",
+            "duration": 0.8
+          },
+          {
+            "text": "as",
+            "duration": 0.4
+          },
+          {
+            "text": "can",
+            "duration": 0.4
+          },
+          {
+            "text": "be",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Family",
+        "vi": "Gia đình",
+        "emoji": "👨‍👩‍👧‍👦",
+        "phonetic": "/ˈfæm.əl.i/"
+      },
+      {
+        "en": "Mommy",
+        "vi": "Mẹ yêu",
+        "emoji": "👩",
+        "phonetic": "/ˈmɑː.mi/"
+      },
+      {
+        "en": "Daddy",
+        "vi": "Bố yêu",
+        "emoji": "👨",
+        "phonetic": "/ˈdæd.i/"
+      },
+      {
+        "en": "Love",
+        "vi": "Yêu thương",
+        "emoji": "❤️",
+        "phonetic": "/lʌv/"
+      }
+    ]
+  },
+  {
+    "id": "this-is-my-face",
+    "title": "This Is My Face",
+    "emoji": "😊",
+    "color": "#F59E0B",
+    "youtubeId": "8ChQVaEAKsk",
+    "introDuration": 3,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "This is my face, look at my eyes",
+        "translation": "Đây là khuôn mặt tôi, hãy nhìn đôi mắt tôi xem",
+        "words": [
+          {
+            "text": "This",
+            "duration": 0.4
+          },
+          {
+            "text": "is",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "face,",
+            "duration": 0.8
+          },
+          {
+            "text": "look",
+            "duration": 0.5
+          },
+          {
+            "text": "at",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "eyes",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "This is my nose, look at my ears",
+        "translation": "Đây là chiếc mũi, hãy nhìn đôi tai tôi",
+        "words": [
+          {
+            "text": "This",
+            "duration": 0.4
+          },
+          {
+            "text": "is",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "nose,",
+            "duration": 0.8
+          },
+          {
+            "text": "look",
+            "duration": 0.5
+          },
+          {
+            "text": "at",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "ears",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 15,
+        "text": "This is my mouth, give a big smile",
+        "translation": "Đây là chiếc miệng xinh, hãy nở nụ cười thật tươi",
+        "words": [
+          {
+            "text": "This",
+            "duration": 0.4
+          },
+          {
+            "text": "is",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "mouth,",
+            "duration": 0.8
+          },
+          {
+            "text": "give",
+            "duration": 0.5
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "big",
+            "duration": 0.6
+          },
+          {
+            "text": "smile",
+            "duration": 1.2
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Face",
+        "vi": "Khuôn mặt",
+        "emoji": "😊",
+        "phonetic": "/feɪs/"
+      },
+      {
+        "en": "Eyes",
+        "vi": "Đôi mắt",
+        "emoji": "👀",
+        "phonetic": "/aɪz/"
+      },
+      {
+        "en": "Nose",
+        "vi": "Chiếc mũi",
+        "emoji": "👃",
+        "phonetic": "/noʊz/"
+      },
+      {
+        "en": "Mouth",
+        "vi": "Cái miệng",
+        "emoji": "👄",
+        "phonetic": "/maʊθ/"
+      }
+    ]
+  },
+  {
+    "id": "great-big-spider",
+    "title": "I'm a Great Big Spider",
+    "emoji": "🕷️",
+    "color": "#8B5CF6",
+    "youtubeId": "DX48LXcG0bk",
+    "introDuration": 3,
+    "bpm": 105,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "I'm a great big spider crawling up the wall",
+        "translation": "Tôi là chú nhện to lớn bò trên bức tường",
+        "words": [
+          {
+            "text": "I'm",
+            "duration": 0.4
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "great",
+            "duration": 0.5
+          },
+          {
+            "text": "big",
+            "duration": 0.5
+          },
+          {
+            "text": "spider",
+            "duration": 0.8
+          },
+          {
+            "text": "crawling",
+            "duration": 0.8
+          },
+          {
+            "text": "up",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "wall",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Spinning my web so I will not fall",
+        "translation": "Giăng tơ nhện thật chắc để không bị rơi",
+        "words": [
+          {
+            "text": "Spinning",
+            "duration": 0.8
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "web",
+            "duration": 0.8
+          },
+          {
+            "text": "so",
+            "duration": 0.4
+          },
+          {
+            "text": "I",
+            "duration": 0.3
+          },
+          {
+            "text": "will",
+            "duration": 0.4
+          },
+          {
+            "text": "not",
+            "duration": 0.4
+          },
+          {
+            "text": "fall",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Spider",
+        "vi": "Con nhện",
+        "emoji": "🕷️",
+        "phonetic": "/ˈspaɪ.dɚ/"
+      },
+      {
+        "en": "Web",
+        "vi": "Mạng nhện",
+        "emoji": "🕸️",
+        "phonetic": "/web/"
+      },
+      {
+        "en": "Wall",
+        "vi": "Bức tường",
+        "emoji": "🧱",
+        "phonetic": "/wɑːl/"
+      },
+      {
+        "en": "Crawl",
+        "vi": "Bò leo",
+        "emoji": "🧗",
+        "phonetic": "/krɑːl/"
+      }
+    ]
+  },
+  {
+    "id": "baby-elephant-song",
+    "title": "Baby Elephant",
+    "emoji": "🐘",
+    "color": "#06B6D4",
+    "youtubeId": "3zm5JMGIsRU",
+    "introDuration": 3,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Baby elephant walking in the zoo",
+        "translation": "Chú voi con đi dạo trong sở thú",
+        "words": [
+          {
+            "text": "Baby",
+            "duration": 0.6
+          },
+          {
+            "text": "elephant",
+            "duration": 0.8
+          },
+          {
+            "text": "walking",
+            "duration": 0.8
+          },
+          {
+            "text": "in",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "zoo",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Swinging his trunk and big ears too",
+        "translation": "Đung đưa chiếc vòi dài và đôi tai to",
+        "words": [
+          {
+            "text": "Swinging",
+            "duration": 0.8
+          },
+          {
+            "text": "his",
+            "duration": 0.4
+          },
+          {
+            "text": "trunk",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "big",
+            "duration": 0.5
+          },
+          {
+            "text": "ears",
+            "duration": 0.6
+          },
+          {
+            "text": "too",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Elephant",
+        "vi": "Con voi",
+        "emoji": "🐘",
+        "phonetic": "/ˈel.ə.fənt/"
+      },
+      {
+        "en": "Trunk",
+        "vi": "Vòi voi",
+        "emoji": "👃",
+        "phonetic": "/trʌŋk/"
+      },
+      {
+        "en": "Ears",
+        "vi": "Đôi tai",
+        "emoji": "👂",
+        "phonetic": "/ɪrz/"
+      },
+      {
+        "en": "Walk",
+        "vi": "Đi bộ",
+        "emoji": "🚶",
+        "phonetic": "/wɑːk/"
+      }
+    ]
+  },
+  {
+    "id": "if-i-were-a-duck",
+    "title": "If I Were a Duck",
+    "emoji": "🦆",
+    "color": "#10B981",
+    "youtubeId": "uZrFDgO0sMQ",
+    "introDuration": 3,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "If I were a duck, I would say quack quack",
+        "translation": "Nếu tôi là chú vịt, tôi sẽ kêu cạc cạc",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0.3
+          },
+          {
+            "text": "I",
+            "duration": 0.3
+          },
+          {
+            "text": "were",
+            "duration": 0.4
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "duck,",
+            "duration": 0.6
+          },
+          {
+            "text": "I",
+            "duration": 0.3
+          },
+          {
+            "text": "would",
+            "duration": 0.4
+          },
+          {
+            "text": "say",
+            "duration": 0.5
+          },
+          {
+            "text": "quack",
+            "duration": 0.6
+          },
+          {
+            "text": "quack",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Swimming in the pond and swimming back",
+        "translation": "Bơi lội trong ao rồi bơi trở về",
+        "words": [
+          {
+            "text": "Swimming",
+            "duration": 0.8
+          },
+          {
+            "text": "in",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "pond",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "swimming",
+            "duration": 0.8
+          },
+          {
+            "text": "back",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Duck",
+        "vi": "Con vịt",
+        "emoji": "🦆",
+        "phonetic": "/dʌk/"
+      },
+      {
+        "en": "Quack",
+        "vi": "Tiếng vịt kêu",
+        "emoji": "🗣️",
+        "phonetic": "/kwæk/"
+      },
+      {
+        "en": "Pond",
+        "vi": "Cái ao",
+        "emoji": "🌊",
+        "phonetic": "/pɑːnd/"
+      },
+      {
+        "en": "Swim",
+        "vi": "Bơi lội",
+        "emoji": "🏊",
+        "phonetic": "/swɪm/"
+      }
+    ]
+  },
+  {
+    "id": "leapfrog-song",
+    "title": "Leapfrog",
+    "emoji": "🐸",
+    "color": "#22C55E",
+    "youtubeId": "h42mCV2utyk",
+    "introDuration": 3,
+    "bpm": 110,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Hop hop little frog jumping in the grass",
+        "translation": "Nhảy lên nào chú ếch nhỏ trong bãi cỏ xanh",
+        "words": [
+          {
+            "text": "Hop",
+            "duration": 0.5
+          },
+          {
+            "text": "hop",
+            "duration": 0.5
+          },
+          {
+            "text": "little",
+            "duration": 0.5
+          },
+          {
+            "text": "frog",
+            "duration": 0.8
+          },
+          {
+            "text": "jumping",
+            "duration": 0.8
+          },
+          {
+            "text": "in",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "grass",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Ribbit ribbit ribbit as the children pass",
+        "translation": "Ộp ộp ộp khi các bạn nhỏ đi qua",
+        "words": [
+          {
+            "text": "Ribbit",
+            "duration": 0.6
+          },
+          {
+            "text": "ribbit",
+            "duration": 0.6
+          },
+          {
+            "text": "ribbit",
+            "duration": 0.8
+          },
+          {
+            "text": "as",
+            "duration": 0.3
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "children",
+            "duration": 0.8
+          },
+          {
+            "text": "pass",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Frog",
+        "vi": "Chú ếch",
+        "emoji": "🐸",
+        "phonetic": "/frɑːɡ/"
+      },
+      {
+        "en": "Hop",
+        "vi": "Nhảy nhót",
+        "emoji": "🦘",
+        "phonetic": "/hɑːp/"
+      },
+      {
+        "en": "Grass",
+        "vi": "Cỏ xanh",
+        "emoji": "🌱",
+        "phonetic": "/ɡræs/"
+      },
+      {
+        "en": "Jump",
+        "vi": "Nhảy cao",
+        "emoji": "⬆️",
+        "phonetic": "/dʒʌmp/"
+      }
+    ]
+  },
+  {
+    "id": "vroom-vroom-car",
+    "title": "Vroom Vroom",
+    "emoji": "🚗",
+    "color": "#EF4444",
+    "youtubeId": "B1u-ylQR6Fo",
+    "introDuration": 3,
+    "bpm": 115,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Vroom vroom goes the car driving down the street",
+        "translation": "Vút vút chiếc xe hơi chạy nhanh trên đường phố",
+        "words": [
+          {
+            "text": "Vroom",
+            "duration": 0.5
+          },
+          {
+            "text": "vroom",
+            "duration": 0.5
+          },
+          {
+            "text": "goes",
+            "duration": 0.5
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "car",
+            "duration": 0.7
+          },
+          {
+            "text": "driving",
+            "duration": 0.8
+          },
+          {
+            "text": "down",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "street",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Beep beep goes the horn to everyone we meet",
+        "translation": "Bíp bíp tiếng còi xe chào mọi người đi qua",
+        "words": [
+          {
+            "text": "Beep",
+            "duration": 0.5
+          },
+          {
+            "text": "beep",
+            "duration": 0.5
+          },
+          {
+            "text": "goes",
+            "duration": 0.5
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "horn",
+            "duration": 0.8
+          },
+          {
+            "text": "to",
+            "duration": 0.4
+          },
+          {
+            "text": "everyone",
+            "duration": 0.8
+          },
+          {
+            "text": "we",
+            "duration": 0.3
+          },
+          {
+            "text": "meet",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Car",
+        "vi": "Xe hơi",
+        "emoji": "🚗",
+        "phonetic": "/kɑːr/"
+      },
+      {
+        "en": "Street",
+        "vi": "Đường phố",
+        "emoji": "🛣️",
+        "phonetic": "/striːt/"
+      },
+      {
+        "en": "Horn",
+        "vi": "Còi xe",
+        "emoji": "📢",
+        "phonetic": "/hɔːrn/"
+      },
+      {
+        "en": "Drive",
+        "vi": "Lái xe",
+        "emoji": "🚘",
+        "phonetic": "/draɪv/"
+      }
+    ]
+  },
+  {
+    "id": "do-you-have-a-crayon",
+    "title": "Do You Have A Crayon?",
+    "emoji": "🖍️",
+    "color": "#F97316",
+    "youtubeId": "dbklZrO5H78",
+    "introDuration": 3,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Do you have a crayon? Yes, I do",
+        "translation": "Bạn có bút màu sáp không? Có, mình có đây",
+        "words": [
+          {
+            "text": "Do",
+            "duration": 0.3
+          },
+          {
+            "text": "you",
+            "duration": 0.3
+          },
+          {
+            "text": "have",
+            "duration": 0.5
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "crayon?",
+            "duration": 0.8
+          },
+          {
+            "text": "Yes,",
+            "duration": 0.6
+          },
+          {
+            "text": "I",
+            "duration": 0.4
+          },
+          {
+            "text": "do",
+            "duration": 0.8
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "A red one and a yellow one and a blue one too",
+        "translation": "Một cây màu đỏ, một cây màu vàng và cả màu xanh nữa",
+        "words": [
+          {
+            "text": "A",
+            "duration": 0.3
+          },
+          {
+            "text": "red",
+            "duration": 0.5
+          },
+          {
+            "text": "one",
+            "duration": 0.4
+          },
+          {
+            "text": "and",
+            "duration": 0.3
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "yellow",
+            "duration": 0.6
+          },
+          {
+            "text": "one",
+            "duration": 0.4
+          },
+          {
+            "text": "and",
+            "duration": 0.3
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "blue",
+            "duration": 0.6
+          },
+          {
+            "text": "one",
+            "duration": 0.4
+          },
+          {
+            "text": "too",
+            "duration": 0.8
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Crayon",
+        "vi": "Bút màu sáp",
+        "emoji": "🖍️",
+        "phonetic": "/ˈkreɪ.ɑːn/"
+      },
+      {
+        "en": "Red",
+        "vi": "Màu đỏ",
+        "emoji": "🔴",
+        "phonetic": "/red/"
+      },
+      {
+        "en": "Yellow",
+        "vi": "Màu vàng",
+        "emoji": "🟡",
+        "phonetic": "/ˈjel.oʊ/"
+      },
+      {
+        "en": "Blue",
+        "vi": "Màu xanh",
+        "emoji": "🔵",
+        "phonetic": "/bluː/"
+      }
+    ]
+  },
+  {
+    "id": "my-classroom-song",
+    "title": "My Classroom",
+    "emoji": "🏫",
+    "color": "#3B82F6",
+    "youtubeId": "AKnUdOnsMWs",
+    "introDuration": 3,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Welcome to my classroom, come on in",
+        "translation": "Chào mừng đến lớp học của mình, mời bạn vào",
+        "words": [
+          {
+            "text": "Welcome",
+            "duration": 0.8
+          },
+          {
+            "text": "to",
+            "duration": 0.4
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "classroom,",
+            "duration": 0.8
+          },
+          {
+            "text": "come",
+            "duration": 0.5
+          },
+          {
+            "text": "on",
+            "duration": 0.4
+          },
+          {
+            "text": "in",
+            "duration": 0.8
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Sit at your desk and let the fun begin",
+        "translation": "Ngồi vào bàn học và bắt đầu niềm vui nào",
+        "words": [
+          {
+            "text": "Sit",
+            "duration": 0.5
+          },
+          {
+            "text": "at",
+            "duration": 0.3
+          },
+          {
+            "text": "your",
+            "duration": 0.4
+          },
+          {
+            "text": "desk",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "let",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "fun",
+            "duration": 0.6
+          },
+          {
+            "text": "begin",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Classroom",
+        "vi": "Lớp học",
+        "emoji": "🏫",
+        "phonetic": "/ˈklæs.ruːm/"
+      },
+      {
+        "en": "Desk",
+        "vi": "Bàn học",
+        "emoji": "🪑",
+        "phonetic": "/desk/"
+      },
+      {
+        "en": "Teacher",
+        "vi": "Cô giáo",
+        "emoji": "👩‍🏫",
+        "phonetic": "/ˈtiː.tʃər/"
+      },
+      {
+        "en": "Book",
+        "vi": "Quyển sách",
+        "emoji": "📖",
+        "phonetic": "/bʊk/"
+      }
+    ]
+  },
+  {
+    "id": "can-you-please-help-me",
+    "title": "Can You Please Help Me?",
+    "emoji": "🤝",
+    "color": "#14B8A6",
+    "youtubeId": "OjmWon9KebI",
+    "introDuration": 3,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Can you please help me find my teddy bear?",
+        "translation": "Bạn có thể giúp mình tìm chú gấu bông không?",
+        "words": [
+          {
+            "text": "Can",
+            "duration": 0.4
+          },
+          {
+            "text": "you",
+            "duration": 0.3
+          },
+          {
+            "text": "please",
+            "duration": 0.5
+          },
+          {
+            "text": "help",
+            "duration": 0.5
+          },
+          {
+            "text": "me",
+            "duration": 0.4
+          },
+          {
+            "text": "find",
+            "duration": 0.6
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "teddy",
+            "duration": 0.6
+          },
+          {
+            "text": "bear?",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Look in the box and look under the chair",
+        "translation": "Tìm trong chiếc hộp và dưới gầm ghế xem",
+        "words": [
+          {
+            "text": "Look",
+            "duration": 0.5
+          },
+          {
+            "text": "in",
+            "duration": 0.3
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "box",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "look",
+            "duration": 0.5
+          },
+          {
+            "text": "under",
+            "duration": 0.6
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "chair",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Help",
+        "vi": "Giúp đỡ",
+        "emoji": "🤝",
+        "phonetic": "/help/"
+      },
+      {
+        "en": "Please",
+        "vi": "Làm ơn",
+        "emoji": "🙏",
+        "phonetic": "/pliːz/"
+      },
+      {
+        "en": "Teddy",
+        "vi": "Gấu bông",
+        "emoji": "🧸",
+        "phonetic": "/ˈted.i/"
+      },
+      {
+        "en": "Find",
+        "vi": "Tìm kiếm",
+        "emoji": "🔍",
+        "phonetic": "/faɪnd/"
+      }
+    ]
+  },
+  {
+    "id": "if-you-like-pasta",
+    "title": "If You Like Pasta",
+    "emoji": "🍝",
+    "color": "#F43F5E",
+    "youtubeId": "UXt2bNp77u0",
+    "introDuration": 3,
+    "bpm": 105,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "If you like pasta, say yummy yummy yum",
+        "translation": "Nếu bạn thích mì Ý, hãy nói ngon tuyệt vời",
+        "words": [
+          {
+            "text": "If",
+            "duration": 0.3
+          },
+          {
+            "text": "you",
+            "duration": 0.3
+          },
+          {
+            "text": "like",
+            "duration": 0.5
+          },
+          {
+            "text": "pasta,",
+            "duration": 0.8
+          },
+          {
+            "text": "say",
+            "duration": 0.4
+          },
+          {
+            "text": "yummy",
+            "duration": 0.6
+          },
+          {
+            "text": "yummy",
+            "duration": 0.6
+          },
+          {
+            "text": "yum",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Put it on a plate and eat it in your tum",
+        "translation": "Gắp vào đĩa xinh và ăn thật ngon miệng",
+        "words": [
+          {
+            "text": "Put",
+            "duration": 0.4
+          },
+          {
+            "text": "it",
+            "duration": 0.3
+          },
+          {
+            "text": "on",
+            "duration": 0.3
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "plate",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "eat",
+            "duration": 0.5
+          },
+          {
+            "text": "it",
+            "duration": 0.3
+          },
+          {
+            "text": "in",
+            "duration": 0.3
+          },
+          {
+            "text": "your",
+            "duration": 0.3
+          },
+          {
+            "text": "tum",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Pasta",
+        "vi": "Mì Ý",
+        "emoji": "🍝",
+        "phonetic": "/ˈpɑː.stə/"
+      },
+      {
+        "en": "Yummy",
+        "vi": "Ngon tuyệt",
+        "emoji": "😋",
+        "phonetic": "/ˈjʌm.i/"
+      },
+      {
+        "en": "Plate",
+        "vi": "Cái đĩa",
+        "emoji": "🍽️",
+        "phonetic": "/pleɪt/"
+      },
+      {
+        "en": "Eat",
+        "vi": "Ăn ngoan",
+        "emoji": "🥢",
+        "phonetic": "/iːt/"
+      }
+    ]
+  },
+  {
+    "id": "clara-the-cow",
+    "title": "Clara The Cow",
+    "emoji": "🐮",
+    "color": "#64748B",
+    "youtubeId": "6-Y-q5eql5o",
+    "introDuration": 3,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Clara the cow goes moo moo moo",
+        "translation": "Bạn bò Clara kêu ụm bò bò",
+        "words": [
+          {
+            "text": "Clara",
+            "duration": 0.8
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "cow",
+            "duration": 0.8
+          },
+          {
+            "text": "goes",
+            "duration": 0.4
+          },
+          {
+            "text": "moo",
+            "duration": 0.6
+          },
+          {
+            "text": "moo",
+            "duration": 0.6
+          },
+          {
+            "text": "moo",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Eating sweet grass all afternoon through",
+        "translation": "Gặm cỏ xanh non suốt cả buổi chiều",
+        "words": [
+          {
+            "text": "Eating",
+            "duration": 0.8
+          },
+          {
+            "text": "sweet",
+            "duration": 0.6
+          },
+          {
+            "text": "grass",
+            "duration": 0.8
+          },
+          {
+            "text": "all",
+            "duration": 0.4
+          },
+          {
+            "text": "afternoon",
+            "duration": 0.9
+          },
+          {
+            "text": "through",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Cow",
+        "vi": "Con bò",
+        "emoji": "🐮",
+        "phonetic": "/kaʊ/"
+      },
+      {
+        "en": "Moo",
+        "vi": "Tiếng bò kêu",
+        "emoji": "🔔",
+        "phonetic": "/muː/"
+      },
+      {
+        "en": "Milk",
+        "vi": "Sữa tươi",
+        "emoji": "🥛",
+        "phonetic": "/mɪlk/"
+      },
+      {
+        "en": "Grass",
+        "vi": "Cỏ xanh",
+        "emoji": "🌱",
+        "phonetic": "/ɡræs/"
+      }
+    ]
+  },
+  {
+    "id": "whats-your-name-song",
+    "title": "What's Your Name?",
+    "emoji": "👋",
+    "color": "#8B5CF6",
+    "youtubeId": "BM7Cg905Wo8",
+    "introDuration": 3,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Hello, hello, what's your name?",
+        "translation": "Xin chào, xin chào, bạn tên là gì?",
+        "words": [
+          {
+            "text": "Hello,",
+            "duration": 0.8
+          },
+          {
+            "text": "hello,",
+            "duration": 0.8
+          },
+          {
+            "text": "what's",
+            "duration": 0.5
+          },
+          {
+            "text": "your",
+            "duration": 0.4
+          },
+          {
+            "text": "name?",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "My name is Peter, nice to meet you",
+        "translation": "Tên tôi là Peter, rất vui được gặp bạn",
+        "words": [
+          {
+            "text": "My",
+            "duration": 0.4
+          },
+          {
+            "text": "name",
+            "duration": 0.5
+          },
+          {
+            "text": "is",
+            "duration": 0.3
+          },
+          {
+            "text": "Peter,",
+            "duration": 0.8
+          },
+          {
+            "text": "nice",
+            "duration": 0.5
+          },
+          {
+            "text": "to",
+            "duration": 0.3
+          },
+          {
+            "text": "meet",
+            "duration": 0.5
+          },
+          {
+            "text": "you",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Name",
+        "vi": "Tên bạn",
+        "emoji": "🏷️",
+        "phonetic": "/neɪm/"
+      },
+      {
+        "en": "Hello",
+        "vi": "Xin chào",
+        "emoji": "👋",
+        "phonetic": "/həˈloʊ/"
+      },
+      {
+        "en": "Friend",
+        "vi": "Người bạn",
+        "emoji": "👫",
+        "phonetic": "/frend/"
+      },
+      {
+        "en": "Nice",
+        "vi": "Tốt đẹp",
+        "emoji": "✨",
+        "phonetic": "/naɪs/"
+      }
+    ]
+  },
+  {
+    "id": "when-we-go-camping",
+    "title": "When We Go Camping",
+    "emoji": "🏕️",
+    "color": "#059669",
+    "youtubeId": "9PAQzsYmCKU",
+    "introDuration": 3,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "When we go camping under the trees",
+        "translation": "Khi chúng ta đi cắm trại dưới bóng cây",
+        "words": [
+          {
+            "text": "When",
+            "duration": 0.4
+          },
+          {
+            "text": "we",
+            "duration": 0.3
+          },
+          {
+            "text": "go",
+            "duration": 0.4
+          },
+          {
+            "text": "camping",
+            "duration": 0.8
+          },
+          {
+            "text": "under",
+            "duration": 0.6
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "trees",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Sleeping in a tent in the gentle breeze",
+        "translation": "Ngủ trong chiếc lều giữa làn gió nhẹ",
+        "words": [
+          {
+            "text": "Sleeping",
+            "duration": 0.8
+          },
+          {
+            "text": "in",
+            "duration": 0.3
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "tent",
+            "duration": 0.8
+          },
+          {
+            "text": "in",
+            "duration": 0.3
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "gentle",
+            "duration": 0.6
+          },
+          {
+            "text": "breeze",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Camp",
+        "vi": "Cắm trại",
+        "emoji": "🏕️",
+        "phonetic": "/kæmp/"
+      },
+      {
+        "en": "Tent",
+        "vi": "Cái lều",
+        "emoji": "⛺",
+        "phonetic": "/tent/"
+      },
+      {
+        "en": "Tree",
+        "vi": "Cây xanh",
+        "emoji": "🌲",
+        "phonetic": "/triː/"
+      },
+      {
+        "en": "Stars",
+        "vi": "Ngôi sao",
+        "emoji": "⭐",
+        "phonetic": "/stɑːrz/"
+      }
+    ]
+  },
+  {
+    "id": "rock-a-bye-little-one",
+    "title": "Rock-A-Bye Little One",
+    "emoji": "🌙",
+    "color": "#6366F1",
+    "youtubeId": "1jX8XyYvtWs",
+    "introDuration": 4,
+    "bpm": 75,
+    "lyrics": [
+      {
+        "time": 4,
+        "text": "Rock-a-bye little one, close your sweet eyes",
+        "translation": "Ru hời bé yêu ơi, hãy nhắm đôi mắt xinh lại",
+        "words": [
+          {
+            "text": "Rock-a-bye",
+            "duration": 1
+          },
+          {
+            "text": "little",
+            "duration": 0.6
+          },
+          {
+            "text": "one,",
+            "duration": 0.8
+          },
+          {
+            "text": "close",
+            "duration": 0.6
+          },
+          {
+            "text": "your",
+            "duration": 0.4
+          },
+          {
+            "text": "sweet",
+            "duration": 0.6
+          },
+          {
+            "text": "eyes",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Moonlight is shining soft from the skies",
+        "translation": "Ánh trăng dịu êm đang chiếu sáng từ trời cao",
+        "words": [
+          {
+            "text": "Moonlight",
+            "duration": 0.9
+          },
+          {
+            "text": "is",
+            "duration": 0.4
+          },
+          {
+            "text": "shining",
+            "duration": 0.8
+          },
+          {
+            "text": "soft",
+            "duration": 0.6
+          },
+          {
+            "text": "from",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "skies",
+            "duration": 1.2
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Moon",
+        "vi": "Mặt trăng",
+        "emoji": "🌙",
+        "phonetic": "/muːn/"
+      },
+      {
+        "en": "Sleep",
+        "vi": "Ngủ ngon",
+        "emoji": "😴",
+        "phonetic": "/sliːp/"
+      },
+      {
+        "en": "Dream",
+        "vi": "Giấc mơ",
+        "emoji": "💭",
+        "phonetic": "/driːm/"
+      },
+      {
+        "en": "Night",
+        "vi": "Ban đêm",
+        "emoji": "🌌",
+        "phonetic": "/naɪt/"
+      }
+    ]
+  },
+  {
+    "id": "the-people-in-my-family",
+    "title": "The People In My Family",
+    "emoji": "🏡",
+    "color": "#A855F7",
+    "youtubeId": "yDua9ms9_eg",
+    "introDuration": 3,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "This is my mother, this is my father",
+        "translation": "Đây là mẹ tôi, đây là bố tôi",
+        "words": [
+          {
+            "text": "This",
+            "duration": 0.4
+          },
+          {
+            "text": "is",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "mother,",
+            "duration": 0.8
+          },
+          {
+            "text": "this",
+            "duration": 0.4
+          },
+          {
+            "text": "is",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "father",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "This is my sister, this is my brother",
+        "translation": "Đây là chị gái, đây là anh trai",
+        "words": [
+          {
+            "text": "This",
+            "duration": 0.4
+          },
+          {
+            "text": "is",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "sister,",
+            "duration": 0.8
+          },
+          {
+            "text": "this",
+            "duration": 0.4
+          },
+          {
+            "text": "is",
+            "duration": 0.3
+          },
+          {
+            "text": "my",
+            "duration": 0.4
+          },
+          {
+            "text": "brother",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Mother",
+        "vi": "Người mẹ",
+        "emoji": "👩",
+        "phonetic": "/ˈmʌð.ɚ/"
+      },
+      {
+        "en": "Father",
+        "vi": "Người cha",
+        "emoji": "👨",
+        "phonetic": "/ˈfɑː.ðɚ/"
+      },
+      {
+        "en": "Sister",
+        "vi": "Chị / Em gái",
+        "emoji": "👧",
+        "phonetic": "/ˈsɪs.tɚ/"
+      },
+      {
+        "en": "Brother",
+        "vi": "Anh / Em trai",
+        "emoji": "👦",
+        "phonetic": "/ˈbrʌð.ɚ/"
+      }
+    ]
+  },
+  {
+    "id": "i-like-to-draw",
+    "title": "I Like To Draw",
+    "emoji": "🎨",
+    "color": "#EC4899",
+    "youtubeId": "AlB6ZNqykXU",
+    "introDuration": 3,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "I like to draw with red and blue",
+        "translation": "Tôi thích vẽ tranh bằng màu đỏ và xanh",
+        "words": [
+          {
+            "text": "I",
+            "duration": 0.3
+          },
+          {
+            "text": "like",
+            "duration": 0.5
+          },
+          {
+            "text": "to",
+            "duration": 0.3
+          },
+          {
+            "text": "draw",
+            "duration": 0.8
+          },
+          {
+            "text": "with",
+            "duration": 0.4
+          },
+          {
+            "text": "red",
+            "duration": 0.6
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "blue",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Drawing a picture just for you",
+        "translation": "Vẽ một bức tranh thật đẹp dành tặng bạn",
+        "words": [
+          {
+            "text": "Drawing",
+            "duration": 0.8
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "picture",
+            "duration": 0.8
+          },
+          {
+            "text": "just",
+            "duration": 0.4
+          },
+          {
+            "text": "for",
+            "duration": 0.4
+          },
+          {
+            "text": "you",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Draw",
+        "vi": "Vẽ tranh",
+        "emoji": "🎨",
+        "phonetic": "/drɑː/"
+      },
+      {
+        "en": "Picture",
+        "vi": "Bức tranh",
+        "emoji": "🖼️",
+        "phonetic": "/ˈpɪk.tʃɚ/"
+      },
+      {
+        "en": "Paint",
+        "vi": "Tô màu",
+        "emoji": "🖌️",
+        "phonetic": "/peɪnt/"
+      },
+      {
+        "en": "Color",
+        "vi": "Màu sắc",
+        "emoji": "🌈",
+        "phonetic": "/ˈkʌl.ɚ/"
+      }
+    ]
+  },
+  {
+    "id": "i-love-eating-vegetables",
+    "title": "I Love Eating Vegetables",
+    "emoji": "🥕",
+    "color": "#EAB308",
+    "youtubeId": "tjT_nFtKTas",
+    "introDuration": 3,
+    "bpm": 105,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "Carrots and broccoli, crunchy and sweet",
+        "translation": "Cà rốt và bông cải xanh giòn ngọt thơm ngon",
+        "words": [
+          {
+            "text": "Carrots",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "broccoli,",
+            "duration": 0.9
+          },
+          {
+            "text": "crunchy",
+            "duration": 0.8
+          },
+          {
+            "text": "and",
+            "duration": 0.4
+          },
+          {
+            "text": "sweet",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Vegetables are the best food to eat",
+        "translation": "Rau củ quả là món ăn tuyệt vời nhất",
+        "words": [
+          {
+            "text": "Vegetables",
+            "duration": 1
+          },
+          {
+            "text": "are",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "best",
+            "duration": 0.6
+          },
+          {
+            "text": "food",
+            "duration": 0.6
+          },
+          {
+            "text": "to",
+            "duration": 0.3
+          },
+          {
+            "text": "eat",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Carrot",
+        "vi": "Củ cà rốt",
+        "emoji": "🥕",
+        "phonetic": "/ˈker.ət/"
+      },
+      {
+        "en": "Broccoli",
+        "vi": "Bông cải xanh",
+        "emoji": "🥦",
+        "phonetic": "/ˈbrɑː.kəl.i/"
+      },
+      {
+        "en": "Healthy",
+        "vi": "Khỏe mạnh",
+        "emoji": "💪",
+        "phonetic": "/ˈhel.θi/"
+      },
+      {
+        "en": "Vegetable",
+        "vi": "Rau củ",
+        "emoji": "🥗",
+        "phonetic": "/ˈvedʒ.tə.bəl/"
+      }
+    ]
+  },
+  {
+    "id": "im-a-baby-fish",
+    "title": "I’m a Baby Fish",
+    "emoji": "🐟",
+    "color": "#0284C7",
+    "youtubeId": "j9PpVDuoVAo",
+    "introDuration": 3,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 3,
+        "text": "I'm a baby fish swimming in the sea",
+        "translation": "Tôi là chú cá nhỏ bơi giữa đại dương",
+        "words": [
+          {
+            "text": "I'm",
+            "duration": 0.3
+          },
+          {
+            "text": "a",
+            "duration": 0.3
+          },
+          {
+            "text": "baby",
+            "duration": 0.6
+          },
+          {
+            "text": "fish",
+            "duration": 0.7
+          },
+          {
+            "text": "swimming",
+            "duration": 0.8
+          },
+          {
+            "text": "in",
+            "duration": 0.4
+          },
+          {
+            "text": "the",
+            "duration": 0.3
+          },
+          {
+            "text": "sea",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 9,
+        "text": "Splish splash, come swim along with me",
+        "translation": "Bì bõm, hãy cùng bơi tung tăng với tôi",
+        "words": [
+          {
+            "text": "Splish",
+            "duration": 0.5
+          },
+          {
+            "text": "splash,",
+            "duration": 0.6
+          },
+          {
+            "text": "come",
+            "duration": 0.4
+          },
+          {
+            "text": "swim",
+            "duration": 0.6
+          },
+          {
+            "text": "along",
+            "duration": 0.6
+          },
+          {
+            "text": "with",
+            "duration": 0.4
+          },
+          {
+            "text": "me",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Fish",
+        "vi": "Con cá",
+        "emoji": "🐟",
+        "phonetic": "/fɪʃ/"
+      },
+      {
+        "en": "Sea",
+        "vi": "Biển cả",
+        "emoji": "🌊",
+        "phonetic": "/siː/"
+      },
+      {
+        "en": "Water",
+        "vi": "Nước biển",
+        "emoji": "💧",
+        "phonetic": "/ˈwɔː.tər/"
+      },
+      {
+        "en": "Splash",
+        "vi": "Té nước",
+        "emoji": "💦",
+        "phonetic": "/splæʃ/"
+      }
+    ]
   }
 ]

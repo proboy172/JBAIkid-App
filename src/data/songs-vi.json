@@ -106,7 +106,7 @@
           },
           {
             "text": "linh",
-            "duration": 2.0
+            "duration": 2
           }
         ]
       },
@@ -132,7 +132,7 @@
           },
           {
             "text": "đình",
-            "duration": 2.0
+            "duration": 2
           }
         ]
       },
@@ -3249,7 +3249,7 @@
           },
           {
             "text": "gáy",
-            "duration": 2.0
+            "duration": 2
           }
         ]
       },
@@ -3275,7 +3275,7 @@
           },
           {
             "text": "dậy",
-            "duration": 2.0
+            "duration": 2
           }
         ]
       },
@@ -3343,7 +3343,7 @@
           },
           {
             "text": "ơi",
-            "duration": 2.0
+            "duration": 2
           }
         ]
       },
@@ -3369,7 +3369,7 @@
           },
           {
             "text": "tươi",
-            "duration": 2.0
+            "duration": 2
           }
         ]
       },
@@ -3395,7 +3395,7 @@
           },
           {
             "text": "nhụy",
-            "duration": 2.0
+            "duration": 2
           }
         ]
       },
@@ -3447,7 +3447,7 @@
           },
           {
             "text": "mẹ",
-            "duration": 2.0
+            "duration": 2
           }
         ]
       },
@@ -4269,5 +4269,2645 @@
     ],
     "aiSynced": true,
     "localVideo": "/videos/me-oi-tai-sao.mp4"
+  },
+  {
+    "id": "co-la",
+    "title": "Cò Lả",
+    "emoji": "🌾",
+    "color": "#10B981",
+    "youtubeId": "bhjK6LrWsCg",
+    "introDuration": 8,
+    "bpm": 80,
+    "lyrics": [
+      {
+        "time": 8,
+        "text": "Con cò bay lả lả bay la",
+        "words": [
+          {
+            "text": "Con",
+            "duration": 0.8
+          },
+          {
+            "text": "cò",
+            "duration": 0.8
+          },
+          {
+            "text": "bay",
+            "duration": 0.8
+          },
+          {
+            "text": "lả",
+            "duration": 0.8
+          },
+          {
+            "text": "lả",
+            "duration": 0.8
+          },
+          {
+            "text": "bay",
+            "duration": 0.8
+          },
+          {
+            "text": "la",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 15,
+        "text": "Bay từ cổng phủ bay ra cánh đồng",
+        "words": [
+          {
+            "text": "Bay",
+            "duration": 0.7
+          },
+          {
+            "text": "từ",
+            "duration": 0.6
+          },
+          {
+            "text": "cổng",
+            "duration": 0.7
+          },
+          {
+            "text": "phủ",
+            "duration": 0.7
+          },
+          {
+            "text": "bay",
+            "duration": 0.7
+          },
+          {
+            "text": "ra",
+            "duration": 0.7
+          },
+          {
+            "text": "cánh",
+            "duration": 0.7
+          },
+          {
+            "text": "đồng",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 23,
+        "text": "Tình tính tang là tang tính tình",
+        "words": [
+          {
+            "text": "Tình",
+            "duration": 0.7
+          },
+          {
+            "text": "tính",
+            "duration": 0.7
+          },
+          {
+            "text": "tang",
+            "duration": 0.8
+          },
+          {
+            "text": "là",
+            "duration": 0.6
+          },
+          {
+            "text": "tang",
+            "duration": 0.7
+          },
+          {
+            "text": "tính",
+            "duration": 0.7
+          },
+          {
+            "text": "tình",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 30,
+        "text": "Duyên tình rằng ấy duyên tình ơi",
+        "words": [
+          {
+            "text": "Duyên",
+            "duration": 0.7
+          },
+          {
+            "text": "tình",
+            "duration": 0.7
+          },
+          {
+            "text": "rằng",
+            "duration": 0.6
+          },
+          {
+            "text": "ấy",
+            "duration": 0.7
+          },
+          {
+            "text": "duyên",
+            "duration": 0.7
+          },
+          {
+            "text": "tình",
+            "duration": 0.7
+          },
+          {
+            "text": "ơi",
+            "duration": 1.2
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Stork",
+        "vi": "Con cò",
+        "emoji": "🪶",
+        "phonetic": "/stɔːrk/"
+      },
+      {
+        "en": "Fly",
+        "vi": "Bay lượn",
+        "emoji": "🕊️",
+        "phonetic": "/flaɪ/"
+      },
+      {
+        "en": "Field",
+        "vi": "Cánh đồng",
+        "emoji": "🌾",
+        "phonetic": "/fiːld/"
+      },
+      {
+        "en": "Green",
+        "vi": "Xanh mướt",
+        "emoji": "🌱",
+        "phonetic": "/ɡriːn/"
+      }
+    ]
+  },
+  {
+    "id": "em-yeu-cay-xanh",
+    "title": "Em Yêu Cây Xanh",
+    "emoji": "🌳",
+    "color": "#22C55E",
+    "youtubeId": "P1YTqUk9zmo",
+    "introDuration": 6,
+    "bpm": 90,
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Em rất thích trồng nhiều cây xanh",
+        "words": [
+          {
+            "text": "Em",
+            "duration": 0.6
+          },
+          {
+            "text": "rất",
+            "duration": 0.6
+          },
+          {
+            "text": "thích",
+            "duration": 0.6
+          },
+          {
+            "text": "trồng",
+            "duration": 0.6
+          },
+          {
+            "text": "nhiều",
+            "duration": 0.6
+          },
+          {
+            "text": "cây",
+            "duration": 0.6
+          },
+          {
+            "text": "xanh",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Cho con chim nhảy nhót trên cành",
+        "words": [
+          {
+            "text": "Cho",
+            "duration": 0.6
+          },
+          {
+            "text": "con",
+            "duration": 0.6
+          },
+          {
+            "text": "chim",
+            "duration": 0.6
+          },
+          {
+            "text": "nhảy",
+            "duration": 0.6
+          },
+          {
+            "text": "nhót",
+            "duration": 0.6
+          },
+          {
+            "text": "trên",
+            "duration": 0.6
+          },
+          {
+            "text": "cành",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 18,
+        "text": "Sân trường rợp bóng mát tương lai",
+        "words": [
+          {
+            "text": "Sân",
+            "duration": 0.6
+          },
+          {
+            "text": "trường",
+            "duration": 0.6
+          },
+          {
+            "text": "rợp",
+            "duration": 0.6
+          },
+          {
+            "text": "bóng",
+            "duration": 0.6
+          },
+          {
+            "text": "mát",
+            "duration": 0.6
+          },
+          {
+            "text": "tương",
+            "duration": 0.6
+          },
+          {
+            "text": "lai",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 24,
+        "text": "Em lớn lên cùng bao bạn bè",
+        "words": [
+          {
+            "text": "Em",
+            "duration": 0.6
+          },
+          {
+            "text": "lớn",
+            "duration": 0.6
+          },
+          {
+            "text": "lên",
+            "duration": 0.6
+          },
+          {
+            "text": "cùng",
+            "duration": 0.6
+          },
+          {
+            "text": "bao",
+            "duration": 0.6
+          },
+          {
+            "text": "bạn",
+            "duration": 0.6
+          },
+          {
+            "text": "bè",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Tree",
+        "vi": "Cây xanh",
+        "emoji": "🌳",
+        "phonetic": "/triː/"
+      },
+      {
+        "en": "Bird",
+        "vi": "Con chim",
+        "emoji": "🐦",
+        "phonetic": "/bɝːd/"
+      },
+      {
+        "en": "School",
+        "vi": "Sân trường",
+        "emoji": "🏫",
+        "phonetic": "/skuːl/"
+      },
+      {
+        "en": "Plant",
+        "vi": "Trồng cây",
+        "emoji": "🌱",
+        "phonetic": "/plænt/"
+      }
+    ]
+  },
+  {
+    "id": "vao-rung-hoa",
+    "title": "Vào Rừng Hoa",
+    "emoji": "🌸",
+    "color": "#EC4899",
+    "youtubeId": "kIAk7bSDJeo",
+    "introDuration": 5,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Cầm tay nhau cùng đi chơi",
+        "words": [
+          {
+            "text": "Cầm",
+            "duration": 0.6
+          },
+          {
+            "text": "tay",
+            "duration": 0.6
+          },
+          {
+            "text": "nhau",
+            "duration": 0.6
+          },
+          {
+            "text": "cùng",
+            "duration": 0.6
+          },
+          {
+            "text": "đi",
+            "duration": 0.6
+          },
+          {
+            "text": "chơi",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 11,
+        "text": "Đi khắp nơi hái hoa tươi",
+        "words": [
+          {
+            "text": "Đi",
+            "duration": 0.6
+          },
+          {
+            "text": "khắp",
+            "duration": 0.6
+          },
+          {
+            "text": "nơi",
+            "duration": 0.6
+          },
+          {
+            "text": "hái",
+            "duration": 0.6
+          },
+          {
+            "text": "hoa",
+            "duration": 0.6
+          },
+          {
+            "text": "tươi",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 17,
+        "text": "Vào rừng hoa với bao tiếng cười",
+        "words": [
+          {
+            "text": "Vào",
+            "duration": 0.6
+          },
+          {
+            "text": "rừng",
+            "duration": 0.6
+          },
+          {
+            "text": "hoa",
+            "duration": 0.6
+          },
+          {
+            "text": "với",
+            "duration": 0.6
+          },
+          {
+            "text": "bao",
+            "duration": 0.6
+          },
+          {
+            "text": "tiếng",
+            "duration": 0.6
+          },
+          {
+            "text": "cười",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Flower",
+        "vi": "Bông hoa",
+        "emoji": "🌸",
+        "phonetic": "/ˈflaʊ.ɚ/"
+      },
+      {
+        "en": "Forest",
+        "vi": "Rừng cây",
+        "emoji": "🌲",
+        "phonetic": "/ˈfɔːr.ɪst/"
+      },
+      {
+        "en": "Smile",
+        "vi": "Nụ cười",
+        "emoji": "😄",
+        "phonetic": "/smaɪl/"
+      },
+      {
+        "en": "Walk",
+        "vi": "Đi chơi",
+        "emoji": "🚶",
+        "phonetic": "/wɑːk/"
+      }
+    ]
+  },
+  {
+    "id": "bong-hoa-mung-co",
+    "title": "Bông Hoa Mừng Cô",
+    "emoji": "💐",
+    "color": "#F43F5E",
+    "youtubeId": "E5gxWsRl3Uc",
+    "introDuration": 6,
+    "bpm": 85,
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Mùng tám tháng ba em ra thăm vườn",
+        "words": [
+          {
+            "text": "Mùng",
+            "duration": 0.6
+          },
+          {
+            "text": "tám",
+            "duration": 0.6
+          },
+          {
+            "text": "tháng",
+            "duration": 0.6
+          },
+          {
+            "text": "ba",
+            "duration": 0.6
+          },
+          {
+            "text": "em",
+            "duration": 0.6
+          },
+          {
+            "text": "ra",
+            "duration": 0.6
+          },
+          {
+            "text": "thăm",
+            "duration": 0.6
+          },
+          {
+            "text": "vườn",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 13,
+        "text": "Chọn một bông hoa xinh tươi tặng cô giáo",
+        "words": [
+          {
+            "text": "Chọn",
+            "duration": 0.6
+          },
+          {
+            "text": "một",
+            "duration": 0.6
+          },
+          {
+            "text": "bông",
+            "duration": 0.6
+          },
+          {
+            "text": "hoa",
+            "duration": 0.6
+          },
+          {
+            "text": "xinh",
+            "duration": 0.6
+          },
+          {
+            "text": "tươi",
+            "duration": 0.6
+          },
+          {
+            "text": "tặng",
+            "duration": 0.6
+          },
+          {
+            "text": "cô",
+            "duration": 0.6
+          },
+          {
+            "text": "giáo",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Teacher",
+        "vi": "Cô giáo",
+        "emoji": "👩‍🏫",
+        "phonetic": "/ˈtiː.tʃər/"
+      },
+      {
+        "en": "Garden",
+        "vi": "Khu vườn",
+        "emoji": "🏡",
+        "phonetic": "/ˈɡɑːr.dən/"
+      },
+      {
+        "en": "Present",
+        "vi": "Món quà",
+        "emoji": "🎁",
+        "phonetic": "/ˈprez.ənt/"
+      },
+      {
+        "en": "Love",
+        "vi": "Kính yêu",
+        "emoji": "❤️",
+        "phonetic": "/lʌv/"
+      }
+    ]
+  },
+  {
+    "id": "chim-non-le-phep",
+    "title": "Chim Non Lễ Phép",
+    "emoji": "🐦",
+    "color": "#06B6D4",
+    "youtubeId": "j1zNJoEQuTk",
+    "introDuration": 5,
+    "bpm": 90,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Trên cành cao chim non ríu rít",
+        "words": [
+          {
+            "text": "Trên",
+            "duration": 0.6
+          },
+          {
+            "text": "cành",
+            "duration": 0.6
+          },
+          {
+            "text": "cao",
+            "duration": 0.6
+          },
+          {
+            "text": "chim",
+            "duration": 0.6
+          },
+          {
+            "text": "non",
+            "duration": 0.6
+          },
+          {
+            "text": "ríu",
+            "duration": 0.6
+          },
+          {
+            "text": "rít",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 11,
+        "text": "Thấy bác chào mào chào bác chào mào",
+        "words": [
+          {
+            "text": "Thấy",
+            "duration": 0.6
+          },
+          {
+            "text": "bác",
+            "duration": 0.6
+          },
+          {
+            "text": "chào",
+            "duration": 0.6
+          },
+          {
+            "text": "mào",
+            "duration": 0.6
+          },
+          {
+            "text": "chào",
+            "duration": 0.6
+          },
+          {
+            "text": "bác",
+            "duration": 0.6
+          },
+          {
+            "text": "chào",
+            "duration": 0.6
+          },
+          {
+            "text": "mào",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Polite",
+        "vi": "Lễ phép",
+        "emoji": "🙏",
+        "phonetic": "/pəˈlaɪt/"
+      },
+      {
+        "en": "Bird",
+        "vi": "Chim non",
+        "emoji": "🐦",
+        "phonetic": "/bɝːd/"
+      },
+      {
+        "en": "Branch",
+        "vi": "Cành cây",
+        "emoji": "🌿",
+        "phonetic": "/bræntʃ/"
+      },
+      {
+        "en": "Hello",
+        "vi": "Chào hỏi",
+        "emoji": "👋",
+        "phonetic": "/həˈloʊ/"
+      }
+    ]
+  },
+  {
+    "id": "vi-sao-chim-hay-hot",
+    "title": "Vì Sao Chim Hay Hót",
+    "emoji": "🎶",
+    "color": "#3B82F6",
+    "youtubeId": "PaL29Fnyilo",
+    "introDuration": 5,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Vì sao con chim hay hót hay hót",
+        "words": [
+          {
+            "text": "Vì",
+            "duration": 0.5
+          },
+          {
+            "text": "sao",
+            "duration": 0.5
+          },
+          {
+            "text": "con",
+            "duration": 0.5
+          },
+          {
+            "text": "chim",
+            "duration": 0.6
+          },
+          {
+            "text": "hay",
+            "duration": 0.5
+          },
+          {
+            "text": "hót",
+            "duration": 0.6
+          },
+          {
+            "text": "hay",
+            "duration": 0.5
+          },
+          {
+            "text": "hót",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 11,
+        "text": "Vì chim yêu bầu trời xanh bao la",
+        "words": [
+          {
+            "text": "Vì",
+            "duration": 0.5
+          },
+          {
+            "text": "chim",
+            "duration": 0.6
+          },
+          {
+            "text": "yêu",
+            "duration": 0.5
+          },
+          {
+            "text": "bầu",
+            "duration": 0.5
+          },
+          {
+            "text": "trời",
+            "duration": 0.6
+          },
+          {
+            "text": "xanh",
+            "duration": 0.6
+          },
+          {
+            "text": "bao",
+            "duration": 0.5
+          },
+          {
+            "text": "la",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Sing",
+        "vi": "Hót ca",
+        "emoji": "🎤",
+        "phonetic": "/sɪŋ/"
+      },
+      {
+        "en": "Sky",
+        "vi": "Bầu trời",
+        "emoji": "⛅",
+        "phonetic": "/skaɪ/"
+      },
+      {
+        "en": "Blue",
+        "vi": "Xanh ngắt",
+        "emoji": "🔵",
+        "phonetic": "/bluː/"
+      },
+      {
+        "en": "Joy",
+        "vi": "Niềm vui",
+        "emoji": "🎉",
+        "phonetic": "/dʒɔɪ/"
+      }
+    ]
+  },
+  {
+    "id": "co-peep-nho-de-thuong",
+    "title": "Cô Peep Nhỏ Dễ Thương",
+    "emoji": "🐑",
+    "color": "#8B5CF6",
+    "youtubeId": "-h47BfPs8aM",
+    "introDuration": 5,
+    "bpm": 90,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Cô Peep nhỏ dễ thương chăn cừu",
+        "words": [
+          {
+            "text": "Cô",
+            "duration": 0.6
+          },
+          {
+            "text": "Peep",
+            "duration": 0.6
+          },
+          {
+            "text": "nhỏ",
+            "duration": 0.6
+          },
+          {
+            "text": "dễ",
+            "duration": 0.6
+          },
+          {
+            "text": "thương",
+            "duration": 0.6
+          },
+          {
+            "text": "chăn",
+            "duration": 0.6
+          },
+          {
+            "text": "cừu",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 11,
+        "text": "Đàn cừu xinh xắn trên đồng cỏ xanh",
+        "words": [
+          {
+            "text": "Đàn",
+            "duration": 0.6
+          },
+          {
+            "text": "cừu",
+            "duration": 0.6
+          },
+          {
+            "text": "xinh",
+            "duration": 0.6
+          },
+          {
+            "text": "xắn",
+            "duration": 0.6
+          },
+          {
+            "text": "trên",
+            "duration": 0.6
+          },
+          {
+            "text": "đồng",
+            "duration": 0.6
+          },
+          {
+            "text": "cỏ",
+            "duration": 0.6
+          },
+          {
+            "text": "xanh",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Sheep",
+        "vi": "Đàn cừu",
+        "emoji": "🐑",
+        "phonetic": "/ʃiːp/"
+      },
+      {
+        "en": "Cute",
+        "vi": "Dễ thương",
+        "emoji": "🥰",
+        "phonetic": "/kjuːt/"
+      },
+      {
+        "en": "Meadow",
+        "vi": "Đồng cỏ",
+        "emoji": "🌾",
+        "phonetic": "/ˈmed.oʊ/"
+      },
+      {
+        "en": "White",
+        "vi": "Trắng tinh",
+        "emoji": "⚪",
+        "phonetic": "/waɪt/"
+      }
+    ]
+  },
+  {
+    "id": "co-giao-em",
+    "title": "Cô Giáo Em",
+    "emoji": "👩‍🏫",
+    "color": "#F59E0B",
+    "youtubeId": "l0ZxBI-mngM",
+    "introDuration": 6,
+    "bpm": 85,
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Cô giáo em người xinh xinh",
+        "words": [
+          {
+            "text": "Cô",
+            "duration": 0.6
+          },
+          {
+            "text": "giáo",
+            "duration": 0.6
+          },
+          {
+            "text": "em",
+            "duration": 0.6
+          },
+          {
+            "text": "người",
+            "duration": 0.6
+          },
+          {
+            "text": "xinh",
+            "duration": 0.6
+          },
+          {
+            "text": "xinh",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Cô hay cười mắt cô long lanh",
+        "words": [
+          {
+            "text": "Cô",
+            "duration": 0.6
+          },
+          {
+            "text": "hay",
+            "duration": 0.6
+          },
+          {
+            "text": "cười",
+            "duration": 0.6
+          },
+          {
+            "text": "mắt",
+            "duration": 0.6
+          },
+          {
+            "text": "cô",
+            "duration": 0.6
+          },
+          {
+            "text": "long",
+            "duration": 0.6
+          },
+          {
+            "text": "lanh",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 18,
+        "text": "Cô rất yêu dòng kênh xanh uốn quanh",
+        "words": [
+          {
+            "text": "Cô",
+            "duration": 0.6
+          },
+          {
+            "text": "rất",
+            "duration": 0.6
+          },
+          {
+            "text": "yêu",
+            "duration": 0.6
+          },
+          {
+            "text": "dòng",
+            "duration": 0.6
+          },
+          {
+            "text": "kênh",
+            "duration": 0.6
+          },
+          {
+            "text": "xanh",
+            "duration": 0.6
+          },
+          {
+            "text": "uốn",
+            "duration": 0.6
+          },
+          {
+            "text": "quanh",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Teacher",
+        "vi": "Cô giáo",
+        "emoji": "👩‍🏫",
+        "phonetic": "/ˈtiː.tʃər/"
+      },
+      {
+        "en": "Smile",
+        "vi": "Nụ cười",
+        "emoji": "😊",
+        "phonetic": "/smaɪl/"
+      },
+      {
+        "en": "Eyes",
+        "vi": "Đôi mắt",
+        "emoji": "👀",
+        "phonetic": "/aɪz/"
+      },
+      {
+        "en": "Gentle",
+        "vi": "Dịu dàng",
+        "emoji": "🌸",
+        "phonetic": "/ˈdʒen.t̬əl/"
+      }
+    ]
+  },
+  {
+    "id": "bai-hat-ve-me",
+    "title": "Bài Hát Về Mẹ",
+    "emoji": "❤️",
+    "color": "#E11D48",
+    "youtubeId": "EiMc14xDsEk",
+    "introDuration": 5,
+    "bpm": 80,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Mẹ của em ở trường là cô giáo mến thương",
+        "words": [
+          {
+            "text": "Mẹ",
+            "duration": 0.6
+          },
+          {
+            "text": "của",
+            "duration": 0.6
+          },
+          {
+            "text": "em",
+            "duration": 0.6
+          },
+          {
+            "text": "ở",
+            "duration": 0.5
+          },
+          {
+            "text": "trường",
+            "duration": 0.7
+          },
+          {
+            "text": "là",
+            "duration": 0.5
+          },
+          {
+            "text": "cô",
+            "duration": 0.6
+          },
+          {
+            "text": "giáo",
+            "duration": 0.6
+          },
+          {
+            "text": "mến",
+            "duration": 0.6
+          },
+          {
+            "text": "thương",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 13,
+        "text": "Cô yêu em như mẹ hiền của con",
+        "words": [
+          {
+            "text": "Cô",
+            "duration": 0.6
+          },
+          {
+            "text": "yêu",
+            "duration": 0.6
+          },
+          {
+            "text": "em",
+            "duration": 0.6
+          },
+          {
+            "text": "như",
+            "duration": 0.6
+          },
+          {
+            "text": "mẹ",
+            "duration": 0.6
+          },
+          {
+            "text": "hiền",
+            "duration": 0.6
+          },
+          {
+            "text": "của",
+            "duration": 0.5
+          },
+          {
+            "text": "con",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Mother",
+        "vi": "Người mẹ",
+        "emoji": "👩",
+        "phonetic": "/ˈmʌð.ɚ/"
+      },
+      {
+        "en": "School",
+        "vi": "Trường học",
+        "emoji": "🏫",
+        "phonetic": "/skuːl/"
+      },
+      {
+        "en": "Kind",
+        "vi": "Hiền hậu",
+        "emoji": "💖",
+        "phonetic": "/kaɪnd/"
+      },
+      {
+        "en": "Love",
+        "vi": "Tình thương",
+        "emoji": "❤️",
+        "phonetic": "/lʌv/"
+      }
+    ]
+  },
+  {
+    "id": "vui-xuan-song",
+    "title": "Vui Xuân",
+    "emoji": "🏮",
+    "color": "#F59E0B",
+    "youtubeId": "J8xak7tgmOc",
+    "introDuration": 5,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Mùa xuân đã đến rồi líu lo tiếng chim",
+        "words": [
+          {
+            "text": "Mùa",
+            "duration": 0.5
+          },
+          {
+            "text": "xuân",
+            "duration": 0.6
+          },
+          {
+            "text": "đã",
+            "duration": 0.5
+          },
+          {
+            "text": "đến",
+            "duration": 0.6
+          },
+          {
+            "text": "rồi",
+            "duration": 0.6
+          },
+          {
+            "text": "líu",
+            "duration": 0.5
+          },
+          {
+            "text": "lo",
+            "duration": 0.5
+          },
+          {
+            "text": "tiếng",
+            "duration": 0.5
+          },
+          {
+            "text": "chim",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Hoa mai hoa đào khoe sắc thắm tươi",
+        "words": [
+          {
+            "text": "Hoa",
+            "duration": 0.5
+          },
+          {
+            "text": "mai",
+            "duration": 0.6
+          },
+          {
+            "text": "hoa",
+            "duration": 0.5
+          },
+          {
+            "text": "đào",
+            "duration": 0.6
+          },
+          {
+            "text": "khoe",
+            "duration": 0.5
+          },
+          {
+            "text": "sắc",
+            "duration": 0.6
+          },
+          {
+            "text": "thắm",
+            "duration": 0.6
+          },
+          {
+            "text": "tươi",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Spring",
+        "vi": "Mùa xuân",
+        "emoji": "🌸",
+        "phonetic": "/sprɪŋ/"
+      },
+      {
+        "en": "Blossom",
+        "vi": "Hoa nở",
+        "emoji": "🌺",
+        "phonetic": "/ˈblɑː.səm/"
+      },
+      {
+        "en": "Happy",
+        "vi": "Hân hoan",
+        "emoji": "😊",
+        "phonetic": "/ˈhæp.i/"
+      },
+      {
+        "en": "New Year",
+        "vi": "Năm mới",
+        "emoji": "🎊",
+        "phonetic": "/ˌnuː ˈjɪr/"
+      }
+    ]
+  },
+  {
+    "id": "mua-cay-du-tinh-ban",
+    "title": "Múa Cây Dù Tình Bạn",
+    "emoji": "☂️",
+    "color": "#06B6D4",
+    "youtubeId": "WqCsy6sVHqE",
+    "introDuration": 5,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Cây dù xinh xắn che nắng che mưa",
+        "words": [
+          {
+            "text": "Cây",
+            "duration": 0.6
+          },
+          {
+            "text": "dù",
+            "duration": 0.6
+          },
+          {
+            "text": "xinh",
+            "duration": 0.6
+          },
+          {
+            "text": "xắn",
+            "duration": 0.6
+          },
+          {
+            "text": "che",
+            "duration": 0.6
+          },
+          {
+            "text": "nắng",
+            "duration": 0.6
+          },
+          {
+            "text": "che",
+            "duration": 0.6
+          },
+          {
+            "text": "mưa",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Bạn và tôi cùng đi dưới chiếc ô xinh",
+        "words": [
+          {
+            "text": "Bạn",
+            "duration": 0.6
+          },
+          {
+            "text": "và",
+            "duration": 0.5
+          },
+          {
+            "text": "tôi",
+            "duration": 0.6
+          },
+          {
+            "text": "cùng",
+            "duration": 0.5
+          },
+          {
+            "text": "đi",
+            "duration": 0.5
+          },
+          {
+            "text": "dưới",
+            "duration": 0.6
+          },
+          {
+            "text": "chiếc",
+            "duration": 0.5
+          },
+          {
+            "text": "ô",
+            "duration": 0.6
+          },
+          {
+            "text": "xinh",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Umbrella",
+        "vi": "Cây dù / Chiếc ô",
+        "emoji": "☂️",
+        "phonetic": "/ʌmˈbrel.ə/"
+      },
+      {
+        "en": "Rain",
+        "vi": "Cơn mưa",
+        "emoji": "🌧️",
+        "phonetic": "/reɪn/"
+      },
+      {
+        "en": "Sun",
+        "vi": "Ánh nắng",
+        "emoji": "☀️",
+        "phonetic": "/sʌn/"
+      },
+      {
+        "en": "Friend",
+        "vi": "Tình bạn",
+        "emoji": "🤝",
+        "phonetic": "/frend/"
+      }
+    ]
+  },
+  {
+    "id": "that-dang-che",
+    "title": "Thật Đáng Chê",
+    "emoji": "🦚",
+    "color": "#EF4444",
+    "youtubeId": "mgQWll7ADXo",
+    "introDuration": 5,
+    "bpm": 90,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Có con chim vành khuyên nhỏ",
+        "words": [
+          {
+            "text": "Có",
+            "duration": 0.6
+          },
+          {
+            "text": "con",
+            "duration": 0.6
+          },
+          {
+            "text": "chim",
+            "duration": 0.6
+          },
+          {
+            "text": "vành",
+            "duration": 0.6
+          },
+          {
+            "text": "khuyên",
+            "duration": 0.6
+          },
+          {
+            "text": "nhỏ",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 11,
+        "text": "Lười học bài mà lại thích rong chơi",
+        "words": [
+          {
+            "text": "Lười",
+            "duration": 0.6
+          },
+          {
+            "text": "học",
+            "duration": 0.6
+          },
+          {
+            "text": "bài",
+            "duration": 0.6
+          },
+          {
+            "text": "mà",
+            "duration": 0.5
+          },
+          {
+            "text": "lại",
+            "duration": 0.6
+          },
+          {
+            "text": "thích",
+            "duration": 0.6
+          },
+          {
+            "text": "rong",
+            "duration": 0.6
+          },
+          {
+            "text": "chơi",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Study",
+        "vi": "Học tập",
+        "emoji": "📚",
+        "phonetic": "/ˈstʌd.i/"
+      },
+      {
+        "en": "Play",
+        "vi": "Vui chơi",
+        "emoji": "🪁",
+        "phonetic": "/pleɪ/"
+      },
+      {
+        "en": "Diligent",
+        "vi": "Chăm chỉ",
+        "emoji": "⭐",
+        "phonetic": "/ˈdɪl.ə.dʒənt/"
+      },
+      {
+        "en": "Good",
+        "vi": "Bé ngoan",
+        "emoji": "👍",
+        "phonetic": "/ɡʊd/"
+      }
+    ]
+  },
+  {
+    "id": "em-la-hoa-hong-nho",
+    "title": "Em Là Hoa Hồng Nhỏ",
+    "emoji": "🌹",
+    "color": "#F43F5E",
+    "youtubeId": "Tz6z3-XEwOc",
+    "introDuration": 6,
+    "bpm": 80,
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Em sẽ là mùa xuân của mẹ",
+        "words": [
+          {
+            "text": "Em",
+            "duration": 0.7
+          },
+          {
+            "text": "sẽ",
+            "duration": 0.6
+          },
+          {
+            "text": "là",
+            "duration": 0.6
+          },
+          {
+            "text": "mùa",
+            "duration": 0.7
+          },
+          {
+            "text": "xuân",
+            "duration": 0.7
+          },
+          {
+            "text": "của",
+            "duration": 0.6
+          },
+          {
+            "text": "mẹ",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 14,
+        "text": "Em sẽ là màu nắng của cha",
+        "words": [
+          {
+            "text": "Em",
+            "duration": 0.7
+          },
+          {
+            "text": "sẽ",
+            "duration": 0.6
+          },
+          {
+            "text": "là",
+            "duration": 0.6
+          },
+          {
+            "text": "màu",
+            "duration": 0.7
+          },
+          {
+            "text": "nắng",
+            "duration": 0.7
+          },
+          {
+            "text": "của",
+            "duration": 0.6
+          },
+          {
+            "text": "cha",
+            "duration": 1.2
+          }
+        ]
+      },
+      {
+        "time": 22,
+        "text": "Em đến trường học bao điều lạ",
+        "words": [
+          {
+            "text": "Em",
+            "duration": 0.7
+          },
+          {
+            "text": "đến",
+            "duration": 0.6
+          },
+          {
+            "text": "trường",
+            "duration": 0.7
+          },
+          {
+            "text": "học",
+            "duration": 0.6
+          },
+          {
+            "text": "bao",
+            "duration": 0.6
+          },
+          {
+            "text": "điều",
+            "duration": 0.7
+          },
+          {
+            "text": "lạ",
+            "duration": 1.2
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Rose",
+        "vi": "Hoa hồng",
+        "emoji": "🌹",
+        "phonetic": "/roʊz/"
+      },
+      {
+        "en": "Spring",
+        "vi": "Mùa xuân",
+        "emoji": "🌱",
+        "phonetic": "/sprɪŋ/"
+      },
+      {
+        "en": "Sunshine",
+        "vi": "Ánh nắng",
+        "emoji": "☀️",
+        "phonetic": "/ˈsʌn.ʃaɪn/"
+      },
+      {
+        "en": "Learn",
+        "vi": "Học hỏi",
+        "emoji": "📖",
+        "phonetic": "/lɝːn/"
+      }
+    ]
+  },
+  {
+    "id": "em-di-qua-cau-cay",
+    "title": "Em Đi Qua Cầu Cây",
+    "emoji": "🌉",
+    "color": "#84CC16",
+    "youtubeId": "XO4LR0RDQS0",
+    "introDuration": 5,
+    "bpm": 90,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Cầu tre lắc lẻo gập ghềnh khó đi",
+        "words": [
+          {
+            "text": "Cầu",
+            "duration": 0.6
+          },
+          {
+            "text": "tre",
+            "duration": 0.6
+          },
+          {
+            "text": "lắc",
+            "duration": 0.6
+          },
+          {
+            "text": "lẻo",
+            "duration": 0.6
+          },
+          {
+            "text": "gập",
+            "duration": 0.6
+          },
+          {
+            "text": "ghềnh",
+            "duration": 0.6
+          },
+          {
+            "text": "khó",
+            "duration": 0.6
+          },
+          {
+            "text": "đi",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Em đi qua cầu cây bước nhanh nhịp nhàng",
+        "words": [
+          {
+            "text": "Em",
+            "duration": 0.6
+          },
+          {
+            "text": "đi",
+            "duration": 0.5
+          },
+          {
+            "text": "qua",
+            "duration": 0.5
+          },
+          {
+            "text": "cầu",
+            "duration": 0.6
+          },
+          {
+            "text": "cây",
+            "duration": 0.6
+          },
+          {
+            "text": "bước",
+            "duration": 0.6
+          },
+          {
+            "text": "nhanh",
+            "duration": 0.6
+          },
+          {
+            "text": "nhịp",
+            "duration": 0.6
+          },
+          {
+            "text": "nhàng",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Bridge",
+        "vi": "Cây cầu",
+        "emoji": "🌉",
+        "phonetic": "/brɪdʒ/"
+      },
+      {
+        "en": "Bamboo",
+        "vi": "Cây tre",
+        "emoji": "🎋",
+        "phonetic": "/bæmˈbuː/"
+      },
+      {
+        "en": "Step",
+        "vi": "Bước đi",
+        "emoji": "👣",
+        "phonetic": "/step/"
+      },
+      {
+        "en": "Careful",
+        "vi": "Cẩn thận",
+        "emoji": "⚠️",
+        "phonetic": "/ˈker.fəl/"
+      }
+    ]
+  },
+  {
+    "id": "tam-biet-bup-be-than-yeu",
+    "title": "Tạm Biệt Búp Bê Thân Yêu",
+    "emoji": "🧸",
+    "color": "#F97316",
+    "youtubeId": "K9kTfSklhSU",
+    "introDuration": 5,
+    "bpm": 85,
+    "lyrics": [
+      {
+        "time": 5,
+        "text": "Tạm biệt búp bê thân yêu",
+        "words": [
+          {
+            "text": "Tạm",
+            "duration": 0.6
+          },
+          {
+            "text": "biệt",
+            "duration": 0.6
+          },
+          {
+            "text": "búp",
+            "duration": 0.6
+          },
+          {
+            "text": "bê",
+            "duration": 0.6
+          },
+          {
+            "text": "thân",
+            "duration": 0.6
+          },
+          {
+            "text": "yêu",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 11,
+        "text": "Tạm biệt gấu Mi-sa nhé",
+        "words": [
+          {
+            "text": "Tạm",
+            "duration": 0.6
+          },
+          {
+            "text": "biệt",
+            "duration": 0.6
+          },
+          {
+            "text": "gấu",
+            "duration": 0.6
+          },
+          {
+            "text": "Mi-sa",
+            "duration": 0.8
+          },
+          {
+            "text": "nhé",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 16,
+        "text": "Tạm biệt thỏ trắng xinh xinh, mai tôi vào lớp một rồi",
+        "words": [
+          {
+            "text": "Tạm",
+            "duration": 0.5
+          },
+          {
+            "text": "biệt",
+            "duration": 0.5
+          },
+          {
+            "text": "thỏ",
+            "duration": 0.5
+          },
+          {
+            "text": "trắng",
+            "duration": 0.5
+          },
+          {
+            "text": "xinh",
+            "duration": 0.5
+          },
+          {
+            "text": "xinh,",
+            "duration": 0.6
+          },
+          {
+            "text": "mai",
+            "duration": 0.5
+          },
+          {
+            "text": "tôi",
+            "duration": 0.5
+          },
+          {
+            "text": "vào",
+            "duration": 0.5
+          },
+          {
+            "text": "lớp",
+            "duration": 0.5
+          },
+          {
+            "text": "một",
+            "duration": 0.5
+          },
+          {
+            "text": "rồi",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Doll",
+        "vi": "Búp bê",
+        "emoji": "🪆",
+        "phonetic": "/dɑːl/"
+      },
+      {
+        "en": "Bear",
+        "vi": "Gấu bông",
+        "emoji": "🧸",
+        "phonetic": "/ber/"
+      },
+      {
+        "en": "Goodbye",
+        "vi": "Tạm biệt",
+        "emoji": "👋",
+        "phonetic": "/ɡʊdˈbaɪ/"
+      },
+      {
+        "en": "Grade 1",
+        "vi": "Lớp một",
+        "emoji": "🎒",
+        "phonetic": "/ɡreɪd wʌn/"
+      }
+    ]
+  },
+  {
+    "id": "gia-dinh-nho-hanh-phuc-to",
+    "title": "Gia Đình Nhỏ Hạnh Phúc To",
+    "emoji": "🏡",
+    "color": "#E11D48",
+    "youtubeId": "OgSZzrQKEWw",
+    "introDuration": 6,
+    "bpm": 80,
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Nụ cười của con là niềm vui của mẹ",
+        "words": [
+          {
+            "text": "Nụ",
+            "duration": 0.6
+          },
+          {
+            "text": "cười",
+            "duration": 0.6
+          },
+          {
+            "text": "của",
+            "duration": 0.5
+          },
+          {
+            "text": "con",
+            "duration": 0.6
+          },
+          {
+            "text": "là",
+            "duration": 0.5
+          },
+          {
+            "text": "niềm",
+            "duration": 0.6
+          },
+          {
+            "text": "vui",
+            "duration": 0.6
+          },
+          {
+            "text": "của",
+            "duration": 0.5
+          },
+          {
+            "text": "mẹ",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 14,
+        "text": "Ánh mắt của con là vầng trăng của cha",
+        "words": [
+          {
+            "text": "Ánh",
+            "duration": 0.6
+          },
+          {
+            "text": "mắt",
+            "duration": 0.6
+          },
+          {
+            "text": "của",
+            "duration": 0.5
+          },
+          {
+            "text": "con",
+            "duration": 0.6
+          },
+          {
+            "text": "là",
+            "duration": 0.5
+          },
+          {
+            "text": "vầng",
+            "duration": 0.6
+          },
+          {
+            "text": "trăng",
+            "duration": 0.6
+          },
+          {
+            "text": "của",
+            "duration": 0.5
+          },
+          {
+            "text": "cha",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Family",
+        "vi": "Gia đình",
+        "emoji": "👨‍👩‍👧",
+        "phonetic": "/ˈfæm.əl.i/"
+      },
+      {
+        "en": "Smile",
+        "vi": "Nụ cười",
+        "emoji": "😄",
+        "phonetic": "/smaɪl/"
+      },
+      {
+        "en": "Moon",
+        "vi": "Vầng trăng",
+        "emoji": "🌙",
+        "phonetic": "/muːn/"
+      },
+      {
+        "en": "Happy",
+        "vi": "Hạnh phúc",
+        "emoji": "❤️",
+        "phonetic": "/ˈhæp.i/"
+      }
+    ]
+  },
+  {
+    "id": "trong-com",
+    "title": "Trống Cơm",
+    "emoji": "🥁",
+    "color": "#F59E0B",
+    "youtubeId": "j9iO165HS_4",
+    "introDuration": 6,
+    "bpm": 95,
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Tình bằng có cái trống cơm",
+        "words": [
+          {
+            "text": "Tình",
+            "duration": 0.6
+          },
+          {
+            "text": "bằng",
+            "duration": 0.6
+          },
+          {
+            "text": "có",
+            "duration": 0.6
+          },
+          {
+            "text": "cái",
+            "duration": 0.6
+          },
+          {
+            "text": "trống",
+            "duration": 0.7
+          },
+          {
+            "text": "cơm",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Khen ai khéo vỗ ố mấy bông mà nên bông",
+        "words": [
+          {
+            "text": "Khen",
+            "duration": 0.5
+          },
+          {
+            "text": "ai",
+            "duration": 0.5
+          },
+          {
+            "text": "khéo",
+            "duration": 0.6
+          },
+          {
+            "text": "vỗ",
+            "duration": 0.6
+          },
+          {
+            "text": "ố",
+            "duration": 0.4
+          },
+          {
+            "text": "mấy",
+            "duration": 0.5
+          },
+          {
+            "text": "bông",
+            "duration": 0.6
+          },
+          {
+            "text": "mà",
+            "duration": 0.4
+          },
+          {
+            "text": "nên",
+            "duration": 0.5
+          },
+          {
+            "text": "bông",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 19,
+        "text": "Một bầy tang tình con sít lội lội lội sông",
+        "words": [
+          {
+            "text": "Một",
+            "duration": 0.5
+          },
+          {
+            "text": "bầy",
+            "duration": 0.5
+          },
+          {
+            "text": "tang",
+            "duration": 0.5
+          },
+          {
+            "text": "tình",
+            "duration": 0.5
+          },
+          {
+            "text": "con",
+            "duration": 0.5
+          },
+          {
+            "text": "sít",
+            "duration": 0.6
+          },
+          {
+            "text": "lội",
+            "duration": 0.5
+          },
+          {
+            "text": "lội",
+            "duration": 0.5
+          },
+          {
+            "text": "lội",
+            "duration": 0.5
+          },
+          {
+            "text": "sông",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Drum",
+        "vi": "Trống cơm",
+        "emoji": "🥁",
+        "phonetic": "/drʌm/"
+      },
+      {
+        "en": "River",
+        "vi": "Dòng sông",
+        "emoji": "🌊",
+        "phonetic": "/ˈrɪv.ɚ/"
+      },
+      {
+        "en": "Folk",
+        "vi": "Dân ca",
+        "emoji": "🎶",
+        "phonetic": "/foʊk/"
+      },
+      {
+        "en": "Clap",
+        "vi": "Vỗ trống",
+        "emoji": "👏",
+        "phonetic": "/klæp/"
+      }
+    ]
+  },
+  {
+    "id": "chiec-quat-mo-ra-pho",
+    "title": "Chiếc Quạt Mo Ra Phố",
+    "emoji": "🪭",
+    "color": "#D97706",
+    "youtubeId": "NNX7nS04NTk",
+    "introDuration": 6,
+    "bpm": 90,
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Thằng Bờm có cái quạt mo",
+        "words": [
+          {
+            "text": "Thằng",
+            "duration": 0.6
+          },
+          {
+            "text": "Bờm",
+            "duration": 0.6
+          },
+          {
+            "text": "có",
+            "duration": 0.6
+          },
+          {
+            "text": "cái",
+            "duration": 0.6
+          },
+          {
+            "text": "quạt",
+            "duration": 0.7
+          },
+          {
+            "text": "mo",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Phú ông xin đổi ba bò chín trâu",
+        "words": [
+          {
+            "text": "Phú",
+            "duration": 0.6
+          },
+          {
+            "text": "ông",
+            "duration": 0.6
+          },
+          {
+            "text": "xin",
+            "duration": 0.6
+          },
+          {
+            "text": "đổi",
+            "duration": 0.6
+          },
+          {
+            "text": "ba",
+            "duration": 0.6
+          },
+          {
+            "text": "bò",
+            "duration": 0.6
+          },
+          {
+            "text": "chín",
+            "duration": 0.6
+          },
+          {
+            "text": "trâu",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 18,
+        "text": "Bờm rằng Bờm chẳng lấy trâu",
+        "words": [
+          {
+            "text": "Bờm",
+            "duration": 0.6
+          },
+          {
+            "text": "rằng",
+            "duration": 0.6
+          },
+          {
+            "text": "Bờm",
+            "duration": 0.6
+          },
+          {
+            "text": "chẳng",
+            "duration": 0.6
+          },
+          {
+            "text": "lấy",
+            "duration": 0.6
+          },
+          {
+            "text": "trâu",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Fan",
+        "vi": "Quạt mo",
+        "emoji": "🪭",
+        "phonetic": "/fæn/"
+      },
+      {
+        "en": "Buffalo",
+        "vi": "Con trâu",
+        "emoji": "🐃",
+        "phonetic": "/ˈbʌf.ə.loʊ/"
+      },
+      {
+        "en": "Cow",
+        "vi": "Con bò",
+        "emoji": "🐄",
+        "phonetic": "/kaʊ/"
+      },
+      {
+        "en": "Story",
+        "vi": "Chuyện tích",
+        "emoji": "📖",
+        "phonetic": "/ˈstɔːr.i/"
+      }
+    ]
+  },
+  {
+    "id": "ruoc-den-thang-tam",
+    "title": "Rước Đèn Tháng Tám",
+    "emoji": "🏮",
+    "color": "#E11D48",
+    "youtubeId": "6AqHUYdvgV4",
+    "introDuration": 6,
+    "bpm": 100,
+    "lyrics": [
+      {
+        "time": 6,
+        "text": "Tết Trung Thu rước đèn đi chơi",
+        "words": [
+          {
+            "text": "Tết",
+            "duration": 0.6
+          },
+          {
+            "text": "Trung",
+            "duration": 0.6
+          },
+          {
+            "text": "Thu",
+            "duration": 0.6
+          },
+          {
+            "text": "rước",
+            "duration": 0.6
+          },
+          {
+            "text": "đèn",
+            "duration": 0.6
+          },
+          {
+            "text": "đi",
+            "duration": 0.5
+          },
+          {
+            "text": "chơi",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Em rước đèn đi khắp phố phường",
+        "words": [
+          {
+            "text": "Em",
+            "duration": 0.6
+          },
+          {
+            "text": "rước",
+            "duration": 0.6
+          },
+          {
+            "text": "đèn",
+            "duration": 0.6
+          },
+          {
+            "text": "đi",
+            "duration": 0.5
+          },
+          {
+            "text": "khắp",
+            "duration": 0.6
+          },
+          {
+            "text": "phố",
+            "duration": 0.6
+          },
+          {
+            "text": "phường",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 18,
+        "text": "Lòng vui sướng với đèn trong tay",
+        "words": [
+          {
+            "text": "Lòng",
+            "duration": 0.6
+          },
+          {
+            "text": "vui",
+            "duration": 0.6
+          },
+          {
+            "text": "sướng",
+            "duration": 0.6
+          },
+          {
+            "text": "với",
+            "duration": 0.5
+          },
+          {
+            "text": "đèn",
+            "duration": 0.6
+          },
+          {
+            "text": "trong",
+            "duration": 0.6
+          },
+          {
+            "text": "tay",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 24,
+        "text": "Em múa ca trong ánh trăng rằm",
+        "words": [
+          {
+            "text": "Em",
+            "duration": 0.6
+          },
+          {
+            "text": "múa",
+            "duration": 0.6
+          },
+          {
+            "text": "ca",
+            "duration": 0.6
+          },
+          {
+            "text": "trong",
+            "duration": 0.5
+          },
+          {
+            "text": "ánh",
+            "duration": 0.6
+          },
+          {
+            "text": "trăng",
+            "duration": 0.6
+          },
+          {
+            "text": "rằm",
+            "duration": 1
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "Lantern",
+        "vi": "Lồng đèn",
+        "emoji": "🏮",
+        "phonetic": "/ˈlæn.tɚn/"
+      },
+      {
+        "en": "Moon",
+        "vi": "Trăng rằm",
+        "emoji": "🌕",
+        "phonetic": "/muːn/"
+      },
+      {
+        "en": "Festival",
+        "vi": "Lễ hội",
+        "emoji": "🎉",
+        "phonetic": "/ˈfes.tə.vəl/"
+      },
+      {
+        "en": "Dance",
+        "vi": "Múa hát",
+        "emoji": "💃",
+        "phonetic": "/dæns/"
+      }
+    ]
+  },
+  {
+    "id": "mai-truong-men-thuong",
+    "title": "Mái Trường Mến Thương",
+    "emoji": "🏫",
+    "color": "#3B82F6",
+    "youtubeId": "W84ByClxbAw",
+    "introDuration": 8,
+    "bpm": 80,
+    "lyrics": [
+      {
+        "time": 8,
+        "text": "Bao lo toan vất vả vì đàn em",
+        "words": [
+          {
+            "text": "Bao",
+            "duration": 0.6
+          },
+          {
+            "text": "lo",
+            "duration": 0.6
+          },
+          {
+            "text": "toan",
+            "duration": 0.6
+          },
+          {
+            "text": "vất",
+            "duration": 0.6
+          },
+          {
+            "text": "vả",
+            "duration": 0.6
+          },
+          {
+            "text": "vì",
+            "duration": 0.6
+          },
+          {
+            "text": "đàn",
+            "duration": 0.6
+          },
+          {
+            "text": "em",
+            "duration": 1
+          }
+        ]
+      },
+      {
+        "time": 16,
+        "text": "Thầy cô đã cho em niềm tin bước vào đời",
+        "words": [
+          {
+            "text": "Thầy",
+            "duration": 0.6
+          },
+          {
+            "text": "cô",
+            "duration": 0.6
+          },
+          {
+            "text": "đã",
+            "duration": 0.5
+          },
+          {
+            "text": "cho",
+            "duration": 0.5
+          },
+          {
+            "text": "em",
+            "duration": 0.6
+          },
+          {
+            "text": "niềm",
+            "duration": 0.6
+          },
+          {
+            "text": "tin",
+            "duration": 0.6
+          },
+          {
+            "text": "bước",
+            "duration": 0.6
+          },
+          {
+            "text": "vào",
+            "duration": 0.6
+          },
+          {
+            "text": "đời",
+            "duration": 1.2
+          }
+        ]
+      }
+    ],
+    "keyVocab": [
+      {
+        "en": "School",
+        "vi": "Mái trường",
+        "emoji": "🏫",
+        "phonetic": "/skuːl/"
+      },
+      {
+        "en": "Teacher",
+        "vi": "Thầy cô",
+        "emoji": "👨‍🏫",
+        "phonetic": "/ˈtiː.tʃər/"
+      },
+      {
+        "en": "Belief",
+        "vi": "Niềm tin",
+        "emoji": "⭐",
+        "phonetic": "/bɪˈliːf/"
+      },
+      {
+        "en": "Heart",
+        "vi": "Tấm lòng",
+        "emoji": "💖",
+        "phonetic": "/hɑːrt/"
+      }
+    ]
   }
 ]
