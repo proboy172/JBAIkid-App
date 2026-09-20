@@ -151,7 +151,7 @@ export const educationalVideos: EducationalVideo[] = educationalVideosData as Ed
 export function getRecommendedVideos(
   currentVideo: EducationalVideo,
   count = 20,
-  randomMode = false
+  _randomMode = false
 ): EducationalVideo[] {
   const others = educationalVideos.filter((v) => v.id !== currentVideo.id);
 
@@ -165,45 +165,14 @@ export function getRecommendedVideos(
     return copy;
   };
 
-  // If in random mode (e.g. All Videos mode), shuffle without category or channel bias
-  if (randomMode) {
-    return shuffle(others).slice(0, count);
-  }
+  // 1. Lấy đúng 5 video cùng kênh (nếu kênh có ít hơn 5 thì lấy tối đa có thể)
+  const sameChannelPool = shuffle(others.filter((v) => v.channel === currentVideo.channel));
+  const sameChannelPicks = sameChannelPool.slice(0, 5);
 
-  const sameChannel = shuffle(others.filter((v) => v.channel === currentVideo.channel));
-  const sameCategory = shuffle(
-    others.filter((v) => v.category === currentVideo.category && v.channel !== currentVideo.channel)
-  );
-  const safariVideos = shuffle(
-    others.filter((v) => v.channel === "Wild Safari" && v.channel !== currentVideo.channel)
-  );
-  const diverseVideos = shuffle(
-    others.filter((v) => v.channel !== currentVideo.channel && v.category !== currentVideo.category)
-  );
+  // 2. Lấy đúng 15 video ngẫu nhiên từ các kênh khác nhau trong kho video
+  const otherChannelPool = shuffle(others.filter((v) => v.channel !== currentVideo.channel));
+  const neededOthers = Math.max(0, count - sameChannelPicks.length);
+  const otherPicks = otherChannelPool.slice(0, neededOthers);
 
-  const picks: EducationalVideo[] = [];
-  const addUnique = (list: EducationalVideo[]) => {
-    for (const item of list) {
-      if (picks.length >= count) break;
-      if (!picks.some((p) => p.id === item.id)) {
-        picks.push(item);
-      }
-    }
-  };
-
-  // Up to 6 videos from same channel
-  addUnique(sameChannel.slice(0, 6));
-  // Up to 6 videos from same category
-  addUnique(sameCategory.slice(0, 6));
-
-  // 3-4 videos from Safari real wildlife if not already watching Safari
-  if (currentVideo.channel !== "Wild Safari") {
-    addUnique(safariVideos.slice(0, 4));
-  }
-
-  // Diverse top picks across the library
-  addUnique(diverseVideos);
-  addUnique(shuffle(others));
-
-  return picks.slice(0, count);
+  return [...sameChannelPicks, ...otherPicks];
 }
