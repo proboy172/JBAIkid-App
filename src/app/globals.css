@@ -447,6 +447,60 @@ body.eco-mode .animate-pulse {
   transform: rotateY(180deg);
 }
 
+/* ===== FLASH CARD LANDSCAPE 1-FRAME FIT ===== */
+@media (orientation: landscape) {
+  .flashcard-screen-root {
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+  }
+
+  .flashcard-main-layout {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.5rem !important;
+    padding-top: 0 !important;
+    padding-bottom: max(env(safe-area-inset-bottom, 16px), 4.75rem) !important;
+    overflow: hidden !important;
+  }
+
+  .flashcard-card-box {
+    width: min(420px, 44vw) !important;
+    max-width: none !important;
+    flex-shrink: 0 !important;
+  }
+
+  .flashcard-card-inner-h {
+    height: min(390px, calc(100dvh - 135px)) !important;
+  }
+
+  .flashcard-action-box {
+    width: min(360px, 44vw) !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .flashcard-main-layout {
+    padding-bottom: max(env(safe-area-inset-bottom, 8px), 3.25rem) !important;
+    gap: 1rem !important;
+  }
+
+  .flashcard-card-box {
+    width: min(330px, 48vw) !important;
+  }
+
+  .flashcard-card-inner-h {
+    height: calc(100dvh - 95px) !important;
+  }
+
+  .flashcard-action-box {
+    width: min(300px, 46vw) !important;
+    gap: 0.5rem !important;
+  }
+}
+
 /* ===== CONFETTI ===== */
 
 @keyframes confetti-fall {

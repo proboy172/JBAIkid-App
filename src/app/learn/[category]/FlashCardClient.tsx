@@ -348,11 +348,11 @@ export default function FlashCardClient() {
   }
 
   return (
-    <div className="min-h-dvh flex flex-col">
+    <div className="min-h-dvh flashcard-screen-root flex flex-col">
       <ConfettiOverlay pieces={pieces} />
 
       {/* Header */}
-      <div className="pt-10 pb-2 px-5 relative z-10">
+      <div className="pt-8 sm:pt-10 pb-2 px-4 sm:px-5 landscape:pt-2 landscape:pb-1 relative z-10">
         <div className="flex items-center justify-between">
           <BackButton label={cat.nameVi} />
           
@@ -380,7 +380,7 @@ export default function FlashCardClient() {
         </div>
 
         {/* Progress bar */}
-        <div className="mt-3 h-2.5 bg-white/50 rounded-full overflow-hidden">
+        <div className="mt-2.5 sm:mt-3 landscape:mt-1 h-2 sm:h-2.5 bg-white/50 rounded-full overflow-hidden">
           <motion.div
             className="h-full rounded-full"
             style={{ backgroundColor: cat.color }}
@@ -391,19 +391,21 @@ export default function FlashCardClient() {
       </div>
 
       {/* Flash Card Area */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ x: direction * 200, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -direction * 200, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="w-full max-w-xs sm:max-w-sm"
-          >
-            {/* Card */}
-            <div
-              className="flash-card-container w-full h-[375px] sm:h-[410px] md:h-[430px]"
+      <div className="flex-1 flashcard-main-layout flex flex-col items-center justify-center px-4 py-1 sm:py-2 pb-20 sm:pb-24 overflow-y-auto relative z-10 w-full max-w-5xl mx-auto">
+        {/* Card Column */}
+        <div className="w-full max-w-xs sm:max-w-sm flashcard-card-box flex flex-col items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              initial={{ x: direction * 200, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -direction * 200, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="w-full"
+            >
+              {/* Card */}
+              <div
+                className="flash-card-container w-full h-[360px] sm:h-[400px] flashcard-card-inner-h"
               onClick={() => {
                 playSFX("pop");
                 setFlipped((f) => !f);
@@ -450,7 +452,7 @@ export default function FlashCardClient() {
                   </div>
 
                   {/* Visual Presentation: Montessori Real Photo Always Direct */}
-                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/90 my-1">
+                  <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 max-h-[38%] aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/90 my-0.5 sm:my-1">
                     {currentImageUrl && !imageError ? (
                       <>
                         <img
@@ -656,7 +658,10 @@ export default function FlashCardClient() {
             </div>
           </motion.div>
         </AnimatePresence>
+      </div>
 
+      {/* Action Controls Box */}
+      <div className="flashcard-action-box flex flex-col items-center justify-center gap-2.5 sm:gap-3.5 z-20">
         {/* Live Audio Waveform Visualizer */}
         <AnimatePresence>
           {isRecording && (
@@ -664,14 +669,14 @@ export default function FlashCardClient() {
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="flex flex-col items-center gap-1.5 mt-2 bg-red-500/10 border border-red-500/30 px-5 py-2 rounded-2xl backdrop-blur-md shadow-lg"
+              className="flex flex-col items-center gap-1 bg-red-500/10 border border-red-500/30 px-4 py-1.5 rounded-2xl backdrop-blur-md shadow-lg"
             >
-              <div className="flex items-center gap-1.5 h-6">
+              <div className="flex items-center gap-1.5 h-5">
                 {[0.2, 0.6, 1.0, 0.4, 0.9, 0.5, 0.8, 0.3].map((delay, idx) => (
                   <motion.span
                     key={idx}
                     className="w-1.5 bg-red-500 rounded-full"
-                    animate={{ height: ["6px", "22px", "6px"] }}
+                    animate={{ height: ["5px", "18px", "5px"] }}
                     transition={{
                       duration: 0.7,
                       repeat: Infinity,
@@ -681,7 +686,7 @@ export default function FlashCardClient() {
                   />
                 ))}
               </div>
-              <span className="text-xs font-bold text-red-500 animate-pulse">
+              <span className="text-[11px] font-bold text-red-500 animate-pulse">
                 Đang lắng nghe bé đọc... 🎙️
               </span>
             </motion.div>
@@ -689,13 +694,14 @@ export default function FlashCardClient() {
         </AnimatePresence>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <motion.button
             whileTap={{ scale: 0.85 }}
             onClick={goPrev}
             disabled={index === 0}
-            className="bubble-btn w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-md disabled:opacity-30"
+            className="bubble-btn w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-md disabled:opacity-30 hover:scale-105 transition-transform"
             id="btn-prev"
+            title="Từ trước"
           >
             <ChevronLeft size={24} className="text-text relative z-10" />
           </motion.button>
@@ -711,9 +717,10 @@ export default function FlashCardClient() {
                 fire();
               }
             }}
-            className="bubble-btn w-14 h-14 sm:w-16 sm:h-16 shadow-lg"
+            className="bubble-btn w-14 h-14 sm:w-16 sm:h-16 shadow-lg hover:scale-105 transition-transform"
             style={{ background: `linear-gradient(135deg, ${cat.color}, ${cat.color}CC)` }}
             id="btn-speak"
+            title="Nghe tiếng Anh"
           >
             <Volume2 size={26} className="text-white relative z-10" />
           </motion.button>
@@ -725,7 +732,7 @@ export default function FlashCardClient() {
               playSFX("tap");
               setShowSpeechModal(true);
             }}
-            className="bubble-btn w-14 h-14 sm:w-16 sm:h-16 shadow-lg bg-gradient-to-tr from-blue-500 to-cyan-400"
+            className="bubble-btn w-14 h-14 sm:w-16 sm:h-16 shadow-lg bg-gradient-to-tr from-blue-500 to-cyan-400 hover:scale-105 transition-transform"
             id="btn-record"
             title="Luyện đọc phát âm cùng AI"
           >
@@ -736,14 +743,16 @@ export default function FlashCardClient() {
             whileTap={{ scale: 0.85 }}
             onClick={goNext}
             disabled={index === items.length - 1}
-            className="bubble-btn w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-md disabled:opacity-30"
+            className="bubble-btn w-12 h-12 sm:w-14 sm:h-14 bg-white shadow-md disabled:opacity-30 hover:scale-105 transition-transform"
             id="btn-next"
+            title="Từ tiếp theo"
           >
             <ChevronRight size={24} className="text-text relative z-10" />
           </motion.button>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mt-2.5 sm:mt-3">
+        {/* Secondary Audio Pills */}
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-2.5">
           {(current.realSound || current.realSoundType) && (
             <motion.button
               whileTap={{ scale: 0.92 }}
@@ -751,7 +760,7 @@ export default function FlashCardClient() {
                 e.stopPropagation();
                 playRealLifeSound(current.realSoundType, current.realSound);
               }}
-              className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 backdrop-blur-sm border border-emerald-200 text-xs sm:text-sm font-bold shadow-sm flex items-center gap-2 transition-colors"
+              className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 backdrop-blur-sm border border-emerald-200 text-xs sm:text-sm font-bold shadow-sm flex items-center gap-1.5 transition-colors"
             >
               <span>🔊 {current.soundLabel || "Âm thanh thực tế"}</span>
             </motion.button>
@@ -759,13 +768,14 @@ export default function FlashCardClient() {
           <motion.button
             whileTap={{ scale: 0.92 }}
             onClick={() => speak(current.vi, "vi-VN", 0.65)}
-            className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/50 text-xs sm:text-sm font-semibold shadow-sm flex items-center gap-2"
+            className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl bg-white/80 hover:bg-white backdrop-blur-sm border border-white/60 text-xs sm:text-sm font-semibold shadow-sm flex items-center gap-1.5 transition-colors"
             id="btn-speak-vi"
           >
-            🇻🇳 Nghe tiếng Việt
+            <span>🇻🇳 Nghe tiếng Việt</span>
           </motion.button>
         </div>
       </div>
+    </div>
 
       <AnimatePresence>
         {showSpeechModal && current && (
