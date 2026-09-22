@@ -9,6 +9,7 @@ import confetti from "canvas-confetti";
 import { STICKERS, Sticker } from "@/data/stickers";
 import { Capacitor } from '@capacitor/core';
 import { SpeechRecognition as NativeSpeech } from '@capacitor-community/speech-recognition';
+import { pauseBGMForVideo, resumeBGMAfterVideo } from "@/utils/soundEffects";
 
 const FILLER_PHRASES = [
   "À, để cô xem nào...",
@@ -45,6 +46,13 @@ export default function AITeacherPage() {
   const [shouldAutoListen, setShouldAutoListen] = useState(false);
   const [roleplayMode, setRoleplayMode] = useState<'free' | 'shopping' | 'zoo'>('free');
   const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    pauseBGMForVideo();
+    return () => {
+      resumeBGMAfterVideo();
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

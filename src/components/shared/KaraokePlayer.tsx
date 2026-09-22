@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { Song, songsEn, songsVi, getRecommendedSongs } from "@/data/songs";
 import { useAppStore } from "@/stores/appStore";
-import { playSFX } from "@/utils/soundEffects";
+import { playSFX, pauseBGMForVideo, resumeBGMAfterVideo } from "@/utils/soundEffects";
 import { useSpeech } from "@/hooks/useSpeech";
 import VideoEndRecommendation, { RecommendedItem } from "@/components/videos/VideoEndRecommendation";
 import YouTubeKidsVideoDrawer from "@/components/videos/YouTubeKidsVideoDrawer";
@@ -76,6 +76,14 @@ export default function KaraokePlayer({
     setIsPlaying(true);
     openTimeRef.current = Date.now();
   }, [song]);
+
+  // Auto pause background music when opening song/video, and resume when closing
+  useEffect(() => {
+    pauseBGMForVideo();
+    return () => {
+      resumeBGMAfterVideo();
+    };
+  }, []);
 
   const isEnglishSong = songsEn.some((en) => en.id === currentSong.id);
 

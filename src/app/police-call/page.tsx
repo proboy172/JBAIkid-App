@@ -8,7 +8,7 @@ import { useAppStore } from "@/stores/appStore";
 import { Capacitor } from '@capacitor/core';
 import { SpeechRecognition as NativeSpeech } from '@capacitor-community/speech-recognition';
 
-import { playVoiceBeep as playBeep } from "@/utils/soundEffects";
+import { playVoiceBeep as playBeep, pauseBGMForVideo, resumeBGMAfterVideo } from "@/utils/soundEffects";
 
 export default function PoliceCallPage() {
   const { aiApiKeys } = useAppStore();
@@ -23,6 +23,13 @@ export default function PoliceCallPage() {
   const [hasJoined, setHasJoined] = useState(false);
   const [shouldAutoListen, setShouldAutoListen] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    pauseBGMForVideo();
+    return () => {
+      resumeBGMAfterVideo();
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

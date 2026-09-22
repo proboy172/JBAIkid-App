@@ -97,6 +97,7 @@ interface ProgressState {
   // Music BGM
   bgmEnabled: boolean;
   toggleBgm: () => void;
+  setBgmEnabled: (enabled: boolean) => void;
 
   // Badges & Achievements
   unlockedBadges: string[];
@@ -184,6 +185,10 @@ export const useAppStore = create<ProgressState>()(
 
       toggleBgm: () => {
         set({ bgmEnabled: !get().bgmEnabled });
+      },
+
+      setBgmEnabled: (enabled: boolean) => {
+        set({ bgmEnabled: enabled });
       },
 
       toggleImmersionMode: () => {

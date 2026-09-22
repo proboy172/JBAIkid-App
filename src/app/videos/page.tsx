@@ -7,6 +7,7 @@ import BackButton from "@/components/layout/BackButton";
 import BottomNav from "@/components/layout/BottomNav";
 import SafeVideoModal from "@/components/videos/SafeVideoModal";
 import KaraokePlayer from "@/components/shared/KaraokePlayer";
+import BgmPlayer from "@/components/shared/BgmPlayer";
 import {
   educationalVideos,
   educationalChannels,
@@ -442,12 +443,15 @@ function VideosContent() {
           <span>YouTube Kids • Không Quảng Cáo</span>
         </div>
 
-        {/* Stars Counter */}
-        <div className="glass-card px-3 py-1.5 text-sm font-bold flex items-center gap-1.5 shadow-sm border border-amber-200">
-          <span>⭐</span>
-          <span style={{ color: "var(--color-primary)", fontFamily: "var(--font-heading)" }}>
-            {totalStars}
-          </span>
+        {/* Right side controls: BgmPlayer & Stars Counter */}
+        <div className="flex items-center gap-2">
+          <BgmPlayer />
+          <div className="glass-card px-3 py-1.5 text-sm font-bold flex items-center gap-1.5 shadow-sm border border-amber-200">
+            <span>⭐</span>
+            <span style={{ color: "var(--color-primary)", fontFamily: "var(--font-heading)" }}>
+              {totalStars}
+            </span>
+          </div>
         </div>
       </div>
 

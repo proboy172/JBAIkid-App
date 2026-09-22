@@ -7,8 +7,9 @@ type SoundType = "pop" | "star" | "correct" | "boop" | "cheer" | "tap" | "giggle
 
 let audioCtx: AudioContext | null = null;
 let bgmInterval: any = null;
-let bgmGainNode: GainNode | null = null;
 let isBgmRunning = false;
+let isBgmVideoSuppressed = false;
+let wasBgmRunningBeforeVideo = false;
 
 function getAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
@@ -115,7 +116,7 @@ function playNextBgmNote() {
 }
 
 export function startBGM() {
-  if (isBgmRunning) return;
+  if (isBgmRunning || isBgmVideoSuppressed) return;
   const ctx = getAudioContext();
   if (!ctx) return;
   
@@ -127,8 +128,11 @@ export function startBGM() {
   bgmInterval = setInterval(playNextBgmNote, 380); // ~158 BPM eighth-note pulse
 }
 
-export function stopBGM() {
+export function stopBGM(cancelVideoResume: boolean = false) {
   isBgmRunning = false;
+  if (cancelVideoResume) {
+    wasBgmRunningBeforeVideo = false;
+  }
   if (bgmInterval) {
     clearInterval(bgmInterval);
     bgmInterval = null;
@@ -137,6 +141,24 @@ export function stopBGM() {
 
 export function isBGMActive(): boolean {
   return isBgmRunning;
+}
+
+// Pause background music immediately when a video opens
+export function pauseBGMForVideo() {
+  isBgmVideoSuppressed = true;
+  if (isBgmRunning) {
+    wasBgmRunningBeforeVideo = true;
+    stopBGM(false);
+  }
+}
+
+// Resume background music when a video closes (if it was active before)
+export function resumeBGMAfterVideo() {
+  isBgmVideoSuppressed = false;
+  if (wasBgmRunningBeforeVideo) {
+    wasBgmRunningBeforeVideo = false;
+    startBGM();
+  }
 }
 
 // Random kid-encouragement voice cheer in Vietnamese

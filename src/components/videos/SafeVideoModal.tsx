@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { EducationalVideo, educationalVideos, getRecommendedVideos } from "@/data/educationalVideos";
 import { useAppStore } from "@/stores/appStore";
-import { playSFX } from "@/utils/soundEffects";
+import { playSFX, pauseBGMForVideo, resumeBGMAfterVideo } from "@/utils/soundEffects";
 import { useSpeech } from "@/hooks/useSpeech";
 import VideoEndRecommendation, { RecommendedItem } from "./VideoEndRecommendation";
 import YouTubeKidsVideoDrawer from "./YouTubeKidsVideoDrawer";
@@ -77,6 +77,14 @@ export default function SafeVideoModal({
     setIsPlaying(true);
     openTimeRef.current = Date.now();
   }, [video]);
+
+  // Auto pause background music when opening video, and resume when closing
+  useEffect(() => {
+    pauseBGMForVideo();
+    return () => {
+      resumeBGMAfterVideo();
+    };
+  }, []);
 
   // HUD Auto-Hide Timer (4.5s of inactivity like YouTube Kids)
   const resetHUDTimer = useCallback(() => {
