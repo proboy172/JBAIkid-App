@@ -488,7 +488,7 @@ export default function SafeVideoModal({
             }}
             className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
               showQuickDrawer
-                ? "bg-cyan-500 text-white border-cyan-400 shadow-md shadow-cyan-500/30"
+                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/30"
                 : "bg-white/20 border-white/30 text-white hover:bg-white/30"
             }`}
             title="Xem danh sách video gợi ý như YouTube Kids"
@@ -713,21 +713,9 @@ export default function SafeVideoModal({
 
                   {/* Bottom HUD Quick Row */}
                   <div
-                    className="flex items-center justify-between pointer-events-auto"
+                    className="flex items-center justify-start pointer-events-auto"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <button
-                      onClick={() => {
-                        playSFX("pop");
-                        setShowQuickDrawer(true);
-                        setShowHUD(false);
-                      }}
-                      className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 active:scale-95 text-white text-xs sm:text-sm font-extrabold flex items-center gap-2 shadow-lg border-2 border-cyan-300 cursor-pointer"
-                    >
-                      <span className="text-base sm:text-lg">🎈</span>
-                      <span>Xem danh sách video gợi ý</span>
-                    </button>
-
                     <button
                       onClick={handleReplay}
                       className="sm:hidden text-white/90 hover:text-white text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/20 cursor-pointer"
@@ -740,21 +728,23 @@ export default function SafeVideoModal({
               )}
             </AnimatePresence>
 
-            {/* Floating YouTube Kids Quick Button on Video */}
-            {!showQuickDrawer && !isVideoEnded && !isLocked && !showHUD && (
+            {/* Floating YouTube Kids Quick Button on Video (Synchronized with Image 1) */}
+            {!showQuickDrawer && !isVideoEnded && !isLocked && (
               <motion.button
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.93 }}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   playSFX("pop");
                   setShowQuickDrawer(true);
+                  setShowHUD(false);
                 }}
-                className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-4 z-30 px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none"
+                className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-4 z-40 px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none"
                 title="Mở danh sách video gợi ý"
               >
-                <span className="text-lg sm:text-xl animate-bounce">🎈</span>
+                <span className="text-base sm:text-lg animate-bounce">🎈</span>
                 <span
                   className="text-amber-300 text-xs sm:text-sm font-black tracking-wide"
                   style={{ fontFamily: "var(--font-heading)" }}
