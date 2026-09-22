@@ -492,7 +492,7 @@ body.eco-mode .animate-pulse {
   .flashcard-main-layout {
     padding-top: 2px !important;
     padding-bottom: max(env(safe-area-inset-bottom, 4px), 3rem) !important;
-    gap: 1rem !important;
+    gap: 1.25rem !important;
   }
 
   .flashcard-card-box {
@@ -500,38 +500,39 @@ body.eco-mode .animate-pulse {
   }
 
   .flashcard-card-inner-h {
-    height: calc(100dvh - 95px) !important;
-    max-height: 275px !important;
+    height: calc(100dvh - 85px) !important;
+    max-height: 285px !important;
   }
 
   .flashcard-card-inner-h .flash-card-front,
   .flashcard-card-inner-h .flash-card-back {
-    padding: 6px 10px !important;
+    padding: 8px 12px !important;
   }
 
   .flashcard-card-inner-h .flashcard-photo-box {
-    height: 72px !important;
-    width: 72px !important;
+    height: 80px !important;
+    width: 80px !important;
+    flex-shrink: 0 !important;
     margin: 2px 0 !important;
   }
 
   .flashcard-card-inner-h h2 {
-    font-size: 1.25rem !important;
-    line-height: 1.3rem !important;
+    font-size: 1.35rem !important;
+    line-height: 1.35rem !important;
   }
 
   .flashcard-action-box {
-    width: min(300px, 46vw) !important;
-    gap: 0.35rem !important;
+    width: min(320px, 46vw) !important;
+    gap: 0.4rem !important;
   }
 
   .flashcard-action-box .bubble-btn {
-    width: 2.75rem !important;
-    height: 2.75rem !important;
+    width: 2.85rem !important;
+    height: 2.85rem !important;
   }
   .flashcard-action-box .bubble-btn svg {
-    width: 18px !important;
-    height: 18px !important;
+    width: 20px !important;
+    height: 20px !important;
   }
 }
 

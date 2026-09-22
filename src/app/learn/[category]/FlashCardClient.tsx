@@ -452,7 +452,7 @@ export default function FlashCardClient() {
                   </div>
 
                   {/* Visual Presentation: Montessori Real Photo Always Direct */}
-                  <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 max-h-[38%] aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/90 my-0.5 sm:my-1 flashcard-photo-box">
+                  <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 shrink-0 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/90 my-0.5 sm:my-1 flashcard-photo-box">
                     {currentImageUrl && !imageError ? (
                       <>
                         <img
