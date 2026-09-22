@@ -454,30 +454,17 @@ export default function FlashCardClient() {
                   {/* Visual Presentation: Montessori Real Photo Always Direct */}
                   <div className="relative w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 shrink-0 rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/90 my-0.5 sm:my-1 flashcard-photo-box">
                     {currentImageUrl && !imageError ? (
-                      <>
-                        <img
-                          key={current.en}
-                          src={currentImageUrl}
-                          alt={current.en}
-                          className={`w-full h-full object-cover rounded-2xl transition-opacity duration-200 ${
-                            imageLoading ? "opacity-0" : "opacity-100"
-                          }`}
-                          loading="eager"
-                          onLoad={() => setImageLoading(false)}
-                          onError={() => {
-                            setImageError(true);
-                            setImageLoading(false);
-                          }}
-                        />
-                        {imageLoading && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-slate-100/90 animate-pulse">
-                            <span className="text-4xl opacity-50">{current.emoji}</span>
-                          </div>
-                        )}
-                      </>
+                      <img
+                        key={current.en}
+                        src={currentImageUrl}
+                        alt={current.en}
+                        className="w-full h-full object-cover rounded-2xl"
+                        loading="eager"
+                        onError={() => setImageError(true)}
+                      />
                     ) : (
                       <motion.span
-                        className="text-5xl sm:text-6xl"
+                        className="text-4xl sm:text-5xl md:text-6xl"
                         animate={{ scale: [1, 1.1, 1] }}
                         transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
                       >
