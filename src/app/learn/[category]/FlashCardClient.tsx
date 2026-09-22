@@ -352,7 +352,7 @@ export default function FlashCardClient() {
       <ConfettiOverlay pieces={pieces} />
 
       {/* Header */}
-      <div className="pt-8 sm:pt-10 pb-2 px-4 sm:px-5 landscape:pt-2 landscape:pb-1 relative z-10">
+      <div className="pt-8 sm:pt-10 pb-2 px-4 sm:px-5 landscape:pt-2 landscape:pb-1 relative z-10 flashcard-screen-header">
         <div className="flex items-center justify-between">
           <BackButton label={cat.nameVi} />
           
@@ -452,7 +452,7 @@ export default function FlashCardClient() {
                   </div>
 
                   {/* Visual Presentation: Montessori Real Photo Always Direct */}
-                  <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 max-h-[38%] aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/90 my-0.5 sm:my-1">
+                  <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 max-h-[38%] aspect-square rounded-2xl overflow-hidden flex items-center justify-center bg-gradient-to-b from-white to-slate-50 shadow-md border-2 border-white/90 my-0.5 sm:my-1 flashcard-photo-box">
                     {currentImageUrl && !imageError ? (
                       <>
                         <img
