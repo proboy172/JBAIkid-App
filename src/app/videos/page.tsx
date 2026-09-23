@@ -45,74 +45,58 @@ const allCombinedBaseItems: AllVideoItem[] = [
   ...songsVi.map((s) => ({ kind: "song_vi" as const, item: s, id: s.id })),
 ];
 
-// Deterministic round-robin interleave across channels for initial SSR render
+// Deterministic round-robin interleave across channels for initial SSR render (with new videos prioritized first)
 function getInterleavedEduVideos(): EducationalVideo[] {
   const channelNames = [
+    "Danny Go!",
     "Wild Safari",
     "Ms Rachel",
     "Numberblocks",
     "Alphablocks",
     "Caitie's Classroom",
     "Super Simple",
-    "Danny Go!",
     "Steve & Maggie",
     "SciShow Kids",
     "Oxford Phonics",
     "Gecko's Garage",
   ];
-  const queues = channelNames.map((c) =>
-    educationalVideos.filter((v) => v.channel === c)
-  );
-  const otherChannels = educationalVideos.filter(
-    (v) => !channelNames.includes(v.channel as any)
-  );
-  if (otherChannels.length > 0) queues.push(otherChannels);
 
-  const result: EducationalVideo[] = [];
-  let added = true;
-  let round = 0;
-  while (added) {
-    added = false;
-    for (const q of queues) {
-      if (round < q.length) {
-        result.push(q[round]);
-        added = true;
+  const interleaveList = (list: EducationalVideo[]): EducationalVideo[] => {
+    const queues = channelNames.map((c) =>
+      list.filter((v) => v.channel === c)
+    );
+    const otherChannels = list.filter(
+      (v) => !channelNames.includes(v.channel as any)
+    );
+    if (otherChannels.length > 0) queues.push(otherChannels);
+
+    const res: EducationalVideo[] = [];
+    let added = true;
+    let round = 0;
+    while (added) {
+      added = false;
+      for (const q of queues) {
+        if (round < q.length) {
+          res.push(q[round]);
+          added = true;
+        }
       }
+      round++;
     }
-    round++;
-  }
-  return result;
+    return res;
+  };
+
+  const newVideos = educationalVideos.filter((v) => v.isNew);
+  const olderVideos = educationalVideos.filter((v) => !v.isNew);
+
+  return [...interleaveList(newVideos), ...interleaveList(olderVideos)];
 }
 
-// Deterministic interleave for initial SSR render (prevents hydration mismatch)
+// Deterministic interleave for initial SSR render (prevents hydration mismatch, prioritizes new items)
 function getInterleavedBaseItems(): AllVideoItem[] {
-  const eduList = [...educationalVideos];
-  const songEnList = [...songsEn];
-  const songViList = [...songsVi];
-  const result: AllVideoItem[] = [];
-
-  let i = 0;
-  let j = 0;
-  let k = 0;
-  while (i < eduList.length || j < songEnList.length || k < songViList.length) {
-    if (i < eduList.length) {
-      result.push({ kind: "edu", item: eduList[i], id: eduList[i].id });
-      i++;
-    }
-    if (j < songEnList.length) {
-      result.push({ kind: "song_en", item: songEnList[j], id: songEnList[j].id });
-      j++;
-    }
-    if (i < eduList.length) {
-      result.push({ kind: "edu", item: eduList[i], id: eduList[i].id });
-      i++;
-    }
-    if (k < songViList.length) {
-      result.push({ kind: "song_vi", item: songViList[k], id: songViList[k].id });
-      k++;
-    }
-  }
-  return result;
+  const newItems = allCombinedBaseItems.filter((it) => (it.item as any).isNew);
+  const oldItems = allCombinedBaseItems.filter((it) => !(it.item as any).isNew);
+  return [...newItems, ...oldItems];
 }
 
 function VideosContent() {
@@ -148,32 +132,48 @@ function VideosContent() {
   const [isShufflingEdu, setIsShufflingEdu] = useState(false);
 
   // Shuffle all videos across entire library without topic grouping
+  // Helper to shuffle an array using Fisher-Yates
+  const shuffleArray = useCallback(<T,>(arr: T[]): T[] => {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }, []);
+
+  // Helper: Prioritize new educational videos at top, both pools randomized
+  const shuffleEduWithNewPrioritized = useCallback(
+    (videos: EducationalVideo[]): EducationalVideo[] => {
+      const newVids = videos.filter((v) => v.isNew);
+      const oldVids = videos.filter((v) => !v.isNew);
+      return [...shuffleArray(newVids), ...shuffleArray(oldVids)];
+    },
+    [shuffleArray]
+  );
+
+  // Shuffle all videos across entire library: prioritize new items at top, both randomized
   const shuffleAllVideos = useCallback(() => {
     setIsShuffling(true);
     playSFX("pop");
-    const copy = [...allCombinedBaseItems];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    setShuffledAllVideos(copy);
+    const newItems = allCombinedBaseItems.filter((it) => (it.item as any).isNew);
+    const oldItems = allCombinedBaseItems.filter((it) => !(it.item as any).isNew);
+    const result = [...shuffleArray(newItems), ...shuffleArray(oldItems)];
+    setShuffledAllVideos(result);
     setVisibleAllCount(24);
     setTimeout(() => setIsShuffling(false), 350);
-  }, []);
+  }, [shuffleArray]);
 
   // Shuffle educational videos across all channels & topics (for "Tất cả" mode)
+  // Prioritizes new videos at the top and randomizes them
   const shuffleEduVideos = useCallback(() => {
     setIsShufflingEdu(true);
     playSFX("pop");
-    const copy = [...educationalVideos];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    setShuffledEduVideos(copy);
+    const result = shuffleEduWithNewPrioritized(educationalVideos);
+    setShuffledEduVideos(result);
     setVisibleEduCount(24);
     setTimeout(() => setIsShufflingEdu(false), 350);
-  }, []);
+  }, [shuffleEduWithNewPrioritized]);
 
   // Quick play a random video or song
   const handlePlayRandomVideo = useCallback(() => {
@@ -187,22 +187,14 @@ function VideosContent() {
     }
   }, [shuffledAllVideos]);
 
-  // Initial random shuffle on client mount so each session starts fresh & random
+  // Initial random shuffle on client mount so each session starts fresh & random with new videos prioritized at top
   useEffect(() => {
-    const copyAll = [...allCombinedBaseItems];
-    for (let i = copyAll.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copyAll[i], copyAll[j]] = [copyAll[j], copyAll[i]];
-    }
-    setShuffledAllVideos(copyAll);
+    const newItems = allCombinedBaseItems.filter((it) => (it.item as any).isNew);
+    const oldItems = allCombinedBaseItems.filter((it) => !(it.item as any).isNew);
+    setShuffledAllVideos([...shuffleArray(newItems), ...shuffleArray(oldItems)]);
 
-    const copyEdu = [...educationalVideos];
-    for (let i = copyEdu.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copyEdu[i], copyEdu[j]] = [copyEdu[j], copyEdu[i]];
-    }
-    setShuffledEduVideos(copyEdu);
-  }, []);
+    setShuffledEduVideos(shuffleEduWithNewPrioritized(educationalVideos));
+  }, [shuffleArray, shuffleEduWithNewPrioritized]);
 
   // Reset pagination when channel, category or search query changes
   useEffect(() => {
@@ -1223,11 +1215,19 @@ function EduVideoCard({
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 pointer-events-none" />
 
           {/* Top Badges */}
-          <div className="relative z-10 flex items-center justify-between">
-            <span className="text-[10px] font-bold text-white px-2 py-0.5 rounded-lg bg-black/80 border border-white/20 flex items-center gap-1 shadow-sm">
-              <span>{video.categoryEmoji}</span>
-              <span>{video.categoryNameVi}</span>
-            </span>
+          <div className="relative z-10 flex items-center justify-between gap-1.5">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-bold text-white px-2 py-0.5 rounded-lg bg-black/80 border border-white/20 flex items-center gap-1 shadow-sm">
+                <span>{video.categoryEmoji}</span>
+                <span>{video.categoryNameVi}</span>
+              </span>
+              {video.isNew && (
+                <span className="text-[10px] font-black text-amber-200 px-2 py-0.5 rounded-lg bg-gradient-to-r from-red-600 to-rose-600 border border-amber-300/80 flex items-center gap-0.5 shadow-sm animate-pulse">
+                  <Sparkles size={10} className="text-amber-300" />
+                  <span>MỚI</span>
+                </span>
+              )}
+            </div>
 
             <span className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-lg bg-black/80 flex items-center gap-1 shadow-sm">
               <Clock size={11} />

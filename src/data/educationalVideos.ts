@@ -32,6 +32,7 @@ export interface EducationalVideo {
   parentTip: string;
   keyVocab: VideoVocab[];
   isFeatured?: boolean;
+  isNew?: boolean;
 }
 
 export const educationalChannels = [

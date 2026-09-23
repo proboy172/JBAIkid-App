@@ -465,6 +465,11 @@ export default function SafeVideoModal({
               <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-white/20 text-amber-300 truncate max-w-[120px] sm:max-w-none">
                 {currentVideo.channel}
               </span>
+              {currentVideo.isNew && (
+                <span className="text-[9px] sm:text-[10px] font-black text-amber-200 px-1.5 sm:px-2 py-0.5 rounded-md bg-red-600/90 border border-amber-300/80 shrink-0">
+                  🔥 MỚI
+                </span>
+              )}
               <span className="text-[10px] sm:text-[11px] text-white/70 hidden md:inline">
                 {currentVideo.categoryNameVi}
               </span>
