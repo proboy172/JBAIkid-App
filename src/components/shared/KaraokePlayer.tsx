@@ -147,6 +147,10 @@ export default function KaraokePlayer({
             JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"] }),
             "*"
           );
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({ event: "command", func: "addEventListener", args: ["onError"] }),
+            "*"
+          );
         }
       } catch {}
     };
@@ -166,6 +170,13 @@ export default function KaraokePlayer({
           }
         }
         if (!data) return;
+
+        // Player Error handling
+        if (data.event === "onError") {
+          console.warn("Karaoke YouTube player onError received:", data.info);
+          handleSongFinished();
+          return;
+        }
 
         // Player State changes
         // 1 = Playing, 2 = Paused, 0 = Ended
