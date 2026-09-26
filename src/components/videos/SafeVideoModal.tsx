@@ -19,6 +19,8 @@ import {
   SkipBack,
   SkipForward,
   Search,
+  Maximize2,
+  Minimize2,
 } from "lucide-react";
 import { EducationalVideo, educationalVideos, getRecommendedVideos } from "@/data/educationalVideos";
 import { useAppStore } from "@/stores/appStore";
@@ -61,11 +63,127 @@ export default function SafeVideoModal({
   const [vocabSearch, setVocabSearch] = useState("");
   const [isAutoPlayingVocab, setIsAutoPlayingVocab] = useState(false);
   const [playbackError, setPlaybackError] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isMobileLandscape, setIsMobileLandscape] = useState(false);
 
   const openTimeRef = useRef<number>(Date.now());
+  const modalRef = useRef<HTMLDivElement | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const hudTimerRef = useRef<NodeJS.Timeout | null>(null);
   const unlockTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const isFullMode = isFullscreen || isMobileLandscape;
+
+  // Detect mobile landscape orientation
+  useEffect(() => {
+    const checkOrientation = () => {
+      if (typeof window === "undefined") return;
+      const isLandscape = window.innerWidth > window.innerHeight;
+      const isMobileSize = window.innerHeight <= 540 || (window.innerWidth <= 960 && isLandscape);
+      setIsMobileLandscape(isLandscape && isMobileSize);
+    };
+
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+
+    const mql = window.matchMedia("(orientation: landscape)");
+    const handleMql = () => checkOrientation();
+    try {
+      mql.addEventListener("change", handleMql);
+    } catch {
+      mql.addListener?.(handleMql);
+    }
+
+    return () => {
+      window.removeEventListener("resize", checkOrientation);
+      window.removeEventListener("orientationchange", checkOrientation);
+      try {
+        mql.removeEventListener("change", handleMql);
+      } catch {
+        mql.removeListener?.(handleMql);
+      }
+    };
+  }, []);
+
+  // Listen to native browser Fullscreen changes
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      const isDocFull = !!(
+        document.fullscreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).mozFullScreenElement ||
+        (document as any).msFullscreenElement
+      );
+      setIsFullscreen(isDocFull);
+    };
+
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", onFullscreenChange);
+    document.addEventListener("mozfullscreenchange", onFullscreenChange);
+    document.addEventListener("MSFullscreenChange", onFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", onFullscreenChange);
+      document.removeEventListener("mozfullscreenchange", onFullscreenChange);
+      document.removeEventListener("MSFullscreenChange", onFullscreenChange);
+    };
+  }, []);
+
+  // Toggle fullscreen mode with mobile landscape orientation lock support
+  const toggleFullscreen = useCallback(async () => {
+    try {
+      const isDocFull = !!(
+        document.fullscreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).mozFullScreenElement ||
+        (document as any).msFullscreenElement
+      );
+
+      if (!isDocFull && !isFullscreen) {
+        const elem = modalRef.current || document.documentElement;
+        if (elem.requestFullscreen) {
+          await elem.requestFullscreen();
+        } else if ((elem as any).webkitRequestFullscreen) {
+          await (elem as any).webkitRequestFullscreen();
+        } else if ((elem as any).mozRequestFullScreen) {
+          await (elem as any).mozRequestFullScreen();
+        } else if ((elem as any).msRequestFullscreen) {
+          await (elem as any).msRequestFullscreen();
+        }
+        setIsFullscreen(true);
+
+        try {
+          if (screen.orientation && "lock" in screen.orientation) {
+            await (screen.orientation as any).lock("landscape");
+          }
+        } catch {
+          // Ignore safely if orientation locking is not supported or permitted
+        }
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if ((document as any).webkitExitFullscreen) {
+          await (document as any).webkitExitFullscreen();
+        } else if ((document as any).mozCancelFullScreen) {
+          await (document as any).mozCancelFullScreen();
+        } else if ((document as any).msExitFullscreen) {
+          await (document as any).msExitFullscreen();
+        }
+        setIsFullscreen(false);
+
+        try {
+          if (screen.orientation && "unlock" in screen.orientation) {
+            screen.orientation.unlock();
+          }
+        } catch {}
+      }
+    } catch {
+      // Fallback to CSS pseudo-fullscreen if native Fullscreen API is rejected (e.g. iOS Safari)
+      setIsFullscreen((prev) => !prev);
+    }
+  }, [isFullscreen]);
 
   // Sync state if video prop changes
   useEffect(() => {
@@ -319,6 +437,26 @@ export default function SafeVideoModal({
       setHasAwardedStars(true);
       playSFX("star");
     }
+    if (
+      document.fullscreenElement ||
+      (document as any).webkitFullscreenElement ||
+      (document as any).mozFullScreenElement ||
+      (document as any).msFullscreenElement
+    ) {
+      try {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if ((document as any).webkitExitFullscreen) {
+          (document as any).webkitExitFullscreen();
+        }
+      } catch {}
+    }
+    try {
+      if (screen.orientation && "unlock" in screen.orientation) {
+        screen.orientation.unlock();
+      }
+    } catch {}
+    setIsFullscreen(false);
     onClose();
   };
 
@@ -461,28 +599,56 @@ export default function SafeVideoModal({
     document.body.classList.add("video-modal-open");
     return () => {
       document.body.classList.remove("video-modal-open");
+      if (
+        document.fullscreenElement ||
+        (document as any).webkitFullscreenElement ||
+        (document as any).mozFullScreenElement ||
+        (document as any).msFullscreenElement
+      ) {
+        try {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if ((document as any).webkitExitFullscreen) {
+            (document as any).webkitExitFullscreen();
+          }
+        } catch {}
+      }
+      try {
+        if (screen.orientation && "unlock" in screen.orientation) {
+          screen.orientation.unlock();
+        }
+      } catch {}
     };
   }, []);
 
 
   return (
     <motion.div
+      ref={modalRef}
       id="safe-video-modal"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/95 backdrop-blur-md select-none"
+      className={`fixed inset-0 z-[1000] flex items-center justify-center select-none ${
+        isFullMode ? "bg-black p-0 m-0 overflow-hidden" : "bg-black/95 backdrop-blur-md"
+      }`}
     >
       {/* Top Controls Header */}
-      <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-2.5 sm:p-4 bg-gradient-to-b from-black/85 via-black/50 to-transparent">
+      <div
+        className={`absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-2 sm:p-4 bg-gradient-to-b from-black/90 via-black/50 to-transparent transition-opacity duration-300 ${
+          isFullMode && !showHUD && !isLocked && !playbackError
+            ? "opacity-0 pointer-events-none"
+            : "opacity-100 pointer-events-auto"
+        }`}
+      >
         {/* Channel Info & Video Title */}
         <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 mr-2">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-xl sm:text-2xl shrink-0 shadow-inner">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-lg sm:text-2xl shrink-0 shadow-inner">
             {currentVideo.channelAvatar}
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-1.5 sm:gap-2">
-              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-white/20 text-amber-300 truncate max-w-[120px] sm:max-w-none">
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-white/20 text-amber-300 truncate max-w-[100px] sm:max-w-none">
                 {currentVideo.channel}
               </span>
               {currentVideo.isNew && (
@@ -511,7 +677,7 @@ export default function SafeVideoModal({
               playSFX("tap");
               setShowQuickDrawer(!showQuickDrawer);
             }}
-            className={`px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
+            className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
               showQuickDrawer
                 ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/30"
                 : "bg-white/20 border-white/30 text-white hover:bg-white/30"
@@ -552,6 +718,23 @@ export default function SafeVideoModal({
             <BookOpen size={15} />
             <span className="hidden sm:inline">{showVocabPanel ? "Ẩn Từ Vựng" : "Từ Vựng"}</span>
             <span className="sm:hidden">{showVocabPanel ? "Ẩn Từ" : "Từ Vựng"}</span>
+          </motion.button>
+
+          {/* Fullscreen Toggle Button */}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => {
+              playSFX("tap");
+              toggleFullscreen();
+            }}
+            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-all cursor-pointer ${
+              isFullMode
+                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/40"
+                : "bg-white/20 text-amber-300 border-amber-400/50 hover:bg-white/30"
+            }`}
+            title={isFullMode ? "Thu nhỏ màn hình" : "Xem toàn màn hình (Full screen)"}
+          >
+            {isFullMode ? <Minimize2 size={16} strokeWidth={2.5} /> : <Maximize2 size={16} strokeWidth={2.5} />}
           </motion.button>
 
           {/* Favorite Button */}
@@ -603,16 +786,30 @@ export default function SafeVideoModal({
       </div>
 
       {/* Main Content Area: Player (Top/Left) + Education Details (Bottom/Right) */}
-      <div className="flex-1 w-full h-full flex flex-col lg:flex-row items-center justify-center z-10 pt-16 sm:pt-20 pb-3 px-3 sm:px-6 gap-3 sm:gap-5 overflow-hidden">
+      <div
+        className={`flex-1 w-full h-full flex flex-col lg:flex-row items-center justify-center z-10 overflow-hidden ${
+          isFullMode
+            ? "fixed inset-0 p-0 m-0"
+            : "pt-14 sm:pt-20 pb-3 px-2 sm:px-6 gap-3 sm:gap-5"
+        }`}
+      >
         {/* Safe YouTube Player Container */}
         <div
-          className={`w-full h-full transition-all duration-300 flex items-center justify-center relative ${
-            showVocabPanel
-              ? "lg:w-3/5 xl:w-2/3 max-h-[55vh] sm:max-h-[60vh] lg:max-h-[85vh]"
-              : "w-full max-w-6xl max-h-[85vh]"
+          className={`w-full transition-all duration-300 flex flex-col items-center justify-center relative ${
+            isFullMode
+              ? "h-full w-full max-w-none max-h-none p-0 m-0"
+              : showVocabPanel
+              ? "lg:w-3/5 xl:w-2/3 h-full max-h-[55vh] sm:max-h-[60vh] lg:max-h-[85vh]"
+              : "w-full max-w-6xl h-auto max-h-[85vh] lg:h-full"
           }`}
         >
-          <div className="w-full h-full relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/15 bg-black">
+          <div
+            className={`w-full relative overflow-hidden bg-black ${
+              isFullMode
+                ? "h-full rounded-none border-0 shadow-none"
+                : "aspect-video max-h-[60vh] sm:max-h-[75vh] lg:max-h-[85vh] rounded-2xl sm:rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/15"
+            }`}
+          >
             <iframe
               ref={iframeRef}
               key={`${currentVideo.id}-${iframeKey}`}
@@ -775,16 +972,27 @@ export default function SafeVideoModal({
 
                   {/* Bottom HUD Quick Row */}
                   <div
-                    className="flex items-center justify-start pointer-events-auto"
+                    className="flex items-center justify-between w-full pointer-events-auto px-1"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
                       onClick={handleReplay}
-                      className="sm:hidden text-white/90 hover:text-white text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/20 cursor-pointer"
+                      className="text-white/90 hover:text-white text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/20 cursor-pointer"
                     >
-                      <RotateCcw size={12} />
+                      <RotateCcw size={13} />
                       <span>Xem lại</span>
                     </button>
+
+                    {/* Bottom HUD Fullscreen Button */}
+                    <motion.button
+                      whileTap={{ scale: 0.92 }}
+                      onClick={toggleFullscreen}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/30 border border-amber-300 cursor-pointer"
+                      title={isFullMode ? "Thu nhỏ màn hình" : "Xem toàn màn hình"}
+                    >
+                      {isFullMode ? <Minimize2 size={13} strokeWidth={2.5} /> : <Maximize2 size={13} strokeWidth={2.5} />}
+                      <span>{isFullMode ? "Thu nhỏ" : "Toàn màn hình"}</span>
+                    </motion.button>
                   </div>
                 </motion.div>
               )}
@@ -803,7 +1011,9 @@ export default function SafeVideoModal({
                   setShowQuickDrawer(true);
                   setShowHUD(false);
                 }}
-                className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-4 z-40 px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none"
+                className={`absolute bottom-3 right-3 sm:bottom-3.5 sm:right-4 z-40 px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none ${
+                  isFullMode && !showHUD ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+                }`}
                 title="Mở danh sách video gợi ý"
               >
                 <span className="text-base sm:text-lg animate-bounce">🎈</span>
@@ -898,6 +1108,23 @@ export default function SafeVideoModal({
             )}
 
           </div>
+
+          {/* Mobile Portrait Quick Fullscreen CTA Bar */}
+          {!isFullMode && (
+            <div className="lg:hidden w-full shrink-0 pt-2 px-1">
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                onClick={() => {
+                  playSFX("tap");
+                  toggleFullscreen();
+                }}
+                className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 transition-all cursor-pointer border border-amber-300"
+              >
+                <Maximize2 size={15} strokeWidth={2.5} />
+                <span>Bấm xem Toàn Màn Hình (hoặc xoay ngang máy) ⛶</span>
+              </motion.button>
+            </div>
+          )}
         </div>
 
         {/* Education & Key Vocab Panel (Collapsible) */}
@@ -908,7 +1135,11 @@ export default function SafeVideoModal({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 40 }}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              className="w-full lg:w-2/5 xl:w-1/3 flex-1 lg:h-full lg:max-h-[85vh] bg-slate-900/85 backdrop-blur-xl border border-white/15 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 text-white shadow-2xl flex flex-col overflow-hidden"
+              className={
+                isFullMode
+                  ? "absolute right-0 top-0 bottom-0 z-40 w-full max-w-xs sm:max-w-sm bg-slate-950/95 backdrop-blur-2xl border-l border-white/20 p-3.5 sm:p-5 text-white shadow-2xl flex flex-col overflow-hidden"
+                  : "w-full lg:w-2/5 xl:w-1/3 flex-1 lg:h-full lg:max-h-[85vh] bg-slate-900/85 backdrop-blur-xl border border-white/15 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 text-white shadow-2xl flex flex-col overflow-hidden"
+              }
             >
               {/* Header & Star Achievement & Minimize Button */}
               <div className="flex items-center justify-between pb-2.5 border-b border-white/10 shrink-0">

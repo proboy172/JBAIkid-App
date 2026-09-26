@@ -397,6 +397,29 @@ body:has(#karaoke-player-modal) .cloud {
   animation-play-state: paused !important;
 }
 
+/* True Fullscreen & Mobile Video Edge-to-Edge Styles */
+#safe-video-modal:fullscreen,
+#safe-video-modal:-webkit-full-screen,
+#karaoke-player-modal:fullscreen,
+#karaoke-player-modal:-webkit-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #000 !important;
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+  #safe-video-modal,
+  #karaoke-player-modal {
+    padding-left: env(safe-area-inset-left, 0px) !important;
+    padding-right: env(safe-area-inset-right, 0px) !important;
+  }
+}
+
 /* ===== COOL TABLET & BATTERY SAVER ECO MODE ===== */
 body.eco-mode *,
 body.eco-mode *::before,
