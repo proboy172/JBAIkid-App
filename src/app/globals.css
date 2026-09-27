@@ -31,18 +31,31 @@
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   user-select: none;
+  box-sizing: border-box;
 }
 
 html {
   font-size: 18px;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-y: auto;
+  overscroll-behavior-x: none;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: var(--font-body);
   color: var(--color-text);
   background: linear-gradient(145deg, var(--color-bg-start), var(--color-bg-mid), var(--color-bg-end));
+  width: 100%;
+  max-width: 100%;
   min-height: 100dvh;
-  overscroll-behavior: none;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+  touch-action: pan-y;
+  position: relative;
 }
 
 /* ===== SCROLLBAR ===== */
@@ -272,7 +285,7 @@ body {
 }
 
 .cloud {
-  position: fixed;
+  position: absolute;
   background: rgba(255, 255, 255, 0.45);
   border-radius: 50px;
   box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.6);
@@ -382,6 +395,16 @@ body {
   }
 }
 
+body.video-modal-open,
+html.video-modal-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none !important;
+  overscroll-behavior: none !important;
+}
+
 body.video-modal-open .bottom-nav,
 body:has(#safe-video-modal) .bottom-nav,
 body:has(#karaoke-player-modal) .bottom-nav {
@@ -397,27 +420,28 @@ body:has(#karaoke-player-modal) .cloud {
   animation-play-state: paused !important;
 }
 
-/* True Fullscreen & Mobile Video Edge-to-Edge Styles */
-#safe-video-modal:fullscreen,
-#safe-video-modal:-webkit-full-screen,
-#karaoke-player-modal:fullscreen,
-#karaoke-player-modal:-webkit-full-screen {
+/* Video & Karaoke Modal Shell: True App Fullscreen & Anti-Wobble Fit */
+#safe-video-modal,
+#karaoke-player-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
   width: 100vw !important;
-  height: 100vh !important;
+  height: 100% !important;
   height: 100dvh !important;
-  max-width: none !important;
-  max-height: none !important;
+  max-width: 100vw !important;
+  max-height: 100dvh !important;
   margin: 0 !important;
   padding: 0 !important;
-  background-color: #000 !important;
-}
-
-@media (orientation: landscape) and (max-height: 540px) {
-  #safe-video-modal,
-  #karaoke-player-modal {
-    padding-left: env(safe-area-inset-left, 0px) !important;
-    padding-right: env(safe-area-inset-right, 0px) !important;
-  }
+  background-color: #000000 !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  touch-action: manipulation;
+  z-index: 1000 !important;
 }
 
 /* ===== COOL TABLET & BATTERY SAVER ECO MODE ===== */

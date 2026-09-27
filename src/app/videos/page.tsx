@@ -389,7 +389,7 @@ function VideosContent() {
     filteredEduVideos.length + filteredSongsEn.length + filteredSongsVi.length;
 
   return (
-    <div className="min-h-dvh flex flex-col bg-[#F8FAFC]">
+    <div className="min-h-dvh w-full max-w-full overflow-x-hidden flex flex-col bg-[#F8FAFC]">
       {/* Active Educational Video Player Modal */}
       <AnimatePresence>
         {activeEduVideo && (

@@ -76,6 +76,7 @@ export const viewport: Viewport = {
   userScalable: false,
   themeColor: "#FFF1F5",
   viewportFit: "cover",
+  interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -86,11 +87,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <GoogleAnalytics />
-        <div id="app-container" className="min-h-dvh relative overflow-hidden">
-          {/* Floating clouds background */}
-          <div className="cloud cloud-1" aria-hidden="true" />
-          <div className="cloud cloud-2" aria-hidden="true" />
-          <div className="cloud cloud-3" aria-hidden="true" />
+        <div id="app-container" className="min-h-dvh w-full max-w-full relative overflow-x-hidden">
+          {/* Floating clouds background strictly contained within viewport */}
+          <div className="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+            <div className="cloud cloud-1" />
+            <div className="cloud cloud-2" />
+            <div className="cloud cloud-3" />
+          </div>
 
           {children}
           <TimeTracker />

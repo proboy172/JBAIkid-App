@@ -77,8 +77,17 @@ export default function KaraokePlayer({
     const checkOrientation = () => {
       if (typeof window === "undefined") return;
       const isLandscape = window.innerWidth > window.innerHeight;
-      const isMobileSize = window.innerHeight <= 540 || (window.innerWidth <= 960 && isLandscape);
-      setIsMobileLandscape(isLandscape && isMobileSize);
+      const isMobileOrTablet =
+        window.innerHeight <= 640 ||
+        window.innerWidth <= 1024 ||
+        "ontouchstart" in window ||
+        (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0);
+      setIsMobileLandscape(isLandscape && isMobileOrTablet);
+
+      // Reset any stray horizontal scroll on orientation change
+      window.scrollTo(0, 0);
+      if (document.documentElement) document.documentElement.scrollLeft = 0;
+      if (document.body) document.body.scrollLeft = 0;
     };
 
     checkOrientation();
@@ -610,9 +619,7 @@ export default function KaraokePlayer({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={`fixed inset-0 z-[1000] flex items-center justify-center select-none ${
-        isFullMode ? "bg-black p-0 m-0 overflow-hidden" : "bg-black/95 backdrop-blur-md"
-      }`}
+      className="fixed inset-0 z-[1000] flex items-center justify-center select-none bg-black overflow-hidden"
     >
       {/* Top Controls Header - 100% Synchronized with SafeVideoModal */}
       <div
@@ -621,15 +628,20 @@ export default function KaraokePlayer({
             ? "opacity-0 pointer-events-none"
             : "opacity-100 pointer-events-auto"
         }`}
+        style={{
+          paddingLeft: "max(env(safe-area-inset-left, 8px), 8px)",
+          paddingRight: "max(env(safe-area-inset-right, 8px), 8px)",
+          paddingTop: "max(env(safe-area-inset-top, 8px), 8px)",
+        }}
       >
         {/* Song Info & Emoji Avatar */}
-        <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 mr-2">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-lg sm:text-2xl shrink-0 shadow-inner">
+        <div className="flex items-center gap-1.5 sm:gap-3 flex-1 min-w-0 mr-1.5 sm:mr-2">
+          <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-base sm:text-2xl shrink-0 shadow-inner">
             {currentSong.emoji || "🎵"}
           </div>
           <div className="min-w-0">
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-white/20 text-amber-300 truncate max-w-[100px] sm:max-w-none">
+            <div className="flex items-center gap-1 sm:gap-2">
+              <span className="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider px-1 sm:px-2 py-0.5 rounded-md bg-white/20 text-amber-300 truncate max-w-[80px] sm:max-w-none">
                 {isEnglishSong ? "English Nursery" : "Bài Hát Thiếu Nhi"}
               </span>
               <span className="text-[10px] sm:text-[11px] text-white/70 hidden md:inline">
@@ -654,7 +666,7 @@ export default function KaraokePlayer({
               playSFX("tap");
               setShowQuickDrawer(!showQuickDrawer);
             }}
-            className={`px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
+            className={`px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer ${
               showQuickDrawer
                 ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/30"
                 : "bg-white/20 border-white/30 text-white hover:bg-white/30"
@@ -662,8 +674,7 @@ export default function KaraokePlayer({
             title="Xem danh sách bài hát gợi ý như YouTube Kids"
           >
             <span className="text-sm sm:text-base">🎈</span>
-            <span className="hidden md:inline">Gợi Ý Bài Hát</span>
-            <span className="md:hidden">Gợi Ý</span>
+            <span className="hidden sm:inline">Gợi Ý</span>
           </motion.button>
 
           {/* 2. Random Surprise Button */}
@@ -671,7 +682,7 @@ export default function KaraokePlayer({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.92 }}
             onClick={handleRandomSongSurprise}
-            className="px-2 sm:px-2.5 py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 hover:bg-amber-400/30 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer shadow-sm"
+            className="w-7 h-7 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 hover:bg-amber-400/30 text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer shadow-sm"
             title="Đổi sang 1 bài hát ngẫu nhiên bất ngờ"
           >
             <span>🎲</span>
@@ -686,16 +697,15 @@ export default function KaraokePlayer({
                 playSFX("tap");
                 setShowLyricsPanel(!showLyricsPanel);
               }}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-full border text-xs sm:text-sm font-bold flex items-center gap-1 transition-all cursor-pointer shadow-sm ${
+              className={`px-2 sm:px-3 py-1.5 rounded-full border text-xs sm:text-sm font-bold flex items-center gap-1 transition-all cursor-pointer shadow-sm ${
                 showLyricsPanel
                   ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/40 hover:bg-amber-300 font-black"
                   : "bg-white/20 text-white/95 border-white/30 hover:bg-white/30"
               }`}
               title={showLyricsPanel ? "Ẩn góc lời bài hát để mở rộng video" : "Bật góc lời bài hát & từ vựng"}
             >
-              <BookOpen size={15} />
-              <span className="hidden sm:inline">{showLyricsPanel ? "Ẩn Lời Nhạc" : "Lời Bài Hát"}</span>
-              <span className="sm:hidden">{showLyricsPanel ? "Ẩn Lời" : "Lời Hát"}</span>
+              <BookOpen size={14} />
+              <span className="hidden sm:inline">{showLyricsPanel ? "Ẩn Lời" : "Lời Nhạc"}</span>
             </motion.button>
           )}
 
@@ -706,14 +716,14 @@ export default function KaraokePlayer({
               playSFX("tap");
               toggleFullscreen();
             }}
-            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-all cursor-pointer ${
+            className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-all cursor-pointer ${
               isFullMode
                 ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/40"
                 : "bg-white/20 text-amber-300 border-amber-400/50 hover:bg-white/30"
             }`}
             title={isFullMode ? "Thu nhỏ màn hình" : "Xem toàn màn hình (Full screen)"}
           >
-            {isFullMode ? <Minimize2 size={16} strokeWidth={2.5} /> : <Maximize2 size={16} strokeWidth={2.5} />}
+            {isFullMode ? <Minimize2 size={15} strokeWidth={2.5} /> : <Maximize2 size={15} strokeWidth={2.5} />}
           </motion.button>
 
           {/* 4. Favorite Button */}
@@ -724,14 +734,14 @@ export default function KaraokePlayer({
                 playSFX("tap");
                 onToggleFavorite();
               }}
-              className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
+              className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
                 isFavorite
                   ? "bg-red-500/30 border-red-400 text-red-400"
                   : "bg-white/15 border-white/25 text-white/70 hover:bg-white/25"
               }`}
               title={isFavorite ? "Bỏ yêu thích" : "Lưu vào bài hát yêu thích"}
             >
-              <Heart size={16} fill={isFavorite ? "#F87171" : "none"} />
+              <Heart size={15} fill={isFavorite ? "#F87171" : "none"} />
             </motion.button>
           )}
 
@@ -740,28 +750,28 @@ export default function KaraokePlayer({
             id="karaoke-toddler-lock-btn"
             whileTap={{ scale: 0.9 }}
             onClick={toggleLock}
-            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
+            className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
               isLocked
                 ? "bg-amber-500 text-slate-950 border-amber-300 shadow-lg shadow-amber-500/40"
                 : "bg-white/15 border-white/25 text-white/70 hover:bg-white/25"
             }`}
             title={isLocked ? "Bấm để mở khóa thao tác" : "Khóa màn hình cho bé xem"}
           >
-            {isLocked ? <Lock size={16} strokeWidth={2.5} /> : <Unlock size={16} />}
+            {isLocked ? <Lock size={15} strokeWidth={2.5} /> : <Unlock size={15} />}
           </motion.button>
 
           {/* 6. Close Button */}
           <button
             onClick={handleClose}
             disabled={isLocked}
-            className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors text-white ${
+            className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors text-white ${
               isLocked
                 ? "opacity-30 cursor-not-allowed bg-white/10 border-white/10"
                 : "bg-white/20 hover:bg-white/30 border-white/30 cursor-pointer"
             }`}
-            title="Đóng video bài hát"
+            title="Đóng bài hát"
           >
-            <X size={18} strokeWidth={2.5} />
+            <X size={16} strokeWidth={2.5} />
           </button>
         </div>
       </div>
@@ -972,12 +982,16 @@ export default function KaraokePlayer({
                   setShowQuickDrawer(true);
                   setShowHUD(false);
                 }}
-                className={`absolute bottom-3 right-3 sm:bottom-3.5 sm:right-4 z-40 px-3.5 sm:px-4.5 py-2 sm:py-2.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-2 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none ${
+                className={`absolute z-40 px-3 sm:px-4.5 py-1.5 sm:py-2.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-1.5 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none ${
                   isFullMode && !showHUD ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
                 }`}
+                style={{
+                  right: "max(env(safe-area-inset-right, 12px), 12px)",
+                  bottom: "max(env(safe-area-inset-bottom, 12px), 12px)",
+                }}
                 title="Mở danh sách video gợi ý"
               >
-                <span className="text-base sm:text-lg animate-bounce">🎈</span>
+                <span className="text-sm sm:text-lg animate-bounce">🎈</span>
                 <span
                   className="text-amber-300 text-xs sm:text-sm font-black tracking-wide"
                   style={{ fontFamily: "var(--font-heading)" }}
