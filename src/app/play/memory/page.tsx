@@ -1,14 +1,17 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackButton from "@/components/layout/BackButton";
 import { ConfettiOverlay } from "@/components/shared/ConfettiOverlay";
-import { getAllTopics, type VocabItem } from "@/data/vocabulary";
+import type { VocabItem } from "@/data/vocabulary";
 import { useSpeech } from "@/hooks/useSpeech";
 import { useConfetti } from "@/hooks/useConfetti";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX } from "@/utils/soundEffects";
+import { getLearnedGameData } from "@/utils/gameLearnedHelper";
+import GameLockedLearnPrompt from "@/components/shared/GameLockedLearnPrompt";
+import NextLessonBanner from "@/components/shared/NextLessonBanner";
 
 interface Card {
   id: string;
@@ -18,9 +21,8 @@ interface Card {
   isMatched: boolean;
 }
 
-function generateCards(count: number): Card[] {
-  const all = getAllTopics().flatMap((c) => c.items);
-  const selected = [...all].sort(() => Math.random() - 0.5).slice(0, count);
+function generateCards(pool: VocabItem[], count: number): Card[] {
+  const selected = [...pool].sort(() => Math.random() - 0.5).slice(0, count);
   
   const cards: Card[] = [];
   selected.forEach((item, index) => {
@@ -32,7 +34,6 @@ function generateCards(count: number): Card[] {
 }
 
 export default function MemoryGamePage() {
-  const PAIRS = 6;
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedIds, setFlippedIds] = useState<string[]>([]);
   const [moves, setMoves] = useState(0);
@@ -42,17 +43,25 @@ export default function MemoryGamePage() {
   
   const { speak } = useSpeech();
   const { pieces, fire } = useConfetti();
-  const { addStars } = useAppStore();
+  const { addStars, learnedWords } = useAppStore();
+
+  // Extract learned words & next lesson to recommend
+  const { learnedItems, learnedCount, nextTopic, hasEnoughForMemory } = useMemo(
+    () => getLearnedGameData(learnedWords),
+    [learnedWords]
+  );
+
+  const PAIRS = Math.min(6, Math.max(3, Math.min(learnedItems.length, 6)));
 
   const startGame = useCallback(() => {
     playSFX("tap");
-    setCards(generateCards(PAIRS));
+    setCards(generateCards(learnedItems, PAIRS));
     setFlippedIds([]);
     setMoves(0);
     setMatches(0);
     setGameOver(false);
     setStarted(true);
-  }, []);
+  }, [learnedItems, PAIRS]);
 
   const handleCardClick = (id: string) => {
     if (flippedIds.length === 2) return; // Prevent clicking more than 2
@@ -107,27 +116,50 @@ export default function MemoryGamePage() {
     }
   };
 
+  // If child hasn't learned enough words (needs at least 3)
+  if (!hasEnoughForMemory) {
+    return (
+      <GameLockedLearnPrompt
+        gameTitle="Lật Thẻ Nhớ"
+        gameIcon="❓"
+        minWordsRequired={3}
+        currentLearnedCount={learnedCount}
+        nextTopic={nextTopic}
+      />
+    );
+  }
+
   if (!started) {
     return (
       <div className="h-dvh max-h-dvh w-full overflow-hidden flex flex-col justify-between select-none">
         <div className="pt-2 sm:pt-4 pb-1 px-4 sm:px-5 relative z-10 shrink-0">
           <BackButton label="Game Center" />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 relative z-10 overflow-hidden">
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center">
-            <span className="text-5xl sm:text-7xl block mb-2">❓</span>
-            <h1 className="text-2xl sm:text-3xl font-extrabold mb-1" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 relative z-10 overflow-hidden w-full max-w-md mx-auto">
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center w-full flex flex-col items-center">
+            <span className="text-4xl sm:text-5xl block mb-1">❓</span>
+            <h1 className="text-xl sm:text-3xl font-extrabold mb-0.5" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
               Lật Thẻ Nhớ
             </h1>
-            <p className="text-text-light mb-4 sm:mb-6 text-xs sm:text-base">Tìm và lật 2 thẻ giống nhau (Hình và Chữ)!</p>
+            <p className="text-text-light mb-1 text-xs sm:text-sm">Tìm và lật 2 thẻ giống nhau (Hình và Chữ)!</p>
+
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-800 text-xs font-bold mb-2 shadow-xs">
+              <span>🎯 Ghép {PAIRS} cặp từ {learnedCount} từ bé đã học</span>
+            </div>
+
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={startGame}
-              className="px-8 py-3 rounded-2xl sm:rounded-3xl text-white text-lg sm:text-xl font-bold shadow-xl cursor-pointer"
+              className="px-7 py-2.5 sm:px-8 sm:py-3 rounded-2xl sm:rounded-3xl text-white text-base sm:text-lg font-bold shadow-xl cursor-pointer mb-3"
               style={{ background: "linear-gradient(135deg, #C084FC, #A855F7)", fontFamily: "var(--font-heading)" }}
             >
               Bắt Đầu! 🚀
             </motion.button>
+
+            {/* Next lesson recommendation to expand game */}
+            <div className="w-full mt-1">
+              <NextLessonBanner nextTopic={nextTopic} learnedCount={learnedCount} compact />
+            </div>
           </motion.div>
         </div>
         <div className="h-2 shrink-0" />
@@ -141,29 +173,37 @@ export default function MemoryGamePage() {
     return (
       <div className="h-dvh max-h-dvh w-full overflow-hidden flex flex-col justify-between select-none">
         <ConfettiOverlay pieces={pieces} />
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 relative z-10 overflow-hidden">
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center glass-card p-6 sm:p-8 max-w-sm w-full mx-4">
-            <span className="text-5xl sm:text-6xl block mb-2">{stars >= 3 ? "🏆" : stars >= 2 ? "🌟" : "👍"}</span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold mb-1" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 relative z-10 overflow-hidden w-full max-w-sm mx-auto">
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center glass-card p-4 sm:p-6 rounded-3xl w-full mx-4 flex flex-col items-center">
+            <span className="text-3xl sm:text-4xl block mb-0.5">{stars >= 3 ? "🏆" : stars >= 2 ? "🌟" : "👍"}</span>
+            <h2 className="text-lg sm:text-2xl font-extrabold mb-0.5" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
               Chiến thắng!
             </h2>
-            <div className="flex justify-center gap-1 mb-2">
+            <div className="flex justify-center gap-1 mb-1.5">
               {Array.from({ length: 3 }).map((_, i) => (
-                <motion.span key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.2 }} className="text-3xl">
+                <motion.span key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.2 }} className="text-2xl">
                   {i < stars ? "⭐" : "☆"}
                 </motion.span>
               ))}
             </div>
-            <p className="text-base sm:text-lg font-bold mb-4 text-text-light">Hoàn thành trong {moves} lượt lật</p>
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={startGame}
-              className="px-6 py-2.5 rounded-2xl text-white text-base font-bold shadow-lg mb-2 block w-full cursor-pointer"
-              style={{ background: "linear-gradient(135deg, #C084FC, #A855F7)", fontFamily: "var(--font-heading)" }}
-            >
-              Chơi Lại 🔄
-            </motion.button>
-            <BackButton label="Quay Về" />
+            <p className="text-sm sm:text-base font-bold mb-2 text-text-light">Hoàn thành trong {moves} lượt lật</p>
+
+            <div className="flex items-center gap-2 w-full mb-2">
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={startGame}
+                className="flex-1 py-2 rounded-2xl text-white text-xs sm:text-sm font-bold shadow-md cursor-pointer"
+                style={{ background: "linear-gradient(135deg, #C084FC, #A855F7)", fontFamily: "var(--font-heading)" }}
+              >
+                Chơi Lại 🔄
+              </motion.button>
+              <BackButton label="Thoát" />
+            </div>
+
+            {/* Next lesson recommendation to expand game */}
+            <div className="w-full mt-1">
+              <NextLessonBanner nextTopic={nextTopic} learnedCount={learnedCount} compact />
+            </div>
           </motion.div>
         </div>
         <div className="h-2 shrink-0" />
