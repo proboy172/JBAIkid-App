@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackButton from "@/components/layout/BackButton";
-import BottomNav from "@/components/layout/BottomNav";
 import { ConfettiOverlay } from "@/components/shared/ConfettiOverlay";
 import { getAllTopics, type VocabItem } from "@/data/vocabulary";
 import { useSpeech } from "@/hooks/useSpeech";
@@ -110,28 +109,28 @@ export default function MemoryGamePage() {
 
   if (!started) {
     return (
-      <div className="min-h-dvh flex flex-col">
-        <div className="pt-10 pb-4 px-5 relative z-10">
+      <div className="h-dvh max-h-dvh w-full overflow-hidden flex flex-col justify-between select-none">
+        <div className="pt-2 sm:pt-4 pb-1 px-4 sm:px-5 relative z-10 shrink-0">
           <BackButton label="Game Center" />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 relative z-10 overflow-hidden">
           <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center">
-            <span className="text-8xl block mb-4">❓</span>
-            <h1 className="text-3xl font-extrabold mb-2" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
+            <span className="text-5xl sm:text-7xl block mb-2">❓</span>
+            <h1 className="text-2xl sm:text-3xl font-extrabold mb-1" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
               Lật Thẻ Nhớ
             </h1>
-            <p className="text-text-light mb-8">Tìm và lật 2 thẻ giống nhau (Hình và Chữ)!</p>
+            <p className="text-text-light mb-4 sm:mb-6 text-xs sm:text-base">Tìm và lật 2 thẻ giống nhau (Hình và Chữ)!</p>
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={startGame}
-              className="px-10 py-4 rounded-3xl text-white text-xl font-bold shadow-xl"
+              className="px-8 py-3 rounded-2xl sm:rounded-3xl text-white text-lg sm:text-xl font-bold shadow-xl cursor-pointer"
               style={{ background: "linear-gradient(135deg, #C084FC, #A855F7)", fontFamily: "var(--font-heading)" }}
             >
               Bắt Đầu! 🚀
             </motion.button>
           </motion.div>
         </div>
-        <BottomNav />
+        <div className="h-2 shrink-0" />
       </div>
     );
   }
@@ -140,26 +139,26 @@ export default function MemoryGamePage() {
     const finalMoves = moves;
     const stars = finalMoves <= PAIRS + 2 ? 3 : finalMoves <= PAIRS + 6 ? 2 : 1;
     return (
-      <div className="min-h-dvh flex flex-col">
+      <div className="h-dvh max-h-dvh w-full overflow-hidden flex flex-col justify-between select-none">
         <ConfettiOverlay pieces={pieces} />
-        <div className="flex-1 flex flex-col items-center justify-center px-5 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center glass-card p-8 max-w-sm w-full">
-            <span className="text-7xl block mb-3">{stars >= 3 ? "🏆" : stars >= 2 ? "🌟" : "👍"}</span>
-            <h2 className="text-3xl font-extrabold mb-2" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 relative z-10 overflow-hidden">
+          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-center glass-card p-6 sm:p-8 max-w-sm w-full mx-4">
+            <span className="text-5xl sm:text-6xl block mb-2">{stars >= 3 ? "🏆" : stars >= 2 ? "🌟" : "👍"}</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold mb-1" style={{ fontFamily: "var(--font-heading)", color: "#C084FC" }}>
               Chiến thắng!
             </h2>
-            <div className="flex justify-center gap-1 mb-4">
+            <div className="flex justify-center gap-1 mb-2">
               {Array.from({ length: 3 }).map((_, i) => (
-                <motion.span key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.2 }} className="text-4xl">
+                <motion.span key={i} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: i * 0.2 }} className="text-3xl">
                   {i < stars ? "⭐" : "☆"}
                 </motion.span>
               ))}
             </div>
-            <p className="text-lg font-bold mb-6 text-text-light">Hoàn thành trong {moves} lượt lật</p>
+            <p className="text-base sm:text-lg font-bold mb-4 text-text-light">Hoàn thành trong {moves} lượt lật</p>
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={startGame}
-              className="px-8 py-3 rounded-3xl text-white text-lg font-bold shadow-lg mb-3"
+              className="px-6 py-2.5 rounded-2xl text-white text-base font-bold shadow-lg mb-2 block w-full cursor-pointer"
               style={{ background: "linear-gradient(135deg, #C084FC, #A855F7)", fontFamily: "var(--font-heading)" }}
             >
               Chơi Lại 🔄
@@ -167,31 +166,33 @@ export default function MemoryGamePage() {
             <BackButton label="Quay Về" />
           </motion.div>
         </div>
-        <BottomNav />
+        <div className="h-2 shrink-0" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-dvh flex flex-col">
-      <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10">
+    <div className="h-dvh max-h-dvh w-full overflow-hidden flex flex-col justify-between select-none">
+      {/* Header */}
+      <div className="pt-2 sm:pt-3 pb-1 px-4 sm:px-5 relative z-10 shrink-0">
         <div className="flex items-center justify-between max-w-4xl mx-auto w-full">
           <BackButton />
-          <span className="text-sm font-bold px-3 py-1 rounded-full glass-card text-purple-600">
+          <span className="text-xs sm:text-sm font-bold px-3 py-1 rounded-full glass-card text-purple-600">
             Lượt: {moves} &nbsp;|&nbsp; Ghép: {matches}/{PAIRS}
           </span>
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 landscape:grid-cols-6 gap-2 sm:gap-3 w-full max-w-sm sm:max-w-xl md:max-w-4xl mx-auto">
+      {/* Cards Area */}
+      <div className="flex-1 flex flex-col items-center justify-center px-2 sm:px-4 py-1 overflow-hidden relative z-10 w-full max-w-sm sm:max-w-xl md:max-w-4xl mx-auto">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 landscape:grid-cols-6 gap-2 sm:gap-2.5 w-full shrink-0">
           <AnimatePresence>
             {cards.map((card) => {
               const isFlipped = flippedIds.includes(card.id) || card.isMatched;
               return (
                 <motion.div
                   key={card.id}
-                  className="aspect-[3/4] relative cursor-pointer perspective-1000 max-h-[160px]"
+                  className="aspect-[3/4] relative cursor-pointer perspective-1000 max-h-[min(135px,17vh)] landscape:max-h-[min(125px,38vh)]"
                   onClick={() => handleCardClick(card.id)}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -203,21 +204,21 @@ export default function MemoryGamePage() {
                   >
                     {/* Front (Hidden) */}
                     <div
-                      className="absolute inset-0 rounded-2xl md:rounded-3xl shadow-md border-2 border-purple-300 flex items-center justify-center overflow-hidden"
+                      className="absolute inset-0 rounded-2xl shadow-md border-2 border-purple-300 flex items-center justify-center overflow-hidden"
                       style={{ 
                         background: "repeating-linear-gradient(45deg, #f3e8ff, #f3e8ff 10px, #e9d5ff 10px, #e9d5ff 20px)",
                         backfaceVisibility: "hidden", 
                         WebkitBackfaceVisibility: "hidden" 
                       }}
                     >
-                      <div className="bg-white/80 p-2 sm:p-3 rounded-full shadow-sm backdrop-blur-sm w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center">
-                        <span className="text-3xl sm:text-4xl md:text-5xl text-purple-500 drop-shadow-md font-black">?</span>
+                      <div className="bg-white/80 p-1.5 sm:p-2.5 rounded-full shadow-sm backdrop-blur-sm w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center">
+                        <span className="text-2xl sm:text-3xl text-purple-500 drop-shadow-md font-black">?</span>
                       </div>
                     </div>
 
                     {/* Back (Revealed) */}
                     <div
-                      className={`absolute inset-0 rounded-2xl md:rounded-3xl shadow-md border-2 bg-white flex flex-col items-center justify-center p-2 sm:p-3 ${
+                      className={`absolute inset-0 rounded-2xl shadow-md border-2 bg-white flex flex-col items-center justify-center p-1.5 sm:p-2 ${
                         card.isMatched ? "border-green-400 bg-green-50" : "border-purple-400"
                       }`}
                       style={{ 
@@ -227,12 +228,12 @@ export default function MemoryGamePage() {
                       }}
                     >
                       {card.type === "emoji" ? (
-                        <div className="w-full h-full flex items-center justify-center p-1 overflow-hidden">
+                        <div className="w-full h-full flex items-center justify-center p-0.5 overflow-hidden">
                           {card.item.photoUrl || card.item.illustrationUrl ? (
                             <img
                               src={card.item.photoUrl || card.item.illustrationUrl}
                               alt={card.item.en}
-                              className="w-full h-full object-contain max-h-[85px] sm:max-h-[100px] rounded-xl"
+                              className="w-full h-full object-contain max-h-[65px] sm:max-h-[85px] landscape:max-h-[60px] rounded-lg"
                               onError={(e) => {
                                 (e.currentTarget as HTMLElement).style.display = "none";
                                 const fallback = e.currentTarget.parentElement?.querySelector(".emoji-fallback") as HTMLElement;
@@ -241,14 +242,14 @@ export default function MemoryGamePage() {
                             />
                           ) : null}
                           <span
-                            className="emoji-fallback text-4xl sm:text-5xl md:text-6xl"
+                            className="emoji-fallback text-3xl sm:text-4xl landscape:text-3xl"
                             style={{ display: card.item.photoUrl || card.item.illustrationUrl ? "none" : "block" }}
                           >
                             {card.item.emoji}
                           </span>
                         </div>
                       ) : (
-                        <span className="text-xs sm:text-sm md:text-base font-bold text-center break-words w-full px-1" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
+                        <span className="text-[11px] sm:text-xs md:text-sm font-bold text-center break-words w-full px-0.5 leading-tight" style={{ fontFamily: "var(--font-heading)", color: "var(--color-text)" }}>
                           {card.item.en}
                         </span>
                       )}
@@ -260,7 +261,9 @@ export default function MemoryGamePage() {
           </AnimatePresence>
         </div>
       </div>
-      <BottomNav />
+
+      {/* Safe bottom spacer */}
+      <div className="h-1 sm:h-2 shrink-0" />
     </div>
   );
 }

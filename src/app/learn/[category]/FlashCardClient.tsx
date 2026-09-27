@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import BackButton from "@/components/layout/BackButton";
-import BottomNav from "@/components/layout/BottomNav";
 import { ConfettiOverlay } from "@/components/shared/ConfettiOverlay";
 import { getAllTopics } from "@/data/vocabulary";
 import { useSpeech } from "@/hooks/useSpeech";
@@ -348,22 +347,28 @@ export default function FlashCardClient() {
   }
 
   return (
-    <div className="min-h-dvh flashcard-screen-root flex flex-col">
+    <div 
+      className="h-dvh max-h-dvh w-full overflow-hidden flashcard-screen-root flex flex-col justify-between select-none"
+      style={{
+        paddingTop: "max(env(safe-area-inset-top, 6px), 6px)",
+        paddingBottom: "max(env(safe-area-inset-bottom, 6px), 6px)",
+      }}
+    >
       <ConfettiOverlay pieces={pieces} />
 
       {/* Header */}
-      <div className="pt-8 sm:pt-10 pb-2 px-4 sm:px-5 landscape:pt-2 landscape:pb-1 relative z-10 flashcard-screen-header">
+      <div className="pt-2 sm:pt-4 pb-1.5 px-3 sm:px-5 relative z-10 flashcard-screen-header">
         <div className="flex items-center justify-between">
           <BackButton label={cat.nameVi} />
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => {
                 playSFX("tap");
                 setIsAutoPlay((prev) => !prev);
               }}
-              className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 border shadow-sm transition-all ${
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 border shadow-sm transition-all ${
                 isAutoPlay
                   ? "bg-pink-500 text-white border-pink-400 shadow-pink-300/50 animate-pulse"
                   : "bg-white/80 text-text-light border-white/60 hover:text-text"
@@ -373,14 +378,14 @@ export default function FlashCardClient() {
               <span>{isAutoPlay ? "⏸️ Dừng" : "▶️ Tự động xem"}</span>
             </motion.button>
 
-            <span className="text-sm font-bold px-3 py-1 rounded-full glass-card" style={{ color: cat.color }}>
+            <span className="text-xs sm:text-sm font-bold px-2.5 sm:px-3 py-1 rounded-full glass-card" style={{ color: cat.color }}>
               {index + 1} / {items.length}
             </span>
           </div>
         </div>
 
         {/* Progress bar */}
-        <div className="mt-2.5 sm:mt-3 landscape:mt-1 h-2 sm:h-2.5 bg-white/50 rounded-full overflow-hidden">
+        <div className="mt-1.5 sm:mt-2 h-1.5 sm:h-2 bg-white/50 rounded-full overflow-hidden">
           <motion.div
             className="h-full rounded-full"
             style={{ backgroundColor: cat.color }}
@@ -391,7 +396,7 @@ export default function FlashCardClient() {
       </div>
 
       {/* Flash Card Area */}
-      <div className="flex-1 flashcard-main-layout flex flex-col items-center justify-center px-4 py-1 sm:py-2 pb-20 sm:pb-24 overflow-y-auto relative z-10 w-full max-w-5xl mx-auto">
+      <div className="flex-1 min-h-0 flashcard-main-layout flex flex-col items-center justify-center px-2 sm:px-4 py-0.5 sm:py-1 relative z-10 w-full max-w-5xl mx-auto overflow-hidden">
         {/* Card Column */}
         <div className="w-full max-w-xs sm:max-w-sm flashcard-card-box flex flex-col items-center justify-center">
           <AnimatePresence mode="wait">
@@ -405,7 +410,7 @@ export default function FlashCardClient() {
             >
               {/* Card */}
               <div
-                className="flash-card-container w-full h-[360px] sm:h-[400px] flashcard-card-inner-h"
+                className="flash-card-container w-full h-[min(340px,46vh)] sm:h-[min(380px,50vh)] flashcard-card-inner-h"
               onClick={() => {
                 playSFX("pop");
                 setFlipped((f) => !f);
@@ -780,8 +785,6 @@ export default function FlashCardClient() {
           />
         )}
       </AnimatePresence>
-
-      <BottomNav />
     </div>
   );
 }

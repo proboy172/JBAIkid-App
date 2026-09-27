@@ -3,7 +3,6 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import BackButton from "@/components/layout/BackButton";
-import BottomNav from "@/components/layout/BottomNav";
 import { ConfettiOverlay } from "@/components/shared/ConfettiOverlay";
 import { getAllTopics, type VocabItem } from "@/data/vocabulary";
 import { useSpeech } from "@/hooks/useSpeech";
@@ -91,34 +90,34 @@ export default function PlayPage() {
   // Start screen
   if (!started) {
     return (
-      <div className="min-h-dvh flex flex-col">
-        <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10 max-w-xl mx-auto w-full">
+      <div className="h-dvh max-h-dvh w-full overflow-hidden flex flex-col justify-between select-none">
+        <div className="pt-2 sm:pt-4 pb-1 px-4 sm:px-5 relative z-10 max-w-xl mx-auto w-full shrink-0">
           <BackButton label="Game Center" />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 relative z-10 overflow-hidden">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200 }}
             className="text-center"
           >
-            <span className="text-5xl sm:text-6xl block mb-2">🎧</span>
+            <span className="text-4xl sm:text-6xl block mb-1 sm:mb-2">🎧</span>
             <h1
-              className="text-2xl sm:text-3xl font-extrabold mb-1"
+              className="text-xl sm:text-3xl font-extrabold mb-1"
               style={{ fontFamily: "var(--font-heading)", color: "var(--color-accent-dark)" }}
             >
               Nghe & Chọn
             </h1>
-            <p className="text-text-light mb-1 text-sm sm:text-base">
+            <p className="text-text-light mb-1 text-xs sm:text-base">
               Nghe phát âm tiếng Anh, chọn đúng hình ảnh!
             </p>
-            <p className="text-xs sm:text-sm text-text-light mb-4">🏆 Kỷ lục: {quizHighScore}/{TOTAL}</p>
+            <p className="text-xs sm:text-sm text-text-light mb-3 sm:mb-4">🏆 Kỷ lục: {quizHighScore}/{TOTAL}</p>
 
             <motion.button
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
               onClick={startGame}
-              className="px-8 py-3 rounded-2xl sm:rounded-3xl text-white text-lg sm:text-xl font-bold shadow-xl"
+              className="px-6 py-2.5 sm:px-8 sm:py-3 rounded-2xl sm:rounded-3xl text-white text-base sm:text-xl font-bold shadow-xl cursor-pointer"
               style={{ background: "linear-gradient(135deg, #34D399, #38BDF8)", fontFamily: "var(--font-heading)" }}
               id="btn-start-game"
             >
@@ -126,7 +125,7 @@ export default function PlayPage() {
             </motion.button>
           </motion.div>
         </div>
-        <BottomNav />
+        <div className="h-2 shrink-0" />
       </div>
     );
   }
@@ -135,46 +134,46 @@ export default function PlayPage() {
   if (gameOver) {
     const stars = score >= 7 ? 3 : score >= 5 ? 2 : score >= 3 ? 1 : 0;
     return (
-      <div className="min-h-dvh flex flex-col">
+      <div className="h-dvh max-h-dvh w-full overflow-hidden flex flex-col justify-between select-none">
         <ConfettiOverlay pieces={pieces} />
-        <div className="flex-1 flex flex-col items-center justify-center px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-2 relative z-10 overflow-hidden">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="glass-card p-8 rounded-3xl text-center max-w-sm w-full mx-4"
+            className="glass-card p-5 sm:p-7 rounded-3xl text-center max-w-sm w-full mx-4"
           >
-            <span className="text-6xl block mb-2">{stars >= 2 ? "🎉" : "💪"}</span>
+            <span className="text-4xl sm:text-5xl block mb-1">{stars >= 2 ? "🎉" : "💪"}</span>
             <h2
-              className="text-3xl font-extrabold mb-2"
+              className="text-xl sm:text-2xl font-extrabold mb-1"
               style={{ fontFamily: "var(--font-heading)", color: "var(--color-accent-dark)" }}
             >
               {stars === 3 ? "Xuất sắc!" : stars === 2 ? "Giỏi lắm!" : "Cố lên nhé!"}
             </h2>
-            <div className="flex justify-center gap-1 mb-4">
+            <div className="flex justify-center gap-1 mb-2">
               {Array.from({ length: 3 }).map((_, i) => (
                 <motion.span
                   key={i}
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: i * 0.2 }}
-                  className="text-4xl"
+                  className="text-2xl sm:text-3xl"
                 >
                   {i < stars ? "⭐" : "☆"}
                 </motion.span>
               ))}
             </div>
-            <p className="text-xl font-bold mb-2">
+            <p className="text-base sm:text-lg font-bold mb-1">
               {score} / {TOTAL} câu đúng
             </p>
             {score > quizHighScore && (
-              <p className="text-sm text-accent-dark font-bold mb-4">🏆 Kỷ lục mới!</p>
+              <p className="text-xs sm:text-sm text-accent-dark font-bold mb-2">🏆 Kỷ lục mới!</p>
             )}
             <motion.button
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
               onClick={startGame}
-              className="px-8 py-3 rounded-3xl text-white text-lg font-bold shadow-lg mb-3 block w-full"
+              className="px-6 py-2.5 rounded-2xl sm:rounded-3xl text-white text-base font-bold shadow-lg mb-2 block w-full cursor-pointer"
               style={{ background: "linear-gradient(135deg, #34D399, #38BDF8)", fontFamily: "var(--font-heading)" }}
               id="btn-play-again"
             >
@@ -183,26 +182,27 @@ export default function PlayPage() {
             <BackButton label="Game Center" />
           </motion.div>
         </div>
-        <BottomNav />
+        <div className="h-2 shrink-0" />
       </div>
     );
   }
 
   // Quiz screen
   return (
-    <div className="min-h-dvh flex flex-col">
+    <div className="h-dvh max-h-dvh w-full overflow-hidden flex flex-col justify-between select-none">
       <ConfettiOverlay pieces={pieces} />
 
-      <div className="pt-3 sm:pt-5 pb-2 px-4 sm:px-5 relative z-10 max-w-2xl mx-auto w-full">
+      {/* Header */}
+      <div className="pt-2 sm:pt-3 pb-1 px-4 sm:px-5 relative z-10 max-w-2xl mx-auto w-full shrink-0">
         <div className="flex items-center justify-between">
           <BackButton />
-          <span className="text-sm font-bold px-3 py-1 rounded-full glass-card text-accent-dark">
+          <span className="text-xs sm:text-sm font-bold px-3 py-1 rounded-full glass-card text-accent-dark">
             {qIndex + 1} / {TOTAL} &nbsp;|&nbsp; ⭐ {score}
           </span>
         </div>
 
         {/* Progress bar */}
-        <div className="mt-2.5 h-2.5 bg-white/50 rounded-full overflow-hidden">
+        <div className="mt-1.5 h-2 bg-white/50 rounded-full overflow-hidden">
           <motion.div
             className="h-full rounded-full bg-accent"
             animate={{ width: `${((qIndex + 1) / TOTAL) * 100}%` }}
@@ -211,22 +211,23 @@ export default function PlayPage() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-4 pb-32 sm:pb-36 lg:pb-40 overflow-y-auto relative z-10">
+      {/* Main Quiz Area */}
+      <div className="flex-1 flex flex-col items-center justify-center px-3 sm:px-4 py-1 overflow-hidden relative z-10 w-full max-w-2xl mx-auto">
         {/* Prompt */}
         <motion.div
           key={qIndex}
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center mb-3 sm:mb-4"
+          className="text-center mb-2 landscape:mb-1 shrink-0"
         >
-          <p className="text-text-light text-base sm:text-lg mb-2 font-semibold">🔊 Nghe và chọn đáp án đúng:</p>
+          <p className="text-text-light text-xs sm:text-sm mb-1 font-semibold">🔊 Nghe và chọn đáp án đúng:</p>
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => {
               playSFX("tap");
               speak(current.en, "en-US");
             }}
-            className="px-6 py-2.5 sm:px-8 sm:py-3 rounded-2xl sm:rounded-3xl text-white text-lg sm:text-xl font-bold shadow-xl"
+            className="px-5 py-1.5 sm:px-7 sm:py-2 rounded-2xl sm:rounded-3xl text-white text-sm sm:text-base font-bold shadow-md cursor-pointer"
             style={{ background: "linear-gradient(135deg, #C084FC, #818CF8)", fontFamily: "var(--font-heading)" }}
             id="btn-repeat"
           >
@@ -234,8 +235,8 @@ export default function PlayPage() {
           </motion.button>
         </motion.div>
 
-        {/* Choices */}
-        <div className="grid grid-cols-3 gap-2.5 sm:gap-4 w-full max-w-xl mx-auto">
+        {/* Choices Grid */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 w-full max-w-lg mx-auto shrink-0">
           {choices.map((item) => {
             const isCorrect = item.en === current.en;
             const isSelected = selected === item.en;
@@ -248,10 +249,10 @@ export default function PlayPage() {
             return (
               <motion.button
                 key={item.en}
-                whileTap={!selected ? { scale: 0.9 } : {}}
+                whileTap={!selected ? { scale: 0.92 } : {}}
                 onClick={() => handleAnswer(item)}
                 disabled={!!selected}
-                className={`${bg} rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col items-center gap-1.5 sm:gap-2 shadow-lg border-4 transition-colors ${
+                className={`${bg} rounded-2xl p-2 sm:p-3 flex flex-col items-center gap-1 sm:gap-1.5 shadow-md border-3 transition-colors cursor-pointer ${
                   isSelected && isCorrect
                     ? "border-accent"
                     : isSelected && !isCorrect
@@ -262,12 +263,12 @@ export default function PlayPage() {
                 }`}
                 id={`choice-${item.en.toLowerCase()}`}
               >
-                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden flex items-center justify-center bg-slate-50/80 shadow-sm border border-slate-100">
+                <div className="w-14 h-14 sm:w-20 sm:h-20 landscape:w-14 landscape:h-14 rounded-xl sm:rounded-2xl overflow-hidden flex items-center justify-center bg-slate-50/80 shadow-inner border border-slate-100">
                   {item.photoUrl || item.illustrationUrl ? (
                     <img
                       src={item.photoUrl || item.illustrationUrl}
                       alt={item.en}
-                      className="w-full h-full object-cover rounded-2xl"
+                      className="w-full h-full object-cover rounded-xl"
                       onError={(e) => {
                         (e.currentTarget as HTMLElement).style.display = "none";
                         const fallback = e.currentTarget.parentElement?.querySelector(".emoji-fallback") as HTMLElement;
@@ -276,37 +277,42 @@ export default function PlayPage() {
                     />
                   ) : null}
                   <span
-                    className="emoji-fallback text-4xl sm:text-5xl md:text-6xl"
+                    className="emoji-fallback text-3xl sm:text-4xl landscape:text-3xl"
                     style={{ display: item.photoUrl || item.illustrationUrl ? "none" : "block" }}
                   >
                     {item.emoji}
                   </span>
                 </div>
-                <span className="text-xs sm:text-sm md:text-base font-bold text-text-light text-center">{item.vi}</span>
+                <span className="text-[11px] sm:text-xs md:text-sm font-bold text-text-light text-center leading-tight truncate max-w-full px-0.5">
+                  {item.vi}
+                </span>
               </motion.button>
             );
           })}
         </div>
 
-        {/* Feedback */}
-        <AnimatePresence>
-          {selected && (
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className={`mt-4 text-lg font-bold ${
-                selected === current.en ? "text-accent-dark" : "text-danger"
-              }`}
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              {selected === current.en ? "Đúng rồi! 🎉" : `Sai rồi! Đáp án là ${current.emoji} ${current.vi}`}
-            </motion.p>
-          )}
-        </AnimatePresence>
+        {/* Feedback message */}
+        <div className="min-h-[28px] flex items-center justify-center mt-1.5">
+          <AnimatePresence>
+            {selected && (
+              <motion.p
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className={`text-sm sm:text-base font-bold text-center ${
+                  selected === current.en ? "text-accent-dark" : "text-danger"
+                }`}
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {selected === current.en ? "Đúng rồi! 🎉" : `Sai rồi! Đáp án: ${current.emoji} ${current.vi}`}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
-      <BottomNav />
+      {/* Safe bottom spacer */}
+      <div className="h-1 sm:h-2 shrink-0" />
     </div>
   );
 }
