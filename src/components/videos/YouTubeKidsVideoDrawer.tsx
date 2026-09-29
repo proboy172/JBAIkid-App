@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X, RotateCcw, Shuffle, Sparkles, Check, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import { RecommendedItem } from "./VideoEndRecommendation";
@@ -28,6 +28,10 @@ export default function YouTubeKidsVideoDrawer({
   onRandomSurprise,
 }: YouTubeKidsVideoDrawerProps) {
   const scrollTrayRef = useRef<HTMLDivElement>(null);
+  const isMouseDownRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const hasDraggedRef = useRef(false);
 
   const scrollLeft = () => {
     playSFX("tap");
@@ -42,6 +46,48 @@ export default function YouTubeKidsVideoDrawer({
       scrollTrayRef.current.scrollBy({ left: 340, behavior: "smooth" });
     }
   };
+
+  // Smooth mouse drag-to-scroll handlers for desktop and laptop trackpad/mouse
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollTrayRef.current) return;
+    isMouseDownRef.current = true;
+    hasDraggedRef.current = false;
+    startXRef.current = e.pageX - scrollTrayRef.current.offsetLeft;
+    scrollLeftRef.current = scrollTrayRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDownRef.current || !scrollTrayRef.current) return;
+    const x = e.pageX - scrollTrayRef.current.offsetLeft;
+    const walk = (x - startXRef.current);
+    if (Math.abs(walk) > 6) {
+      hasDraggedRef.current = true;
+    }
+    scrollTrayRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    isMouseDownRef.current = false;
+  };
+
+  // Convert vertical mouse wheel into smooth horizontal scroll
+  useEffect(() => {
+    const tray = scrollTrayRef.current;
+    if (!tray || !isOpen) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        tray.scrollLeft += e.deltaY;
+      }
+    };
+
+    tray.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      tray.removeEventListener("wheel", handleWheel);
+    };
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -50,7 +96,7 @@ export default function YouTubeKidsVideoDrawer({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="absolute inset-0 z-40 flex flex-col justify-end pointer-events-auto"
+          className="absolute inset-0 z-40 flex flex-col justify-end pointer-events-auto select-none"
         >
           {/* Backdrop on top area to dismiss when tapping outside */}
           <div
@@ -158,16 +204,27 @@ export default function YouTubeKidsVideoDrawer({
             <div className="relative group/tray">
               {/* Scroll Left Button */}
               <button
-                onClick={scrollLeft}
-                className="hidden sm:flex absolute -left-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/90 text-white border border-white/30 items-center justify-center shadow-xl hover:bg-cyan-600 transition-all cursor-pointer opacity-75 hover:opacity-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  scrollLeft();
+                }}
+                className="flex absolute -left-1 sm:-left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-900/95 text-white border-2 border-white/40 items-center justify-center shadow-xl hover:bg-cyan-600 hover:border-cyan-300 active:scale-95 transition-all cursor-pointer"
                 title="Xem video phía trước"
               >
-                <ChevronLeft size={18} />
+                <ChevronLeft size={20} />
               </button>
 
               <div 
                 ref={scrollTrayRef}
-                className="flex items-center gap-2.5 sm:gap-3.5 overflow-x-auto no-scrollbar py-1 px-1 scroll-smooth"
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUpOrLeave}
+                onMouseLeave={handleMouseUpOrLeave}
+                className="flex items-center gap-2.5 sm:gap-3.5 overflow-x-auto no-scrollbar py-1 px-1 touch-pan-x overscroll-x-contain select-none cursor-grab active:cursor-grabbing scroll-smooth"
+                style={{
+                  WebkitOverflowScrolling: "touch",
+                  scrollbarWidth: "none",
+                }}
               >
                 {recommendations.map((item, idx) => (
                   <motion.div
@@ -177,7 +234,12 @@ export default function YouTubeKidsVideoDrawer({
                     transition={{ delay: idx * 0.03 }}
                     whileHover={{ scale: 1.04, y: -2 }}
                     whileTap={{ scale: 0.94 }}
-                    onClick={() => {
+                    onClick={(e) => {
+                      if (hasDraggedRef.current) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                      }
                       playSFX("pop");
                       onSelect(item.id);
                     }}
@@ -188,7 +250,9 @@ export default function YouTubeKidsVideoDrawer({
                       <img
                         src={item.thumbnail}
                         alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        draggable={false}
+                        onDragStart={(e) => e.preventDefault()}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 pointer-events-none select-none"
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
@@ -234,11 +298,14 @@ export default function YouTubeKidsVideoDrawer({
 
               {/* Scroll Right Button */}
               <button
-                onClick={scrollRight}
-                className="hidden sm:flex absolute -right-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-slate-900/90 text-white border border-white/30 items-center justify-center shadow-xl hover:bg-cyan-600 transition-all cursor-pointer opacity-75 hover:opacity-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  scrollRight();
+                }}
+                className="flex absolute -right-1 sm:-right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-900/95 text-white border-2 border-white/40 items-center justify-center shadow-xl hover:bg-cyan-600 hover:border-cyan-300 active:scale-95 transition-all cursor-pointer"
                 title="Xem thêm video tiếp theo"
               >
-                <ChevronRight size={18} />
+                <ChevronRight size={20} />
               </button>
             </div>
           </motion.div>

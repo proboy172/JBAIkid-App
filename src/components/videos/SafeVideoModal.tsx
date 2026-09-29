@@ -215,6 +215,8 @@ export default function SafeVideoModal({
     };
   }, []);
 
+  const lastHUDOpenTimeRef = useRef<number>(0);
+
   // HUD Auto-Hide Timer (4.5s of inactivity like YouTube Kids)
   const resetHUDTimer = useCallback(() => {
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
@@ -223,19 +225,25 @@ export default function SafeVideoModal({
     }, 4500);
   }, []);
 
-  const handleOpenHUD = useCallback(() => {
+  const handleOpenHUD = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
     if (isLocked || isVideoEnded) return;
+    lastHUDOpenTimeRef.current = Date.now();
     setShowHUD(true);
     resetHUDTimer();
   }, [isLocked, isVideoEnded, resetHUDTimer]);
 
-  const handleCloseHUD = useCallback(() => {
+  const handleCloseHUD = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
+    // Guard against ghost-clicks immediately after opening (within 400ms)
+    if (Date.now() - lastHUDOpenTimeRef.current < 400) return;
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
     setShowHUD(false);
   }, []);
 
   // Play / Pause Toggle via YouTube postMessage
-  const togglePlayPause = useCallback(() => {
+  const togglePlayPause = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
     if (!iframeRef.current?.contentWindow) return;
     playSFX("tap");
     if (isPlaying) {
@@ -884,13 +892,11 @@ export default function SafeVideoModal({
               <div
                 id="safe-video-hud-overlay"
                 onClick={handleOpenHUD}
-                onPointerDown={handleOpenHUD}
                 className="absolute inset-0 z-20 cursor-pointer pointer-events-auto select-none"
-                style={{ backgroundColor: "rgba(0,0,0,0.01)", WebkitTapHighlightColor: "transparent" }}
+                style={{ backgroundColor: "rgba(0,0,0,0.001)", WebkitTapHighlightColor: "transparent" }}
                 title="Chạm vào màn hình để hiện các nút điều khiển cho bé"
               />
             )}
-
 
             {/* Toddler Interactive Player HUD on Screen Tap (YouTube Kids style) */}
             <AnimatePresence>
@@ -899,13 +905,21 @@ export default function SafeVideoModal({
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  onClick={handleCloseHUD}
-                  className="absolute inset-0 z-30 bg-black/45 backdrop-blur-[2px] flex flex-col justify-between p-3.5 sm:p-5 cursor-pointer select-none"
+                  transition={{ duration: 0.18 }}
+                  className="absolute inset-0 z-30 bg-black/45 backdrop-blur-[2px] flex flex-col justify-between p-3.5 sm:p-5 select-none pointer-events-auto"
                 >
+                  {/* Dedicated Backdrop Catcher to dismiss HUD on tapping empty background */}
+                  <div
+                    className="absolute inset-0 -z-10 cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCloseHUD(e);
+                    }}
+                  />
+
                   {/* Top HUD Hint Bar */}
                   <div
-                    className="flex items-center justify-between pointer-events-auto"
+                    className="flex items-center justify-between pointer-events-auto z-10"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-white/85 text-[11px] font-bold border border-white/20 flex items-center gap-1.5 shadow-md">
