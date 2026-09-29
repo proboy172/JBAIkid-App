@@ -99,6 +99,34 @@ function getInterleavedBaseItems(): AllVideoItem[] {
   return [...newItems, ...oldItems];
 }
 
+export interface EduFilterItem {
+  id: string;
+  name: string;
+  emoji: string;
+  count: number;
+  type: "all" | "channel" | "category";
+  target: string;
+}
+
+export const eduUnifiedFilters: EduFilterItem[] = [
+  { id: "all", name: "Tất cả", emoji: "🌟", count: educationalVideos.length, type: "all", target: "all" },
+  { id: "safari", name: "Safari 4K", emoji: "🦁", count: educationalVideos.filter(v => v.category === "safari").length, type: "category", target: "safari" },
+  { id: "ms-rachel", name: "Ms Rachel", emoji: "👧", count: educationalVideos.filter(v => v.channel === "Ms Rachel").length, type: "channel", target: "Ms Rachel" },
+  { id: "numberblocks", name: "Numberblocks", emoji: "🔢", count: educationalVideos.filter(v => v.channel === "Numberblocks").length, type: "channel", target: "Numberblocks" },
+  { id: "alphablocks", name: "Alphablocks", emoji: "🔤", count: educationalVideos.filter(v => v.channel === "Alphablocks").length, type: "channel", target: "Alphablocks" },
+  { id: "danny-go", name: "Danny Go! Nhảy", emoji: "🏃", count: educationalVideos.filter(v => v.channel === "Danny Go!").length, type: "channel", target: "Danny Go!" },
+  { id: "speech", name: "Bé tập nói", emoji: "🗣️", count: educationalVideos.filter(v => v.category === "speech").length, type: "category", target: "speech" },
+  { id: "caities-classroom", name: "Caitie's Class", emoji: "🎨", count: educationalVideos.filter(v => v.channel === "Caitie's Classroom").length, type: "channel", target: "Caitie's Classroom" },
+  { id: "super-simple", name: "Super Simple", emoji: "🎵", count: educationalVideos.filter(v => v.channel === "Super Simple").length, type: "channel", target: "Super Simple" },
+  { id: "math", name: "Đếm số 123", emoji: "🔢", count: educationalVideos.filter(v => v.category === "math").length, type: "category", target: "math" },
+  { id: "geckos-garage", name: "Xe cộ Gecko", emoji: "🚗", count: educationalVideos.filter(v => v.channel === "Gecko's Garage").length, type: "channel", target: "Gecko's Garage" },
+  { id: "scishow-kids", name: "Khoa học nhí", emoji: "🔬", count: educationalVideos.filter(v => v.channel === "SciShow Kids").length, type: "channel", target: "SciShow Kids" },
+  { id: "phonics", name: "Chữ cái ABC", emoji: "🔤", count: educationalVideos.filter(v => v.category === "phonics").length, type: "category", target: "phonics" },
+  { id: "steve-maggie", name: "Steve & Maggie", emoji: "🎩", count: educationalVideos.filter(v => v.channel === "Steve & Maggie").length, type: "channel", target: "Steve & Maggie" },
+  { id: "oxford-phonics", name: "Oxford Phonics", emoji: "📖", count: educationalVideos.filter(v => v.channel === "Oxford Phonics").length, type: "channel", target: "Oxford Phonics" },
+  { id: "habits", name: "Thói quen tốt", emoji: "💖", count: educationalVideos.filter(v => v.category === "habits").length, type: "category", target: "habits" },
+];
+
 function VideosContent() {
   const searchParams = useSearchParams();
   const initialTabParam = searchParams.get("tab");
@@ -112,11 +140,11 @@ function VideosContent() {
   });
 
   const { totalStars } = useAppStore();
-  const [selectedChannel, setSelectedChannel] = useState("all");
-  const [selectedEduCategory, setSelectedEduCategory] = useState("all");
+  const [selectedEduFilter, setSelectedEduFilter] = useState("all");
   const [songEnTheme, setSongEnTheme] = useState("all");
   const [songViTheme, setSongViTheme] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
   const [favorites, setFavorites] = useState<string[]>([]);
   const [activeEduVideo, setActiveEduVideo] = useState<EducationalVideo | null>(null);
   const [activeSong, setActiveSong] = useState<Song | null>(null);
@@ -196,11 +224,11 @@ function VideosContent() {
     setShuffledEduVideos(shuffleEduWithNewPrioritized(educationalVideos));
   }, [shuffleArray, shuffleEduWithNewPrioritized]);
 
-  // Reset pagination when channel, category or search query changes
+  // Reset pagination when filter, search query or tab changes
   useEffect(() => {
     setVisibleEduCount(24);
     setVisibleAllCount(24);
-  }, [selectedChannel, selectedEduCategory, searchQuery, activeTab]);
+  }, [selectedEduFilter, searchQuery, activeTab]);
 
   // Sync tab if URL param changes
   useEffect(() => {
@@ -305,17 +333,19 @@ function VideosContent() {
   // Filtering Educational Videos
   const filteredEduVideos = useMemo(() => {
     // When viewing "Tất cả" (all channels), use the randomized list so videos aren't grouped by topic
-    const sourceList = selectedChannel === "all" ? shuffledEduVideos : educationalVideos;
+    const sourceList = selectedEduFilter === "all" ? shuffledEduVideos : educationalVideos;
 
     return sourceList.filter((vid) => {
-      if (selectedChannel !== "all") {
-        const chan = educationalChannels.find((c) => c.id === selectedChannel);
-        if (chan?.channelName && vid.channel !== chan.channelName) {
-          return false;
+      if (selectedEduFilter !== "all") {
+        const item = eduUnifiedFilters.find((f) => f.id === selectedEduFilter);
+        if (item) {
+          if (item.type === "channel" && vid.channel !== item.target) {
+            return false;
+          }
+          if (item.type === "category" && vid.category !== item.target) {
+            return false;
+          }
         }
-      }
-      if (selectedEduCategory !== "all" && vid.category !== selectedEduCategory) {
-        return false;
       }
       if (activeTab === "favorites" && !favorites.includes(vid.id)) {
         return false;
@@ -324,14 +354,14 @@ function VideosContent() {
         const q = searchQuery.toLowerCase();
         const matchesTitle = vid.title.toLowerCase().includes(q);
         const matchesChannel = vid.channel.toLowerCase().includes(q);
-        const matchesVocab = vid.keyVocab.some(
+        const matchesVocab = vid.keyVocab?.some(
           (v) => v.en.toLowerCase().includes(q) || v.vi.toLowerCase().includes(q)
         );
         return matchesTitle || matchesChannel || matchesVocab;
       }
       return true;
     });
-  }, [shuffledEduVideos, selectedChannel, selectedEduCategory, activeTab, favorites, searchQuery]);
+  }, [shuffledEduVideos, selectedEduFilter, activeTab, favorites, searchQuery]);
 
   // Filtering English Songs
   const filteredSongsEn = useMemo(() => {
@@ -401,7 +431,7 @@ function VideosContent() {
             onSelectVideo={(newVideo) => setActiveEduVideo(newVideo)}
             randomMode={
               activeTab === "all" ||
-              (activeTab === "edu" && selectedChannel === "all" && selectedEduCategory === "all")
+              (activeTab === "edu" && selectedEduFilter === "all")
             }
           />
         )}
@@ -426,19 +456,52 @@ function VideosContent() {
       </AnimatePresence>
 
       {/* Top Header Bar */}
-      <div className="pt-3 sm:pt-4 pb-2 px-3 sm:px-6 relative z-10 max-w-6xl mx-auto w-full flex items-center justify-between">
+      <div className="pt-2 sm:pt-3 pb-1 px-3 sm:px-6 relative z-10 max-w-6xl mx-auto w-full flex items-center justify-between gap-2">
         <BackButton label="Home" />
 
         {/* Brand center badge */}
-        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold border border-red-200 shadow-sm">
-          <Play size={13} fill="#B91C1C" />
+        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold border border-red-200 shadow-xs">
+          <Play size={12} fill="#B91C1C" />
           <span>YouTube Kids • Không Quảng Cáo</span>
         </div>
 
-        {/* Right side controls: BgmPlayer & Stars Counter */}
-        <div className="flex items-center gap-2">
+        {/* Desktop / Tablet Search Input (Integrated into header to save vertical space) */}
+        <div className="hidden md:flex items-center relative flex-1 max-w-xs mx-2">
+          <Search size={14} className="absolute left-3 text-gray-400 pointer-events-none" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Tìm bài học, bài hát, nhân vật..."
+            className="w-full pl-8 pr-7 py-1 text-xs rounded-xl bg-white border border-gray-200 text-slate-800 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 shadow-xs"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-2 text-gray-400 hover:text-gray-600 p-0.5 cursor-pointer"
+            >
+              <X size={12} />
+            </button>
+          )}
+        </div>
+
+        {/* Right side controls: Mobile Search Toggle + BgmPlayer & Stars Counter */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <button
+            onClick={() => setShowSearch((prev) => !prev)}
+            className={`md:hidden p-1.5 rounded-xl border flex items-center justify-center transition-all cursor-pointer ${
+              showSearch || searchQuery
+                ? "bg-cyan-50 text-cyan-600 border-cyan-300"
+                : "bg-white text-slate-600 border-slate-200 shadow-xs"
+            }`}
+            title="Tìm kiếm"
+          >
+            <Search size={15} />
+          </button>
+
           <BgmPlayer />
-          <div className="glass-card px-3 py-1.5 text-sm font-bold flex items-center gap-1.5 shadow-sm border border-amber-200">
+
+          <div className="glass-card px-2.5 py-1 text-xs sm:text-sm font-bold flex items-center gap-1 shadow-xs border border-amber-200">
             <span>⭐</span>
             <span style={{ color: "var(--color-primary)", fontFamily: "var(--font-heading)" }}>
               {totalStars}
@@ -447,9 +510,42 @@ function VideosContent() {
         </div>
       </div>
 
-      {/* Main YouTube Kids Visual Category Bar */}
-      <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10 mb-3">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 px-0.5 sm:flex-wrap">
+      {/* Mobile Search Input (collapsible) */}
+      <AnimatePresence>
+        {(showSearch || searchQuery) && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden px-3 max-w-6xl mx-auto w-full relative z-10 mb-1.5 overflow-hidden"
+          >
+            <div className="relative">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+              <input
+                type="text"
+                autoFocus
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Tìm bài học, bài hát, nhân vật..."
+                className="w-full pl-8 pr-8 py-1.5 text-xs rounded-xl bg-white border border-gray-200 text-slate-800 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 shadow-xs"
+              />
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  setShowSearch(false);
+                }}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5 cursor-pointer"
+              >
+                <X size={13} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Category Tabs - Compact, Single Horizontal Row (Never Wrap) */}
+      <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10 mb-1.5">
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
           {tabs.map((tab) => {
             const isSelected = activeTab === tab.id;
             return (
@@ -460,20 +556,18 @@ function VideosContent() {
                   playSFX("tap");
                   setActiveTab(tab.id);
                 }}
-                className={`relative px-3.5 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-2xl sm:rounded-3xl flex items-center gap-2 sm:gap-2.5 shrink-0 transition-all font-bold cursor-pointer border ${
+                className={`relative px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl flex items-center gap-1.5 sm:gap-2 shrink-0 transition-all font-bold cursor-pointer border ${
                   isSelected
-                    ? `bg-gradient-to-r ${tab.bgGradient} text-white shadow-lg ${tab.activeShadow} scale-105 border-transparent`
-                    : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200/80 shadow-sm"
+                    ? `bg-gradient-to-r ${tab.bgGradient} text-white shadow-md ${tab.activeShadow} scale-102 border-transparent`
+                    : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200/80 shadow-xs"
                 }`}
               >
-                <span className="text-lg sm:text-2xl md:text-3xl drop-shadow-sm">{tab.emoji}</span>
-                <div className="flex flex-col items-start leading-tight">
-                  <span className="text-xs sm:text-sm md:text-base font-extrabold whitespace-nowrap" style={{ fontFamily: "var(--font-heading)" }}>
-                    {tab.label}
-                  </span>
-                </div>
+                <span className="text-base sm:text-lg drop-shadow-xs">{tab.emoji}</span>
+                <span className="text-xs sm:text-sm font-extrabold whitespace-nowrap" style={{ fontFamily: "var(--font-heading)" }}>
+                  {tab.label}
+                </span>
                 <span
-                  className={`text-[10px] sm:text-xs md:text-sm font-black px-1.5 sm:px-2 py-0.5 rounded-full ${
+                  className={`text-[10px] sm:text-xs font-black px-1.5 py-0.2 rounded-full ${
                     isSelected ? "bg-white/30 text-white" : "bg-slate-100 text-slate-500"
                   }`}
                 >
@@ -483,172 +577,86 @@ function VideosContent() {
             );
           })}
         </div>
+      </div>
 
-        {/* Search Bar */}
-        <div className="mt-2.5 relative">
-          <Search
-            size={16}
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
-          />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Tìm bài học, bài hát, nhân vật (Ms Rachel, Baby Shark, Con heo đất, ABC...)"
-            className="w-full pl-9 pr-9 py-2 rounded-2xl bg-white border border-gray-200 text-xs sm:text-sm text-slate-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-sm"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
-            >
-              <X size={14} />
-            </button>
-          )}
-        </div>
-
-        {/* Sub-Filters: Channels & Categories for Educational Videos */}
+      {/* Sub-Filters Container - Compact, Single Horizontal Row */}
+      <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10 mb-2">
+        {/* TAB: VIDEO BÉ HỌC Sub-filters */}
         {activeTab === "edu" && !searchQuery && (
-          <motion.div
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-3 space-y-2.5"
-          >
-            {/* Channels Tray: Big Chunky Character Avatar Cards (YouTube Kids style) */}
-            <div className="relative">
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 px-0.5 scroll-smooth">
-                {educationalChannels.map((chan) => {
-                  const isSelected = selectedChannel === chan.id;
-                  const videoCount =
-                    chan.id === "all"
-                      ? educationalVideos.length
-                      : educationalVideos.filter((v) => v.channel === chan.channelName).length;
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
+            {/* Quick Shuffle Button */}
+            <motion.button
+              whileTap={{ scale: 0.92 }}
+              onClick={shuffleEduVideos}
+              className={`px-2.5 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1 shrink-0 transition-all border cursor-pointer ${
+                isShufflingEdu
+                  ? "bg-amber-500 text-white border-amber-600 shadow-xs animate-pulse"
+                  : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-xs"
+              }`}
+              title="Đổi thứ tự ngẫu nhiên toàn bộ video"
+            >
+              <Sparkles size={12} className={isShufflingEdu ? "animate-spin" : "text-amber-500"} />
+              <span>{isShufflingEdu ? "Đang trộn..." : "🎲 Trộn"}</span>
+            </motion.button>
 
-                  return (
-                    <motion.button
-                      key={chan.id}
-                      whileHover={{ scale: 1.04, y: -2 }}
-                      whileTap={{ scale: 0.94 }}
-                      onClick={() => {
-                        playSFX("tap");
-                        setSelectedChannel(chan.id);
-                        if (chan.id === "all" && selectedEduCategory === "all") {
-                          shuffleEduVideos();
-                        }
-                      }}
-                      className={`flex items-center gap-2 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl shrink-0 transition-all font-bold cursor-pointer border shadow-sm ${
-                        isSelected
-                          ? "bg-slate-900 text-white border-slate-900 shadow-md ring-2 ring-cyan-400 scale-102"
-                          : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200/90 hover:border-cyan-300"
-                      }`}
-                    >
-                      {/* Chunky Colorful Emoji Circle */}
-                      <div
-                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center text-lg sm:text-xl shrink-0 shadow-inner ${
-                          isSelected ? "bg-white/20 text-white" : ""
-                        }`}
-                        style={{
-                          backgroundColor: isSelected ? undefined : `${chan.color || "#06b6d4"}18`,
-                          color: isSelected ? "#fff" : chan.color,
-                        }}
-                      >
-                        {chan.emoji}
-                      </div>
-
-                      {/* Channel Name & Video Count Badge */}
-                      <div className="flex flex-col items-start text-left leading-tight">
-                        <span
-                          className="text-xs sm:text-sm font-black whitespace-nowrap"
-                          style={{ fontFamily: "var(--font-heading)" }}
-                        >
-                          {chan.name}
-                        </span>
-                        <span
-                          className={`text-[10px] font-bold ${
-                            isSelected ? "text-cyan-300" : "text-gray-400"
-                          }`}
-                        >
-                          {videoCount} bài
-                        </span>
-                      </div>
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Subject Category Chips: Cute, Large Rounded-Full Pills */}
-            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 px-0.5 scroll-smooth">
-              {educationalCategories.map((cat) => {
-                const isSelected = selectedEduCategory === cat.id;
-                return (
-                  <motion.button
-                    key={cat.id}
-                    whileTap={{ scale: 0.94 }}
-                    onClick={() => {
-                      playSFX("tap");
-                      setSelectedEduCategory(cat.id);
-                      if (cat.id === "all" && selectedChannel === "all") {
-                        shuffleEduVideos();
-                      }
-                    }}
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border ${
-                      isSelected
-                        ? "bg-cyan-500 text-white border-cyan-500 shadow-md shadow-cyan-500/30 scale-102"
-                        : "bg-white text-slate-700 hover:bg-cyan-50/70 border-slate-200 shadow-sm"
-                    }`}
-                  >
-                    <span className="text-base">{cat.emoji}</span>
-                    <span>{cat.name}</span>
-                  </motion.button>
-                );
-              })}
-
-              {/* Reset Filter Button */}
-              {(selectedChannel !== "all" || selectedEduCategory !== "all") && (
+            {eduUnifiedFilters.map((filter) => {
+              const isSelected = selectedEduFilter === filter.id;
+              return (
                 <motion.button
+                  key={filter.id}
                   whileTap={{ scale: 0.94 }}
                   onClick={() => {
-                    playSFX("pop");
-                    setSelectedChannel("all");
-                    setSelectedEduCategory("all");
-                    shuffleEduVideos();
+                    playSFX("tap");
+                    setSelectedEduFilter(filter.id);
+                    if (filter.id === "all") {
+                      shuffleEduVideos();
+                    }
                   }}
-                  className="px-2.5 py-1.5 rounded-full text-xs font-bold text-rose-500 bg-rose-50 hover:bg-rose-100 border border-rose-200 whitespace-nowrap flex items-center gap-1 shrink-0 transition-all cursor-pointer"
-                >
-                  <X size={13} />
-                  <span>Xem tất cả</span>
-                </motion.button>
-              )}
-
-              {/* Quick Shuffle Button when in All Mode */}
-              {selectedChannel === "all" && selectedEduCategory === "all" && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.92 }}
-                  onClick={shuffleEduVideos}
-                  className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
-                    isShufflingEdu
-                      ? "bg-amber-500 text-white border-amber-600 shadow-md animate-pulse"
-                      : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-sm"
+                  className={`px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
+                    isSelected
+                      ? "bg-cyan-500 text-white border-cyan-500 shadow-xs shadow-cyan-500/30 scale-102"
+                      : "bg-white text-slate-700 hover:bg-cyan-50/70 border-slate-200/90 shadow-xs"
                   }`}
-                  title="Đổi thứ tự ngẫu nhiên toàn bộ video"
                 >
-                  <Sparkles size={13} className={isShufflingEdu ? "animate-spin" : "text-amber-500"} />
-                  <span>{isShufflingEdu ? "Đang trộn..." : "🎲 Trộn ngẫu nhiên"}</span>
+                  <span className="text-sm">{filter.emoji}</span>
+                  <span>{filter.name}</span>
+                  <span
+                    className={`text-[10px] font-bold px-1 py-0.2 rounded-full ${
+                      isSelected ? "bg-white/25 text-white" : "bg-slate-100 text-slate-400"
+                    }`}
+                  >
+                    {filter.count}
+                  </span>
                 </motion.button>
-              )}
-            </div>
-          </motion.div>
+              );
+            })}
+          </div>
         )}
 
-        {/* Sub-Filters: Themes for English Songs */}
+        {/* TAB: TẤT CẢ Sub-filters / Actions */}
+        {activeTab === "all" && !searchQuery && (
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
+            <motion.button
+              whileTap={{ scale: 0.94 }}
+              onClick={shuffleAllVideos}
+              className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
+                isShuffling
+                  ? "bg-amber-500 text-white border-amber-600 shadow-xs animate-pulse"
+                  : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-xs"
+              }`}
+            >
+              <Sparkles size={12} className={isShuffling ? "animate-spin" : "text-amber-500"} />
+              <span>{isShuffling ? "Đang trộn..." : "🎲 Trộn ngẫu nhiên 534 video"}</span>
+            </motion.button>
+            <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap">
+              Tổng hợp Video Bé Học + Bài hát tiếng Anh & tiếng Việt
+            </span>
+          </div>
+        )}
+
+        {/* TAB: HÁT TIẾNG ANH Sub-filters */}
         {activeTab === "sing_en" && !searchQuery && (
-          <motion.div
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 px-0.5 scroll-smooth"
-          >
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
             {englishSongThemes.map((theme) => {
               const isSelected = songEnTheme === theme.id;
               return (
@@ -659,27 +667,23 @@ function VideosContent() {
                     playSFX("tap");
                     setSongEnTheme(theme.id);
                   }}
-                  className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap flex items-center gap-2 shrink-0 transition-all border ${
+                  className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
                     isSelected
-                      ? "bg-indigo-600 text-white border-indigo-700 shadow-md shadow-indigo-500/30 scale-102"
-                      : "bg-white text-gray-700 hover:bg-indigo-50 border-gray-200 shadow-sm"
+                      ? "bg-indigo-600 text-white border-indigo-700 shadow-xs shadow-indigo-500/30 scale-102"
+                      : "bg-white text-gray-700 hover:bg-indigo-50 border-gray-200 shadow-xs"
                   }`}
                 >
-                  <span className="text-lg">{theme.emoji}</span>
+                  <span className="text-sm">{theme.emoji}</span>
                   <span>{theme.label}</span>
                 </motion.button>
               );
             })}
-          </motion.div>
+          </div>
         )}
 
-        {/* Sub-Filters: Themes for Vietnamese Songs */}
+        {/* TAB: BÀI HÁT VIỆT Sub-filters */}
         {activeTab === "sing_vi" && !searchQuery && (
-          <motion.div
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-3 flex items-center gap-2 overflow-x-auto no-scrollbar py-1.5 px-0.5 scroll-smooth"
-          >
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
             {vietnameseSongThemes.map((theme) => {
               const isSelected = songViTheme === theme.id;
               return (
@@ -690,18 +694,18 @@ function VideosContent() {
                     playSFX("tap");
                     setSongViTheme(theme.id);
                   }}
-                  className={`px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap flex items-center gap-2 shrink-0 transition-all border ${
+                  className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
                     isSelected
-                      ? "bg-rose-500 text-white border-rose-600 shadow-md shadow-rose-500/30 scale-102"
-                      : "bg-white text-gray-700 hover:bg-rose-50 border-gray-200 shadow-sm"
+                      ? "bg-rose-500 text-white border-rose-600 shadow-xs shadow-rose-500/30 scale-102"
+                      : "bg-white text-gray-700 hover:bg-rose-50 border-gray-200 shadow-xs"
                   }`}
                 >
-                  <span className="text-lg">{theme.emoji}</span>
+                  <span className="text-sm">{theme.emoji}</span>
                   <span>{theme.label}</span>
                 </motion.button>
               );
             })}
-          </motion.div>
+          </div>
         )}
       </div>
 
@@ -927,10 +931,9 @@ function VideosContent() {
                     <p className="font-bold text-base text-gray-700">Không có video phù hợp bộ lọc</p>
                     <button
                       onClick={() => {
-                        setSelectedChannel("all");
-                        setSelectedEduCategory("all");
+                        setSelectedEduFilter("all");
                       }}
-                      className="mt-3 px-4 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold shadow-md"
+                      className="mt-3 px-4 py-2 rounded-xl bg-cyan-600 text-white text-xs font-bold shadow-md cursor-pointer"
                     >
                       Xem tất cả video học
                     </button>
