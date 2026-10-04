@@ -95,6 +95,7 @@ export default function VideoEndRecommendation({
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.28 }}
       className="absolute inset-0 z-40 bg-slate-950/95 backdrop-blur-2xl flex flex-col justify-between p-3 sm:p-5 overflow-y-auto select-none"
+      style={{ touchAction: "manipulation" }}
     >
       {/* Top Banner: Celebration & Star Award */}
       <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-2.5 shrink-0">

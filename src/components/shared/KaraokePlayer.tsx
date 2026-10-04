@@ -74,7 +74,8 @@ export default function KaraokePlayer({
 
   // Detect mobile landscape orientation
   useEffect(() => {
-    const checkOrientation = () => {
+    let lastLandscape: boolean | null = null;
+    const checkOrientation = (isResize = false) => {
       if (typeof window === "undefined") return;
       const isLandscape = window.innerWidth > window.innerHeight;
       const isMobileOrTablet =
@@ -84,18 +85,24 @@ export default function KaraokePlayer({
         (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0);
       setIsMobileLandscape(isLandscape && isMobileOrTablet);
 
-      // Reset any stray horizontal scroll on orientation change
-      window.scrollTo(0, 0);
-      if (document.documentElement) document.documentElement.scrollLeft = 0;
-      if (document.body) document.body.scrollLeft = 0;
+      // ONLY reset scroll if orientation actually changed, NOT on routine resize events!
+      if (!isResize || (lastLandscape !== null && lastLandscape !== isLandscape)) {
+        window.scrollTo(0, 0);
+        if (document.documentElement) document.documentElement.scrollLeft = 0;
+        if (document.body) document.body.scrollLeft = 0;
+      }
+      lastLandscape = isLandscape;
     };
 
-    checkOrientation();
-    window.addEventListener("resize", checkOrientation);
-    window.addEventListener("orientationchange", checkOrientation);
+    checkOrientation(false);
+    const handleResize = () => checkOrientation(true);
+    const handleOrientation = () => checkOrientation(false);
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleOrientation);
 
     const mql = window.matchMedia("(orientation: landscape)");
-    const handleMql = () => checkOrientation();
+    const handleMql = () => checkOrientation(false);
     try {
       mql.addEventListener("change", handleMql);
     } catch {
@@ -103,8 +110,8 @@ export default function KaraokePlayer({
     }
 
     return () => {
-      window.removeEventListener("resize", checkOrientation);
-      window.removeEventListener("orientationchange", checkOrientation);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleOrientation);
       try {
         mql.removeEventListener("change", handleMql);
       } catch {
@@ -309,9 +316,9 @@ export default function KaraokePlayer({
         // 1 = Playing, 2 = Paused, 0 = Ended
         if (data.event === "onStateChange") {
           if (data.info === 1 || data.info === "1") {
-            setIsPlaying(true);
+            setIsPlaying((prev) => (prev ? prev : true));
           } else if (data.info === 2 || data.info === "2") {
-            setIsPlaying(false);
+            setIsPlaying((prev) => (!prev ? prev : false));
           } else if (data.info === 0 || data.info === "0") {
             handleSongFinished();
           }
@@ -319,9 +326,9 @@ export default function KaraokePlayer({
 
         if (data.event === "infoDelivery" && data.info) {
           if (data.info.playerState === 1 || data.info.playerState === "1") {
-            setIsPlaying(true);
+            setIsPlaying((prev) => (prev ? prev : true));
           } else if (data.info.playerState === 2 || data.info.playerState === "2") {
-            setIsPlaying(false);
+            setIsPlaying((prev) => (!prev ? prev : false));
           } else if (data.info.playerState === 0 || data.info.playerState === "0") {
             handleSongFinished();
           }
@@ -348,6 +355,7 @@ export default function KaraokePlayer({
   }, [iframeKey, currentSong.id]);
 
   const lastHUDOpenTimeRef = useRef<number>(0);
+  const touchStartPosRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
   // HUD Auto-Hide Timer (4.5s of inactivity like YouTube Kids)
   const resetHUDTimer = useCallback(() => {
@@ -367,11 +375,57 @@ export default function KaraokePlayer({
 
   const handleCloseHUD = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
     e?.stopPropagation();
-    // Guard against ghost-clicks immediately after opening (within 400ms)
-    if (Date.now() - lastHUDOpenTimeRef.current < 400) return;
+    // Guard against ghost-clicks immediately after opening (within 150ms)
+    if (Date.now() - lastHUDOpenTimeRef.current < 150) return;
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
     setShowHUD(false);
   }, []);
+
+  const handleOverlayTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStartPosRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        time: Date.now(),
+      };
+    }
+  }, []);
+
+  const handleOverlayTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStartPosRef.current) return;
+    const touch = e.changedTouches[0];
+    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
+    const dy = Math.abs(touch.clientY - touchStartPosRef.current.y);
+    const dt = Date.now() - touchStartPosRef.current.time;
+    touchStartPosRef.current = null;
+    if (dx < 15 && dy < 15 && dt < 600) {
+      e.preventDefault();
+      handleOpenHUD();
+    }
+  }, [handleOpenHUD]);
+
+  const handleBackdropTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStartPosRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        time: Date.now(),
+      };
+    }
+  }, []);
+
+  const handleBackdropTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStartPosRef.current) return;
+    const touch = e.changedTouches[0];
+    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
+    const dy = Math.abs(touch.clientY - touchStartPosRef.current.y);
+    const dt = Date.now() - touchStartPosRef.current.time;
+    touchStartPosRef.current = null;
+    if (dx < 15 && dy < 15 && dt < 600) {
+      e.preventDefault();
+      handleCloseHUD();
+    }
+  }, [handleCloseHUD]);
 
   // Toddler 3-Tap Safety Unlock
   const handleUnlockTap = () => {
@@ -551,33 +605,34 @@ export default function KaraokePlayer({
     }
   };
 
-  const togglePlay = () => {
+  const togglePlay = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
     playSFX("tap");
     if (currentSong.localVideo && videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play();
-        setIsPlaying(true);
-      }
+      setIsPlaying((prev) => {
+        if (prev) {
+          videoRef.current?.pause();
+          return false;
+        } else {
+          videoRef.current?.play();
+          return true;
+        }
+      });
     } else if (iframeRef.current?.contentWindow) {
-      if (isPlaying) {
-        iframeRef.current.contentWindow.postMessage(
-          JSON.stringify({ event: "command", func: "pauseVideo", args: [] }),
-          "*"
-        );
-        setIsPlaying(false);
-      } else {
-        iframeRef.current.contentWindow.postMessage(
-          JSON.stringify({ event: "command", func: "playVideo", args: [] }),
-          "*"
-        );
-        setIsPlaying(true);
-      }
+      setIsPlaying((prev) => {
+        const next = !prev;
+        const cmd = next ? "playVideo" : "pauseVideo";
+        try {
+          iframeRef.current?.contentWindow?.postMessage(
+            JSON.stringify({ event: "command", func: cmd, args: [] }),
+            "*"
+          );
+        } catch {}
+        return next;
+      });
     }
     resetHUDTimer();
-  };
+  }, [currentSong.localVideo, resetHUDTimer]);
 
   const handleSpeakLine = (text: string) => {
     playSFX("tap");
@@ -848,13 +903,19 @@ export default function KaraokePlayer({
             ) : null}
 
 
-            {/* Transparent click layer to open Toddler HUD on tap */}
+            {/* Transparent tap & click layer to open Toddler HUD */}
             {!showQuickDrawer && !isSongEnded && !isLocked && !showHUD && (
               <div
                 id="karaoke-video-hud-overlay"
                 onClick={handleOpenHUD}
+                onTouchStart={handleOverlayTouchStart}
+                onTouchEnd={handleOverlayTouchEnd}
                 className="absolute inset-0 z-20 cursor-pointer pointer-events-auto select-none"
-                style={{ backgroundColor: "rgba(0,0,0,0.001)", WebkitTapHighlightColor: "transparent" }}
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.001)",
+                  WebkitTapHighlightColor: "transparent",
+                  touchAction: "manipulation",
+                }}
                 title="Chạm vào màn hình để hiện các nút điều khiển cho bé"
               />
             )}
@@ -865,23 +926,20 @@ export default function KaraokePlayer({
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  exit={{ opacity: 0, pointerEvents: "none" }}
                   transition={{ duration: 0.18 }}
-                  className="absolute inset-0 z-30 bg-black/45 backdrop-blur-[2px] flex flex-col justify-between p-3.5 sm:p-5 select-none pointer-events-auto"
+                  onClick={handleCloseHUD}
+                  onTouchStart={handleBackdropTouchStart}
+                  onTouchEnd={handleBackdropTouchEnd}
+                  className="absolute inset-0 z-30 bg-black/45 backdrop-blur-[2px] flex flex-col justify-between p-3.5 sm:p-5 select-none pointer-events-auto cursor-pointer"
+                  style={{ touchAction: "manipulation" }}
                 >
-                  {/* Dedicated Backdrop Catcher to dismiss HUD on tapping empty background */}
-                  <div
-                    className="absolute inset-0 -z-10 cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleCloseHUD(e);
-                    }}
-                  />
-
                   {/* Top HUD Hint Bar */}
                   <div
-                    className="flex items-center justify-between pointer-events-auto z-10"
+                    className="flex items-center justify-between pointer-events-auto z-10 cursor-default"
                     onClick={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
                   >
                     <div className="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-white/85 text-[11px] font-bold border border-white/20 flex items-center gap-1.5 shadow-md">
                       <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
@@ -891,6 +949,7 @@ export default function KaraokePlayer({
                     <button
                       onClick={handleCloseHUD}
                       className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center border border-white/25 transition-colors cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
                       title="Ẩn điều khiển"
                     >
                       <X size={16} />
@@ -899,8 +958,10 @@ export default function KaraokePlayer({
 
                   {/* Center Chunky YouTube Kids Controls: Previous, Giant Play/Pause, Next */}
                   <div
-                    className="flex items-center justify-center gap-3.5 sm:gap-6 my-auto pointer-events-auto"
+                    className="flex items-center justify-center gap-3.5 sm:gap-6 my-auto pointer-events-auto z-10 cursor-default"
                     onClick={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
                   >
                     {/* Previous Song Button */}
                     <motion.button
@@ -908,6 +969,7 @@ export default function KaraokePlayer({
                       whileTap={{ scale: 0.9 }}
                       onClick={handlePreviousSong}
                       className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 hover:bg-white/30 active:bg-cyan-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
                       title="Xem bài hát trước"
                     >
                       <SkipBack size={24} fill="white" />
@@ -923,6 +985,7 @@ export default function KaraokePlayer({
                           ? "bg-gradient-to-tr from-cyan-500 via-sky-400 to-blue-600"
                           : "bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-500 animate-pulse"
                       }`}
+                      style={{ touchAction: "manipulation" }}
                       title={isPlaying ? "Tạm dừng bài hát" : "Tiếp tục phát"}
                     >
                       {isPlaying ? (
@@ -938,6 +1001,7 @@ export default function KaraokePlayer({
                       whileTap={{ scale: 0.9 }}
                       onClick={handleNextSongShortcut}
                       className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 hover:bg-white/30 active:bg-cyan-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
                       title="Xem bài hát tiếp theo"
                     >
                       <SkipForward size={24} fill="white" />
@@ -949,6 +1013,7 @@ export default function KaraokePlayer({
                       whileTap={{ scale: 0.9 }}
                       onClick={handleReplaySong}
                       className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/15 hover:bg-white/25 text-white/90 flex items-center justify-center shadow-lg border border-white/20 backdrop-blur-md transition-transform hidden sm:flex cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
                       title="Xem lại từ đầu"
                     >
                       <RotateCcw size={18} />
@@ -957,12 +1022,15 @@ export default function KaraokePlayer({
 
                   {/* Bottom HUD Quick Row */}
                   <div
-                    className="flex items-center justify-between w-full pointer-events-auto px-1"
+                    className="flex items-center justify-between w-full pointer-events-auto px-1 z-10 cursor-default"
                     onClick={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
                   >
                     <button
                       onClick={handleReplaySong}
                       className="text-white/90 hover:text-white text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/20 cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
                     >
                       <RotateCcw size={13} />
                       <span>Xem lại</span>
@@ -973,6 +1041,7 @@ export default function KaraokePlayer({
                       whileTap={{ scale: 0.92 }}
                       onClick={toggleFullscreen}
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/30 border border-amber-300 cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
                       title={isFullMode ? "Thu nhỏ màn hình" : "Xem toàn màn hình"}
                     >
                       {isFullMode ? <Minimize2 size={13} strokeWidth={2.5} /> : <Maximize2 size={13} strokeWidth={2.5} />}

@@ -68,6 +68,9 @@ export default function YouTubeKidsVideoDrawer({
 
   const handleMouseUpOrLeave = () => {
     isMouseDownRef.current = false;
+    setTimeout(() => {
+      hasDraggedRef.current = false;
+    }, 120);
   };
 
   // Convert vertical mouse wheel into smooth horizontal scroll
@@ -244,6 +247,7 @@ export default function YouTubeKidsVideoDrawer({
                       onSelect(item.id);
                     }}
                     className="group relative w-40 sm:w-48 md:w-52 shrink-0 bg-white/10 hover:bg-white/20 border border-white/20 hover:border-cyan-400/80 rounded-2xl p-2 transition-all cursor-pointer shadow-lg hover:shadow-cyan-500/30"
+                    style={{ touchAction: "manipulation" }}
                   >
                     {/* Thumbnail */}
                     <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-950 mb-1.5 shadow-inner">
