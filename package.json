@@ -10,6 +10,7 @@
     "serve": "node serve.js",
     "lint": "eslint",
     "sync": "node auto-sync.js",
+    "update-videos": "node scripts/auto-update-videos.mjs",
     "deploy": "next build && firebase deploy --only hosting:jbaikid"
   },
   "dependencies": {

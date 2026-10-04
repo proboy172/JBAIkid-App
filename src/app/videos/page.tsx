@@ -29,6 +29,7 @@ import {
   ChevronRight,
   Flame,
   BookOpen,
+  Mic,
 } from "lucide-react";
 
 type MainTab = "all" | "edu" | "sing_en" | "sing_vi" | "favorites";
@@ -145,6 +146,47 @@ function VideosContent() {
   const [songViTheme, setSongViTheme] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [isListeningVoice, setIsListeningVoice] = useState(false);
+
+  const handleStartVoiceSearch = useCallback(() => {
+    if (typeof window === "undefined") return;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setShowSearch(true);
+      return;
+    }
+    try {
+      playSFX("pop");
+      const recognition = new SpeechRecognition();
+      recognition.lang = "vi-VN";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      setIsListeningVoice(true);
+
+      recognition.onresult = (event: any) => {
+        const text = event.results[0][0].transcript;
+        if (text) {
+          playSFX("correct");
+          setSearchQuery(text);
+          setShowSearch(true);
+        }
+        setIsListeningVoice(false);
+      };
+
+      recognition.onerror = () => {
+        setIsListeningVoice(false);
+      };
+
+      recognition.onend = () => {
+        setIsListeningVoice(false);
+      };
+
+      recognition.start();
+    } catch {
+      setIsListeningVoice(false);
+    }
+  }, []);
+
   const [favorites, setFavorites] = useState<string[]>([]);
   const [activeEduVideo, setActiveEduVideo] = useState<EducationalVideo | null>(null);
   const [activeSong, setActiveSong] = useState<Song | null>(null);
@@ -459,13 +501,15 @@ function VideosContent() {
       <div className="pt-2 sm:pt-3 pb-1 px-3 sm:px-6 relative z-10 max-w-6xl mx-auto w-full flex items-center justify-between gap-2">
         <BackButton label="Home" />
 
-        {/* Brand center badge */}
-        <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-100 text-red-700 text-xs font-bold border border-red-200 shadow-xs">
-          <Play size={12} fill="#B91C1C" />
-          <span>YouTube Kids • Không Quảng Cáo</span>
+        {/* YouTube Kids Brand Badge */}
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 text-white text-xs font-black shadow-md shadow-red-500/20 tracking-wide select-none">
+          <div className="w-5 h-5 rounded-full bg-white flex items-center justify-center shadow-xs">
+            <Play size={11} className="text-red-600 fill-red-600 ml-0.5" />
+          </div>
+          <span className="font-extrabold text-[13px] tracking-tight">YouTube <span className="text-amber-300">Kids</span></span>
         </div>
 
-        {/* Desktop / Tablet Search Input (Integrated into header to save vertical space) */}
+        {/* Desktop / Tablet Search Input with Voice Search */}
         <div className="hidden md:flex items-center relative flex-1 max-w-xs mx-2">
           <Search size={14} className="absolute left-3 text-gray-400 pointer-events-none" />
           <input
@@ -473,20 +517,47 @@ function VideosContent() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Tìm bài học, bài hát, nhân vật..."
-            className="w-full pl-8 pr-7 py-1 text-xs rounded-xl bg-white border border-gray-200 text-slate-800 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 shadow-xs"
+            className="w-full pl-8 pr-16 py-1.5 text-xs rounded-full bg-white border border-gray-200 text-slate-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400 shadow-xs"
           />
-          {searchQuery && (
+          <div className="absolute right-2 flex items-center gap-1">
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="text-gray-400 hover:text-gray-600 p-0.5 cursor-pointer"
+                title="Xóa tìm kiếm"
+              >
+                <X size={12} />
+              </button>
+            )}
             <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-2 text-gray-400 hover:text-gray-600 p-0.5 cursor-pointer"
+              onClick={handleStartVoiceSearch}
+              className={`p-1 rounded-full transition-all cursor-pointer ${
+                isListeningVoice
+                  ? "bg-red-500 text-white animate-pulse"
+                  : "bg-red-50 text-red-600 hover:bg-red-100"
+              }`}
+              title="Tìm kiếm bằng giọng nói"
             >
-              <X size={12} />
+              <Mic size={13} />
             </button>
-          )}
+          </div>
         </div>
 
-        {/* Right side controls: Mobile Search Toggle + BgmPlayer & Stars Counter */}
+        {/* Right side controls: Mobile Voice & Search Toggle + BgmPlayer & Stars Counter */}
         <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Mobile Voice Search Mic */}
+          <button
+            onClick={handleStartVoiceSearch}
+            className={`md:hidden p-1.5 rounded-xl border flex items-center justify-center transition-all cursor-pointer ${
+              isListeningVoice
+                ? "bg-red-500 text-white border-red-600 animate-pulse shadow-md"
+                : "bg-red-50 text-red-600 border-red-200 shadow-xs"
+            }`}
+            title="Tìm kiếm bằng giọng nói"
+          >
+            <Mic size={15} />
+          </button>
+
           <button
             onClick={() => setShowSearch((prev) => !prev)}
             className={`md:hidden p-1.5 rounded-xl border flex items-center justify-center transition-all cursor-pointer ${
@@ -510,6 +581,37 @@ function VideosContent() {
         </div>
       </div>
 
+      {/* Voice Search Listening Modal */}
+      <AnimatePresence>
+        {isListeningVoice && (
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              className="bg-white rounded-3xl p-6 max-w-xs w-full text-center shadow-2xl border-4 border-red-500 flex flex-col items-center"
+            >
+              <div className="relative my-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-60" />
+                <div className="relative w-20 h-20 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-500/40">
+                  <Mic size={38} className="animate-pulse" />
+                </div>
+              </div>
+              <h3 className="text-lg font-black text-slate-800 mb-1">Đang nghe bé nói...</h3>
+              <p className="text-xs text-slate-500 font-medium mb-4 leading-relaxed">
+                Bé hãy nói tên bài học hoặc bài hát (ví dụ: &quot;Ms Rachel&quot;, &quot;Số đếm&quot;, &quot;Bé tập nhảy&quot;...)
+              </p>
+              <button
+                onClick={() => setIsListeningVoice(false)}
+                className="px-5 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+              >
+                Hủy bỏ
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* Mobile Search Input (collapsible) */}
       <AnimatePresence>
         {(showSearch || searchQuery) && (
@@ -527,17 +629,28 @@ function VideosContent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Tìm bài học, bài hát, nhân vật..."
-                className="w-full pl-8 pr-8 py-1.5 text-xs rounded-xl bg-white border border-gray-200 text-slate-800 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 shadow-xs"
+                className="w-full pl-8 pr-16 py-1.5 text-xs rounded-full bg-white border border-gray-200 text-slate-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400 shadow-xs"
               />
-              <button
-                onClick={() => {
-                  setSearchQuery("");
-                  setShowSearch(false);
-                }}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5 cursor-pointer"
-              >
-                <X size={13} />
-              </button>
+              <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+                {searchQuery && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setShowSearch(false);
+                    }}
+                    className="text-gray-400 hover:text-gray-600 p-0.5 cursor-pointer"
+                  >
+                    <X size={13} />
+                  </button>
+                )}
+                <button
+                  onClick={handleStartVoiceSearch}
+                  className="p-1 rounded-full bg-red-50 text-red-600 hover:bg-red-100 cursor-pointer"
+                  title="Nói để tìm kiếm"
+                >
+                  <Mic size={13} />
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

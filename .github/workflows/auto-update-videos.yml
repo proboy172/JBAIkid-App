@@ -1,0 +1,52 @@
+name: Auto Update Educational Videos
+
+on:
+  schedule:
+    # Chạy tự động vào 03:00 Chủ nhật hàng tuần (giờ UTC)
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+    # Cho phép bấm nút "Run workflow" trực tiếp trên GitHub bất cứ lúc nào
+    inputs:
+      max_per_channel:
+        description: 'Số lượng video tối đa lấy mới mỗi kênh'
+        required: false
+        default: '3'
+
+permissions:
+  contents: write
+
+jobs:
+  update-videos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Educational Video Crawler
+        run: |
+          MAX="${{ github.event.inputs.max_per_channel || '3' }}"
+          node scripts/auto-update-videos.mjs --max=$MAX
+
+      - name: Verify Build
+        run: npm run build
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          git add src/data/educationalVideos.json
+          if git diff --staged --quiet; then
+            echo "No new videos found. Everything up to date."
+          else
+            git commit -m "🤖 [Auto-Update] Cập nhật kho video học tập mới không giới hạn [skip ci]"
+            git push origin main
+          fi

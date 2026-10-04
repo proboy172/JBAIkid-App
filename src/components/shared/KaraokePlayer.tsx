@@ -719,6 +719,14 @@ export default function KaraokePlayer({
           </div>
         </div>
 
+        {/* YouTube Kids Badge */}
+        <div className="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 text-white text-xs font-black shadow-md shadow-red-500/20 select-none mr-2">
+          <div className="w-4 h-4 rounded-full bg-white flex items-center justify-center">
+            <Play size={9} className="text-red-600 fill-red-600 ml-0.5" />
+          </div>
+          <span className="font-extrabold text-[11px] tracking-tight">YouTube <span className="text-amber-300">Kids</span></span>
+        </div>
+
         {/* Action Buttons in Identical Order and Size to SafeVideoModal */}
         <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
           {/* 1. Quick Drawer Button: Gợi ý bài hát như YouTube Kids */}

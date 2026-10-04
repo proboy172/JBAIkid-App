@@ -16,6 +16,7 @@ import {
   Play,
   Pause,
   RotateCcw,
+  RotateCw,
   SkipBack,
   SkipForward,
   Search,
@@ -65,6 +66,9 @@ export default function SafeVideoModal({
   const [playbackError, setPlaybackError] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMobileLandscape, setIsMobileLandscape] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [parentQuiz, setParentQuiz] = useState<{ num1: number; num2: number; ans: number; options: number[] } | null>(null);
 
   const openTimeRef = useRef<number>(Date.now());
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -211,6 +215,8 @@ export default function SafeVideoModal({
     setHasAwardedStars(false);
     setIsPlaying(true);
     setPlaybackError(null);
+    setCurrentTime(0);
+    setDuration(0);
     openTimeRef.current = Date.now();
   }, [video]);
 
@@ -315,6 +321,46 @@ export default function SafeVideoModal({
     resetHUDTimer();
   }, [resetHUDTimer]);
 
+  const formatTime = (seconds: number) => {
+    if (isNaN(seconds) || seconds < 0) return "00:00";
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m < 10 ? "0" : ""}${m}:${s < 10 ? "0" : ""}${s}`;
+  };
+
+  const handleSeek = useCallback((newSeconds: number) => {
+    if (!iframeRef.current?.contentWindow) return;
+    try {
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: "command", func: "seekTo", args: [newSeconds, true] }),
+        "*"
+      );
+      setCurrentTime(newSeconds);
+    } catch {}
+    resetHUDTimer();
+  }, [resetHUDTimer]);
+
+  const handleSkipSeconds = useCallback((delta: number) => {
+    playSFX("tap");
+    const target = Math.max(0, Math.min(duration || 300, currentTime + delta));
+    handleSeek(target);
+  }, [currentTime, duration, handleSeek]);
+
+  const generateQuiz = () => {
+    const n1 = Math.floor(Math.random() * 4) + 2;
+    const n2 = Math.floor(Math.random() * 4) + 2;
+    const correct = n1 * n2;
+    const options = [correct];
+    while (options.length < 4) {
+      const wrong = correct + (Math.floor(Math.random() * 7) - 3) * 2;
+      if (wrong > 0 && !options.includes(wrong)) {
+        options.push(wrong);
+      }
+    }
+    options.sort(() => Math.random() - 0.5);
+    return { num1: n1, num2: n2, ans: correct, options };
+  };
+
   // Toddler 3-Tap Safety Unlock
   const handleUnlockTap = () => {
     const nextCount = unlockTapCount + 1;
@@ -341,6 +387,7 @@ export default function SafeVideoModal({
     if (!isLocked) {
       setIsLocked(true);
       setUnlockTapCount(0);
+      setParentQuiz(generateQuiz());
       setShowHUD(false);
       setShowQuickDrawer(false);
     } else {
@@ -644,9 +691,11 @@ export default function SafeVideoModal({
             handleVideoFinished();
           }
 
-          // Near-end detection via infoDelivery
+          // Near-end detection & time sync via infoDelivery
           const ct = data.info.currentTime;
           const dur = data.info.duration;
+          if (typeof ct === "number") setCurrentTime(ct);
+          if (typeof dur === "number" && dur > 0) setDuration(dur);
           if (typeof ct === "number" && typeof dur === "number" && dur > 5 && ct >= dur - 1.5) {
             handleVideoFinished();
           }
@@ -716,6 +765,14 @@ export default function SafeVideoModal({
       >
         {/* Channel Info & Video Title */}
         <div className="flex items-center gap-1.5 sm:gap-3 flex-1 min-w-0 mr-1.5 sm:mr-2">
+          {/* Authentic YouTube Kids Logo Badge */}
+          <div className="hidden xs:flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md border border-red-400 shrink-0 select-none">
+            <Play size={12} fill="white" className="ml-0.5" />
+            <span className="text-[10px] sm:text-xs font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+              Kids
+            </span>
+          </div>
+
           <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-base sm:text-2xl shrink-0 shadow-inner">
             {currentVideo.channelAvatar}
           </div>
@@ -978,9 +1035,17 @@ export default function SafeVideoModal({
                     onTouchStart={(e) => e.stopPropagation()}
                     onTouchEnd={(e) => e.stopPropagation()}
                   >
-                    <div className="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-white/85 text-[11px] font-bold border border-white/20 flex items-center gap-1.5 shadow-md">
-                      <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                      <span>Chạm màn hình để ẩn nút</span>
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-red-600 text-white shadow-md border border-red-400 select-none">
+                        <Play size={12} fill="white" className="ml-0.5" />
+                        <span className="text-[11px] font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                          YouTube <span className="text-amber-300">Kids</span>
+                        </span>
+                      </div>
+                      <div className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-white/85 text-[10px] sm:text-[11px] font-bold border border-white/20 flex items-center gap-1.5 shadow-md">
+                        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                        <span className="hidden sm:inline">Chạm màn hình để ẩn nút</span>
+                      </div>
                     </div>
 
                     <button
@@ -993,9 +1058,9 @@ export default function SafeVideoModal({
                     </button>
                   </div>
 
-                  {/* Center Chunky YouTube Kids Controls: Previous, Giant Play/Pause, Next */}
+                  {/* Center Chunky YouTube Kids Controls: Prev, -10s, Giant Play/Pause, +10s, Next */}
                   <div
-                    className="flex items-center justify-center gap-3.5 sm:gap-6 my-auto pointer-events-auto z-10 cursor-default"
+                    className="flex items-center justify-center gap-2 sm:gap-4 md:gap-5 my-auto pointer-events-auto z-10 cursor-default"
                     onClick={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
                     onTouchEnd={(e) => e.stopPropagation()}
@@ -1005,11 +1070,24 @@ export default function SafeVideoModal({
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={handlePreviousVideo}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 hover:bg-white/30 active:bg-cyan-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
+                      className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/20 hover:bg-white/30 active:bg-cyan-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
                       style={{ touchAction: "manipulation" }}
                       title="Xem video trước"
                     >
-                      <SkipBack size={24} fill="white" />
+                      <SkipBack size={22} fill="white" />
+                    </motion.button>
+
+                    {/* -10s Rewind Button (YouTube Kids style) */}
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => handleSkipSeconds(-10)}
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 hover:bg-white/25 text-white flex flex-col items-center justify-center border border-white/25 backdrop-blur-md transition-transform cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
+                      title="Tua lùi 10 giây"
+                    >
+                      <RotateCcw size={16} />
+                      <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">-10s</span>
                     </motion.button>
 
                     {/* Giant Center Play / Pause Button */}
@@ -1017,7 +1095,7 @@ export default function SafeVideoModal({
                       whileHover={{ scale: 1.08 }}
                       whileTap={{ scale: 0.92 }}
                       onClick={togglePlayPause}
-                      className={`w-18 h-18 sm:w-22 sm:h-22 rounded-full flex items-center justify-center text-white shadow-[0_0_35px_rgba(6,182,212,0.6)] border-4 border-white/70 transition-transform cursor-pointer ${
+                      className={`w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-full flex items-center justify-center text-white shadow-[0_0_35px_rgba(6,182,212,0.6)] border-4 border-white/70 transition-transform cursor-pointer ${
                         isPlaying
                           ? "bg-gradient-to-tr from-cyan-500 via-sky-400 to-blue-600"
                           : "bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-500 animate-pulse"
@@ -1026,10 +1104,23 @@ export default function SafeVideoModal({
                       title={isPlaying ? "Tạm dừng video" : "Tiếp tục phát"}
                     >
                       {isPlaying ? (
-                        <Pause size={36} fill="white" />
+                        <Pause size={34} fill="white" />
                       ) : (
-                        <Play size={38} fill="white" className="ml-1" />
+                        <Play size={36} fill="white" className="ml-1" />
                       )}
+                    </motion.button>
+
+                    {/* +10s Forward Button (YouTube Kids style) */}
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => handleSkipSeconds(10)}
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 hover:bg-white/25 text-white flex flex-col items-center justify-center border border-white/25 backdrop-blur-md transition-transform cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
+                      title="Tua tới 10 giây"
+                    >
+                      <RotateCw size={16} />
+                      <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">+10s</span>
                     </motion.button>
 
                     {/* Next Video Button */}
@@ -1037,53 +1128,72 @@ export default function SafeVideoModal({
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={handleNextVideoShortcut}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/20 hover:bg-white/30 active:bg-cyan-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
+                      className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/20 hover:bg-white/30 active:bg-cyan-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
                       style={{ touchAction: "manipulation" }}
                       title="Xem video tiếp theo"
                     >
-                      <SkipForward size={24} fill="white" />
-                    </motion.button>
-
-                    {/* Quick Replay Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={handleReplay}
-                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/15 hover:bg-white/25 text-white/90 flex items-center justify-center shadow-lg border border-white/20 backdrop-blur-md transition-transform hidden sm:flex cursor-pointer"
-                      style={{ touchAction: "manipulation" }}
-                      title="Xem lại từ đầu"
-                    >
-                      <RotateCcw size={18} />
+                      <SkipForward size={22} fill="white" />
                     </motion.button>
                   </div>
 
-                  {/* Bottom HUD Quick Row */}
+                  {/* YouTube Kids Authentic Red Scrubber Bar & Controls */}
                   <div
-                    className="flex items-center justify-between w-full pointer-events-auto px-1 z-10 cursor-default"
+                    className="w-full pointer-events-auto z-10 flex flex-col gap-1.5"
                     onClick={(e) => e.stopPropagation()}
                     onTouchStart={(e) => e.stopPropagation()}
                     onTouchEnd={(e) => e.stopPropagation()}
                   >
-                    <button
-                      onClick={handleReplay}
-                      className="text-white/90 hover:text-white text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/20 cursor-pointer"
-                      style={{ touchAction: "manipulation" }}
-                    >
-                      <RotateCcw size={13} />
-                      <span>Xem lại</span>
-                    </button>
+                    {/* Time Indicator & Scrubber Track */}
+                    <div className="w-full px-1">
+                      <div className="flex items-center justify-between text-[11px] font-bold text-white/90 mb-1 font-mono">
+                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10">{formatTime(currentTime)}</span>
+                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10">{formatTime(duration || 300)}</span>
+                      </div>
+                      <div
+                        className="relative w-full h-3 bg-white/25 rounded-full cursor-pointer flex items-center group/scrub"
+                        style={{ touchAction: "manipulation" }}
+                        onClick={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          const clickX = e.clientX - rect.left;
+                          const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+                          const targetTime = ratio * (duration || 300);
+                          handleSeek(targetTime);
+                        }}
+                      >
+                        <div
+                          className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-red-500 rounded-full relative"
+                          style={{
+                            width: `${duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0}%`,
+                          }}
+                        >
+                          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-4 h-4 rounded-full bg-white shadow-lg border-2 border-red-600 group-hover/scrub:scale-125 transition-transform" />
+                        </div>
+                      </div>
+                    </div>
 
-                    {/* Bottom HUD Fullscreen Button */}
-                    <motion.button
-                      whileTap={{ scale: 0.92 }}
-                      onClick={toggleFullscreen}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/30 border border-amber-300 cursor-pointer"
-                      style={{ touchAction: "manipulation" }}
-                      title={isFullMode ? "Thu nhỏ màn hình" : "Xem toàn màn hình"}
-                    >
-                      {isFullMode ? <Minimize2 size={13} strokeWidth={2.5} /> : <Maximize2 size={13} strokeWidth={2.5} />}
-                      <span>{isFullMode ? "Thu nhỏ" : "Toàn màn hình"}</span>
-                    </motion.button>
+                    {/* Bottom HUD Quick Row */}
+                    <div className="flex items-center justify-between w-full px-1">
+                      <button
+                        onClick={handleReplay}
+                        className="text-white/90 hover:text-white text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/20 cursor-pointer"
+                        style={{ touchAction: "manipulation" }}
+                      >
+                        <RotateCcw size={13} />
+                        <span>Xem lại</span>
+                      </button>
+
+                      {/* Bottom HUD Fullscreen Button */}
+                      <motion.button
+                        whileTap={{ scale: 0.92 }}
+                        onClick={toggleFullscreen}
+                        className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/30 border border-amber-300 cursor-pointer"
+                        style={{ touchAction: "manipulation" }}
+                        title={isFullMode ? "Thu nhỏ màn hình" : "Xem toàn màn hình"}
+                      >
+                        {isFullMode ? <Minimize2 size={13} strokeWidth={2.5} /> : <Maximize2 size={13} strokeWidth={2.5} />}
+                        <span>{isFullMode ? "Thu nhỏ" : "Toàn màn hình"}</span>
+                      </motion.button>
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -1147,21 +1257,20 @@ export default function SafeVideoModal({
               )}
             </AnimatePresence>
 
-
-
-            {/* Toddler 3-Tap Safety Screen Lock Overlay (YouTube Kids Standard) */}
+            {/* Toddler 3-Tap + Parental Math Gate Lock Overlay (True YouTube Kids Experience) */}
             {isLocked && (
               <div
                 onClick={handleUnlockTap}
-                className="absolute inset-0 z-50 bg-black/75 flex flex-col items-center justify-center backdrop-blur-sm cursor-pointer select-none p-4"
+                className="absolute inset-0 z-50 bg-black/85 flex flex-col items-center justify-center backdrop-blur-md cursor-pointer select-none p-4"
               >
                 <motion.div
                   key={unlockTapCount}
                   initial={{ scale: 0.9, opacity: 0.8 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  className="bg-slate-900/95 border-2 border-amber-400 rounded-3xl p-5 sm:p-7 max-w-sm w-full text-center shadow-[0_0_50px_rgba(251,191,36,0.35)] flex flex-col items-center gap-3"
+                  onClick={(e) => e.stopPropagation()}
+                  className="bg-slate-900/98 border-2 border-amber-400 rounded-3xl p-5 sm:p-7 max-w-sm w-full text-center shadow-[0_0_50px_rgba(251,191,36,0.35)] flex flex-col items-center gap-3 cursor-default"
                 >
-                  <div className="w-16 h-16 rounded-full bg-amber-400/20 border-2 border-amber-400 flex items-center justify-center text-amber-300 shadow-inner">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 border-2 border-amber-300 flex items-center justify-center text-slate-950 shadow-inner">
                     <Lock size={30} strokeWidth={2.5} />
                   </div>
 
@@ -1169,35 +1278,65 @@ export default function SafeVideoModal({
                     className="text-white text-base sm:text-lg font-black"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
-                    {unlockTapCount === 0 && "Màn hình đang khóa"}
-                    {unlockTapCount === 1 && "Chạm thêm 2 lần nữa nhé!"}
-                    {unlockTapCount === 2 && "Chạm thêm 1 lần nữa là mở nè!"}
-                    {unlockTapCount >= 3 && "Mở khóa thành công! 🎉"}
+                    Màn hình đang khóa
                   </h3>
 
-                  <p className="text-amber-200/80 text-xs sm:text-sm">
-                    {unlockTapCount < 3
-                      ? "Bé hoặc Ba Mẹ chạm 3 lần liên tiếp để mở khóa"
-                      : "Đang mở màn hình cho bé..."}
-                  </p>
+                  {/* Option A: For Parents - Quick Math Gate like YouTube Kids */}
+                  {parentQuiz && (
+                    <div className="w-full bg-white/10 rounded-2xl p-3 border border-white/15 my-1">
+                      <div className="text-[11px] font-bold text-amber-300 mb-1 flex items-center justify-center gap-1">
+                        <span>🔒 Dành cho Ba Mẹ:</span>
+                        <span className="text-white font-mono text-xs font-black">
+                          {parentQuiz.num1} × {parentQuiz.num2} = ?
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-4 gap-1.5 mt-2">
+                        {parentQuiz.options.map((opt) => (
+                          <button
+                            key={opt}
+                            onClick={() => {
+                              if (opt === parentQuiz.ans) {
+                                playSFX("cheer");
+                                setIsLocked(false);
+                                setUnlockTapCount(0);
+                              } else {
+                                playSFX("boop");
+                              }
+                            }}
+                            className="py-1.5 px-2 rounded-xl bg-white/15 hover:bg-amber-400 hover:text-slate-950 text-white font-black text-sm border border-white/20 transition-all active:scale-95 cursor-pointer font-mono"
+                          >
+                            {opt}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-                  {/* 3 Progress Dots */}
-                  <div className="flex items-center gap-2.5 mt-1">
-                    {[0, 1, 2].map((dotIdx) => (
-                      <div
-                        key={dotIdx}
-                        className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
-                          dotIdx < unlockTapCount
-                            ? "bg-amber-400 scale-125 shadow-md shadow-amber-400"
-                            : "bg-white/20 border border-white/30"
-                        }`}
-                      />
-                    ))}
+                  {/* Option B: For Toddlers - 3 Taps anywhere */}
+                  <div
+                    onClick={handleUnlockTap}
+                    className="w-full py-2 px-3 rounded-2xl bg-amber-400/15 border border-amber-400/30 cursor-pointer hover:bg-amber-400/25 transition-colors"
+                  >
+                    <p className="text-amber-200 text-xs font-bold">
+                      {unlockTapCount === 0 && "Hoặc bé chạm 3 lần để mở khóa"}
+                      {unlockTapCount === 1 && "Chạm thêm 2 lần nữa nhé! ✌️"}
+                      {unlockTapCount === 2 && "Chạm thêm 1 lần nữa là mở nè! ☝️"}
+                      {unlockTapCount >= 3 && "Mở khóa thành công! 🎉"}
+                    </p>
+                    {/* 3 Progress Dots */}
+                    <div className="flex items-center justify-center gap-2.5 mt-2">
+                      {[0, 1, 2].map((dotIdx) => (
+                        <div
+                          key={dotIdx}
+                          className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                            dotIdx < unlockTapCount
+                              ? "bg-amber-400 scale-125 shadow-md shadow-amber-400"
+                              : "bg-white/20 border border-white/30"
+                          }`}
+                        />
+                      ))}
+                    </div>
                   </div>
-
-                  <span className="text-[11px] text-white/50 mt-1">
-                    ({unlockTapCount}/3 chạm)
-                  </span>
                 </motion.div>
               </div>
             )}
