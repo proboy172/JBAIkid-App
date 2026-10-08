@@ -69,6 +69,22 @@ export default function SafeVideoModal({
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [parentQuiz, setParentQuiz] = useState<{ num1: number; num2: number; ans: number; options: number[] } | null>(null);
+  const [supportsHover, setSupportsHover] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+      setSupportsHover(mq.matches);
+      const updateHover = (e: MediaQueryListEvent) => setSupportsHover(e.matches);
+      try {
+        mq.addEventListener("change", updateHover);
+        return () => mq.removeEventListener("change", updateHover);
+      } catch {
+        mq.addListener?.(updateHover);
+        return () => mq.removeListener?.(updateHover);
+      }
+    }
+  }, []);
 
   const openTimeRef = useRef<number>(Date.now());
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -802,12 +818,15 @@ export default function SafeVideoModal({
         <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
           {/* Quick Drawer Button: Gợi ý video như YouTube Kids */}
           <motion.button
+            type="button"
+            whileHover={supportsHover ? { scale: 1.05 } : undefined}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               playSFX("tap");
               setShowQuickDrawer(!showQuickDrawer);
             }}
-            className={`px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer ${
+            style={{ touchAction: "manipulation" }}
+            className={`px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer active:scale-95 ${
               showQuickDrawer
                 ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/30"
                 : "bg-white/20 border-white/30 text-white hover:bg-white/30"
@@ -820,10 +839,12 @@ export default function SafeVideoModal({
 
           {/* Random Surprise Button */}
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            type="button"
+            whileHover={supportsHover ? { scale: 1.05 } : undefined}
             whileTap={{ scale: 0.92 }}
             onClick={handleRandomSurprise}
-            className="w-7 h-7 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 hover:bg-amber-400/30 text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer shadow-sm"
+            style={{ touchAction: "manipulation" }}
+            className="w-7 h-7 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 hover:bg-amber-400/30 text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer shadow-sm active:scale-95"
             title="Đổi sang 1 video ngẫu nhiên bất ngờ"
           >
             <span>🎲</span>
@@ -1202,9 +1223,10 @@ export default function SafeVideoModal({
             {/* Floating YouTube Kids Quick Button on Video (Synchronized with Image 1) */}
             {!showQuickDrawer && !isVideoEnded && !isLocked && (
               <motion.button
+                type="button"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.06 }}
+                whileHover={supportsHover ? { scale: 1.06 } : undefined}
                 whileTap={{ scale: 0.93 }}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -1218,6 +1240,7 @@ export default function SafeVideoModal({
                 style={{
                   right: "max(env(safe-area-inset-right, 12px), 12px)",
                   bottom: "max(env(safe-area-inset-bottom, 12px), 12px)",
+                  touchAction: "manipulation",
                 }}
                 title="Mở danh sách video gợi ý"
               >

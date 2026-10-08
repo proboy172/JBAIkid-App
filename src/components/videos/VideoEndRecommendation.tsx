@@ -42,6 +42,24 @@ export default function VideoEndRecommendation({
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Detect whether device has true hover capability
+  const [supportsHover, setSupportsHover] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+      setSupportsHover(mq.matches);
+      const updateHover = (e: MediaQueryListEvent) => setSupportsHover(e.matches);
+      try {
+        mq.addEventListener("change", updateHover);
+        return () => mq.removeEventListener("change", updateHover);
+      } catch {
+        mq.addListener?.(updateHover);
+        return () => mq.removeListener?.(updateHover);
+      }
+    }
+  }, []);
+
   const heroItem = recommendations[0];
   const otherItems = recommendations.slice(1, 11);
 
@@ -81,6 +99,49 @@ export default function VideoEndRecommendation({
     };
   }, [isPaused, heroItem, onSelect]);
 
+  // Touch tracking for instant tap on iPad/touch devices
+  const itemTouchMapRef = useRef<{
+    [key: string]: { startX: number; startY: number; startTime: number; moved: boolean };
+  }>({});
+
+  const handleItemTouchStart = (id: string, e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      itemTouchMapRef.current[id] = {
+        startX: e.touches[0].clientX,
+        startY: e.touches[0].clientY,
+        startTime: Date.now(),
+        moved: false,
+      };
+    }
+  };
+
+  const handleItemTouchMove = (id: string, e: React.TouchEvent) => {
+    const item = itemTouchMapRef.current[id];
+    if (!item) return;
+    const dx = Math.abs(e.touches[0].clientX - item.startX);
+    const dy = Math.abs(e.touches[0].clientY - item.startY);
+    if (dx > 12 || dy > 12) {
+      item.moved = true;
+    }
+  };
+
+  const handleItemTouchEnd = (id: string, e: React.TouchEvent) => {
+    const item = itemTouchMapRef.current[id];
+    delete itemTouchMapRef.current[id];
+    if (!item) return;
+
+    const touch = e.changedTouches[0];
+    const dx = Math.abs(touch.clientX - item.startX);
+    const dy = Math.abs(touch.clientY - item.startY);
+    const dt = Date.now() - item.startTime;
+
+    if (!item.moved && dx < 12 && dy < 12 && dt < 600) {
+      e.preventDefault();
+      playSFX("tap");
+      onSelect(id);
+    }
+  };
+
   // Circumference for circular SVG progress ring (radius = 34)
   const circleRadius = 34;
   const circleCircumference = 2 * Math.PI * circleRadius;
@@ -93,7 +154,7 @@ export default function VideoEndRecommendation({
       initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.97 }}
-      transition={{ duration: 0.28 }}
+      transition={{ duration: 0.2 }}
       className="absolute inset-0 z-40 bg-slate-950/95 backdrop-blur-2xl flex flex-col justify-between p-3 sm:p-5 overflow-y-auto select-none"
       style={{ touchAction: "manipulation" }}
     >
@@ -128,12 +189,15 @@ export default function VideoEndRecommendation({
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {onRefresh && (
             <motion.button
+              type="button"
+              whileHover={supportsHover ? { scale: 1.05 } : undefined}
               whileTap={{ scale: 0.94 }}
               onClick={() => {
                 playSFX("pop");
                 onRefresh();
               }}
-              className="px-2.5 sm:px-3 py-1.5 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-400/30 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+              style={{ touchAction: "manipulation" }}
+              className="px-2.5 sm:px-3 py-1.5 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 active:bg-cyan-500/40 text-cyan-300 border border-cyan-400/30 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer active:scale-95"
               title="Đổi gợi ý video ngẫu nhiên khác trong kho"
             >
               <Shuffle size={13} />
@@ -142,12 +206,15 @@ export default function VideoEndRecommendation({
           )}
 
           <motion.button
+            type="button"
+            whileHover={supportsHover ? { scale: 1.05 } : undefined}
             whileTap={{ scale: 0.94 }}
             onClick={() => {
               playSFX("tap");
               onReplay();
             }}
-            className="px-2.5 sm:px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 text-white border border-white/20 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+            style={{ touchAction: "manipulation" }}
+            className="px-2.5 sm:px-3.5 py-1.5 rounded-full bg-white/15 hover:bg-white/25 active:bg-white/30 text-white border border-white/20 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer active:scale-95"
             title="Xem lại video vừa rồi"
           >
             <RotateCcw size={13} />
@@ -155,11 +222,13 @@ export default function VideoEndRecommendation({
           </motion.button>
 
           <button
+            type="button"
             onClick={() => {
               playSFX("pop");
               onClose();
             }}
-            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center border border-white/20 transition-colors cursor-pointer"
+            style={{ touchAction: "manipulation" }}
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 text-white flex items-center justify-center border border-white/20 transition-colors cursor-pointer active:scale-95"
             title="Đóng"
           >
             <X size={18} />
@@ -167,7 +236,7 @@ export default function VideoEndRecommendation({
         </div>
       </div>
 
-      {/* Center Hero Next Video Card + Circular Countdown (True YouTube Kids Experience) */}
+      {/* Center Hero Next Video Card + Circular Countdown */}
       <div className="my-auto py-2.5 max-w-4xl mx-auto w-full">
         {heroItem && (
           <motion.div
@@ -182,29 +251,30 @@ export default function VideoEndRecommendation({
                   playSFX("correct");
                   onSelect(heroItem.id);
                 }}
-                className="relative w-full sm:w-64 aspect-video rounded-xl sm:rounded-2xl overflow-hidden bg-slate-950 shrink-0 cursor-pointer group shadow-xl border border-white/20"
+                style={{ touchAction: "manipulation" }}
+                className="relative w-full sm:w-64 aspect-video rounded-xl sm:rounded-2xl overflow-hidden bg-slate-950 shrink-0 cursor-pointer group shadow-xl border border-white/20 active:scale-98 transition-transform"
               >
                 <img
                   src={heroItem.thumbnail}
                   alt={heroItem.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 pointer-events-none select-none"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
 
                 {/* Priority Badge */}
-                <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] sm:text-[11px] font-black shadow-md">
+                <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] sm:text-[11px] font-black shadow-md pointer-events-none">
                   <span>⚡ Tiếp theo</span>
                 </div>
 
                 {/* Duration Badge */}
                 {heroItem.duration && (
-                  <span className="absolute bottom-2 right-2 text-[10px] font-bold text-white px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-md border border-white/20">
+                  <span className="absolute bottom-2 right-2 text-[10px] font-bold text-white px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-md border border-white/20 pointer-events-none">
                     {heroItem.duration}
                   </span>
                 )}
 
                 {/* Center Radial SVG Countdown Ring */}
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
                     {/* SVG Ring */}
                     <svg className="w-full h-full -rotate-90 drop-shadow-md" viewBox="0 0 80 80">
@@ -231,7 +301,7 @@ export default function VideoEndRecommendation({
 
                     {/* Center Action Button Inside Ring */}
                     <motion.div
-                      whileHover={{ scale: 1.12 }}
+                      whileHover={supportsHover ? { scale: 1.12 } : undefined}
                       whileTap={{ scale: 0.92 }}
                       className="absolute inset-0 m-auto w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 text-white flex items-center justify-center shadow-lg shadow-cyan-500/50 group-hover:bg-cyan-400"
                     >
@@ -258,8 +328,8 @@ export default function VideoEndRecommendation({
                       playSFX("correct");
                       onSelect(heroItem.id);
                     }}
+                    style={{ touchAction: "manipulation", fontFamily: "var(--font-heading)" }}
                     className="text-white text-base sm:text-lg md:text-xl font-black leading-snug line-clamp-2 hover:text-cyan-300 transition-colors cursor-pointer"
-                    style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {heroItem.title}
                   </h3>
@@ -274,24 +344,28 @@ export default function VideoEndRecommendation({
                 {/* Chunky Action Buttons */}
                 <div className="flex items-center justify-center sm:justify-start gap-2.5 mt-3 sm:mt-4 flex-wrap">
                   <motion.button
-                    whileHover={{ scale: 1.04 }}
+                    type="button"
+                    whileHover={supportsHover ? { scale: 1.04 } : undefined}
                     whileTap={{ scale: 0.94 }}
                     onClick={() => {
                       playSFX("correct");
                       onSelect(heroItem.id);
                     }}
-                    className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-sm sm:text-base flex items-center gap-2 shadow-lg shadow-cyan-500/40 border border-cyan-300/40 cursor-pointer"
+                    style={{ touchAction: "manipulation" }}
+                    className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-sm sm:text-base flex items-center gap-2 shadow-lg shadow-cyan-500/40 border border-cyan-300/40 cursor-pointer active:scale-95"
                   >
                     <Play size={18} fill="white" />
                     <span>Xem Ngay {!isPaused && `(${countdown}s)`}</span>
                   </motion.button>
 
                   <button
+                    type="button"
                     onClick={() => {
                       playSFX("tap");
                       setIsPaused(!isPaused);
                     }}
-                    className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full bg-white/15 hover:bg-white/25 text-white/90 text-xs sm:text-sm font-bold flex items-center gap-1.5 border border-white/20 transition-all cursor-pointer"
+                    style={{ touchAction: "manipulation" }}
+                    className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full bg-white/15 hover:bg-white/25 active:bg-white/30 text-white/90 text-xs sm:text-sm font-bold flex items-center gap-1.5 border border-white/20 transition-all cursor-pointer active:scale-95"
                     title={isPaused ? "Bật lại tự động phát" : "Dừng tự động phát"}
                   >
                     {isPaused ? <Play size={14} fill="currentColor" /> : <Pause size={14} fill="currentColor" />}
@@ -316,24 +390,29 @@ export default function VideoEndRecommendation({
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-2.5">
               {otherItems.map((item, idx) => (
-                <motion.div
+                <motion.button
+                  type="button"
                   key={item.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: idx * 0.04 }}
-                  whileHover={{ scale: 1.03 }}
+                  transition={{ delay: Math.min(idx * 0.02, 0.12) }}
+                  whileHover={supportsHover ? { scale: 1.03 } : undefined}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => {
                     playSFX("tap");
                     onSelect(item.id);
                   }}
-                  className="group relative bg-white/10 hover:bg-white/15 border border-white/15 hover:border-cyan-400/60 rounded-xl sm:rounded-2xl p-2 flex flex-col justify-between cursor-pointer transition-all shadow-md hover:shadow-cyan-500/20"
+                  onTouchStart={(e) => handleItemTouchStart(item.id, e)}
+                  onTouchMove={(e) => handleItemTouchMove(item.id, e)}
+                  onTouchEnd={(e) => handleItemTouchEnd(item.id, e)}
+                  style={{ touchAction: "manipulation" }}
+                  className="group relative bg-white/10 hover:bg-white/15 active:bg-white/25 border border-white/15 hover:border-cyan-400/60 rounded-xl sm:rounded-2xl p-2 flex flex-col justify-between cursor-pointer transition-all shadow-md hover:shadow-cyan-500/20 text-left active:scale-95"
                 >
-                  <div className="relative aspect-video rounded-lg sm:rounded-xl overflow-hidden bg-slate-900 mb-1.5 shadow-inner">
+                  <div className="relative aspect-video rounded-lg sm:rounded-xl overflow-hidden bg-slate-900 mb-1.5 shadow-inner pointer-events-none select-none">
                     <img
                       src={item.thumbnail}
                       alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-90 group-hover:opacity-100"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-90 group-hover:opacity-100 pointer-events-none select-none"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
@@ -344,14 +423,16 @@ export default function VideoEndRecommendation({
                       </span>
                     )}
 
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="w-8 h-8 rounded-full bg-cyan-500 text-white flex items-center justify-center shadow-lg">
-                        <Play size={14} fill="white" className="ml-0.5" />
+                    {supportsHover && (
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-8 h-8 rounded-full bg-cyan-500 text-white flex items-center justify-center shadow-lg">
+                          <Play size={14} fill="white" className="ml-0.5" />
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
-                  <div className="min-w-0">
+                  <div className="min-w-0 pointer-events-none select-none">
                     <div className="flex items-center gap-1 mb-0.5 text-[10px] text-amber-300 font-bold">
                       <span>{item.avatarOrEmoji}</span>
                       <span className="truncate">{item.channelOrArtist}</span>
@@ -363,7 +444,7 @@ export default function VideoEndRecommendation({
                       {item.title}
                     </h4>
                   </div>
-                </motion.div>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -373,22 +454,26 @@ export default function VideoEndRecommendation({
       {/* Bottom Bar: Replay or Exit */}
       <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs shrink-0">
         <button
+          type="button"
           onClick={() => {
             playSFX("tap");
             onReplay();
           }}
-          className="text-white/70 hover:text-white flex items-center gap-1.5 py-1 px-2.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+          style={{ touchAction: "manipulation" }}
+          className="text-white/70 hover:text-white active:text-amber-300 flex items-center gap-1.5 py-1 px-2.5 rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors cursor-pointer"
         >
           <RotateCcw size={13} />
           <span>Xem lại video vừa rồi</span>
         </button>
 
         <button
+          type="button"
           onClick={() => {
             playSFX("tap");
             onClose();
           }}
-          className="text-white/70 hover:text-white flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+          style={{ touchAction: "manipulation" }}
+          className="text-white/70 hover:text-white active:text-amber-300 flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors cursor-pointer"
         >
           <span>Về trang chủ</span>
           <span>›</span>
@@ -397,4 +482,3 @@ export default function VideoEndRecommendation({
     </motion.div>
   );
 }
-
