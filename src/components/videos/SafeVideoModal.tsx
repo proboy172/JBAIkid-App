@@ -91,40 +91,44 @@ export default function SafeVideoModal({
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const hudTimerRef = useRef<NodeJS.Timeout | null>(null);
   const unlockTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const currentTimeRef = useRef<number>(0);
+  const lastStateUpdateTimeRef = useRef<number>(0);
+  const showHUDRef = useRef<boolean>(false);
 
   const isFullMode = isFullscreen || isMobileLandscape;
 
-  // Detect mobile landscape orientation
+  // Keep showHUDRef in sync for use in message listener without re-binding
   useEffect(() => {
-    let lastLandscape: boolean | null = null;
-    const checkOrientation = (isResize = false) => {
+    showHUDRef.current = showHUD;
+  }, [showHUD]);
+
+  // Detect mobile landscape orientation smoothly without scroll jank
+  useEffect(() => {
+    let lastWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+    let lastHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+
+    const checkOrientation = (force = false) => {
       if (typeof window === "undefined") return;
-      const isLandscape = window.innerWidth > window.innerHeight;
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      if (!force && Math.abs(w - lastWidth) < 20 && Math.abs(h - lastHeight) < 120) return;
+      lastWidth = w;
+      lastHeight = h;
+      const isLandscape = w > h;
       const isMobileOrTablet =
-        window.innerHeight <= 640 ||
-        window.innerWidth <= 1024 ||
+        h <= 640 ||
+        w <= 1024 ||
         "ontouchstart" in window ||
         (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0);
       setIsMobileLandscape(isLandscape && isMobileOrTablet);
-
-      // ONLY reset scroll if orientation actually changed, NOT on routine resize events!
-      if (!isResize || (lastLandscape !== null && lastLandscape !== isLandscape)) {
-        window.scrollTo(0, 0);
-        if (document.documentElement) document.documentElement.scrollLeft = 0;
-        if (document.body) document.body.scrollLeft = 0;
-      }
-      lastLandscape = isLandscape;
     };
 
-    checkOrientation(false);
-    const handleResize = () => checkOrientation(true);
-    const handleOrientation = () => checkOrientation(false);
-
-    window.addEventListener("resize", handleResize);
+    checkOrientation(true);
+    const handleOrientation = () => checkOrientation(true);
     window.addEventListener("orientationchange", handleOrientation);
 
     const mql = window.matchMedia("(orientation: landscape)");
-    const handleMql = () => checkOrientation(false);
+    const handleMql = () => checkOrientation(true);
     try {
       mql.addEventListener("change", handleMql);
     } catch {
@@ -132,7 +136,6 @@ export default function SafeVideoModal({
     }
 
     return () => {
-      window.removeEventListener("resize", handleResize);
       window.removeEventListener("orientationchange", handleOrientation);
       try {
         mql.removeEventListener("change", handleMql);
@@ -259,6 +262,8 @@ export default function SafeVideoModal({
     e?.stopPropagation();
     if (isLocked || isVideoEnded) return;
     lastHUDOpenTimeRef.current = Date.now();
+    // Synchronize currentTime immediately when HUD opens
+    setCurrentTime(currentTimeRef.current);
     setShowHUD(true);
     resetHUDTimer();
   }, [isLocked, isVideoEnded, resetHUDTimer]);
@@ -710,8 +715,20 @@ export default function SafeVideoModal({
           // Near-end detection & time sync via infoDelivery
           const ct = data.info.currentTime;
           const dur = data.info.duration;
-          if (typeof ct === "number") setCurrentTime(ct);
-          if (typeof dur === "number" && dur > 0) setDuration(dur);
+          if (typeof ct === "number") {
+            currentTimeRef.current = ct;
+            // Only update React state if HUD is currently visible, throttled to 800ms to eliminate re-render lag
+            if (showHUDRef.current) {
+              const now = Date.now();
+              if (now - lastStateUpdateTimeRef.current > 800) {
+                lastStateUpdateTimeRef.current = now;
+                setCurrentTime(ct);
+              }
+            }
+          }
+          if (typeof dur === "number" && dur > 0) {
+            setDuration((prev) => (prev === dur ? prev : dur));
+          }
           if (typeof ct === "number" && typeof dur === "number" && dur > 5 && ct >= dur - 1.5) {
             handleVideoFinished();
           }
@@ -962,11 +979,12 @@ export default function SafeVideoModal({
             <iframe
               ref={iframeRef}
               key={`${currentVideo.id}-${iframeKey}`}
-              src={`https://www.youtube.com/embed/${currentVideo.youtubeId}?autoplay=1&controls=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`}
+              src={`https://www.youtube.com/embed/${currentVideo.youtubeId}?autoplay=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&fs=0&disablekb=1&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`}
               title={currentVideo.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              sandbox="allow-scripts allow-same-origin allow-presentation"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="absolute inset-0 w-full h-full border-0"
+              className="absolute inset-0 w-full h-full border-0 pointer-events-none"
               onLoad={() => {
                 try {
                   iframeRef.current?.contentWindow?.postMessage(

@@ -257,6 +257,7 @@ export default function VideoEndRecommendation({
                 <img
                   src={heroItem.thumbnail}
                   alt={heroItem.title}
+                  decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 pointer-events-none select-none"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
@@ -412,6 +413,7 @@ export default function VideoEndRecommendation({
                     <img
                       src={item.thumbnail}
                       alt={item.title}
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-90 group-hover:opacity-100 pointer-events-none select-none"
                       loading="lazy"
                     />

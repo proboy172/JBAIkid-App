@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
+import { useState, useMemo, useEffect, useCallback, Suspense, memo } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import BackButton from "@/components/layout/BackButton";
@@ -192,6 +192,8 @@ function VideosContent() {
   const [activeSong, setActiveSong] = useState<Song | null>(null);
   const [visibleEduCount, setVisibleEduCount] = useState(24);
   const [visibleAllCount, setVisibleAllCount] = useState(24);
+  const [visibleSingEnCount, setVisibleSingEnCount] = useState(24);
+  const [visibleSingViCount, setVisibleSingViCount] = useState(24);
   const [shuffledAllVideos, setShuffledAllVideos] = useState<AllVideoItem[]>(() =>
     getInterleavedBaseItems()
   );
@@ -270,7 +272,9 @@ function VideosContent() {
   useEffect(() => {
     setVisibleEduCount(24);
     setVisibleAllCount(24);
-  }, [selectedEduFilter, searchQuery, activeTab]);
+    setVisibleSingEnCount(24);
+    setVisibleSingViCount(24);
+  }, [selectedEduFilter, searchQuery, activeTab, songEnTheme, songViTheme]);
 
   // Sync tab if URL param changes
   useEffect(() => {
@@ -656,174 +660,177 @@ function VideosContent() {
         )}
       </AnimatePresence>
 
-      {/* Main Category Tabs - Compact, Single Horizontal Row (Never Wrap) */}
-      <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10 mb-1.5">
-        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
-          {tabs.map((tab) => {
-            const isSelected = activeTab === tab.id;
-            return (
-              <motion.button
-                key={tab.id}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  playSFX("tap");
-                  setActiveTab(tab.id);
-                }}
-                className={`relative px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl flex items-center gap-1.5 sm:gap-2 shrink-0 transition-all font-bold cursor-pointer border ${
-                  isSelected
-                    ? `bg-gradient-to-r ${tab.bgGradient} text-white shadow-md ${tab.activeShadow} scale-102 border-transparent`
-                    : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200/80 shadow-xs"
-                }`}
-              >
-                <span className="text-base sm:text-lg drop-shadow-xs">{tab.emoji}</span>
-                <span className="text-xs sm:text-sm font-extrabold whitespace-nowrap" style={{ fontFamily: "var(--font-heading)" }}>
-                  {tab.label}
-                </span>
-                <span
-                  className={`text-[10px] sm:text-xs font-black px-1.5 py-0.2 rounded-full ${
-                    isSelected ? "bg-white/30 text-white" : "bg-slate-100 text-slate-500"
-                  }`}
-                >
-                  {tab.badge}
-                </span>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Sub-Filters Container - Compact, Single Horizontal Row */}
-      <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10 mb-2">
-        {/* TAB: VIDEO BÉ HỌC Sub-filters */}
-        {activeTab === "edu" && !searchQuery && (
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
-            {/* Quick Shuffle Button */}
-            <motion.button
-              whileTap={{ scale: 0.92 }}
-              onClick={shuffleEduVideos}
-              className={`px-2.5 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1 shrink-0 transition-all border cursor-pointer ${
-                isShufflingEdu
-                  ? "bg-amber-500 text-white border-amber-600 shadow-xs animate-pulse"
-                  : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-xs"
-              }`}
-              title="Đổi thứ tự ngẫu nhiên toàn bộ video"
-            >
-              <Sparkles size={12} className={isShufflingEdu ? "animate-spin" : "text-amber-500"} />
-              <span>{isShufflingEdu ? "Đang trộn..." : "🎲 Trộn"}</span>
-            </motion.button>
-
-            {eduUnifiedFilters.map((filter) => {
-              const isSelected = selectedEduFilter === filter.id;
+      {/* Sticky Categories & Sub-Filters Header (Silky smooth 60fps) */}
+      <div className="sticky top-0 z-20 bg-[#F8FAFC]/95 backdrop-blur-md pb-1.5 pt-1 border-b border-slate-200/50 shadow-xs">
+        {/* Main Category Tabs - Compact, Single Horizontal Row (Never Wrap) */}
+        <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10 mb-1.5">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap touch-pan-x">
+            {tabs.map((tab) => {
+              const isSelected = activeTab === tab.id;
               return (
                 <motion.button
-                  key={filter.id}
-                  whileTap={{ scale: 0.94 }}
+                  key={tab.id}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => {
                     playSFX("tap");
-                    setSelectedEduFilter(filter.id);
-                    if (filter.id === "all") {
-                      shuffleEduVideos();
-                    }
+                    setActiveTab(tab.id);
                   }}
-                  className={`px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
+                  className={`relative px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl flex items-center gap-1.5 sm:gap-2 shrink-0 transition-all font-bold cursor-pointer border ${
                     isSelected
-                      ? "bg-cyan-500 text-white border-cyan-500 shadow-xs shadow-cyan-500/30 scale-102"
-                      : "bg-white text-slate-700 hover:bg-cyan-50/70 border-slate-200/90 shadow-xs"
+                      ? `bg-gradient-to-r ${tab.bgGradient} text-white shadow-md ${tab.activeShadow} scale-102 border-transparent`
+                      : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200/80 shadow-xs"
                   }`}
                 >
-                  <span className="text-sm">{filter.emoji}</span>
-                  <span>{filter.name}</span>
+                  <span className="text-base sm:text-lg drop-shadow-xs">{tab.emoji}</span>
+                  <span className="text-xs sm:text-sm font-extrabold whitespace-nowrap" style={{ fontFamily: "var(--font-heading)" }}>
+                    {tab.label}
+                  </span>
                   <span
-                    className={`text-[10px] font-bold px-1 py-0.2 rounded-full ${
-                      isSelected ? "bg-white/25 text-white" : "bg-slate-100 text-slate-400"
+                    className={`text-[10px] sm:text-xs font-black px-1.5 py-0.2 rounded-full ${
+                      isSelected ? "bg-white/30 text-white" : "bg-slate-100 text-slate-500"
                     }`}
                   >
-                    {filter.count}
+                    {tab.badge}
                   </span>
                 </motion.button>
               );
             })}
           </div>
-        )}
+        </div>
 
-        {/* TAB: TẤT CẢ Sub-filters / Actions */}
-        {activeTab === "all" && !searchQuery && (
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
-            <motion.button
-              whileTap={{ scale: 0.94 }}
-              onClick={shuffleAllVideos}
-              className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
-                isShuffling
-                  ? "bg-amber-500 text-white border-amber-600 shadow-xs animate-pulse"
-                  : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-xs"
-              }`}
-            >
-              <Sparkles size={12} className={isShuffling ? "animate-spin" : "text-amber-500"} />
-              <span>{isShuffling ? "Đang trộn..." : "🎲 Trộn ngẫu nhiên 534 video"}</span>
-            </motion.button>
-            <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap">
-              Tổng hợp Video Bé Học + Bài hát tiếng Anh & tiếng Việt
-            </span>
-          </div>
-        )}
+        {/* Sub-Filters Container - Compact, Single Horizontal Row */}
+        <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10">
+          {/* TAB: VIDEO BÉ HỌC Sub-filters */}
+          {activeTab === "edu" && !searchQuery && (
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap touch-pan-x">
+              {/* Quick Shuffle Button */}
+              <motion.button
+                whileTap={{ scale: 0.92 }}
+                onClick={shuffleEduVideos}
+                className={`px-2.5 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1 shrink-0 transition-all border cursor-pointer ${
+                  isShufflingEdu
+                    ? "bg-amber-500 text-white border-amber-600 shadow-xs animate-pulse"
+                    : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-xs"
+                }`}
+                title="Đổi thứ tự ngẫu nhiên toàn bộ video"
+              >
+                <Sparkles size={12} className={isShufflingEdu ? "animate-spin" : "text-amber-500"} />
+                <span>{isShufflingEdu ? "Đang trộn..." : "🎲 Trộn"}</span>
+              </motion.button>
 
-        {/* TAB: HÁT TIẾNG ANH Sub-filters */}
-        {activeTab === "sing_en" && !searchQuery && (
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
-            {englishSongThemes.map((theme) => {
-              const isSelected = songEnTheme === theme.id;
-              return (
-                <motion.button
-                  key={theme.id}
-                  whileTap={{ scale: 0.94 }}
-                  onClick={() => {
-                    playSFX("tap");
-                    setSongEnTheme(theme.id);
-                  }}
-                  className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
-                    isSelected
-                      ? "bg-indigo-600 text-white border-indigo-700 shadow-xs shadow-indigo-500/30 scale-102"
-                      : "bg-white text-gray-700 hover:bg-indigo-50 border-gray-200 shadow-xs"
-                  }`}
-                >
-                  <span className="text-sm">{theme.emoji}</span>
-                  <span>{theme.label}</span>
-                </motion.button>
-              );
-            })}
-          </div>
-        )}
+              {eduUnifiedFilters.map((filter) => {
+                const isSelected = selectedEduFilter === filter.id;
+                return (
+                  <motion.button
+                    key={filter.id}
+                    whileTap={{ scale: 0.94 }}
+                    onClick={() => {
+                      playSFX("tap");
+                      setSelectedEduFilter(filter.id);
+                      if (filter.id === "all") {
+                        shuffleEduVideos();
+                      }
+                    }}
+                    className={`px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
+                      isSelected
+                        ? "bg-cyan-500 text-white border-cyan-500 shadow-xs shadow-cyan-500/30 scale-102"
+                        : "bg-white text-slate-700 hover:bg-cyan-50/70 border-slate-200/90 shadow-xs"
+                    }`}
+                  >
+                    <span className="text-sm">{filter.emoji}</span>
+                    <span>{filter.name}</span>
+                    <span
+                      className={`text-[10px] font-bold px-1 py-0.2 rounded-full ${
+                        isSelected ? "bg-white/25 text-white" : "bg-slate-100 text-slate-400"
+                      }`}
+                    >
+                      {filter.count}
+                    </span>
+                  </motion.button>
+                );
+              })}
+            </div>
+          )}
 
-        {/* TAB: BÀI HÁT VIỆT Sub-filters */}
-        {activeTab === "sing_vi" && !searchQuery && (
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap scroll-smooth">
-            {vietnameseSongThemes.map((theme) => {
-              const isSelected = songViTheme === theme.id;
-              return (
-                <motion.button
-                  key={theme.id}
-                  whileTap={{ scale: 0.94 }}
-                  onClick={() => {
-                    playSFX("tap");
-                    setSongViTheme(theme.id);
-                  }}
-                  className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
-                    isSelected
-                      ? "bg-rose-500 text-white border-rose-600 shadow-xs shadow-rose-500/30 scale-102"
-                      : "bg-white text-gray-700 hover:bg-rose-50 border-gray-200 shadow-xs"
-                  }`}
-                >
-                  <span className="text-sm">{theme.emoji}</span>
-                  <span>{theme.label}</span>
-                </motion.button>
-              );
-            })}
-          </div>
-        )}
+          {/* TAB: TẤT CẢ Sub-filters / Actions */}
+          {activeTab === "all" && !searchQuery && (
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap touch-pan-x">
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                onClick={shuffleAllVideos}
+                className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
+                  isShuffling
+                    ? "bg-amber-500 text-white border-amber-600 shadow-xs animate-pulse"
+                    : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-xs"
+                }`}
+              >
+                <Sparkles size={12} className={isShuffling ? "animate-spin" : "text-amber-500"} />
+                <span>{isShuffling ? "Đang trộn..." : "🎲 Trộn ngẫu nhiên 534 video"}</span>
+              </motion.button>
+              <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap">
+                Tổng hợp Video Bé Học + Bài hát tiếng Anh & tiếng Việt
+              </span>
+            </div>
+          )}
+
+          {/* TAB: HÁT TIẾNG ANH Sub-filters */}
+          {activeTab === "sing_en" && !searchQuery && (
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap touch-pan-x">
+              {englishSongThemes.map((theme) => {
+                const isSelected = songEnTheme === theme.id;
+                return (
+                  <motion.button
+                    key={theme.id}
+                    whileTap={{ scale: 0.94 }}
+                    onClick={() => {
+                      playSFX("tap");
+                      setSongEnTheme(theme.id);
+                    }}
+                    className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
+                      isSelected
+                        ? "bg-indigo-600 text-white border-indigo-700 shadow-xs shadow-indigo-500/30 scale-102"
+                        : "bg-white text-gray-700 hover:bg-indigo-50 border-gray-200 shadow-xs"
+                    }`}
+                  >
+                    <span className="text-sm">{theme.emoji}</span>
+                    <span>{theme.label}</span>
+                  </motion.button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* TAB: BÀI HÁT VIỆT Sub-filters */}
+          {activeTab === "sing_vi" && !searchQuery && (
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap touch-pan-x">
+              {vietnameseSongThemes.map((theme) => {
+                const isSelected = songViTheme === theme.id;
+                return (
+                  <motion.button
+                    key={theme.id}
+                    whileTap={{ scale: 0.94 }}
+                    onClick={() => {
+                      playSFX("tap");
+                      setSongViTheme(theme.id);
+                    }}
+                    className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap flex items-center gap-1.5 shrink-0 transition-all border cursor-pointer ${
+                      isSelected
+                        ? "bg-rose-500 text-white border-rose-600 shadow-xs shadow-rose-500/30 scale-102"
+                        : "bg-white text-gray-700 hover:bg-rose-50 border-gray-200 shadow-xs"
+                    }`}
+                  >
+                    <span className="text-sm">{theme.emoji}</span>
+                    <span>{theme.label}</span>
+                  </motion.button>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Content Section */}
-      <div className="flex-1 px-3 sm:px-6 pb-36 sm:pb-40 lg:pb-44 scroll-area relative z-10 max-w-6xl mx-auto w-full">
+      {/* Content Section (Native window scrolling with hardware acceleration) */}
+      <div className="flex-1 px-3 sm:px-6 pb-36 sm:pb-40 lg:pb-44 relative z-10 max-w-6xl mx-auto w-full">
         {/* Search Result View (when query is active) */}
         {searchQuery.trim() ? (
           <div>
@@ -1100,24 +1107,47 @@ function VideosContent() {
                     <p className="font-bold text-base text-gray-700">Không có bài hát phù hợp</p>
                     <button
                       onClick={() => setSongEnTheme("all")}
-                      className="mt-3 px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-md"
+                      className="mt-3 px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-md cursor-pointer"
                     >
                       Xem tất cả bài hát tiếng Anh
                     </button>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredSongsEn.map((song) => (
-                      <SongVideoCard
-                        key={song.id}
-                        song={song}
-                        langLabel="🇬🇧 Tiếng Anh"
-                        isFavorite={favorites.includes(song.id)}
-                        onToggleFavorite={() => toggleFavorite(song.id)}
-                        onSelect={() => setActiveSong(song)}
-                      />
-                    ))}
-                  </div>
+                  <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {filteredSongsEn.slice(0, visibleSingEnCount).map((song) => (
+                        <SongVideoCard
+                          key={song.id}
+                          song={song}
+                          langLabel="🇬🇧 Tiếng Anh"
+                          isFavorite={favorites.includes(song.id)}
+                          onToggleFavorite={() => toggleFavorite(song.id)}
+                          onSelect={() => setActiveSong(song)}
+                        />
+                      ))}
+                    </div>
+
+                    {visibleSingEnCount < filteredSongsEn.length && (
+                      <div className="mt-8 mb-6 sm:mb-8 flex flex-col items-center justify-center">
+                        <button
+                          onClick={() => {
+                            playSFX("tap");
+                            setVisibleSingEnCount((prev) => prev + 24);
+                          }}
+                          className="btn-3d btn-3d-secondary px-6 py-3 text-sm font-extrabold flex items-center gap-2 shadow-lg"
+                        >
+                          <span>Xem thêm 24 bài hát nữa</span>
+                          <span className="bg-white/25 px-2 py-0.5 rounded-full text-xs">
+                            (còn {filteredSongsEn.length - visibleSingEnCount} bài)
+                          </span>
+                          <ChevronRight size={16} />
+                        </button>
+                        <p className="text-xs text-gray-500 mt-2 font-medium">
+                          Đang hiển thị {Math.min(visibleSingEnCount, filteredSongsEn.length)} / {filteredSongsEn.length} bài hát
+                        </p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -1131,24 +1161,47 @@ function VideosContent() {
                     <p className="font-bold text-base text-gray-700">Không có bài hát phù hợp</p>
                     <button
                       onClick={() => setSongViTheme("all")}
-                      className="mt-3 px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold shadow-md"
+                      className="mt-3 px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold shadow-md cursor-pointer"
                     >
                       Xem tất cả bài hát Việt
                     </button>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredSongsVi.map((song) => (
-                      <SongVideoCard
-                        key={song.id}
-                        song={song}
-                        langLabel="🇻🇳 Tiếng Việt"
-                        isFavorite={favorites.includes(song.id)}
-                        onToggleFavorite={() => toggleFavorite(song.id)}
-                        onSelect={() => setActiveSong(song)}
-                      />
-                    ))}
-                  </div>
+                  <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {filteredSongsVi.slice(0, visibleSingViCount).map((song) => (
+                        <SongVideoCard
+                          key={song.id}
+                          song={song}
+                          langLabel="🇻🇳 Tiếng Việt"
+                          isFavorite={favorites.includes(song.id)}
+                          onToggleFavorite={() => toggleFavorite(song.id)}
+                          onSelect={() => setActiveSong(song)}
+                        />
+                      ))}
+                    </div>
+
+                    {visibleSingViCount < filteredSongsVi.length && (
+                      <div className="mt-8 mb-6 sm:mb-8 flex flex-col items-center justify-center">
+                        <button
+                          onClick={() => {
+                            playSFX("tap");
+                            setVisibleSingViCount((prev) => prev + 24);
+                          }}
+                          className="btn-3d btn-3d-secondary px-6 py-3 text-sm font-extrabold flex items-center gap-2 shadow-lg"
+                        >
+                          <span>Xem thêm 24 bài hát nữa</span>
+                          <span className="bg-white/25 px-2 py-0.5 rounded-full text-xs">
+                            (còn {filteredSongsVi.length - visibleSingViCount} bài)
+                          </span>
+                          <ChevronRight size={16} />
+                        </button>
+                        <p className="text-xs text-gray-500 mt-2 font-medium">
+                          Đang hiển thị {Math.min(visibleSingViCount, filteredSongsVi.length)} / {filteredSongsVi.length} bài hát
+                        </p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -1251,8 +1304,8 @@ function VideosContent() {
   );
 }
 
-// Educational Video Card Component
-function EduVideoCard({
+// Educational Video Card Component (Memoized for silky-smooth 60fps scrolling)
+const EduVideoCard = memo(function EduVideoCard({
   video,
   isFavorite,
   onToggleFavorite,
@@ -1267,6 +1320,7 @@ function EduVideoCard({
 
   return (
     <div
+      style={{ contentVisibility: "auto", containIntrinsicSize: "0 340px" }}
       className="p-3 sm:p-4 flex flex-col justify-between hover:border-cyan-300 transition-all group shadow-md hover:shadow-xl rounded-3xl relative overflow-hidden bg-white border border-slate-100"
     >
       <div>
@@ -1317,6 +1371,7 @@ function EduVideoCard({
               src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
               alt={video.title}
               onError={() => setImgFailed(true)}
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-95 transition-opacity"
               loading="lazy"
             />
@@ -1411,10 +1466,10 @@ function EduVideoCard({
       </div>
     </div>
   );
-}
+});
 
-// Song Video Card Component (for English & Vietnamese songs)
-function SongVideoCard({
+// Song Video Card Component (Memoized for silky-smooth 60fps scrolling)
+const SongVideoCard = memo(function SongVideoCard({
   song,
   langLabel,
   isFavorite,
@@ -1433,6 +1488,7 @@ function SongVideoCard({
 
   return (
     <div
+      style={{ contentVisibility: "auto", containIntrinsicSize: "0 340px" }}
       className="p-3 sm:p-4 flex flex-col justify-between hover:border-purple-300 transition-all group shadow-md hover:shadow-xl rounded-3xl relative overflow-hidden bg-white border border-slate-100"
     >
       <div>
@@ -1480,6 +1536,7 @@ function SongVideoCard({
             <img
               src={thumbUrl}
               alt={song.title}
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-95 transition-opacity"
               loading="lazy"
             />
@@ -1572,7 +1629,7 @@ function SongVideoCard({
       </div>
     </div>
   );
-}
+});
 
 export default function VideosPage() {
   return (
