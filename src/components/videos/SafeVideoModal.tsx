@@ -250,11 +250,25 @@ export default function SafeVideoModal({
   const lastHUDOpenTimeRef = useRef<number>(0);
   const touchStartPosRef = useRef<{ x: number; y: number; time: number } | null>(null);
 
-  // HUD Auto-Hide Timer (4.5s of inactivity like YouTube Kids)
+  const isPlayingRef = useRef<boolean>(true);
+
+  // Keep isPlayingRef in sync and ensure HUD is shown when paused so Play button is easily accessible
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+    if (!isPlaying && !isLocked && !isVideoEnded) {
+      setShowHUD(true);
+      if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
+    }
+  }, [isPlaying, isLocked, isVideoEnded]);
+
+  // HUD Auto-Hide Timer (4.5s of inactivity - only hides while video is actively playing)
   const resetHUDTimer = useCallback(() => {
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
+    if (!isPlayingRef.current) return;
     hudTimerRef.current = setTimeout(() => {
-      setShowHUD(false);
+      if (isPlayingRef.current) {
+        setShowHUD(false);
+      }
     }, 4500);
   }, []);
 
@@ -270,6 +284,8 @@ export default function SafeVideoModal({
 
   const handleCloseHUD = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
     e?.stopPropagation();
+    // If video is paused, keep controls visible so child isn't left staring at frozen screen
+    if (!isPlayingRef.current) return;
     // Guard against ghost-clicks immediately after opening (within 150ms)
     if (Date.now() - lastHUDOpenTimeRef.current < 150) return;
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
