@@ -222,8 +222,20 @@ export default function YouTubeKidsVideoDrawer({
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", stiffness: 350, damping: 30 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.5 }}
+            onDragEnd={(e, info) => {
+              if (info.offset.y > 60 || info.velocity.y > 250) {
+                playSFX("tap");
+                onClose();
+              }
+            }}
             className="w-full bg-gradient-to-t from-slate-950 via-slate-900/98 to-slate-900/90 backdrop-blur-xl border-t border-white/20 p-3 sm:p-4 rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.8)]"
           >
+            {/* Top Pull Handle Bar (Swipe down to dismiss) */}
+            <div className="w-12 h-1.5 bg-white/40 rounded-full mx-auto -mt-1 mb-2.5 opacity-80 cursor-grab active:cursor-grabbing" />
+
             {/* Drawer Header */}
             <div className="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-white/10">
               <div className="flex items-center gap-2 min-w-0">

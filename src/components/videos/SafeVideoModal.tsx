@@ -95,6 +95,19 @@ export default function SafeVideoModal({
   const lastStateUpdateTimeRef = useRef<number>(0);
   const showHUDRef = useRef<boolean>(false);
 
+  // Touch gesture & smooth scrubbing state
+  const [doubleTapRipple, setDoubleTapRipple] = useState<{
+    type: "rewind" | "forward";
+    id: number;
+  } | null>(null);
+  const [isScrubbing, setIsScrubbing] = useState(false);
+  const [scrubTime, setScrubTime] = useState(0);
+  const scrubberTrackRef = useRef<HTMLDivElement | null>(null);
+  const doubleTapTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const lastTapTimeRef = useRef<number>(0);
+  const lastTapPosRef = useRef<{ x: number; y: number } | null>(null);
+  const handleCloseRef = useRef<() => void>(() => {});
+
   const isFullMode = isFullscreen || isMobileLandscape;
 
   // Keep showHUDRef in sync for use in message listener without re-binding
@@ -292,53 +305,6 @@ export default function SafeVideoModal({
     setShowHUD(false);
   }, []);
 
-  const handleOverlayTouchStart = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      touchStartPosRef.current = {
-        x: e.touches[0].clientX,
-        y: e.touches[0].clientY,
-        time: Date.now(),
-      };
-    }
-  }, []);
-
-  const handleOverlayTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!touchStartPosRef.current) return;
-    const touch = e.changedTouches[0];
-    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
-    const dy = Math.abs(touch.clientY - touchStartPosRef.current.y);
-    const dt = Date.now() - touchStartPosRef.current.time;
-    touchStartPosRef.current = null;
-    // Clean tap: small movement and short duration (< 600ms)
-    if (dx < 15 && dy < 15 && dt < 600) {
-      e.preventDefault(); // Prevents delayed 300ms synthetic click
-      handleOpenHUD();
-    }
-  }, [handleOpenHUD]);
-
-  const handleBackdropTouchStart = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      touchStartPosRef.current = {
-        x: e.touches[0].clientX,
-        y: e.touches[0].clientY,
-        time: Date.now(),
-      };
-    }
-  }, []);
-
-  const handleBackdropTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!touchStartPosRef.current) return;
-    const touch = e.changedTouches[0];
-    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
-    const dy = Math.abs(touch.clientY - touchStartPosRef.current.y);
-    const dt = Date.now() - touchStartPosRef.current.time;
-    touchStartPosRef.current = null;
-    if (dx < 15 && dy < 15 && dt < 600) {
-      e.preventDefault();
-      handleCloseHUD();
-    }
-  }, [handleCloseHUD]);
-
   // Play / Pause Toggle via YouTube postMessage with instant state feedback
   const togglePlayPause = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
     e?.stopPropagation();
@@ -382,6 +348,172 @@ export default function SafeVideoModal({
     const target = Math.max(0, Math.min(duration || 300, currentTime + delta));
     handleSeek(target);
   }, [currentTime, duration, handleSeek]);
+
+  // Scrubber drag handlers with Pointer Events for 120Hz smooth dragging on touch screens
+  const handleScrubberPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    if (!scrubberTrackRef.current) return;
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {}
+    setIsScrubbing(true);
+    const rect = scrubberTrackRef.current.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const targetTime = ratio * (duration || 300);
+    setScrubTime(targetTime);
+    try { if (navigator.vibrate) navigator.vibrate(8); } catch {}
+  };
+
+  const handleScrubberPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isScrubbing || !scrubberTrackRef.current) return;
+    e.stopPropagation();
+    const rect = scrubberTrackRef.current.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const targetTime = ratio * (duration || 300);
+    setScrubTime(targetTime);
+  };
+
+  const handleScrubberPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isScrubbing) return;
+    e.stopPropagation();
+    try {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    } catch {}
+    setIsScrubbing(false);
+    const rect = scrubberTrackRef.current?.getBoundingClientRect();
+    if (rect) {
+      const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const targetTime = ratio * (duration || 300);
+      handleSeek(targetTime);
+    } else {
+      handleSeek(scrubTime);
+    }
+    try { if (navigator.vibrate) navigator.vibrate(12); } catch {}
+  };
+
+  const handleOverlayTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStartPosRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        time: Date.now(),
+      };
+    }
+  }, []);
+
+  const handleOverlayTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStartPosRef.current) return;
+    const touch = e.changedTouches[0];
+    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
+    const dy = touch.clientY - touchStartPosRef.current.y;
+    const absDy = Math.abs(dy);
+    const dt = Date.now() - touchStartPosRef.current.time;
+    touchStartPosRef.current = null;
+
+    // 1. Swipe Down to Close gesture (when not locked)
+    if (!isLocked && dy > 85 && absDy > dx * 1.5 && dt < 800) {
+      e.preventDefault();
+      handleCloseRef.current();
+      return;
+    }
+
+    // 2. Clean Tap / Double Tap detection (< 18px jitter, < 500ms)
+    if (dx < 18 && absDy < 18 && dt < 500) {
+      e.preventDefault();
+      const now = Date.now();
+      const rect = e.currentTarget.getBoundingClientRect();
+      const ratio = (touch.clientX - rect.left) / rect.width;
+
+      // Check if double tap occurred (within 350ms and within 60px)
+      if (
+        lastTapPosRef.current &&
+        now - lastTapTimeRef.current < 350 &&
+        Math.abs(touch.clientX - lastTapPosRef.current.x) < 60
+      ) {
+        if (doubleTapTimerRef.current) {
+          clearTimeout(doubleTapTimerRef.current);
+          doubleTapTimerRef.current = null;
+        }
+        lastTapTimeRef.current = 0;
+        lastTapPosRef.current = null;
+
+        if (ratio < 0.38) {
+          // Double-tap left side: Rewind 10s
+          handleSkipSeconds(-10);
+          setDoubleTapRipple({ type: "rewind", id: Date.now() });
+          try { if (navigator.vibrate) navigator.vibrate(12); } catch {}
+          setTimeout(() => setDoubleTapRipple(null), 800);
+          return;
+        } else if (ratio > 0.62) {
+          // Double-tap right side: Fast forward 10s
+          handleSkipSeconds(10);
+          setDoubleTapRipple({ type: "forward", id: Date.now() });
+          try { if (navigator.vibrate) navigator.vibrate(12); } catch {}
+          setTimeout(() => setDoubleTapRipple(null), 800);
+          return;
+        }
+      }
+
+      // Record first tap
+      lastTapTimeRef.current = now;
+      lastTapPosRef.current = { x: touch.clientX, y: touch.clientY };
+
+      // Single tap handler with slight delay to distinguish from double-tap
+      if (doubleTapTimerRef.current) clearTimeout(doubleTapTimerRef.current);
+      doubleTapTimerRef.current = setTimeout(() => {
+        handleOpenHUD();
+        lastTapPosRef.current = null;
+      }, 240);
+    }
+  }, [isLocked, handleSkipSeconds, handleOpenHUD]);
+
+  // Desktop Double-Click on overlay to skip -10s / +10s
+  const handleOverlayDoubleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    if (ratio < 0.38) {
+      handleSkipSeconds(-10);
+      setDoubleTapRipple({ type: "rewind", id: Date.now() });
+      setTimeout(() => setDoubleTapRipple(null), 800);
+    } else if (ratio > 0.62) {
+      handleSkipSeconds(10);
+      setDoubleTapRipple({ type: "forward", id: Date.now() });
+      setTimeout(() => setDoubleTapRipple(null), 800);
+    }
+  }, [handleSkipSeconds]);
+
+  const handleBackdropTouchStart = useCallback((e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      touchStartPosRef.current = {
+        x: e.touches[0].clientX,
+        y: e.touches[0].clientY,
+        time: Date.now(),
+      };
+    }
+  }, []);
+
+  const handleBackdropTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (!touchStartPosRef.current) return;
+    const touch = e.changedTouches[0];
+    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
+    const dy = touch.clientY - touchStartPosRef.current.y;
+    const absDy = Math.abs(dy);
+    const dt = Date.now() - touchStartPosRef.current.time;
+    touchStartPosRef.current = null;
+
+    // Swipe down to close on HUD backdrop as well
+    if (!isLocked && dy > 85 && absDy > dx * 1.5 && dt < 800) {
+      e.preventDefault();
+      handleCloseRef.current();
+      return;
+    }
+
+    if (dx < 18 && absDy < 18 && dt < 500) {
+      e.preventDefault();
+      handleCloseHUD();
+    }
+  }, [isLocked, handleCloseHUD]);
 
   const generateQuiz = () => {
     const n1 = Math.floor(Math.random() * 4) + 2;
@@ -613,6 +745,7 @@ export default function SafeVideoModal({
     setIsFullscreen(false);
     onClose();
   };
+  handleCloseRef.current = handleClose;
 
   const handleSpeakWord = (word: string) => {
     playSFX("tap");
@@ -1052,11 +1185,12 @@ export default function SafeVideoModal({
               </div>
             )}
 
-            {/* Transparent tap & click layer to open Toddler HUD */}
+            {/* Transparent tap & double-tap click layer to open Toddler HUD and skip -10s/+10s */}
             {!showQuickDrawer && !isVideoEnded && !isLocked && !showHUD && !playbackError && (
               <div
                 id="safe-video-hud-overlay"
                 onClick={handleOpenHUD}
+                onDoubleClick={handleOverlayDoubleClick}
                 onTouchStart={handleOverlayTouchStart}
                 onTouchEnd={handleOverlayTouchEnd}
                 className="absolute inset-0 z-20 cursor-pointer pointer-events-auto select-none"
@@ -1065,9 +1199,38 @@ export default function SafeVideoModal({
                   WebkitTapHighlightColor: "transparent",
                   touchAction: "manipulation",
                 }}
-                title="Chạm vào màn hình để hiện các nút điều khiển cho bé"
+                title="Chạm màn hình để hiện điều khiển, chạm 2 lần hai bên để tua 10 giây, vuốt xuống để đóng"
               />
             )}
+
+            {/* Double Tap Seek Feedback Ripple (YouTube Kids style) */}
+            <AnimatePresence>
+              {doubleTapRipple && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.18 }}
+                  className={`absolute top-1/2 -translate-y-1/2 z-40 pointer-events-none flex flex-col items-center justify-center p-3.5 sm:p-5 rounded-3xl bg-black/85 backdrop-blur-md border border-cyan-400/60 shadow-[0_0_35px_rgba(6,182,212,0.6)] text-cyan-300 select-none ${
+                    doubleTapRipple.type === "rewind" ? "left-6 sm:left-14" : "right-6 sm:right-14"
+                  }`}
+                >
+                  <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center mb-1">
+                    {doubleTapRipple.type === "rewind" ? (
+                      <RotateCcw size={28} className="text-cyan-400 animate-spin" />
+                    ) : (
+                      <RotateCw size={28} className="text-cyan-400 animate-spin" />
+                    )}
+                  </div>
+                  <span className="text-lg sm:text-xl font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                    {doubleTapRipple.type === "rewind" ? "-10s" : "+10s"}
+                  </span>
+                  <span className="text-[10px] font-bold text-white/80">
+                    {doubleTapRipple.type === "rewind" ? "Tua lùi 10 giây" : "Tua tới 10 giây"}
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Toddler Interactive Player HUD on Screen Tap (YouTube Kids style) */}
             <AnimatePresence>
@@ -1083,6 +1246,9 @@ export default function SafeVideoModal({
                   className="absolute inset-0 z-30 bg-black/45 backdrop-blur-[2px] flex flex-col justify-between p-3.5 sm:p-5 select-none pointer-events-auto cursor-pointer"
                   style={{ touchAction: "manipulation" }}
                 >
+                  {/* Top Pull Handle Bar (Hint for swipe-down to close) */}
+                  <div className="w-12 h-1.5 bg-white/40 rounded-full mx-auto -mt-1 mb-1 opacity-80 pointer-events-none" />
+
                   {/* Top HUD Hint Bar */}
                   <div
                     className="flex items-center justify-between pointer-events-auto z-10 cursor-default"
@@ -1099,7 +1265,7 @@ export default function SafeVideoModal({
                       </div>
                       <div className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-white/85 text-[10px] sm:text-[11px] font-bold border border-white/20 flex items-center gap-1.5 shadow-md">
                         <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                        <span className="hidden sm:inline">Chạm màn hình để ẩn nút</span>
+                        <span className="hidden sm:inline">Chạm 2 lần để tua nhanh • Vuốt xuống để đóng</span>
                       </div>
                     </div>
 
@@ -1191,7 +1357,7 @@ export default function SafeVideoModal({
                     </motion.button>
                   </div>
 
-                  {/* YouTube Kids Authentic Red Scrubber Bar & Controls */}
+                  {/* YouTube Kids Authentic Red Scrubber Bar & Controls with 120Hz Touch Dragging */}
                   <div
                     className="w-full pointer-events-auto z-10 flex flex-col gap-1.5"
                     onClick={(e) => e.stopPropagation()}
@@ -1200,29 +1366,73 @@ export default function SafeVideoModal({
                   >
                     {/* Time Indicator & Scrubber Track */}
                     <div className="w-full px-1">
-                      <div className="flex items-center justify-between text-[11px] font-bold text-white/90 mb-1 font-mono">
-                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10">{formatTime(currentTime)}</span>
-                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10">{formatTime(duration || 300)}</span>
+                      <div className="flex items-center justify-between text-[11px] font-bold text-white/90 mb-1 font-mono select-none">
+                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10">
+                          {formatTime(isScrubbing ? scrubTime : currentTime)}
+                        </span>
+                        {isScrubbing && (
+                          <span className="px-2 py-0.5 rounded-full bg-cyan-500 text-slate-950 font-black animate-pulse text-[10px]">
+                            Đang kéo: {formatTime(scrubTime)}
+                          </span>
+                        )}
+                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10">
+                          {formatTime(duration || 300)}
+                        </span>
                       </div>
+
+                      {/* Scrubber Container with Generous Touch Area */}
                       <div
-                        className="relative w-full h-3 bg-white/25 rounded-full cursor-pointer flex items-center group/scrub"
-                        style={{ touchAction: "manipulation" }}
-                        onClick={(e) => {
-                          const rect = e.currentTarget.getBoundingClientRect();
-                          const clickX = e.clientX - rect.left;
-                          const ratio = Math.max(0, Math.min(1, clickX / rect.width));
-                          const targetTime = ratio * (duration || 300);
-                          handleSeek(targetTime);
-                        }}
+                        ref={scrubberTrackRef}
+                        className="relative w-full py-2 cursor-pointer flex items-center group/scrub select-none"
+                        style={{ touchAction: "none" }}
+                        onPointerDown={handleScrubberPointerDown}
+                        onPointerMove={handleScrubberPointerMove}
+                        onPointerUp={handleScrubberPointerUp}
+                        onPointerCancel={handleScrubberPointerUp}
                       >
+                        {/* Background Track */}
+                        <div className="w-full h-3 sm:h-3.5 bg-white/25 rounded-full overflow-hidden relative">
+                          <div
+                            className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-red-500 rounded-full transition-[width] duration-75"
+                            style={{
+                              width: `${
+                                duration > 0
+                                  ? Math.min(100, ((isScrubbing ? scrubTime : currentTime) / duration) * 100)
+                                  : 0
+                              }%`,
+                            }}
+                          />
+                        </div>
+
+                        {/* Floating Scrubber Knob */}
                         <div
-                          className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-red-500 rounded-full relative"
+                          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-white shadow-xl border-3 border-red-600 flex items-center justify-center transition-transform group-hover/scrub:scale-125"
                           style={{
-                            width: `${duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0}%`,
+                            left: `${
+                              duration > 0
+                                ? Math.min(100, Math.max(0, ((isScrubbing ? scrubTime : currentTime) / duration) * 100))
+                                : 0
+                            }%`,
                           }}
                         >
-                          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-4 h-4 rounded-full bg-white shadow-lg border-2 border-red-600 group-hover/scrub:scale-125 transition-transform" />
+                          <div className="w-2 h-2 rounded-full bg-red-600" />
                         </div>
+
+                        {/* Floating Tooltip during dragging */}
+                        {isScrubbing && (
+                          <div
+                            className="absolute -top-7 -translate-x-1/2 px-2 py-0.5 rounded-lg bg-red-600 text-white font-mono text-xs font-black shadow-lg pointer-events-none select-none border border-white/30"
+                            style={{
+                              left: `${
+                                duration > 0
+                                  ? Math.min(95, Math.max(5, (scrubTime / duration) * 100))
+                                  : 0
+                              }%`,
+                            }}
+                          >
+                            {formatTime(scrubTime)}
+                          </div>
+                        )}
                       </div>
                     </div>
 
