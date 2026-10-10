@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Play, RotateCcw, X, Sparkles, Pause, ArrowRight, Shuffle, CheckCircle2 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { playSFX } from "@/utils/soundEffects";
+import { renderAvatar } from "@/utils/avatarHelper";
 
 export interface RecommendedItem {
   id: string;
@@ -316,7 +317,7 @@ export default function VideoEndRecommendation({
               <div className="flex-1 min-w-0 text-center sm:text-left flex flex-col justify-between w-full">
                 <div>
                   <div className="flex items-center justify-center sm:justify-start gap-1.5 mb-1 text-xs text-amber-300 font-bold">
-                    <span className="text-base">{heroItem.avatarOrEmoji}</span>
+                    {renderAvatar(heroItem.avatarOrEmoji, { alt: heroItem.channelOrArtist, sizeClass: "w-5 h-5", textClass: "text-base" })}
                     <span className="truncate">{heroItem.channelOrArtist}</span>
                     <span className="text-white/40">•</span>
                     <span className="text-white/70 text-[11px] truncate">
@@ -436,7 +437,7 @@ export default function VideoEndRecommendation({
 
                   <div className="min-w-0 pointer-events-none select-none">
                     <div className="flex items-center gap-1 mb-0.5 text-[10px] text-amber-300 font-bold">
-                      <span>{item.avatarOrEmoji}</span>
+                      {renderAvatar(item.avatarOrEmoji, { alt: item.channelOrArtist, sizeClass: "w-3.5 h-3.5", textClass: "text-xs" })}
                       <span className="truncate">{item.channelOrArtist}</span>
                     </div>
                     <h4

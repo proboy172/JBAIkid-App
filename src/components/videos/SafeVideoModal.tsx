@@ -22,11 +22,14 @@ import {
   Search,
   Maximize2,
   Minimize2,
+  ChevronDown,
+  ListVideo,
 } from "lucide-react";
 import { EducationalVideo, educationalVideos, getRecommendedVideos } from "@/data/educationalVideos";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX, pauseBGMForVideo, resumeBGMAfterVideo } from "@/utils/soundEffects";
 import { useSpeech } from "@/hooks/useSpeech";
+import { renderAvatar } from "@/utils/avatarHelper";
 import VideoEndRecommendation, { RecommendedItem } from "./VideoEndRecommendation";
 import YouTubeKidsVideoDrawer from "./YouTubeKidsVideoDrawer";
 
@@ -54,6 +57,7 @@ export default function SafeVideoModal({
   const [isLocked, setIsLocked] = useState(false);
   const [unlockTapCount, setUnlockTapCount] = useState(0);
   const [showVocabPanel, setShowVocabPanel] = useState(false);
+  const [mobileTab, setMobileTab] = useState<"vocab" | "recs">("vocab");
   const [isVideoEnded, setIsVideoEnded] = useState(false);
   const [showQuickDrawer, setShowQuickDrawer] = useState(false);
   const [isAutoPlayNext, setIsAutoPlayNext] = useState(true);
@@ -66,11 +70,39 @@ export default function SafeVideoModal({
   const [playbackError, setPlaybackError] = useState<string | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMobileLandscape, setIsMobileLandscape] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [parentQuiz, setParentQuiz] = useState<{ num1: number; num2: number; ans: number; options: number[] } | null>(null);
   const [supportsHover, setSupportsHover] = useState(false);
 
+  // Touch gesture & smooth scrubbing state
+  const [doubleTapRipple, setDoubleTapRipple] = useState<{
+    type: "rewind" | "forward";
+    id: number;
+  } | null>(null);
+  const [isScrubbing, setIsScrubbing] = useState(false);
+  const [scrubTime, setScrubTime] = useState(0);
+  const scrubberTrackRef = useRef<HTMLDivElement | null>(null);
+
+  // Gesture handling refs
+  const tapTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const lastTapRef = useRef<{ time: number; x: number; y: number } | null>(null);
+  const lastHUDToggleTimeRef = useRef<number>(0);
+  const hudTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const unlockTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const currentTimeRef = useRef<number>(0);
+  const lastStateUpdateTimeRef = useRef<number>(0);
+  const isPlayingRef = useRef<boolean>(true);
+  const showHUDRef = useRef<boolean>(false);
+  const openTimeRef = useRef<number>(Date.now());
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const isFullMode = isFullscreen || isMobileLandscape;
+
+  // Detect hover capability
   useEffect(() => {
     if (typeof window !== "undefined") {
       const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -86,62 +118,26 @@ export default function SafeVideoModal({
     }
   }, []);
 
-  const openTimeRef = useRef<number>(Date.now());
-  const modalRef = useRef<HTMLDivElement | null>(null);
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
-  const hudTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const unlockTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const currentTimeRef = useRef<number>(0);
-  const lastStateUpdateTimeRef = useRef<number>(0);
-  const showHUDRef = useRef<boolean>(false);
-
-  // Touch gesture & smooth scrubbing state
-  const [doubleTapRipple, setDoubleTapRipple] = useState<{
-    type: "rewind" | "forward";
-    id: number;
-  } | null>(null);
-  const [isScrubbing, setIsScrubbing] = useState(false);
-  const [scrubTime, setScrubTime] = useState(0);
-  const scrubberTrackRef = useRef<HTMLDivElement | null>(null);
-  const doubleTapTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const lastTapTimeRef = useRef<number>(0);
-  const lastTapPosRef = useRef<{ x: number; y: number } | null>(null);
-  const handleCloseRef = useRef<() => void>(() => {});
-
-  const isFullMode = isFullscreen || isMobileLandscape;
-
-  // Keep showHUDRef in sync for use in message listener without re-binding
+  // Responsive device & orientation detection
   useEffect(() => {
-    showHUDRef.current = showHUD;
-  }, [showHUD]);
-
-  // Detect mobile landscape orientation smoothly without scroll jank
-  useEffect(() => {
-    let lastWidth = typeof window !== "undefined" ? window.innerWidth : 0;
-    let lastHeight = typeof window !== "undefined" ? window.innerHeight : 0;
-
-    const checkOrientation = (force = false) => {
+    const handleResize = () => {
       if (typeof window === "undefined") return;
       const w = window.innerWidth;
       const h = window.innerHeight;
-      if (!force && Math.abs(w - lastWidth) < 20 && Math.abs(h - lastHeight) < 120) return;
-      lastWidth = w;
-      lastHeight = h;
+      const hasTouch = "ontouchstart" in window || (navigator && navigator.maxTouchPoints > 0);
+      setIsMobile(w < 1024 || (hasTouch && w < 1200));
+
       const isLandscape = w > h;
-      const isMobileOrTablet =
-        h <= 640 ||
-        w <= 1024 ||
-        "ontouchstart" in window ||
-        (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0);
-      setIsMobileLandscape(isLandscape && isMobileOrTablet);
+      const isMobileDevice = h <= 640 || w <= 1024 || hasTouch;
+      setIsMobileLandscape(isLandscape && isMobileDevice);
     };
 
-    checkOrientation(true);
-    const handleOrientation = () => checkOrientation(true);
-    window.addEventListener("orientationchange", handleOrientation);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
 
     const mql = window.matchMedia("(orientation: landscape)");
-    const handleMql = () => checkOrientation(true);
+    const handleMql = () => handleResize();
     try {
       mql.addEventListener("change", handleMql);
     } catch {
@@ -149,7 +145,8 @@ export default function SafeVideoModal({
     }
 
     return () => {
-      window.removeEventListener("orientationchange", handleOrientation);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
       try {
         mql.removeEventListener("change", handleMql);
       } catch {
@@ -210,9 +207,7 @@ export default function SafeVideoModal({
           if (screen.orientation && "lock" in screen.orientation) {
             await (screen.orientation as any).lock("landscape");
           }
-        } catch {
-          // Ignore safely if orientation locking is not supported or permitted
-        }
+        } catch {}
       } else {
         if (document.exitFullscreen) {
           await document.exitFullscreen();
@@ -260,21 +255,34 @@ export default function SafeVideoModal({
     };
   }, []);
 
-  const lastHUDOpenTimeRef = useRef<number>(0);
-  const touchStartPosRef = useRef<{ x: number; y: number; time: number } | null>(null);
+  // Lock body scroll and prevent BottomNav from showing
+  useEffect(() => {
+    document.body.classList.add("video-modal-open");
+    return () => {
+      document.body.classList.remove("video-modal-open");
+      if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
+      if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
+      if (unlockTimerRef.current) clearTimeout(unlockTimerRef.current);
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+      try {
+        if (screen.orientation && "unlock" in screen.orientation) {
+          screen.orientation.unlock();
+        }
+      } catch {}
+    };
+  }, []);
 
-  const isPlayingRef = useRef<boolean>(true);
-
-  // Keep isPlayingRef in sync and ensure HUD is shown when paused so Play button is easily accessible
+  // Synchronize playing ref and show HUD when paused
   useEffect(() => {
     isPlayingRef.current = isPlaying;
+    showHUDRef.current = showHUD;
     if (!isPlaying && !isLocked && !isVideoEnded) {
       setShowHUD(true);
       if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
     }
-  }, [isPlaying, isLocked, isVideoEnded]);
+  }, [isPlaying, showHUD, isLocked, isVideoEnded]);
 
-  // HUD Auto-Hide Timer (4.5s of inactivity - only hides while video is actively playing)
+  // HUD Auto-Hide Timer (4s of inactivity - only hides while video is actively playing)
   const resetHUDTimer = useCallback(() => {
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
     if (!isPlayingRef.current) return;
@@ -282,30 +290,25 @@ export default function SafeVideoModal({
       if (isPlayingRef.current) {
         setShowHUD(false);
       }
-    }, 4500);
+    }, 4000);
   }, []);
 
-  const handleOpenHUD = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
-    e?.stopPropagation();
+  const handleOpenHUD = useCallback(() => {
     if (isLocked || isVideoEnded) return;
-    lastHUDOpenTimeRef.current = Date.now();
-    // Synchronize currentTime immediately when HUD opens
+    lastHUDToggleTimeRef.current = Date.now();
     setCurrentTime(currentTimeRef.current);
     setShowHUD(true);
     resetHUDTimer();
   }, [isLocked, isVideoEnded, resetHUDTimer]);
 
-  const handleCloseHUD = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
-    e?.stopPropagation();
-    // If video is paused, keep controls visible so child isn't left staring at frozen screen
+  const handleCloseHUD = useCallback(() => {
     if (!isPlayingRef.current) return;
-    // Guard against ghost-clicks immediately after opening (within 150ms)
-    if (Date.now() - lastHUDOpenTimeRef.current < 150) return;
+    if (Date.now() - lastHUDToggleTimeRef.current < 350) return;
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
     setShowHUD(false);
   }, []);
 
-  // Play / Pause Toggle via YouTube postMessage with instant state feedback
+  // Play / Pause Toggle via YouTube postMessage
   const togglePlayPause = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
     e?.stopPropagation();
     if (!iframeRef.current?.contentWindow) return;
@@ -349,7 +352,7 @@ export default function SafeVideoModal({
     handleSeek(target);
   }, [currentTime, duration, handleSeek]);
 
-  // Scrubber drag handlers with Pointer Events for 120Hz smooth dragging on touch screens
+  // Scrubber drag handlers with Pointer Events for 120Hz smooth dragging
   const handleScrubberPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
     if (!scrubberTrackRef.current) return;
@@ -391,129 +394,59 @@ export default function SafeVideoModal({
     try { if (navigator.vibrate) navigator.vibrate(12); } catch {}
   };
 
-  const handleOverlayTouchStart = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      touchStartPosRef.current = {
-        x: e.touches[0].clientX,
-        y: e.touches[0].clientY,
-        time: Date.now(),
-      };
-    }
-  }, []);
+  // Unified Bulletproof Tap & Double-Tap Detector for Video Surface
+  const handleVideoSurfaceTap = (clientX: number, clientY: number, target: HTMLElement) => {
+    if (isLocked) return;
+    const rect = target.getBoundingClientRect();
+    const now = Date.now();
+    const relX = clientX - rect.left;
+    const ratio = relX / rect.width;
 
-  const handleOverlayTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!touchStartPosRef.current) return;
-    const touch = e.changedTouches[0];
-    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
-    const dy = touch.clientY - touchStartPosRef.current.y;
-    const absDy = Math.abs(dy);
-    const dt = Date.now() - touchStartPosRef.current.time;
-    touchStartPosRef.current = null;
-
-    // 1. Swipe Down to Close gesture (when not locked)
-    if (!isLocked && dy > 85 && absDy > dx * 1.5 && dt < 800) {
-      e.preventDefault();
-      handleCloseRef.current();
-      return;
-    }
-
-    // 2. Clean Tap / Double Tap detection (< 18px jitter, < 500ms)
-    if (dx < 18 && absDy < 18 && dt < 500) {
-      e.preventDefault();
-      const now = Date.now();
-      const rect = e.currentTarget.getBoundingClientRect();
-      const ratio = (touch.clientX - rect.left) / rect.width;
-
-      // Check if double tap occurred (within 350ms and within 60px)
-      if (
-        lastTapPosRef.current &&
-        now - lastTapTimeRef.current < 350 &&
-        Math.abs(touch.clientX - lastTapPosRef.current.x) < 60
-      ) {
-        if (doubleTapTimerRef.current) {
-          clearTimeout(doubleTapTimerRef.current);
-          doubleTapTimerRef.current = null;
-        }
-        lastTapTimeRef.current = 0;
-        lastTapPosRef.current = null;
-
-        if (ratio < 0.38) {
-          // Double-tap left side: Rewind 10s
-          handleSkipSeconds(-10);
-          setDoubleTapRipple({ type: "rewind", id: Date.now() });
-          try { if (navigator.vibrate) navigator.vibrate(12); } catch {}
-          setTimeout(() => setDoubleTapRipple(null), 800);
-          return;
-        } else if (ratio > 0.62) {
-          // Double-tap right side: Fast forward 10s
-          handleSkipSeconds(10);
-          setDoubleTapRipple({ type: "forward", id: Date.now() });
-          try { if (navigator.vibrate) navigator.vibrate(12); } catch {}
-          setTimeout(() => setDoubleTapRipple(null), 800);
-          return;
-        }
+    // Detect double-tap: within 300ms & within 50px
+    if (
+      lastTapRef.current &&
+      now - lastTapRef.current.time < 300 &&
+      Math.hypot(clientX - lastTapRef.current.x, clientY - lastTapRef.current.y) < 50
+    ) {
+      if (tapTimerRef.current) {
+        clearTimeout(tapTimerRef.current);
+        tapTimerRef.current = null;
       }
+      lastTapRef.current = null;
 
-      // Record first tap
-      lastTapTimeRef.current = now;
-      lastTapPosRef.current = { x: touch.clientX, y: touch.clientY };
-
-      // Single tap handler with slight delay to distinguish from double-tap
-      if (doubleTapTimerRef.current) clearTimeout(doubleTapTimerRef.current);
-      doubleTapTimerRef.current = setTimeout(() => {
-        handleOpenHUD();
-        lastTapPosRef.current = null;
-      }, 240);
-    }
-  }, [isLocked, handleSkipSeconds, handleOpenHUD]);
-
-  // Desktop Double-Click on overlay to skip -10s / +10s
-  const handleOverlayDoubleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    const rect = e.currentTarget.getBoundingClientRect();
-    const ratio = (e.clientX - rect.left) / rect.width;
-    if (ratio < 0.38) {
-      handleSkipSeconds(-10);
-      setDoubleTapRipple({ type: "rewind", id: Date.now() });
-      setTimeout(() => setDoubleTapRipple(null), 800);
-    } else if (ratio > 0.62) {
-      handleSkipSeconds(10);
-      setDoubleTapRipple({ type: "forward", id: Date.now() });
-      setTimeout(() => setDoubleTapRipple(null), 800);
-    }
-  }, [handleSkipSeconds]);
-
-  const handleBackdropTouchStart = useCallback((e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      touchStartPosRef.current = {
-        x: e.touches[0].clientX,
-        y: e.touches[0].clientY,
-        time: Date.now(),
-      };
-    }
-  }, []);
-
-  const handleBackdropTouchEnd = useCallback((e: React.TouchEvent) => {
-    if (!touchStartPosRef.current) return;
-    const touch = e.changedTouches[0];
-    const dx = Math.abs(touch.clientX - touchStartPosRef.current.x);
-    const dy = touch.clientY - touchStartPosRef.current.y;
-    const absDy = Math.abs(dy);
-    const dt = Date.now() - touchStartPosRef.current.time;
-    touchStartPosRef.current = null;
-
-    // Swipe down to close on HUD backdrop as well
-    if (!isLocked && dy > 85 && absDy > dx * 1.5 && dt < 800) {
-      e.preventDefault();
-      handleCloseRef.current();
-      return;
+      if (ratio < 0.38) {
+        // Double-tap left side: Rewind 10s
+        handleSkipSeconds(-10);
+        setDoubleTapRipple({ type: "rewind", id: Date.now() });
+        try { if (navigator.vibrate) navigator.vibrate(12); } catch {}
+        setTimeout(() => setDoubleTapRipple(null), 800);
+        return;
+      } else if (ratio > 0.62) {
+        // Double-tap right side: Fast forward 10s
+        handleSkipSeconds(10);
+        setDoubleTapRipple({ type: "forward", id: Date.now() });
+        try { if (navigator.vibrate) navigator.vibrate(12); } catch {}
+        setTimeout(() => setDoubleTapRipple(null), 800);
+        return;
+      } else {
+        // Double-tap center: Play / Pause toggle
+        togglePlayPause();
+        return;
+      }
     }
 
-    if (dx < 18 && absDy < 18 && dt < 500) {
-      e.preventDefault();
-      handleCloseHUD();
+    // First tap: toggle HUD with cooldown protection
+    lastTapRef.current = { time: now, x: clientX, y: clientY };
+
+    if (now - lastHUDToggleTimeRef.current > 300) {
+      lastHUDToggleTimeRef.current = now;
+      setShowHUD((prev) => {
+        const next = !prev;
+        if (next) resetHUDTimer();
+        return next;
+      });
     }
-  }, [isLocked, handleCloseHUD]);
+  };
 
   const generateQuiz = () => {
     const n1 = Math.floor(Math.random() * 4) + 2;
@@ -551,7 +484,8 @@ export default function SafeVideoModal({
     }
   };
 
-  const toggleLock = () => {
+  const toggleLock = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     playSFX("tap");
     if (!isLocked) {
       setIsLocked(true);
@@ -573,11 +507,10 @@ export default function SafeVideoModal({
         playSFX("star");
       }
     }, 25000);
-
     return () => clearTimeout(timer);
-  }, [addStars, hasAwardedStars, currentVideo.id]);
+  }, [currentVideo.id, hasAwardedStars, addStars]);
 
-  // Rich pool of 20 recommendations like YouTube Kids
+  // Recommendations list
   const [recommendations, setRecommendations] = useState<RecommendedItem[]>(() =>
     getRecommendedVideos(currentVideo, 20, randomMode).map((v) => ({
       id: v.id,
@@ -644,7 +577,8 @@ export default function SafeVideoModal({
     }
   };
 
-  const handlePreviousVideo = () => {
+  const handlePreviousVideo = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     playSFX("tap");
     if (historyStack.length > 0) {
       const prevId = historyStack[historyStack.length - 1];
@@ -663,7 +597,6 @@ export default function SafeVideoModal({
         return;
       }
     }
-    // Fallback: pick a previous video (if in randomMode, pick across all videos)
     const fallbackPool = randomMode
       ? educationalVideos.filter((v) => v.id !== currentVideo.id)
       : educationalVideos.filter(
@@ -675,10 +608,10 @@ export default function SafeVideoModal({
     }
   };
 
-  const handleNextVideoShortcut = () => {
+  const handleNextVideoShortcut = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     playSFX("tap");
     if (randomMode) {
-      // In random mode: surprise random video across entire library
       handleRandomSurprise();
     } else if (recommendations.length > 0) {
       handleSelectNextVideo(recommendations[0].id);
@@ -687,7 +620,9 @@ export default function SafeVideoModal({
     }
   };
 
-  const handleRandomSurprise = () => {
+  const handleRandomSurprise = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    playSFX("pop");
     const others = educationalVideos.filter((v) => v.id !== currentVideo.id);
     if (others.length === 0) return;
     const randomVid = others[Math.floor(Math.random() * others.length)];
@@ -703,7 +638,8 @@ export default function SafeVideoModal({
     onSelectVideo?.(randomVid);
   };
 
-  const handleReplay = () => {
+  const handleReplay = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     setIsVideoEnded(false);
     setShowHUD(false);
     setIsPlaying(true);
@@ -711,7 +647,8 @@ export default function SafeVideoModal({
     openTimeRef.current = Date.now();
   };
 
-  const handleClose = () => {
+  const handleClose = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     if (isLocked) {
       handleUnlockTap();
       return;
@@ -745,14 +682,11 @@ export default function SafeVideoModal({
     setIsFullscreen(false);
     onClose();
   };
-  handleCloseRef.current = handleClose;
 
   const handleSpeakWord = (word: string) => {
     playSFX("tap");
     speak(word, "en-US", 0.85);
   };
-
-  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const filteredVocab = (currentVideo.keyVocab || []).filter(
     (item) =>
@@ -782,12 +716,6 @@ export default function SafeVideoModal({
     };
     playNext();
   };
-
-  useEffect(() => {
-    return () => {
-      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
-    };
-  }, []);
 
   // Continuous Handshake & Message Listener for YouTube Iframe Player
   useEffect(() => {
@@ -839,7 +767,6 @@ export default function SafeVideoModal({
         }
 
         // Player State changes
-        // 1 = Playing, 2 = Paused, 0 = Ended
         if (data.event === "onStateChange") {
           if (data.info === 1 || data.info === "1") {
             setIsPlaying((prev) => (prev ? prev : true));
@@ -861,12 +788,10 @@ export default function SafeVideoModal({
             handleVideoFinished();
           }
 
-          // Near-end detection & time sync via infoDelivery
           const ct = data.info.currentTime;
           const dur = data.info.duration;
           if (typeof ct === "number") {
             currentTimeRef.current = ct;
-            // Only update React state if HUD is currently visible, throttled to 800ms to eliminate re-render lag
             if (showHUDRef.current) {
               const now = Date.now();
               if (now - lastStateUpdateTimeRef.current > 800) {
@@ -882,9 +807,7 @@ export default function SafeVideoModal({
             handleVideoFinished();
           }
         }
-      } catch {
-        // ignore non-JSON messages
-      }
+      } catch {}
     };
 
     window.addEventListener("message", handleMessage);
@@ -895,33 +818,37 @@ export default function SafeVideoModal({
     };
   }, [iframeKey, currentVideo.id]);
 
-  // Lock body scroll and prevent BottomNav from showing
+  // Keyboard controls
   useEffect(() => {
-    document.body.classList.add("video-modal-open");
-    return () => {
-      document.body.classList.remove("video-modal-open");
-      if (
-        document.fullscreenElement ||
-        (document as any).webkitFullscreenElement ||
-        (document as any).mozFullScreenElement ||
-        (document as any).msFullscreenElement
-      ) {
-        try {
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if ((document as any).webkitExitFullscreen) {
-            (document as any).webkitExitFullscreen();
-          }
-        } catch {}
-      }
-      try {
-        if (screen.orientation && "unlock" in screen.orientation) {
-          screen.orientation.unlock();
-        }
-      } catch {}
-    };
-  }, []);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isLocked) return;
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
+      if (e.code === "Space") {
+        e.preventDefault();
+        togglePlayPause();
+      } else if (e.code === "ArrowLeft") {
+        e.preventDefault();
+        handleSkipSeconds(-10);
+      } else if (e.code === "ArrowRight") {
+        e.preventDefault();
+        handleSkipSeconds(10);
+      } else if (e.key === "f" || e.key === "F") {
+        e.preventDefault();
+        toggleFullscreen();
+      } else if (e.code === "Escape") {
+        e.preventDefault();
+        if (isFullscreen) {
+          toggleFullscreen();
+        } else {
+          handleClose();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isLocked, togglePlayPause, handleSkipSeconds, toggleFullscreen, isFullscreen]);
 
   return (
     <motion.div
@@ -930,769 +857,768 @@ export default function SafeVideoModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[1000] flex items-center justify-center select-none bg-black overflow-hidden"
+      className={`fixed inset-0 z-[1000] select-none bg-black overflow-hidden ${
+        isFullMode
+          ? "flex items-center justify-center"
+          : isMobile
+          ? "flex flex-col bg-[#07090E]"
+          : "flex items-center justify-center bg-black/95"
+      }`}
     >
-      {/* Top Controls Header */}
-      <div
-        className={`absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-2 sm:p-4 bg-gradient-to-b from-black/90 via-black/50 to-transparent transition-opacity duration-300 ${
-          isFullMode && !showHUD && !isLocked && !playbackError
-            ? "opacity-0 pointer-events-none"
-            : "opacity-100 pointer-events-auto"
-        }`}
-        style={{
-          paddingLeft: "max(env(safe-area-inset-left, 8px), 8px)",
-          paddingRight: "max(env(safe-area-inset-right, 8px), 8px)",
-          paddingTop: "max(env(safe-area-inset-top, 8px), 8px)",
-        }}
-      >
-        {/* Channel Info & Video Title */}
-        <div className="flex items-center gap-1.5 sm:gap-3 flex-1 min-w-0 mr-1.5 sm:mr-2">
-          {/* Authentic YouTube Kids Logo Badge */}
-          <div className="hidden xs:flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md border border-red-400 shrink-0 select-none">
-            <Play size={12} fill="white" className="ml-0.5" />
-            <span className="text-[10px] sm:text-xs font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
-              Kids
-            </span>
-          </div>
-
-          <div className="w-7 h-7 sm:w-10 sm:h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-base sm:text-2xl shrink-0 shadow-inner">
-            {currentVideo.channelAvatar}
-          </div>
-          <div className="min-w-0">
-            <div className="flex items-center gap-1 sm:gap-2">
-              <span className="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider px-1 sm:px-2 py-0.5 rounded-md bg-white/20 text-amber-300 truncate max-w-[80px] sm:max-w-none">
-                {currentVideo.channel}
-              </span>
-              {currentVideo.isNew && (
-                <span className="text-[8px] sm:text-[10px] font-black text-amber-200 px-1 sm:px-2 py-0.5 rounded-md bg-red-600/90 border border-amber-300/80 shrink-0">
-                  🔥 MỚI
-                </span>
-              )}
-              <span className="text-[10px] sm:text-[11px] text-white/70 hidden md:inline">
-                {currentVideo.categoryNameVi}
+      {/* ----------------- DESKTOP TOP CONTROLS HEADER (Hidden in Full Mode & Mobile Portrait) ----------------- */}
+      {!isFullMode && !isMobile && (
+        <div
+          className={`absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-3 sm:p-4 bg-gradient-to-b from-black/90 via-black/50 to-transparent transition-opacity duration-300 ${
+            showHUD || isLocked || playbackError ? "opacity-100 pointer-events-auto" : "opacity-90 hover:opacity-100"
+          }`}
+          style={{
+            paddingLeft: "max(env(safe-area-inset-left, 16px), 16px)",
+            paddingRight: "max(env(safe-area-inset-right, 16px), 16px)",
+            paddingTop: "max(env(safe-area-inset-top, 16px), 16px)",
+          }}
+        >
+          {/* Channel Info & Video Title */}
+          <div className="flex items-center gap-3 flex-1 min-w-0 mr-4">
+            <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md border border-red-400 shrink-0 select-none">
+              <Play size={12} fill="white" className="ml-0.5" />
+              <span className="text-xs font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                Kids
               </span>
             </div>
-            <h2
-              className="text-white text-xs sm:text-sm md:text-base font-bold truncate drop-shadow-md"
-              style={{ fontFamily: "var(--font-heading)" }}
+
+            <div className="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-2xl shrink-0 shadow-inner overflow-hidden">
+              {renderAvatar(currentVideo.channelAvatar, { alt: currentVideo.channel, sizeClass: "w-full h-full", textClass: "text-2xl" })}
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/20 text-amber-300 truncate">
+                  {currentVideo.channel}
+                </span>
+                {currentVideo.isNew && (
+                  <span className="text-[10px] font-black text-amber-200 px-2 py-0.5 rounded-md bg-red-600/90 border border-amber-300/80 shrink-0">
+                    🔥 MỚI
+                  </span>
+                )}
+                <span className="text-[11px] text-white/70">
+                  {currentVideo.categoryNameVi}
+                </span>
+              </div>
+              <h2
+                className="text-white text-sm md:text-base font-bold truncate drop-shadow-md"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {currentVideo.title}
+              </h2>
+            </div>
+          </div>
+
+          {/* Desktop Right Action Buttons */}
+          <div className="flex items-center gap-2 shrink-0">
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                playSFX("tap");
+                setShowQuickDrawer(!showQuickDrawer);
+              }}
+              className={`px-3 py-1.5 rounded-full border text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
+                showQuickDrawer
+                  ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/30"
+                  : "bg-white/20 border-white/30 text-white hover:bg-white/30"
+              }`}
             >
-              {currentVideo.title}
-            </h2>
+              <span>🎈</span>
+              <span>Gợi Ý</span>
+            </motion.button>
+
+            <motion.button
+              type="button"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.92 }}
+              onClick={handleRandomSurprise}
+              className="px-3 py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 hover:bg-amber-400/30 text-xs font-bold flex items-center gap-1 transition-all cursor-pointer"
+            >
+              <span>🎲</span>
+              <span>Ngẫu nhiên</span>
+            </motion.button>
+
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                playSFX("tap");
+                setShowVocabPanel(!showVocabPanel);
+              }}
+              className={`px-3 py-1.5 rounded-full border text-xs font-bold flex items-center gap-1 transition-all cursor-pointer shadow-sm ${
+                showVocabPanel
+                  ? "bg-amber-400 text-slate-950 border-amber-300 font-black"
+                  : "bg-white/20 text-white border-white/30 hover:bg-white/30"
+              }`}
+            >
+              <BookOpen size={14} />
+              <span>{showVocabPanel ? "Ẩn Từ Vựng" : "Từ Vựng"}</span>
+            </motion.button>
+
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                playSFX("tap");
+                toggleFullscreen();
+              }}
+              className="w-9 h-9 rounded-full border border-white/25 bg-white/20 text-amber-300 flex items-center justify-center hover:bg-white/30 cursor-pointer"
+              title="Toàn màn hình"
+            >
+              {isFullMode ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
+            </motion.button>
+
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                playSFX("tap");
+                onToggleFavorite();
+              }}
+              className={`w-9 h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
+                isFavorite
+                  ? "bg-red-500/30 border-red-400 text-red-400"
+                  : "bg-white/20 border-white/25 text-white/70 hover:bg-white/30"
+              }`}
+              title={isFavorite ? "Bỏ yêu thích" : "Yêu thích"}
+            >
+              <Heart size={16} fill={isFavorite ? "#F87171" : "none"} />
+            </motion.button>
+
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleLock}
+              className={`w-9 h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
+                isLocked
+                  ? "bg-amber-500 text-slate-950 border-amber-300"
+                  : "bg-white/20 border-white/25 text-white/70 hover:bg-white/30"
+              }`}
+              title="Khóa màn hình cho bé"
+            >
+              {isLocked ? <Lock size={16} /> : <Unlock size={16} />}
+            </motion.button>
+
+            <button
+              onClick={handleClose}
+              className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 flex items-center justify-center text-white cursor-pointer"
+              title="Đóng video"
+            >
+              <X size={18} strokeWidth={2.5} />
+            </button>
           </div>
         </div>
+      )}
 
-        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-          {/* Quick Drawer Button: Gợi ý video như YouTube Kids */}
-          <motion.button
-            type="button"
-            whileHover={supportsHover ? { scale: 1.05 } : undefined}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              playSFX("tap");
-              setShowQuickDrawer(!showQuickDrawer);
-            }}
-            style={{ touchAction: "manipulation" }}
-            className={`px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-extrabold flex items-center gap-1 sm:gap-1.5 transition-all cursor-pointer active:scale-95 ${
-              showQuickDrawer
-                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/30"
-                : "bg-white/20 border-white/30 text-white hover:bg-white/30"
-            }`}
-            title="Xem danh sách video gợi ý như YouTube Kids"
-          >
-            <span className="text-sm sm:text-base">🎈</span>
-            <span className="hidden sm:inline">Gợi Ý</span>
-          </motion.button>
-
-          {/* Random Surprise Button */}
-          <motion.button
-            type="button"
-            whileHover={supportsHover ? { scale: 1.05 } : undefined}
-            whileTap={{ scale: 0.92 }}
-            onClick={handleRandomSurprise}
-            style={{ touchAction: "manipulation" }}
-            className="w-7 h-7 sm:w-auto sm:px-2.5 sm:py-1.5 rounded-full border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 hover:bg-amber-400/30 text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer shadow-sm active:scale-95"
-            title="Đổi sang 1 video ngẫu nhiên bất ngờ"
-          >
-            <span>🎲</span>
-            <span className="hidden lg:inline">Ngẫu nhiên</span>
-          </motion.button>
-
-          {/* Toggle Vocab Panel Button */}
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              playSFX("tap");
-              setShowVocabPanel(!showVocabPanel);
-            }}
-            className={`px-2 sm:px-3 py-1.5 rounded-full border text-xs sm:text-sm font-bold flex items-center gap-1 transition-all cursor-pointer shadow-sm ${
-              showVocabPanel
-                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/40 hover:bg-amber-300 font-black"
-                : "bg-white/20 text-white/95 border-white/30 hover:bg-white/30"
-            }`}
-            title={showVocabPanel ? "Ẩn góc từ vựng để mở rộng video" : "Bật góc từ vựng & mẹo học"}
-          >
-            <BookOpen size={14} />
-            <span className="hidden sm:inline">{showVocabPanel ? "Ẩn Từ Vựng" : "Từ Vựng"}</span>
-          </motion.button>
-
-          {/* Fullscreen Toggle Button */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={() => {
-              playSFX("tap");
-              toggleFullscreen();
-            }}
-            className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-all cursor-pointer ${
-              isFullMode
-                ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/40"
-                : "bg-white/20 text-amber-300 border-amber-400/50 hover:bg-white/30"
-            }`}
-            title={isFullMode ? "Thu nhỏ màn hình" : "Xem toàn màn hình (Full screen)"}
-          >
-            {isFullMode ? <Minimize2 size={15} strokeWidth={2.5} /> : <Maximize2 size={15} strokeWidth={2.5} />}
-          </motion.button>
-
-          {/* Favorite Button */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={() => {
-              playSFX("tap");
-              onToggleFavorite();
-            }}
-            className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
-              isFavorite
-                ? "bg-red-500/30 border-red-400 text-red-400"
-                : "bg-white/15 border-white/25 text-white/70 hover:bg-white/25"
-            }`}
-            title={isFavorite ? "Bỏ yêu thích" : "Lưu vào video yêu thích"}
-          >
-            <Heart size={15} fill={isFavorite ? "#F87171" : "none"} />
-          </motion.button>
-
-          {/* Toddler Screen Lock Button */}
-          <motion.button
-            id="safe-toddler-lock-btn"
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleLock}
-            className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
-              isLocked
-                ? "bg-amber-500 text-slate-950 border-amber-300 shadow-lg shadow-amber-500/40"
-                : "bg-white/15 border-white/25 text-white/70 hover:bg-white/25"
-            }`}
-            title={isLocked ? "Bấm để mở khóa thao tác" : "Khóa màn hình cho bé xem"}
-          >
-            {isLocked ? <Lock size={15} strokeWidth={2.5} /> : <Unlock size={15} />}
-          </motion.button>
-
-          {/* Close Button */}
-          <button
-            onClick={handleClose}
-            disabled={isLocked}
-            className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-colors text-white ${
-              isLocked
-                ? "opacity-30 cursor-not-allowed bg-white/10 border-white/10"
-                : "bg-white/20 hover:bg-white/30 border-white/30 cursor-pointer"
-            }`}
-            title="Đóng video"
-          >
-            <X size={16} strokeWidth={2.5} />
-          </button>
-        </div>
-      </div>
-
-      {/* Main Content Area: Player (Top/Left) + Education Details (Bottom/Right) */}
+      {/* ----------------- MAIN VIDEO STAGE CONTAINER ----------------- */}
       <div
-        className={`flex-1 w-full h-full flex flex-col lg:flex-row items-center justify-center z-10 overflow-hidden ${
+        className={`w-full transition-all duration-300 ${
           isFullMode
-            ? "fixed inset-0 p-0 m-0"
-            : "pt-14 sm:pt-20 pb-3 px-2 sm:px-6 gap-3 sm:gap-5"
+            ? "fixed inset-0 h-full flex items-center justify-center p-0 m-0 z-10"
+            : isMobile
+            ? "w-full aspect-video bg-black relative shrink-0 z-10 shadow-2xl"
+            : `flex-1 h-full flex flex-col lg:flex-row items-center justify-center pt-16 pb-4 px-4 gap-4 z-10 ${
+                showVocabPanel ? "max-w-7xl" : "max-w-6xl"
+              }`
         }`}
       >
-        {/* Safe YouTube Player Container */}
+        {/* Video Player Box: Edge-to-Edge on Mobile, Elegant Rounded Box on Desktop */}
         <div
-          className={`w-full transition-all duration-300 flex flex-col items-center justify-center relative ${
+          className={`relative overflow-hidden bg-black ${
             isFullMode
-              ? "h-full w-full max-w-none max-h-none p-0 m-0"
+              ? "w-full h-full rounded-none"
+              : isMobile
+              ? "w-full h-full rounded-none"
               : showVocabPanel
-              ? "lg:w-3/5 xl:w-2/3 h-full max-h-[55vh] sm:max-h-[60vh] lg:max-h-[85vh]"
-              : "w-full max-w-6xl h-auto max-h-[85vh] lg:h-full"
+              ? "w-full lg:w-3/5 xl:w-2/3 aspect-video rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.9)] border border-white/15"
+              : "w-full aspect-video rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.9)] border border-white/15"
           }`}
         >
-          <div
-            className={`w-full relative overflow-hidden bg-black ${
-              isFullMode
-                ? "h-full rounded-none border-0 shadow-none"
-                : "aspect-video max-h-[60vh] sm:max-h-[75vh] lg:max-h-[85vh] rounded-2xl sm:rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/15"
-            }`}
-          >
-            <iframe
-              ref={iframeRef}
-              key={`${currentVideo.id}-${iframeKey}`}
-              src={`https://www.youtube.com/embed/${currentVideo.youtubeId}?autoplay=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&fs=0&disablekb=1&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`}
-              title={currentVideo.title}
-              sandbox="allow-scripts allow-same-origin allow-presentation"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full border-0 pointer-events-none"
-              onLoad={() => {
-                try {
-                  iframeRef.current?.contentWindow?.postMessage(
-                    JSON.stringify({ event: "listening", id: 1, channel: "widget" }),
-                    "*"
-                  );
-                  iframeRef.current?.contentWindow?.postMessage(
-                    JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"] }),
-                    "*"
-                  );
-                  iframeRef.current?.contentWindow?.postMessage(
-                    JSON.stringify({ event: "command", func: "addEventListener", args: ["onError"] }),
-                    "*"
-                  );
-                } catch {}
+          {/* YouTube Embed Player */}
+          <iframe
+            ref={iframeRef}
+            key={`${currentVideo.id}-${iframeKey}`}
+            src={`https://www.youtube.com/embed/${currentVideo.youtubeId}?autoplay=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&enablejsapi=1&fs=0&disablekb=1&origin=${typeof window !== "undefined" ? encodeURIComponent(window.location.origin) : ""}`}
+            title={currentVideo.title}
+            sandbox="allow-scripts allow-same-origin allow-presentation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+            onLoad={() => {
+              try {
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ event: "listening", id: 1, channel: "widget" }),
+                  "*"
+                );
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"] }),
+                  "*"
+                );
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ event: "command", func: "addEventListener", args: ["onError"] }),
+                  "*"
+                );
+              } catch {}
+            }}
+          />
+
+          {/* Unified Touch/Click Layer on Video Surface */}
+          {!showQuickDrawer && !isVideoEnded && !isLocked && !playbackError && (
+            <div
+              id="safe-video-unified-touch-surface"
+              onClick={(e) => handleVideoSurfaceTap(e.clientX, e.clientY, e.currentTarget)}
+              className="absolute inset-0 z-20 cursor-pointer pointer-events-auto select-none"
+              style={{
+                backgroundColor: "rgba(0,0,0,0.001)",
+                WebkitTapHighlightColor: "transparent",
+                touchAction: "manipulation",
               }}
+              title="Chạm màn hình để bật/tắt điều khiển • Chạm 2 lần hai bên để tua 10 giây"
             />
+          )}
 
-            {/* Error Fallback Overlay when YouTube video is unavailable / embed restricted */}
-            {playbackError && (
-              <div className="absolute inset-0 z-40 bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center text-white select-none">
-                <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-3xl mb-4 border border-amber-500/30 animate-pulse">
-                  ⚠️
+          {/* Double Tap Seek Feedback Ripple */}
+          <AnimatePresence>
+            {doubleTapRipple && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.18 }}
+                className={`absolute top-1/2 -translate-y-1/2 z-40 pointer-events-none flex flex-col items-center justify-center p-3.5 sm:p-5 rounded-3xl bg-black/85 backdrop-blur-md border border-cyan-400/60 shadow-[0_0_35px_rgba(6,182,212,0.6)] text-cyan-300 select-none ${
+                  doubleTapRipple.type === "rewind" ? "left-6 sm:left-14" : "right-6 sm:right-14"
+                }`}
+              >
+                <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center mb-1">
+                  {doubleTapRipple.type === "rewind" ? (
+                    <RotateCcw size={28} className="text-cyan-400 animate-spin" />
+                  ) : (
+                    <RotateCw size={28} className="text-cyan-400 animate-spin" />
+                  )}
                 </div>
-                <h3 className="text-lg sm:text-xl font-extrabold mb-2" style={{ fontFamily: "var(--font-heading)" }}>
-                  Video tạm thời không khả dụng
-                </h3>
-                <p className="text-xs sm:text-sm text-white/70 max-w-sm mb-6 leading-relaxed">
-                  Đang tự động chuyển sang video thú vị khác cho bé thưởng thức...
-                </p>
-                <div className="flex items-center gap-3">
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                      setPlaybackError(null);
-                      handleNextVideoShortcut();
-                    }}
-                    className="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-orange-500/30 hover:brightness-110 active:scale-95 transition-all cursor-pointer"
-                  >
-                    ⏭️ Đổi Video Khác Ngay
-                  </motion.button>
-                  <button
-                    onClick={handleClose}
-                    className="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 transition-all cursor-pointer"
-                  >
-                    Đóng
-                  </button>
-                </div>
-              </div>
+                <span className="text-lg sm:text-xl font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                  {doubleTapRipple.type === "rewind" ? "-10s" : "+10s"}
+                </span>
+                <span className="text-[10px] font-bold text-white/80">
+                  {doubleTapRipple.type === "rewind" ? "Tua lùi 10s" : "Tua tới 10s"}
+                </span>
+              </motion.div>
             )}
+          </AnimatePresence>
 
-            {/* Transparent tap & double-tap click layer to open Toddler HUD and skip -10s/+10s */}
-            {!showQuickDrawer && !isVideoEnded && !isLocked && !showHUD && !playbackError && (
-              <div
-                id="safe-video-hud-overlay"
-                onClick={handleOpenHUD}
-                onDoubleClick={handleOverlayDoubleClick}
-                onTouchStart={handleOverlayTouchStart}
-                onTouchEnd={handleOverlayTouchEnd}
-                className="absolute inset-0 z-20 cursor-pointer pointer-events-auto select-none"
-                style={{
-                  backgroundColor: "rgba(0,0,0,0.001)",
-                  WebkitTapHighlightColor: "transparent",
-                  touchAction: "manipulation",
+          {/* ----------------- MOBILE / FULLSCREEN HUD CONTROLS OVERLAY ----------------- */}
+          <AnimatePresence>
+            {(showHUD || !isPlaying) && !isLocked && !isVideoEnded && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) {
+                    handleCloseHUD();
+                  }
                 }}
-                title="Chạm màn hình để hiện điều khiển, chạm 2 lần hai bên để tua 10 giây, vuốt xuống để đóng"
-              />
-            )}
-
-            {/* Double Tap Seek Feedback Ripple (YouTube Kids style) */}
-            <AnimatePresence>
-              {doubleTapRipple && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.7 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.18 }}
-                  className={`absolute top-1/2 -translate-y-1/2 z-40 pointer-events-none flex flex-col items-center justify-center p-3.5 sm:p-5 rounded-3xl bg-black/85 backdrop-blur-md border border-cyan-400/60 shadow-[0_0_35px_rgba(6,182,212,0.6)] text-cyan-300 select-none ${
-                    doubleTapRipple.type === "rewind" ? "left-6 sm:left-14" : "right-6 sm:right-14"
-                  }`}
-                >
-                  <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center mb-1">
-                    {doubleTapRipple.type === "rewind" ? (
-                      <RotateCcw size={28} className="text-cyan-400 animate-spin" />
-                    ) : (
-                      <RotateCw size={28} className="text-cyan-400 animate-spin" />
-                    )}
-                  </div>
-                  <span className="text-lg sm:text-xl font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
-                    {doubleTapRipple.type === "rewind" ? "-10s" : "+10s"}
-                  </span>
-                  <span className="text-[10px] font-bold text-white/80">
-                    {doubleTapRipple.type === "rewind" ? "Tua lùi 10 giây" : "Tua tới 10 giây"}
-                  </span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Toddler Interactive Player HUD on Screen Tap (YouTube Kids style) */}
-            <AnimatePresence>
-              {showHUD && !isLocked && !isVideoEnded && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, pointerEvents: "none" }}
-                  transition={{ duration: 0.18 }}
-                  onClick={handleCloseHUD}
-                  onTouchStart={handleBackdropTouchStart}
-                  onTouchEnd={handleBackdropTouchEnd}
-                  className="absolute inset-0 z-30 bg-black/45 backdrop-blur-[2px] flex flex-col justify-between p-3.5 sm:p-5 select-none pointer-events-auto cursor-pointer"
-                  style={{ touchAction: "manipulation" }}
-                >
-                  {/* Top Pull Handle Bar (Hint for swipe-down to close) */}
-                  <div className="w-12 h-1.5 bg-white/40 rounded-full mx-auto -mt-1 mb-1 opacity-80 pointer-events-none" />
-
-                  {/* Top HUD Hint Bar */}
-                  <div
-                    className="flex items-center justify-between pointer-events-auto z-10 cursor-default"
-                    onClick={(e) => e.stopPropagation()}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
-                  >
-                    <div className="flex items-center gap-1.5 sm:gap-2">
-                      <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-red-600 text-white shadow-md border border-red-400 select-none">
-                        <Play size={12} fill="white" className="ml-0.5" />
-                        <span className="text-[11px] font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
-                          YouTube <span className="text-amber-300">Kids</span>
-                        </span>
-                      </div>
-                      <div className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-white/85 text-[10px] sm:text-[11px] font-bold border border-white/20 flex items-center gap-1.5 shadow-md">
-                        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                        <span className="hidden sm:inline">Chạm 2 lần để tua nhanh • Vuốt xuống để đóng</span>
-                      </div>
-                    </div>
-
+                className="absolute inset-0 z-30 bg-black/50 backdrop-blur-[1.5px] flex flex-col justify-between p-2.5 sm:p-4 select-none pointer-events-auto cursor-pointer"
+              >
+                {/* Top Video Header Row */}
+                <div className="flex items-center justify-between w-full pointer-events-auto z-10">
+                  <div className="flex items-center gap-2 min-w-0 flex-1 mr-2">
                     <button
-                      onClick={handleCloseHUD}
-                      className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center border border-white/25 transition-colors cursor-pointer"
+                      onClick={handleClose}
+                      className="w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center border border-white/25 shadow-lg transition-transform cursor-pointer shrink-0"
                       style={{ touchAction: "manipulation" }}
-                      title="Ẩn điều khiển"
+                      title="Đóng video"
                     >
-                      <X size={16} />
+                      {isMobile && !isFullMode ? <ChevronDown size={22} /> : <X size={20} />}
+                    </button>
+
+                    <div className="min-w-0">
+                      <h3 className="text-white text-xs sm:text-sm font-extrabold truncate drop-shadow-md">
+                        {currentVideo.title}
+                      </h3>
+                      <span className="text-[10px] text-amber-300 font-bold block truncate">
+                        {currentVideo.channel}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {/* Screen Lock Toggle Button */}
+                    <button
+                      onClick={toggleLock}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center border border-white/25 shadow-lg transition-transform cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
+                      title="Khóa màn hình"
+                    >
+                      <Lock size={16} />
+                    </button>
+
+                    {/* Fullscreen Toggle Button */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playSFX("tap");
+                        toggleFullscreen();
+                      }}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-amber-300 flex items-center justify-center border border-white/25 shadow-lg transition-transform cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
+                      title={isFullMode ? "Thu nhỏ" : "Toàn màn hình"}
+                    >
+                      {isFullMode ? <Minimize2 size={16} strokeWidth={2.5} /> : <Maximize2 size={16} strokeWidth={2.5} />}
                     </button>
                   </div>
+                </div>
 
-                  {/* Center Chunky YouTube Kids Controls: Prev, -10s, Giant Play/Pause, +10s, Next */}
-                  <div
-                    className="flex items-center justify-center gap-2 sm:gap-4 md:gap-5 my-auto pointer-events-auto z-10 cursor-default"
-                    onClick={(e) => e.stopPropagation()}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
+                {/* Center Big Controls Row: Prev, -10s, Giant Play/Pause, +10s, Next */}
+                <div className="flex items-center justify-center gap-3 sm:gap-6 my-auto pointer-events-auto z-10">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={handlePreviousVideo}
+                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer"
+                    style={{ touchAction: "manipulation" }}
+                    title="Video trước"
                   >
-                    {/* Previous Video Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={handlePreviousVideo}
-                      className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/20 hover:bg-white/30 active:bg-cyan-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
-                      style={{ touchAction: "manipulation" }}
-                      title="Xem video trước"
-                    >
-                      <SkipBack size={22} fill="white" />
-                    </motion.button>
+                    <SkipBack size={20} fill="white" />
+                  </motion.button>
 
-                    {/* -10s Rewind Button (YouTube Kids style) */}
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => handleSkipSeconds(-10)}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 hover:bg-white/25 text-white flex flex-col items-center justify-center border border-white/25 backdrop-blur-md transition-transform cursor-pointer"
-                      style={{ touchAction: "manipulation" }}
-                      title="Tua lùi 10 giây"
-                    >
-                      <RotateCcw size={16} />
-                      <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">-10s</span>
-                    </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSkipSeconds(-10);
+                    }}
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer"
+                    style={{ touchAction: "manipulation" }}
+                    title="Tua lùi 10s"
+                  >
+                    <RotateCcw size={16} />
+                    <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">-10s</span>
+                  </motion.button>
 
-                    {/* Giant Center Play / Pause Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.08 }}
-                      whileTap={{ scale: 0.92 }}
-                      onClick={togglePlayPause}
-                      className={`w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-full flex items-center justify-center text-white shadow-[0_0_35px_rgba(6,182,212,0.6)] border-4 border-white/70 transition-transform cursor-pointer ${
-                        isPlaying
-                          ? "bg-gradient-to-tr from-cyan-500 via-sky-400 to-blue-600"
-                          : "bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-500 animate-pulse"
-                      }`}
-                      style={{ touchAction: "manipulation" }}
-                      title={isPlaying ? "Tạm dừng video" : "Tiếp tục phát"}
-                    >
-                      {isPlaying ? (
-                        <Pause size={34} fill="white" />
-                      ) : (
-                        <Play size={36} fill="white" className="ml-1" />
-                      )}
-                    </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.08 }}
+                    whileTap={{ scale: 0.92 }}
+                    onClick={togglePlayPause}
+                    className={`w-15 h-15 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center text-white shadow-[0_0_35px_rgba(6,182,212,0.6)] border-4 border-white/80 transition-transform cursor-pointer ${
+                      isPlaying
+                        ? "bg-gradient-to-tr from-cyan-500 via-sky-400 to-blue-600"
+                        : "bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-500 animate-pulse"
+                    }`}
+                    style={{ touchAction: "manipulation" }}
+                    title={isPlaying ? "Tạm dừng" : "Tiếp tục phát"}
+                  >
+                    {isPlaying ? <Pause size={30} fill="white" /> : <Play size={32} fill="white" className="ml-1" />}
+                  </motion.button>
 
-                    {/* +10s Forward Button (YouTube Kids style) */}
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => handleSkipSeconds(10)}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/15 hover:bg-white/25 text-white flex flex-col items-center justify-center border border-white/25 backdrop-blur-md transition-transform cursor-pointer"
-                      style={{ touchAction: "manipulation" }}
-                      title="Tua tới 10 giây"
-                    >
-                      <RotateCw size={16} />
-                      <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">+10s</span>
-                    </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSkipSeconds(10);
+                    }}
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer"
+                    style={{ touchAction: "manipulation" }}
+                    title="Tua tới 10s"
+                  >
+                    <RotateCw size={16} />
+                    <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">+10s</span>
+                  </motion.button>
 
-                    {/* Next Video Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={handleNextVideoShortcut}
-                      className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-white/20 hover:bg-white/30 active:bg-cyan-500/40 text-white flex items-center justify-center shadow-xl border-2 border-white/30 backdrop-blur-md transition-transform cursor-pointer"
-                      style={{ touchAction: "manipulation" }}
-                      title="Xem video tiếp theo"
-                    >
-                      <SkipForward size={22} fill="white" />
-                    </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={handleNextVideoShortcut}
+                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer"
+                    style={{ touchAction: "manipulation" }}
+                    title="Video tiếp"
+                  >
+                    <SkipForward size={20} fill="white" />
+                  </motion.button>
+                </div>
+
+                {/* Bottom Scrubber & Time Bar */}
+                <div className="w-full pointer-events-auto z-10 flex flex-col gap-1">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-white/90 font-mono select-none px-1">
+                    <span className="px-1.5 py-0.5 rounded bg-black/70 border border-white/10">
+                      {formatTime(isScrubbing ? scrubTime : currentTime)}
+                    </span>
+                    {isScrubbing && (
+                      <span className="px-2 py-0.5 rounded-full bg-cyan-500 text-slate-950 font-black animate-pulse text-[10px]">
+                        Đang kéo: {formatTime(scrubTime)}
+                      </span>
+                    )}
+                    <span className="px-1.5 py-0.5 rounded bg-black/70 border border-white/10">
+                      {formatTime(duration || 300)}
+                    </span>
                   </div>
 
-                  {/* YouTube Kids Authentic Red Scrubber Bar & Controls with 120Hz Touch Dragging */}
+                  {/* Scrubber Track with Generous Touch Area */}
                   <div
-                    className="w-full pointer-events-auto z-10 flex flex-col gap-1.5"
-                    onClick={(e) => e.stopPropagation()}
-                    onTouchStart={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
+                    ref={scrubberTrackRef}
+                    className="relative w-full py-3 cursor-pointer flex items-center select-none"
+                    style={{ touchAction: "none" }}
+                    onPointerDown={handleScrubberPointerDown}
+                    onPointerMove={handleScrubberPointerMove}
+                    onPointerUp={handleScrubberPointerUp}
+                    onPointerCancel={handleScrubberPointerUp}
                   >
-                    {/* Time Indicator & Scrubber Track */}
-                    <div className="w-full px-1">
-                      <div className="flex items-center justify-between text-[11px] font-bold text-white/90 mb-1 font-mono select-none">
-                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10">
-                          {formatTime(isScrubbing ? scrubTime : currentTime)}
-                        </span>
-                        {isScrubbing && (
-                          <span className="px-2 py-0.5 rounded-full bg-cyan-500 text-slate-950 font-black animate-pulse text-[10px]">
-                            Đang kéo: {formatTime(scrubTime)}
-                          </span>
-                        )}
-                        <span className="px-1.5 py-0.5 rounded bg-black/60 border border-white/10">
-                          {formatTime(duration || 300)}
-                        </span>
-                      </div>
-
-                      {/* Scrubber Container with Generous Touch Area */}
+                    <div className="w-full h-2.5 sm:h-3 bg-white/25 rounded-full overflow-hidden relative">
                       <div
-                        ref={scrubberTrackRef}
-                        className="relative w-full py-2 cursor-pointer flex items-center group/scrub select-none"
-                        style={{ touchAction: "none" }}
-                        onPointerDown={handleScrubberPointerDown}
-                        onPointerMove={handleScrubberPointerMove}
-                        onPointerUp={handleScrubberPointerUp}
-                        onPointerCancel={handleScrubberPointerUp}
-                      >
-                        {/* Background Track */}
-                        <div className="w-full h-3 sm:h-3.5 bg-white/25 rounded-full overflow-hidden relative">
-                          <div
-                            className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-red-500 rounded-full transition-[width] duration-75"
-                            style={{
-                              width: `${
-                                duration > 0
-                                  ? Math.min(100, ((isScrubbing ? scrubTime : currentTime) / duration) * 100)
-                                  : 0
-                              }%`,
-                            }}
-                          />
-                        </div>
-
-                        {/* Floating Scrubber Knob */}
-                        <div
-                          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-white shadow-xl border-3 border-red-600 flex items-center justify-center transition-transform group-hover/scrub:scale-125"
-                          style={{
-                            left: `${
-                              duration > 0
-                                ? Math.min(100, Math.max(0, ((isScrubbing ? scrubTime : currentTime) / duration) * 100))
-                                : 0
-                            }%`,
-                          }}
-                        >
-                          <div className="w-2 h-2 rounded-full bg-red-600" />
-                        </div>
-
-                        {/* Floating Tooltip during dragging */}
-                        {isScrubbing && (
-                          <div
-                            className="absolute -top-7 -translate-x-1/2 px-2 py-0.5 rounded-lg bg-red-600 text-white font-mono text-xs font-black shadow-lg pointer-events-none select-none border border-white/30"
-                            style={{
-                              left: `${
-                                duration > 0
-                                  ? Math.min(95, Math.max(5, (scrubTime / duration) * 100))
-                                  : 0
-                              }%`,
-                            }}
-                          >
-                            {formatTime(scrubTime)}
-                          </div>
-                        )}
-                      </div>
+                        className="h-full bg-gradient-to-r from-red-600 via-rose-500 to-red-500 rounded-full"
+                        style={{
+                          width: `${
+                            duration > 0
+                              ? Math.min(100, ((isScrubbing ? scrubTime : currentTime) / duration) * 100)
+                              : 0
+                          }%`,
+                        }}
+                      />
                     </div>
 
-                    {/* Bottom HUD Quick Row */}
-                    <div className="flex items-center justify-between w-full px-1">
-                      <button
-                        onClick={handleReplay}
-                        className="text-white/90 hover:text-white text-xs font-semibold flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/20 border border-white/20 cursor-pointer"
-                        style={{ touchAction: "manipulation" }}
-                      >
-                        <RotateCcw size={13} />
-                        <span>Xem lại</span>
-                      </button>
-
-                      {/* Bottom HUD Fullscreen Button */}
-                      <motion.button
-                        whileTap={{ scale: 0.92 }}
-                        onClick={toggleFullscreen}
-                        className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/30 border border-amber-300 cursor-pointer"
-                        style={{ touchAction: "manipulation" }}
-                        title={isFullMode ? "Thu nhỏ màn hình" : "Xem toàn màn hình"}
-                      >
-                        {isFullMode ? <Minimize2 size={13} strokeWidth={2.5} /> : <Maximize2 size={13} strokeWidth={2.5} />}
-                        <span>{isFullMode ? "Thu nhỏ" : "Toàn màn hình"}</span>
-                      </motion.button>
+                    <div
+                      className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-white shadow-xl border-2 border-red-600 flex items-center justify-center pointer-events-none"
+                      style={{
+                        left: `${
+                          duration > 0
+                            ? Math.min(100, Math.max(0, ((isScrubbing ? scrubTime : currentTime) / duration) * 100))
+                            : 0
+                        }%`,
+                      }}
+                    >
+                      <div className="w-2 h-2 rounded-full bg-red-600" />
                     </div>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Floating YouTube Kids Quick Button on Video (Synchronized with Image 1) */}
-            {!showQuickDrawer && !isVideoEnded && !isLocked && (
-              <motion.button
-                type="button"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={supportsHover ? { scale: 1.06 } : undefined}
-                whileTap={{ scale: 0.93 }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  playSFX("pop");
-                  setShowQuickDrawer(true);
-                  setShowHUD(false);
-                }}
-                className={`absolute z-40 px-3 sm:px-4.5 py-1.5 sm:py-2.5 rounded-full bg-slate-950/90 hover:bg-slate-900 active:scale-95 text-white border-2 border-amber-400/80 hover:border-amber-300 backdrop-blur-md flex items-center gap-1.5 sm:gap-2.5 shadow-[0_8px_30px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(251,191,36,0.45)] transition-all cursor-pointer select-none ${
-                  isFullMode && !showHUD ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
-                }`}
-                style={{
-                  right: "max(env(safe-area-inset-right, 12px), 12px)",
-                  bottom: "max(env(safe-area-inset-bottom, 12px), 12px)",
-                  touchAction: "manipulation",
-                }}
-                title="Mở danh sách video gợi ý"
-              >
-                <span className="text-sm sm:text-lg animate-bounce">🎈</span>
-                <span
-                  className="text-amber-300 text-xs sm:text-sm font-black tracking-wide"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Video gợi ý
-                </span>
-              </motion.button>
+                </div>
+              </motion.div>
             )}
+          </AnimatePresence>
 
-            {/* YouTube Kids In-Video Recommendation Drawer */}
-            <YouTubeKidsVideoDrawer
-              isOpen={showQuickDrawer}
-              onClose={() => setShowQuickDrawer(false)}
-              recommendations={recommendations}
-              onSelect={handleSelectNextVideo}
-              onRefresh={handleRefreshRecommendations}
-              isAutoPlayNext={isAutoPlayNext}
-              onToggleAutoPlayNext={() => setIsAutoPlayNext(!isAutoPlayNext)}
-              onRandomSurprise={handleRandomSurprise}
-            />
-
-            {/* In-App Recommendation End Screen Overlay */}
-            <AnimatePresence>
-              {isVideoEnded && (
-                <VideoEndRecommendation
-                  currentTitle={currentVideo.title}
-                  recommendations={recommendations}
-                  onSelect={handleSelectNextVideo}
-                  onReplay={handleReplay}
-                  onClose={handleClose}
-                  onRefresh={handleRefreshRecommendations}
-                />
-              )}
-            </AnimatePresence>
-
-            {/* Toddler 3-Tap + Parental Math Gate Lock Overlay (True YouTube Kids Experience) */}
-            {isLocked && (
-              <div
-                onClick={handleUnlockTap}
-                className="absolute inset-0 z-50 bg-black/85 flex flex-col items-center justify-center backdrop-blur-md cursor-pointer select-none p-4"
+          {/* Toddler Lock Screen Overlay */}
+          {isLocked && (
+            <div
+              onClick={handleUnlockTap}
+              className="absolute inset-0 z-50 bg-black/90 flex flex-col items-center justify-center backdrop-blur-md cursor-pointer select-none p-4"
+            >
+              <motion.div
+                key={unlockTapCount}
+                initial={{ scale: 0.9, opacity: 0.8 }}
+                animate={{ scale: 1, opacity: 1 }}
+                onClick={(e) => e.stopPropagation()}
+                className="bg-slate-900 border-2 border-amber-400 rounded-3xl p-5 max-w-sm w-full text-center shadow-[0_0_50px_rgba(251,191,36,0.35)] flex flex-col items-center gap-3 cursor-default"
               >
-                <motion.div
-                  key={unlockTapCount}
-                  initial={{ scale: 0.9, opacity: 0.8 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  onClick={(e) => e.stopPropagation()}
-                  className="bg-slate-900/98 border-2 border-amber-400 rounded-3xl p-5 sm:p-7 max-w-sm w-full text-center shadow-[0_0_50px_rgba(251,191,36,0.35)] flex flex-col items-center gap-3 cursor-default"
-                >
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 border-2 border-amber-300 flex items-center justify-center text-slate-950 shadow-inner">
-                    <Lock size={30} strokeWidth={2.5} />
-                  </div>
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 border-2 border-amber-300 flex items-center justify-center text-slate-950 shadow-inner">
+                  <Lock size={26} strokeWidth={2.5} />
+                </div>
 
-                  <h3
-                    className="text-white text-base sm:text-lg font-black"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    Màn hình đang khóa
-                  </h3>
+                <h3 className="text-white text-base font-black" style={{ fontFamily: "var(--font-heading)" }}>
+                  Màn hình đang khóa
+                </h3>
 
-                  {/* Option A: For Parents - Quick Math Gate like YouTube Kids */}
-                  {parentQuiz && (
-                    <div className="w-full bg-white/10 rounded-2xl p-3 border border-white/15 my-1">
-                      <div className="text-[11px] font-bold text-amber-300 mb-1 flex items-center justify-center gap-1">
-                        <span>🔒 Dành cho Ba Mẹ:</span>
-                        <span className="text-white font-mono text-xs font-black">
-                          {parentQuiz.num1} × {parentQuiz.num2} = ?
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-4 gap-1.5 mt-2">
-                        {parentQuiz.options.map((opt) => (
-                          <button
-                            key={opt}
-                            onClick={() => {
-                              if (opt === parentQuiz.ans) {
-                                playSFX("cheer");
-                                setIsLocked(false);
-                                setUnlockTapCount(0);
-                              } else {
-                                playSFX("boop");
-                              }
-                            }}
-                            className="py-1.5 px-2 rounded-xl bg-white/15 hover:bg-amber-400 hover:text-slate-950 text-white font-black text-sm border border-white/20 transition-all active:scale-95 cursor-pointer font-mono"
-                          >
-                            {opt}
-                          </button>
-                        ))}
-                      </div>
+                {/* Option A: Math Gate */}
+                {parentQuiz && (
+                  <div className="w-full bg-white/10 rounded-2xl p-3 border border-white/15 my-1">
+                    <div className="text-[11px] font-bold text-amber-300 mb-1 flex items-center justify-center gap-1">
+                      <span>🔒 Dành cho Ba Mẹ:</span>
+                      <span className="text-white font-mono text-xs font-black">
+                        {parentQuiz.num1} × {parentQuiz.num2} = ?
+                      </span>
                     </div>
-                  )}
-
-                  {/* Option B: For Toddlers - 3 Taps anywhere */}
-                  <div
-                    onClick={handleUnlockTap}
-                    className="w-full py-2 px-3 rounded-2xl bg-amber-400/15 border border-amber-400/30 cursor-pointer hover:bg-amber-400/25 transition-colors"
-                  >
-                    <p className="text-amber-200 text-xs font-bold">
-                      {unlockTapCount === 0 && "Hoặc bé chạm 3 lần để mở khóa"}
-                      {unlockTapCount === 1 && "Chạm thêm 2 lần nữa nhé! ✌️"}
-                      {unlockTapCount === 2 && "Chạm thêm 1 lần nữa là mở nè! ☝️"}
-                      {unlockTapCount >= 3 && "Mở khóa thành công! 🎉"}
-                    </p>
-                    {/* 3 Progress Dots */}
-                    <div className="flex items-center justify-center gap-2.5 mt-2">
-                      {[0, 1, 2].map((dotIdx) => (
-                        <div
-                          key={dotIdx}
-                          className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                            dotIdx < unlockTapCount
-                              ? "bg-amber-400 scale-125 shadow-md shadow-amber-400"
-                              : "bg-white/20 border border-white/30"
-                          }`}
-                        />
+                    <div className="grid grid-cols-4 gap-1.5 mt-2">
+                      {parentQuiz.options.map((opt) => (
+                        <button
+                          key={opt}
+                          onClick={() => {
+                            if (opt === parentQuiz.ans) {
+                              playSFX("cheer");
+                              setIsLocked(false);
+                              setUnlockTapCount(0);
+                            } else {
+                              playSFX("boop");
+                            }
+                          }}
+                          className="py-1.5 px-2 rounded-xl bg-white/15 hover:bg-amber-400 hover:text-slate-950 text-white font-black text-sm border border-white/20 transition-all active:scale-95 cursor-pointer font-mono"
+                        >
+                          {opt}
+                        </button>
                       ))}
                     </div>
                   </div>
-                </motion.div>
-              </div>
-            )}
+                )}
 
-          </div>
-
-          {/* Mobile Portrait Quick Fullscreen CTA Bar */}
-          {!isFullMode && (
-            <div className="lg:hidden w-full shrink-0 pt-2 px-1">
-              <motion.button
-                whileTap={{ scale: 0.97 }}
-                onClick={() => {
-                  playSFX("tap");
-                  toggleFullscreen();
-                }}
-                className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 transition-all cursor-pointer border border-amber-300"
-              >
-                <Maximize2 size={15} strokeWidth={2.5} />
-                <span>Bấm xem Toàn Màn Hình (hoặc xoay ngang máy) ⛶</span>
-              </motion.button>
+                {/* Option B: Toddler 3 Taps */}
+                <div
+                  onClick={handleUnlockTap}
+                  className="w-full py-2 px-3 rounded-2xl bg-amber-400/15 border border-amber-400/30 cursor-pointer hover:bg-amber-400/25 transition-colors"
+                >
+                  <p className="text-amber-200 text-xs font-bold">
+                    {unlockTapCount === 0 && "Hoặc bé chạm 3 lần để mở khóa"}
+                    {unlockTapCount === 1 && "Chạm thêm 2 lần nữa nhé! ✌️"}
+                    {unlockTapCount === 2 && "Chạm thêm 1 lần nữa là mở nè! ☝️"}
+                    {unlockTapCount >= 3 && "Mở khóa thành công! 🎉"}
+                  </p>
+                  <div className="flex items-center justify-center gap-2.5 mt-2">
+                    {[0, 1, 2].map((dotIdx) => (
+                      <div
+                        key={dotIdx}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          dotIdx < unlockTapCount
+                            ? "bg-amber-400 scale-125 shadow-md shadow-amber-400"
+                            : "bg-white/20 border border-white/30"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
             </div>
           )}
+
+          {/* YouTube Kids In-Video Recommendation Drawer */}
+          <YouTubeKidsVideoDrawer
+            isOpen={showQuickDrawer}
+            onClose={() => setShowQuickDrawer(false)}
+            recommendations={recommendations}
+            onSelect={handleSelectNextVideo}
+            onRefresh={handleRefreshRecommendations}
+            isAutoPlayNext={isAutoPlayNext}
+            onToggleAutoPlayNext={() => setIsAutoPlayNext(!isAutoPlayNext)}
+            onRandomSurprise={handleRandomSurprise}
+          />
+
+          {/* In-App Recommendation End Screen Overlay */}
+          <AnimatePresence>
+            {isVideoEnded && (
+              <VideoEndRecommendation
+                currentTitle={currentVideo.title}
+                recommendations={recommendations}
+                onSelect={handleSelectNextVideo}
+                onReplay={handleReplay}
+                onClose={handleClose}
+                onRefresh={handleRefreshRecommendations}
+              />
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* Education & Key Vocab Panel (Collapsible) */}
-        <AnimatePresence>
-          {showVocabPanel && (
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 40 }}
-              transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              className={
-                isFullMode
-                  ? "absolute right-0 top-0 bottom-0 z-40 w-full max-w-xs sm:max-w-sm bg-slate-950/95 backdrop-blur-2xl border-l border-white/20 p-3.5 sm:p-5 text-white shadow-2xl flex flex-col overflow-hidden"
-                  : "w-full lg:w-2/5 xl:w-1/3 flex-1 lg:h-full lg:max-h-[85vh] bg-slate-900/85 backdrop-blur-xl border border-white/15 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 text-white shadow-2xl flex flex-col overflow-hidden"
-              }
-            >
-              {/* Header & Star Achievement & Minimize Button */}
-              <div className="flex items-center justify-between pb-2.5 border-b border-white/10 shrink-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">{currentVideo.categoryEmoji}</span>
-                  <div>
-                    <span
-                      className="text-xs font-bold text-amber-300 block"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      Góc Từ Vựng & Mẹo Học
-                    </span>
-                    <span className="text-[10px] text-white/60">
-                      Độ tuổi: {currentVideo.recommendedAge}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`px-2.5 py-1 rounded-full text-xs font-black flex items-center gap-1.5 border transition-all ${
-                      hasAwardedStars
-                        ? "bg-amber-400/20 text-amber-300 border-amber-400/50 shadow-md shadow-amber-400/20"
-                        : "bg-white/10 text-white/50 border-white/15"
-                    }`}
-                  >
-                    <Award size={13} className={hasAwardedStars ? "text-amber-400" : ""} />
-                    <span>{hasAwardedStars ? "+5 ⭐ Đã nhận" : "+5 ⭐ Xem học"}</span>
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      playSFX("tap");
-                      setShowVocabPanel(false);
-                    }}
-                    className="p-1 rounded-lg bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors cursor-pointer"
-                    title="Ẩn góc từ vựng để mở rộng video"
-                  >
-                    <X size={15} />
-                  </button>
+        {/* ----------------- DESKTOP VOCAB PANEL (Side Panel) ----------------- */}
+        {!isFullMode && !isMobile && showVocabPanel && (
+          <div className="w-full lg:w-2/5 xl:w-1/3 h-full max-h-[85vh] bg-slate-900/90 backdrop-blur-xl border border-white/15 rounded-3xl p-4 text-white shadow-2xl flex flex-col overflow-hidden">
+            <div className="flex items-center justify-between pb-2.5 border-b border-white/10 shrink-0">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">{currentVideo.categoryEmoji}</span>
+                <div>
+                  <span className="text-xs font-bold text-amber-300 block" style={{ fontFamily: "var(--font-heading)" }}>
+                    Góc Từ Vựng & Mẹo Học
+                  </span>
+                  <span className="text-[10px] text-white/60">
+                    Độ tuổi: {currentVideo.recommendedAge}
+                  </span>
                 </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto scroll-area space-y-3 pt-2.5 pr-1">
-                {/* Parent Tip Box */}
+              <div className="flex items-center gap-2">
+                <div
+                  className={`px-2.5 py-1 rounded-full text-xs font-black flex items-center gap-1.5 border transition-all ${
+                    hasAwardedStars
+                      ? "bg-amber-400/20 text-amber-300 border-amber-400/50"
+                      : "bg-white/10 text-white/50 border-white/15"
+                  }`}
+                >
+                  <Award size={13} className={hasAwardedStars ? "text-amber-400" : ""} />
+                  <span>{hasAwardedStars ? "+5 ⭐ Đã nhận" : "+5 ⭐ Xem học"}</span>
+                </div>
+                <button
+                  onClick={() => setShowVocabPanel(false)}
+                  className="p-1 rounded-lg bg-white/10 hover:bg-white/20 text-white/70 hover:text-white"
+                >
+                  <X size={15} />
+                </button>
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto space-y-3 pt-2.5 pr-1">
+              {currentVideo.parentTip && (
+                <div className="bg-amber-500/15 border border-amber-400/30 p-3 rounded-2xl">
+                  <div className="flex items-center gap-1 text-[11px] font-bold text-amber-300 mb-1">
+                    <HelpCircle size={13} />
+                    <span>Mẹo cho Ba Mẹ đồng hành cùng bé:</span>
+                  </div>
+                  <p className="text-xs text-amber-100/90 leading-relaxed">
+                    {currentVideo.parentTip}
+                  </p>
+                </div>
+              )}
+
+              <div>
+                <div className="flex items-center justify-between mb-2 gap-2">
+                  <span className="text-xs font-bold text-white/90 flex items-center gap-1.5">
+                    <Sparkles size={14} className="text-yellow-400" />
+                    <span>Từ vựng ({filteredVocab.length} từ):</span>
+                  </span>
+                  <button
+                    onClick={handlePlayAllVocab}
+                    className={`px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                      isAutoPlayingVocab
+                        ? "bg-amber-400 text-slate-950 font-black animate-pulse"
+                        : "bg-white/15 hover:bg-white/25 text-white/90 border border-white/20"
+                    }`}
+                  >
+                    <Volume2 size={12} />
+                    <span>{isAutoPlayingVocab ? "Dừng đọc" : "Đọc tất cả"}</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 gap-2">
+                  {filteredVocab.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleSpeakWord(item.en)}
+                      className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-between text-left transition-all cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className="text-2xl shrink-0">{item.emoji || "✨"}</span>
+                        <div className="min-w-0">
+                          <span className="font-bold text-yellow-300 text-sm block leading-none">
+                            {item.en}
+                          </span>
+                          <span className="text-xs text-white/80 mt-0.5 block truncate">
+                            {item.vi}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/70">
+                        <Volume2 size={14} />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ----------------- MOBILE PORTRAIT INTERACTIVE BOTTOM SECTION ----------------- */}
+      {!isFullMode && isMobile && (
+        <div className="flex-1 w-full flex flex-col min-h-0 bg-[#0A0E17] text-white overflow-hidden z-10 border-t border-white/10">
+          {/* Header Row: Title, Channel, and Star Badge */}
+          <div className="p-3 border-b border-white/10 shrink-0 bg-slate-900/60">
+            <div className="flex items-center justify-between gap-2 mb-1.5">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-7 h-7 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-base shrink-0 overflow-hidden">
+                  {renderAvatar(currentVideo.channelAvatar, { alt: currentVideo.channel, sizeClass: "w-full h-full", textClass: "text-base" })}
+                </div>
+                <span className="text-xs font-bold text-amber-300 truncate">
+                  {currentVideo.channel}
+                </span>
+                {currentVideo.isNew && (
+                  <span className="text-[9px] font-black text-amber-200 px-1.5 py-0.5 rounded bg-red-600 shrink-0">
+                    MỚI
+                  </span>
+                )}
+              </div>
+
+              <div
+                className={`px-2.5 py-1 rounded-full text-[11px] font-black flex items-center gap-1 border shrink-0 ${
+                  hasAwardedStars
+                    ? "bg-amber-400/20 text-amber-300 border-amber-400/50"
+                    : "bg-white/10 text-white/60 border-white/15"
+                }`}
+              >
+                <Award size={12} className={hasAwardedStars ? "text-amber-400" : ""} />
+                <span>{hasAwardedStars ? "+5 ⭐ Đã nhận" : "+5 ⭐ Xem học"}</span>
+              </div>
+            </div>
+
+            <h2 className="text-white text-xs sm:text-sm font-extrabold line-clamp-2 leading-snug">
+              {currentVideo.title}
+            </h2>
+          </div>
+
+          {/* Quick Action Pill Buttons (Horizontal Scrollable) */}
+          <div className="flex items-center gap-2 px-3 py-2 overflow-x-auto no-scrollbar shrink-0 bg-slate-950/40 border-b border-white/10">
+            <button
+              onClick={() => {
+                playSFX("tap");
+                onToggleFavorite();
+              }}
+              className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 border transition-all shrink-0 active:scale-95 ${
+                isFavorite
+                  ? "bg-red-500/30 border-red-400 text-red-400"
+                  : "bg-white/10 border-white/20 text-white/80 hover:bg-white/15"
+              }`}
+            >
+              <Heart size={14} fill={isFavorite ? "#F87171" : "none"} />
+              <span>{isFavorite ? "Đã thích" : "Yêu thích"}</span>
+            </button>
+
+            <button
+              onClick={() => {
+                playSFX("tap");
+                setMobileTab("vocab");
+              }}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-black flex items-center gap-1.5 border transition-all shrink-0 active:scale-95 ${
+                mobileTab === "vocab"
+                  ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-400/20"
+                  : "bg-white/10 border-white/20 text-white/80"
+              }`}
+            >
+              <BookOpen size={14} />
+              <span>Từ vựng ({currentVideo.keyVocab.length})</span>
+            </button>
+
+            <button
+              onClick={() => {
+                playSFX("tap");
+                setMobileTab("recs");
+              }}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-black flex items-center gap-1.5 border transition-all shrink-0 active:scale-95 ${
+                mobileTab === "recs"
+                  ? "bg-cyan-500 text-slate-950 border-cyan-400 shadow-md shadow-cyan-400/20"
+                  : "bg-white/10 border-white/20 text-white/80"
+              }`}
+            >
+              <span>🎈</span>
+              <span>Gợi ý ({recommendations.length})</span>
+            </button>
+
+            <button
+              onClick={handleRandomSurprise}
+              className="px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 border border-amber-400/30 bg-amber-400/10 text-amber-300 shrink-0 active:scale-95"
+            >
+              <span>🎲</span>
+              <span>Ngẫu nhiên</span>
+            </button>
+
+            <button
+              onClick={() => {
+                playSFX("tap");
+                toggleFullscreen();
+              }}
+              className="px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 border border-white/20 bg-white/10 text-white shrink-0 active:scale-95"
+            >
+              <Maximize2 size={13} />
+              <span>Toàn màn hình</span>
+            </button>
+          </div>
+
+          {/* Tab Content Body (Scrollable) */}
+          <div className="flex-1 overflow-y-auto overscroll-contain p-3 space-y-3">
+            {mobileTab === "vocab" && (
+              <>
                 {currentVideo.parentTip && (
-                  <div className="bg-amber-500/15 border border-amber-400/30 p-3 rounded-2xl">
-                    <div className="flex items-center justify-between gap-1 text-[11px] font-bold text-amber-300 mb-1">
-                      <span className="flex items-center gap-1">
-                        <HelpCircle size={13} />
-                        Mẹo cho Ba Mẹ đồng hành cùng bé:
-                      </span>
+                  <div className="bg-amber-500/15 border border-amber-400/30 p-2.5 rounded-2xl">
+                    <div className="flex items-center gap-1 text-[11px] font-bold text-amber-300 mb-1">
+                      <HelpCircle size={13} />
+                      <span>Mẹo học cho bé:</span>
                     </div>
                     <p className="text-xs text-amber-100/90 leading-relaxed">
                       {currentVideo.parentTip}
@@ -1700,110 +1626,112 @@ export default function SafeVideoModal({
                   </div>
                 )}
 
-                {/* Key Vocabulary Section */}
                 <div>
-                  <div className="flex items-center justify-between mb-2 gap-2">
-                    <span className="text-xs font-bold text-white/90 flex items-center gap-1.5">
-                      <Sparkles size={14} className="text-yellow-400" />
-                      <span>
-                        Từ vựng ({filteredVocab.length}
-                        {vocabSearch && filteredVocab.length !== currentVideo.keyVocab.length ? `/${currentVideo.keyVocab.length}` : ""} từ):
-                      </span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-bold text-white/90 flex items-center gap-1">
+                      <Sparkles size={13} className="text-yellow-400" />
+                      <span>Từ vựng tiếng Anh:</span>
                     </span>
-
                     <button
                       onClick={handlePlayAllVocab}
-                      className={`px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+                      className={`px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1 border ${
                         isAutoPlayingVocab
-                          ? "bg-amber-400 text-slate-950 border border-amber-300 font-black animate-pulse"
-                          : "bg-white/15 hover:bg-white/25 text-white/90 border border-white/20"
+                          ? "bg-amber-400 text-slate-950 border-amber-300 font-black animate-pulse"
+                          : "bg-white/10 text-white/90 border-white/20"
                       }`}
-                      title="Phát âm lần lượt từng từ vựng cho bé nghe"
                     >
                       <Volume2 size={12} />
-                      <span>{isAutoPlayingVocab ? "Dừng đọc" : "Đọc tất cả"}</span>
+                      <span>{isAutoPlayingVocab ? "Dừng" : "Đọc tất cả"}</span>
                     </button>
                   </div>
 
-                  {/* Search filter if video has more than 6 words */}
-                  {currentVideo.keyVocab.length > 6 && (
-                    <div className="relative mb-2.5">
-                      <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" />
-                      <input
-                        type="text"
-                        value={vocabSearch}
-                        onChange={(e) => setVocabSearch(e.target.value)}
-                        placeholder={`Tìm trong ${currentVideo.keyVocab.length} từ vựng...`}
-                        className="w-full pl-8 pr-7 py-1.5 rounded-xl bg-white/10 text-white placeholder-white/40 text-xs border border-white/15 focus:outline-none focus:border-amber-400/60"
-                      />
-                      {vocabSearch && (
-                        <button
-                          onClick={() => setVocabSearch("")}
-                          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/50 hover:text-white cursor-pointer"
-                        >
-                          <X size={12} />
-                        </button>
-                      )}
-                    </div>
-                  )}
-
-                  {filteredVocab.length === 0 ? (
-                    <div className="text-center py-6 text-white/60 text-xs bg-white/5 rounded-xl border border-white/10">
-                      <span>Không tìm thấy từ vựng &quot;{vocabSearch}&quot;</span>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
-                      {filteredVocab.map((item, idx) => (
-                        <motion.button
-                          key={idx}
-                          whileTap={{ scale: 0.96 }}
-                          onClick={() => handleSpeakWord(item.en)}
-                          className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:bg-primary/30 border border-white/10 flex items-center justify-between text-left transition-all group cursor-pointer"
-                        >
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            <span className="text-2xl shrink-0 group-hover:scale-110 transition-transform">
-                              {item.emoji || "✨"}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {filteredVocab.map((item, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleSpeakWord(item.en)}
+                        className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 active:bg-cyan-500/20 border border-white/10 flex items-center justify-between text-left transition-all cursor-pointer"
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span className="text-2xl shrink-0">{item.emoji || "✨"}</span>
+                          <div className="min-w-0">
+                            <span className="font-bold text-yellow-300 text-sm block leading-none">
+                              {item.en}
                             </span>
-                            <div className="min-w-0">
-                              <div className="flex items-baseline gap-1.5 flex-wrap">
-                                <span
-                                  className="font-bold text-yellow-300 text-sm block leading-none"
-                                  style={{ fontFamily: "var(--font-heading)" }}
-                                >
-                                  {item.en}
-                                </span>
-                                {item.phonetic && (
-                                  <span className="text-[10px] text-amber-300/70 font-mono">
-                                    {item.phonetic}
-                                  </span>
-                                )}
-                              </div>
-                              <span className="text-xs text-white/80 mt-0.5 block truncate">
-                                {item.vi}
-                              </span>
-                            </div>
+                            <span className="text-xs text-white/80 mt-0.5 block truncate">
+                              {item.vi}
+                            </span>
                           </div>
-
-                          <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/70 group-hover:text-white group-hover:bg-primary transition-colors shrink-0">
-                            <Volume2 size={14} />
-                          </div>
-                        </motion.button>
-                      ))}
-                    </div>
-                  )}
+                        </div>
+                        <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/70 shrink-0">
+                          <Volume2 size={14} />
+                        </div>
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Video Description */}
                 <div className="pt-2 border-t border-white/10">
-                  <p className="text-xs text-white/70 leading-relaxed">
+                  <p className="text-xs text-white/60 leading-relaxed">
                     {currentVideo.description}
                   </p>
                 </div>
+              </>
+            )}
+
+            {mobileTab === "recs" && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs font-bold text-white/80 mb-2">
+                  <span>Video gợi ý tiếp theo</span>
+                  <label className="flex items-center gap-1.5 cursor-pointer text-[11px] text-amber-300">
+                    <input
+                      type="checkbox"
+                      checked={isAutoPlayNext}
+                      onChange={(e) => setIsAutoPlayNext(e.target.checked)}
+                      className="rounded accent-amber-400"
+                    />
+                    <span>Tự động phát tiếp</span>
+                  </label>
+                </div>
+
+                <div className="grid grid-cols-1 gap-2">
+                  {recommendations.map((rec) => (
+                    <button
+                      key={rec.id}
+                      onClick={() => handleSelectNextVideo(rec.id)}
+                      className="p-2 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-[0.98] border border-white/10 flex items-center gap-3 text-left transition-all cursor-pointer"
+                    >
+                      <div className="w-24 sm:w-28 aspect-video rounded-xl overflow-hidden relative shrink-0 bg-black">
+                        <img
+                          src={rec.thumbnail}
+                          alt={rec.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        {rec.duration && (
+                          <span className="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-black/80 text-[9px] font-mono text-white font-bold">
+                            {rec.duration}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <h4 className="text-white text-xs font-bold line-clamp-2 leading-tight mb-1">
+                          {rec.title}
+                        </h4>
+                        <div className="flex items-center gap-1 text-[10px] text-amber-300">
+                          {renderAvatar(rec.avatarOrEmoji, { alt: rec.channelOrArtist, sizeClass: "w-3.5 h-3.5", textClass: "text-xs" })}
+                          <span className="truncate">{rec.channelOrArtist}</span>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            )}
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 }

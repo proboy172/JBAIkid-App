@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, X, RotateCcw, Shuffle, Sparkles, Check, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import { RecommendedItem } from "./VideoEndRecommendation";
 import { playSFX } from "@/utils/soundEffects";
+import { renderAvatar } from "@/utils/avatarHelper";
 
 interface YouTubeKidsVideoDrawerProps {
   isOpen: boolean;
@@ -414,7 +415,7 @@ export default function YouTubeKidsVideoDrawer({
                     {/* Channel & Title */}
                     <div className="min-w-0 pointer-events-none select-none">
                       <div className="flex items-center gap-1 text-[10px] text-amber-300 font-bold mb-0.5">
-                        <span>{item.avatarOrEmoji}</span>
+                        {renderAvatar(item.avatarOrEmoji, { alt: item.channelOrArtist, sizeClass: "w-4 h-4", textClass: "text-sm" })}
                         <span className="truncate">{item.channelOrArtist}</span>
                       </div>
                       <h4

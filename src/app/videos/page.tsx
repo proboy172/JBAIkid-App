@@ -8,6 +8,7 @@ import BottomNav from "@/components/layout/BottomNav";
 import SafeVideoModal from "@/components/videos/SafeVideoModal";
 import KaraokePlayer from "@/components/shared/KaraokePlayer";
 import BgmPlayer from "@/components/shared/BgmPlayer";
+import { renderAvatar } from "@/utils/avatarHelper";
 import {
   educationalVideos,
   educationalChannels,
@@ -1337,7 +1338,7 @@ const EduVideoCard = memo(function EduVideoCard({
         {/* Card Top: Channel & Favorite */}
         <div className="flex items-center justify-between gap-2 mb-2">
           <div className="flex items-center gap-1.5 min-w-0">
-            <span className="text-xl shrink-0">{video.channelAvatar}</span>
+            {renderAvatar(video.channelAvatar, { alt: video.channel, sizeClass: "w-5 h-5", textClass: "text-xl" })}
             <span className="font-bold text-xs text-slate-700 truncate" style={{ fontFamily: "var(--font-heading)" }}>
               {video.channel}
             </span>
@@ -1391,7 +1392,7 @@ const EduVideoCard = memo(function EduVideoCard({
 
           {imgFailed && (
             <div className="absolute inset-0 flex items-center justify-center opacity-25 select-none pointer-events-none">
-              <span className="text-7xl">{video.channelAvatar || "📺"}</span>
+              {renderAvatar(video.channelAvatar, { alt: video.channel, sizeClass: "w-24 h-24", textClass: "text-7xl" })}
             </div>
           )}
 
