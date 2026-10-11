@@ -1,5 +1,685 @@
 [
   {
+    "id": "numberblocks-struggling-with-math-start-here-",
+    "title": "Struggling with Math? Start Here! | Learn to Count for Kids | Number Cartoon | Numberblocks",
+    "channel": "Numberblocks",
+    "channelAvatar": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=100&q=80",
+    "channelColor": "#EF4444",
+    "youtubeId": "nkYJhtF3trc",
+    "duration": "15:00",
+    "category": "math",
+    "categoryNameVi": "Đếm số 123",
+    "categoryEmoji": "🔢",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Numberblocks: Struggling with Math? Start Here! | Learn to Count for Kids | Number Cartoon | Numberblocks",
+    "parentTip": "Hỏi bé số khối vuông của mỗi nhân vật để giúp bé hình thành tư duy toán học và lượng số trực quan.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
+    "id": "numberblocks-my-first-numbers-12345-learn-mat",
+    "title": "My First Numbers | 12345 | Learn Maths for Kids | Numberblocks",
+    "channel": "Numberblocks",
+    "channelAvatar": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=100&q=80",
+    "channelColor": "#EF4444",
+    "youtubeId": "bvdQr1rUPZI",
+    "duration": "15:00",
+    "category": "math",
+    "categoryNameVi": "Đếm số 123",
+    "categoryEmoji": "🔢",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Numberblocks: My First Numbers | 12345 | Learn Maths for Kids | Numberblocks",
+    "parentTip": "Hỏi bé số khối vuông của mỗi nhân vật để giúp bé hình thành tư duy toán học và lượng số trực quan.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "numberblocks-octoblock-8-saves-the-day-learn-",
+    "title": "Octoblock 8 Saves the Day! | Learn to Count for Kids Compilation | Number Cartoon | Numberblocks",
+    "channel": "Numberblocks",
+    "channelAvatar": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=100&q=80",
+    "channelColor": "#EF4444",
+    "youtubeId": "lRe36GiOEdU",
+    "duration": "15:00",
+    "category": "math",
+    "categoryNameVi": "Đếm số 123",
+    "categoryEmoji": "🔢",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Numberblocks: Octoblock 8 Saves the Day! | Learn to Count for Kids Compilation | Number Cartoon | Numberblocks",
+    "parentTip": "Hỏi bé số khối vuông của mỗi nhân vật để giúp bé hình thành tư duy toán học và lượng số trực quan.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "alphablocks-spelling-made-easy---songs-for-k",
+    "title": "Spelling Made Easy - Songs for Kids | Learn to Read and Spell for Kids Compilation | Alphablocks",
+    "channel": "Alphablocks",
+    "channelAvatar": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=100&q=80",
+    "channelColor": "#8B5CF6",
+    "youtubeId": "7owPTDsB0Jw",
+    "duration": "15:00",
+    "category": "phonics",
+    "categoryNameVi": "Chữ cái ABC",
+    "categoryEmoji": "🔤",
+    "recommendedAge": "4-6 tuổi",
+    "description": "Video học tập bổ ích từ kênh Alphablocks: Spelling Made Easy - Songs for Kids | Learn to Read and Spell for Kids Compilation | Alphablocks",
+    "parentTip": "Nhắc lại âm phát ra khi các chữ cái nắm tay nhau để giúp bé phát triển ngữ âm tiếng Anh tự nhiên.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
+    "id": "alphablocks-alphablock-m-and-the-mole-learn-",
+    "title": "Alphablock M and the Mole | Learn to Read and Spell for Kids Compilation | Alphablocks",
+    "channel": "Alphablocks",
+    "channelAvatar": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=100&q=80",
+    "channelColor": "#8B5CF6",
+    "youtubeId": "nuD1XSIDcO4",
+    "duration": "15:00",
+    "category": "phonics",
+    "categoryNameVi": "Chữ cái ABC",
+    "categoryEmoji": "🔤",
+    "recommendedAge": "4-6 tuổi",
+    "description": "Video học tập bổ ích từ kênh Alphablocks: Alphablock M and the Mole | Learn to Read and Spell for Kids Compilation | Alphablocks",
+    "parentTip": "Nhắc lại âm phát ra khi các chữ cái nắm tay nhau để giúp bé phát triển ngữ âm tiếng Anh tự nhiên.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "alphablocks-alphablocks-telly-learn-to-read-",
+    "title": "Alphablocks Telly | Learn to Read and Spell for Kids Compilation | Alphablocks",
+    "channel": "Alphablocks",
+    "channelAvatar": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=100&q=80",
+    "channelColor": "#8B5CF6",
+    "youtubeId": "1gJpAU6MufY",
+    "duration": "15:00",
+    "category": "phonics",
+    "categoryNameVi": "Chữ cái ABC",
+    "categoryEmoji": "🔤",
+    "recommendedAge": "4-6 tuổi",
+    "description": "Video học tập bổ ích từ kênh Alphablocks: Alphablocks Telly | Learn to Read and Spell for Kids Compilation | Alphablocks",
+    "parentTip": "Nhắc lại âm phát ra khi các chữ cái nắm tay nhau để giúp bé phát triển ngữ âm tiếng Anh tự nhiên.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "caities-classroom-my-hockey-song-hockey-song-for-k",
+    "title": "My Hockey Song 🏒 | Hockey Song for Kids | Super Simple x @NHL",
+    "channel": "Caitie's Classroom",
+    "channelAvatar": "https://images.unsplash.com/photo-1567057420215-0afa9cf72a5a?w=100&q=80",
+    "channelColor": "#10B981",
+    "youtubeId": "gMWyiU7ZWgA",
+    "duration": "15:00",
+    "category": "science",
+    "categoryNameVi": "Khoa học nhí",
+    "categoryEmoji": "🔬",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Caitie's Classroom: My Hockey Song 🏒 | Hockey Song for Kids | Super Simple x @NHL",
+    "parentTip": "Cùng bé quan sát các thí nghiệm và hoạt động thủ công của cô Caitie để kích thích trí tò mò sáng tạo.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
+    "id": "super-simple-trick-or-treat-with-super-simple-532",
+    "title": "🔴 Trick or Treat With Super Simple Live! 🎃 | Best Halloween Kids Songs | Super Simple Songs",
+    "channel": "Super Simple",
+    "channelAvatar": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=100&q=80",
+    "channelColor": "#3B82F6",
+    "youtubeId": "viukEQkEeVU",
+    "duration": "15:00",
+    "category": "speech",
+    "categoryNameVi": "Bé tập nói",
+    "categoryEmoji": "🗣️",
+    "recommendedAge": "0-3 tuổi",
+    "description": "Video học tập bổ ích từ kênh Super Simple: 🔴 Trick or Treat With Super Simple Live! 🎃 | Best Halloween Kids Songs | Super Simple Songs",
+    "parentTip": "Hát và vỗ tay theo nhịp bài hát của Super Simple để bé làm quen với giai điệu và ngữ điệu tự nhiên.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
+    "id": "super-simple-halloween-night-dress-up-as-food",
+    "title": "Halloween Night | 🍕 Dress Up As Food You Like for Halloween Night! | Super Simple Songs",
+    "channel": "Super Simple",
+    "channelAvatar": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=100&q=80",
+    "channelColor": "#3B82F6",
+    "youtubeId": "Ne-ZcF58px4",
+    "duration": "15:00",
+    "category": "speech",
+    "categoryNameVi": "Bé tập nói",
+    "categoryEmoji": "🗣️",
+    "recommendedAge": "0-3 tuổi",
+    "description": "Video học tập bổ ích từ kênh Super Simple: Halloween Night | 🍕 Dress Up As Food You Like for Halloween Night! | Super Simple Songs",
+    "parentTip": "Hát và vỗ tay theo nhịp bài hát của Super Simple để bé làm quen với giai điệu và ngữ điệu tự nhiên.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "super-simple-top-20-anniversary-hit-songs-20-",
+    "title": "Top 20 Anniversary Hit Songs 🎶 | \"20 Years of Super Simple\" now on Vinyl!",
+    "channel": "Super Simple",
+    "channelAvatar": "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=100&q=80",
+    "channelColor": "#3B82F6",
+    "youtubeId": "GzIObE7uR8Q",
+    "duration": "15:00",
+    "category": "speech",
+    "categoryNameVi": "Bé tập nói",
+    "categoryEmoji": "🗣️",
+    "recommendedAge": "0-3 tuổi",
+    "description": "Video học tập bổ ích từ kênh Super Simple: Top 20 Anniversary Hit Songs 🎶 | \"20 Years of Super Simple\" now on Vinyl!",
+    "parentTip": "Hát và vỗ tay theo nhịp bài hát của Super Simple để bé làm quen với giai điệu và ngữ điệu tự nhiên.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "geckos-garage-baby-truck-halloween-song-geckos",
+    "title": "Baby Truck Halloween Song | Gecko's Garage 🚚 | Cartoons For Kids | Toddler Fun Learning",
+    "channel": "Gecko's Garage",
+    "channelAvatar": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=100&q=80",
+    "channelColor": "#F97316",
+    "youtubeId": "p3CSbmR08ZM",
+    "duration": "15:00",
+    "category": "vehicles",
+    "categoryNameVi": "Xe & Cứu hộ",
+    "categoryEmoji": "🚗",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Gecko's Garage: Baby Truck Halloween Song | Gecko's Garage 🚚 | Cartoons For Kids | Toddler Fun Learning",
+    "parentTip": "Hỏi bé về tên các bộ phận của xe cộ và màu sắc xe cứu hoả, xe cảnh sát xuất hiện trong gara.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
+    "id": "geckos-garage-5-little-monster-trucks-stunt-so",
+    "title": "5 Little Monster Trucks Stunt Song | Gecko's Garage 🚚 | Cartoons For Kids | Toddler Fun Learning",
+    "channel": "Gecko's Garage",
+    "channelAvatar": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=100&q=80",
+    "channelColor": "#F97316",
+    "youtubeId": "VO5KZ0l8LRQ",
+    "duration": "15:00",
+    "category": "vehicles",
+    "categoryNameVi": "Xe & Cứu hộ",
+    "categoryEmoji": "🚗",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Gecko's Garage: 5 Little Monster Trucks Stunt Song | Gecko's Garage 🚚 | Cartoons For Kids | Toddler Fun Learning",
+    "parentTip": "Hỏi bé về tên các bộ phận của xe cộ và màu sắc xe cứu hoả, xe cảnh sát xuất hiện trong gara.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "geckos-garage-spooky-clean-halloween-for-wease",
+    "title": "Spooky Clean Halloween For Weasel | Gecko's Garage 🚚 | Cartoons For Kids | Toddler Fun Learning",
+    "channel": "Gecko's Garage",
+    "channelAvatar": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=100&q=80",
+    "channelColor": "#F97316",
+    "youtubeId": "y76XLvoYIWY",
+    "duration": "15:00",
+    "category": "vehicles",
+    "categoryNameVi": "Xe & Cứu hộ",
+    "categoryEmoji": "🚗",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Gecko's Garage: Spooky Clean Halloween For Weasel | Gecko's Garage 🚚 | Cartoons For Kids | Toddler Fun Learning",
+    "parentTip": "Hỏi bé về tên các bộ phận của xe cộ và màu sắc xe cứu hoả, xe cảnh sát xuất hiện trong gara.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "steve-maggie-bigfoot-camping-adventure-story-",
+    "title": "Bigfoot Camping Adventure Story for Kids with Steve and Maggie | Halloween Spooky Surprise",
+    "channel": "Steve & Maggie",
+    "channelAvatar": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=100&q=80",
+    "channelColor": "#6366F1",
+    "youtubeId": "iSAcxbJKkWs",
+    "duration": "15:00",
+    "category": "speech",
+    "categoryNameVi": "Bé tập nói",
+    "categoryEmoji": "🗣️",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Steve & Maggie: Bigfoot Camping Adventure Story for Kids with Steve and Maggie | Halloween Spooky Surprise",
+    "parentTip": "Tương tác và lặp lại các câu thoại hài hước của thầy Steve và chú chim Maggie để tạo phản xạ giao tiếp.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
+    "id": "oxford-phonics-learn-english-for-beginners-the-",
+    "title": "Learn English for Beginners: The Picnic Story & Basic Vocabulary",
+    "channel": "Oxford Phonics",
+    "channelAvatar": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=100&q=80",
+    "channelColor": "#06B6D4",
+    "youtubeId": "WjJ8_NyHtWo",
+    "duration": "15:00",
+    "category": "phonics",
+    "categoryNameVi": "Chữ cái ABC",
+    "categoryEmoji": "🔤",
+    "recommendedAge": "4-6 tuổi",
+    "description": "Video học tập bổ ích từ kênh Oxford Phonics: Learn English for Beginners: The Picnic Story & Basic Vocabulary",
+    "parentTip": "Luyện phát âm chuẩn âm đơn và âm ghép theo từng bài học ngữ âm Oxford chuẩn quốc tế.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
+    "id": "oxford-phonics-learn-english-for-beginners-i-ha",
+    "title": "Learn English for Beginners: I HAVE vs I DON'T HAVE ( Bunny's Adventure ) - Rabbit's house",
+    "channel": "Oxford Phonics",
+    "channelAvatar": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=100&q=80",
+    "channelColor": "#06B6D4",
+    "youtubeId": "MGfaYMP_5oE",
+    "duration": "15:00",
+    "category": "phonics",
+    "categoryNameVi": "Chữ cái ABC",
+    "categoryEmoji": "🔤",
+    "recommendedAge": "4-6 tuổi",
+    "description": "Video học tập bổ ích từ kênh Oxford Phonics: Learn English for Beginners: I HAVE vs I DON'T HAVE ( Bunny's Adventure ) - Rabbit's house",
+    "parentTip": "Luyện phát âm chuẩn âm đơn và âm ghép theo từng bài học ngữ âm Oxford chuẩn quốc tế.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "oxford-phonics-learn-to-speak-english-i-have-vs",
+    "title": "Learn to Speak English : I HAVE vs I WANT ( Beginner Lessons ) -  What I want",
+    "channel": "Oxford Phonics",
+    "channelAvatar": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=100&q=80",
+    "channelColor": "#06B6D4",
+    "youtubeId": "9szSeGDYync",
+    "duration": "15:00",
+    "category": "phonics",
+    "categoryNameVi": "Chữ cái ABC",
+    "categoryEmoji": "🔤",
+    "recommendedAge": "4-6 tuổi",
+    "description": "Video học tập bổ ích từ kênh Oxford Phonics: Learn to Speak English : I HAVE vs I WANT ( Beginner Lessons ) -  What I want",
+    "parentTip": "Luyện phát âm chuẩn âm đơn và âm ghép theo từng bài học ngữ âm Oxford chuẩn quốc tế.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "wild-safari-learn-about-farm-friends-animal-",
+    "title": "Learn About Farm Friends! | Animal Facts | BBC Earth Kids",
+    "channel": "Wild Safari",
+    "channelAvatar": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?w=100&q=80",
+    "channelColor": "#D97706",
+    "youtubeId": "p4NFktDA0Jo",
+    "duration": "15:00",
+    "category": "safari",
+    "categoryNameVi": "Động vật 4K",
+    "categoryEmoji": "🦁",
+    "recommendedAge": "Mọi lứa tuổi",
+    "description": "Video học tập bổ ích từ kênh Wild Safari: Learn About Farm Friends! | Animal Facts | BBC Earth Kids",
+    "parentTip": "Cùng bé nhận diện tiếng kêu và tập tính của muôn loài động vật hoang dã ngoài đời thực.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
+    "id": "wild-safari-mexican-free-tailed-bat-learn-wi",
+    "title": "Mexican Free-Tailed Bat! | Learn With Steve Backshall | BBC Earth Kids",
+    "channel": "Wild Safari",
+    "channelAvatar": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?w=100&q=80",
+    "channelColor": "#D97706",
+    "youtubeId": "iPXxVqqq330",
+    "duration": "15:00",
+    "category": "safari",
+    "categoryNameVi": "Động vật 4K",
+    "categoryEmoji": "🦁",
+    "recommendedAge": "Mọi lứa tuổi",
+    "description": "Video học tập bổ ích từ kênh Wild Safari: Mexican Free-Tailed Bat! | Learn With Steve Backshall | BBC Earth Kids",
+    "parentTip": "Cùng bé nhận diện tiếng kêu và tập tính của muôn loài động vật hoang dã ngoài đời thực.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
+    "id": "wild-safari-the-fastest-weirdest-fiercest-di",
+    "title": "The Fastest, Weirdest & Fiercest Dinosaurs! | Walking With Dinosaurs | BBC Earth Kids",
+    "channel": "Wild Safari",
+    "channelAvatar": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?w=100&q=80",
+    "channelColor": "#D97706",
+    "youtubeId": "-2PSwzLuwb0",
+    "duration": "15:00",
+    "category": "safari",
+    "categoryNameVi": "Động vật 4K",
+    "categoryEmoji": "🦁",
+    "recommendedAge": "Mọi lứa tuổi",
+    "description": "Video học tập bổ ích từ kênh Wild Safari: The Fastest, Weirdest & Fiercest Dinosaurs! | Walking With Dinosaurs | BBC Earth Kids",
+    "parentTip": "Cùng bé nhận diện tiếng kêu và tập tính của muôn loài động vật hoang dã ngoài đời thực.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": false,
+    "isNew": true
+  },
+  {
     "id": "numberblocks-numbers-dont-have-to-be-scary-le",
     "title": "Numbers Don't Have to be Scary | Learn to Count for Kids Compilation | Number Cartoon | Numberblocks",
     "channel": "Numberblocks",
@@ -31,7 +711,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "numberblocks-the-wrong-number-and-other-spook",
@@ -65,7 +745,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "alphablocks-babys-first-alphabet-learn-to-re",
@@ -99,7 +779,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "alphablocks-classroom-calm-with-the-alphablo",
@@ -133,7 +813,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "ms-rachel-learn-colors-with-ms-rachel---i-",
@@ -167,7 +847,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "caities-classroom-lets-go-behind-the-scenes-celebr",
@@ -201,7 +881,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "super-simple-trick-or-treat-with-super-simple",
@@ -235,7 +915,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "super-simple-when-we-play-hockey-super-simple",
@@ -269,7 +949,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "geckos-garage-baby-truck-trick-or-treat-hallow",
@@ -303,7 +983,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "geckos-garage-baby-truck-watch-out-geckos-gara",
@@ -337,7 +1017,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "steve-maggie-halloween-party-for-kids-with-st",
@@ -371,7 +1051,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "oxford-phonics-oxford-phonics-world---how-to-wr",
@@ -405,7 +1085,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "oxford-phonics-oxford-phonics-world-student-boo",
@@ -439,7 +1119,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "wild-safari-hungry-pups-want-more-food-wonde",
@@ -473,7 +1153,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "wild-safari-playful-pups-go-on-an-adventure-",
@@ -507,7 +1187,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "danny-go-the-color-dance-game",
