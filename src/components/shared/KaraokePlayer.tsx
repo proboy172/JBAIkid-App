@@ -85,6 +85,7 @@ export default function KaraokePlayer({
   const tapTimerRef = useRef<NodeJS.Timeout | null>(null);
   const lastTapRef = useRef<{ time: number; x: number; y: number } | null>(null);
   const lastHUDToggleTimeRef = useRef<number>(0);
+  const lastUserPlayToggleTimeRef = useRef<number>(0);
   const hudTimerRef = useRef<NodeJS.Timeout | null>(null);
   const unlockTimerRef = useRef<NodeJS.Timeout | null>(null);
   const currentTimeRef = useRef<number>(0);
@@ -274,7 +275,7 @@ export default function KaraokePlayer({
     }
   }, [isPlaying, showHUD, isLocked, isSongEnded]);
 
-  // HUD Auto-Hide Timer
+  // HUD Auto-Hide Timer (3.5s)
   const resetHUDTimer = useCallback(() => {
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
     if (!isPlayingRef.current) return;
@@ -282,31 +283,38 @@ export default function KaraokePlayer({
       if (isPlayingRef.current) {
         setShowHUD(false);
       }
-    }, 4000);
+    }, 3500);
   }, []);
 
   const handleCloseHUD = useCallback(() => {
-    if (!isPlayingRef.current) return;
-    if (Date.now() - lastHUDToggleTimeRef.current < 350) return;
+    if (Date.now() - lastHUDToggleTimeRef.current < 250) return;
     if (hudTimerRef.current) clearTimeout(hudTimerRef.current);
     setShowHUD(false);
   }, []);
 
-  // Play / Pause Toggle
+  // Play / Pause Toggle with race condition protection
   const togglePlayPause = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
     e?.stopPropagation();
     playSFX("tap");
+    try {
+      if (navigator.vibrate) navigator.vibrate(12);
+    } catch {}
+    lastUserPlayToggleTimeRef.current = Date.now();
+
     if (currentSong.localVideo && videoRef.current) {
       if (videoRef.current.paused) {
         videoRef.current.play();
         setIsPlaying(true);
+        isPlayingRef.current = true;
       } else {
         videoRef.current.pause();
         setIsPlaying(false);
+        isPlayingRef.current = false;
       }
     } else if (iframeRef.current?.contentWindow) {
       setIsPlaying((prev) => {
         const next = !prev;
+        isPlayingRef.current = next;
         const cmd = next ? "playVideo" : "pauseVideo";
         try {
           iframeRef.current?.contentWindow?.postMessage(
@@ -730,22 +738,30 @@ export default function KaraokePlayer({
         }
         if (!data) return;
 
+        const isRecentUserToggle = Date.now() - lastUserPlayToggleTimeRef.current < 900;
+
         if (data.event === "onStateChange") {
-          if (data.info === 1 || data.info === "1") {
-            setIsPlaying((prev) => (prev ? prev : true));
-          } else if (data.info === 2 || data.info === "2") {
-            setIsPlaying((prev) => (!prev ? prev : false));
-          } else if (data.info === 0 || data.info === "0") {
+          if (!isRecentUserToggle) {
+            if (data.info === 1 || data.info === "1") {
+              setIsPlaying(true);
+            } else if (data.info === 2 || data.info === "2") {
+              setIsPlaying(false);
+            }
+          }
+          if (data.info === 0 || data.info === "0") {
             handleSongFinished();
           }
         }
 
         if (data.event === "infoDelivery" && data.info) {
-          if (data.info.playerState === 1 || data.info.playerState === "1") {
-            setIsPlaying((prev) => (prev ? prev : true));
-          } else if (data.info.playerState === 2 || data.info.playerState === "2") {
-            setIsPlaying((prev) => (!prev ? prev : false));
-          } else if (data.info.playerState === 0 || data.info.playerState === "0") {
+          if (!isRecentUserToggle) {
+            if (data.info.playerState === 1 || data.info.playerState === "1") {
+              setIsPlaying(true);
+            } else if (data.info.playerState === 2 || data.info.playerState === "2") {
+              setIsPlaying(false);
+            }
+          }
+          if (data.info.playerState === 0 || data.info.playerState === "0") {
             handleSongFinished();
           }
 
@@ -1047,6 +1063,27 @@ export default function KaraokePlayer({
             )}
           </AnimatePresence>
 
+          {/* Floating Recommendation Quick Pill on Video Corner (Always visible when HUD is hidden) */}
+          {!showQuickDrawer && !isSongEnded && !isLocked && !showHUD && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                playSFX("pop");
+                setShowQuickDrawer(true);
+                setShowHUD(false);
+              }}
+              style={{ touchAction: "manipulation" }}
+              className="absolute top-3.5 right-3.5 z-25 px-3 py-1.5 rounded-full bg-slate-900/80 hover:bg-slate-900 active:bg-amber-400 text-amber-300 active:text-slate-950 font-black text-xs flex items-center gap-1.5 backdrop-blur-md border border-amber-400/40 shadow-xl cursor-pointer active:scale-90 transition-all select-none"
+              title="Mở danh sách bài hát gợi ý tiếp theo"
+            >
+              <span className="text-sm">🎈</span>
+              <span className="tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                Gợi ý ({songRecommendations.length})
+              </span>
+            </button>
+          )}
+
           {/* ----------------- MOBILE / FULLSCREEN HUD CONTROLS OVERLAY ----------------- */}
           <AnimatePresence>
             {(showHUD || !isPlaying) && !isLocked && !isSongEnded && (
@@ -1056,16 +1093,18 @@ export default function KaraokePlayer({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.18 }}
                 onClick={(e) => {
-                  if (e.target === e.currentTarget) {
+                  const target = e.target as HTMLElement;
+                  if (!target.closest("button, input, [role='button'], .no-hud-dismiss")) {
                     handleCloseHUD();
                   }
                 }}
-                className="absolute inset-0 z-30 bg-black/50 backdrop-blur-[1.5px] flex flex-col justify-between p-2.5 sm:p-4 select-none pointer-events-auto cursor-pointer"
+                className="absolute inset-0 z-30 bg-black/55 backdrop-blur-[2px] flex flex-col justify-between p-2.5 sm:p-4 select-none pointer-events-auto cursor-pointer"
               >
                 {/* Top Video Header Row */}
-                <div className="flex items-center justify-between w-full pointer-events-auto z-10">
-                  <div className="flex items-center gap-2 min-w-0 flex-1 mr-2">
+                <div className="flex items-center justify-between w-full pointer-events-auto z-10 gap-2">
+                  <div className="flex items-center gap-2 min-w-0 flex-1 mr-1">
                     <button
+                      type="button"
                       onClick={handleClose}
                       className="w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center border border-white/25 shadow-lg transition-transform cursor-pointer shrink-0"
                       style={{ touchAction: "manipulation" }}
@@ -1084,8 +1123,28 @@ export default function KaraokePlayer({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1.5 shrink-0">
+                  <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                    {/* Prominent Gợi Ý Button on HUD */}
                     <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playSFX("pop");
+                        setShowQuickDrawer(true);
+                        setShowHUD(false);
+                      }}
+                      className="px-2.5 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 shadow-lg shadow-amber-500/40 border-2 border-amber-200 active:scale-90 transition-transform cursor-pointer"
+                      style={{ touchAction: "manipulation" }}
+                      title="Mở danh sách bài hát gợi ý tiếp theo"
+                    >
+                      <span className="text-sm sm:text-base animate-bounce">🎈</span>
+                      <span className="font-extrabold tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+                        Gợi ý ({songRecommendations.length})
+                      </span>
+                    </button>
+
+                    <button
+                      type="button"
                       onClick={toggleLock}
                       className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center border border-white/25 shadow-lg transition-transform cursor-pointer"
                       style={{ touchAction: "manipulation" }}
@@ -1095,6 +1154,7 @@ export default function KaraokePlayer({
                     </button>
 
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         playSFX("tap");
@@ -1111,72 +1171,72 @@ export default function KaraokePlayer({
 
                 {/* Center Big Controls Row */}
                 <div className="flex items-center justify-center gap-3 sm:gap-6 my-auto pointer-events-auto z-10">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                  <button
+                    type="button"
                     onClick={handlePreviousSong}
-                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer"
+                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
                     style={{ touchAction: "manipulation" }}
                     title="Bài trước"
                   >
                     <SkipBack size={20} fill="white" />
-                  </motion.button>
+                  </button>
 
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                  <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleSkipSeconds(-10);
                     }}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
                     style={{ touchAction: "manipulation" }}
                     title="Tua lùi 10s"
                   >
                     <RotateCcw size={16} />
                     <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">-10s</span>
-                  </motion.button>
+                  </button>
 
-                  <motion.button
-                    whileHover={{ scale: 1.08 }}
-                    whileTap={{ scale: 0.92 }}
+                  {/* Giant Central Play / Pause Button with Instant Visual Feedback */}
+                  <button
+                    type="button"
                     onClick={togglePlayPause}
-                    className={`w-15 h-15 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full flex items-center justify-center text-white shadow-[0_0_35px_rgba(6,182,212,0.6)] border-4 border-white/80 transition-transform cursor-pointer ${
+                    className={`w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-full flex items-center justify-center text-white border-4 border-white transition-all cursor-pointer ${
                       isPlaying
-                        ? "bg-gradient-to-tr from-cyan-500 via-sky-400 to-blue-600"
-                        : "bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-500 animate-pulse"
+                        ? "bg-gradient-to-tr from-cyan-500 via-sky-400 to-blue-600 shadow-[0_0_35px_rgba(6,182,212,0.7)] active:scale-90"
+                        : "bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-500 shadow-[0_0_45px_rgba(251,191,36,0.85)] animate-pulse active:scale-90"
                     }`}
                     style={{ touchAction: "manipulation" }}
-                    title={isPlaying ? "Tạm dừng" : "Tiếp tục phát"}
+                    title={isPlaying ? "Tạm dừng bài hát" : "Tiếp tục phát bài hát"}
                   >
-                    {isPlaying ? <Pause size={30} fill="white" /> : <Play size={32} fill="white" className="ml-1" />}
-                  </motion.button>
+                    {isPlaying ? (
+                      <Pause size={32} fill="white" />
+                    ) : (
+                      <Play size={36} fill="white" className="ml-1" />
+                    )}
+                  </button>
 
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                  <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleSkipSeconds(10);
                     }}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer"
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
                     style={{ touchAction: "manipulation" }}
                     title="Tua tới 10s"
                   >
                     <RotateCw size={16} />
                     <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">+10s</span>
-                  </motion.button>
+                  </button>
 
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                  <button
+                    type="button"
                     onClick={handleNextSongShortcut}
-                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer"
+                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
                     style={{ touchAction: "manipulation" }}
                     title="Bài tiếp"
                   >
                     <SkipForward size={20} fill="white" />
-                  </motion.button>
+                  </button>
                 </div>
 
                 {/* Bottom Scrubber & Time Bar */}
@@ -1492,14 +1552,16 @@ export default function KaraokePlayer({
             </button>
 
             <button
+              type="button"
               onClick={() => {
-                playSFX("tap");
+                playSFX("pop");
                 setMobileTab("recs");
+                setShowQuickDrawer(true);
               }}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-black flex items-center gap-1.5 border transition-all shrink-0 active:scale-95 ${
-                mobileTab === "recs"
-                  ? "bg-cyan-500 text-slate-950 border-cyan-400 shadow-md shadow-cyan-400/20"
-                  : "bg-white/10 border-white/20 text-white/80"
+              className={`px-3.5 py-1.5 rounded-full text-xs font-black flex items-center gap-1.5 border transition-all shrink-0 active:scale-95 cursor-pointer ${
+                mobileTab === "recs" || showQuickDrawer
+                  ? "bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 border-amber-300 shadow-md shadow-amber-400/30"
+                  : "bg-white/10 border-white/20 text-white/80 hover:bg-white/15"
               }`}
             >
               <span>🎈</span>

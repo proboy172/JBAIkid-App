@@ -100,47 +100,29 @@ export default function VideoEndRecommendation({
     };
   }, [isPaused, heroItem, onSelect]);
 
-  // Touch tracking for instant tap on iPad/touch devices
-  const itemTouchMapRef = useRef<{
-    [key: string]: { startX: number; startY: number; startTime: number; moved: boolean };
-  }>({});
+  // Pointer tracker for reliable instant tap selection on touch devices
+  const pointerStartPosRef = useRef<{ x: number; y: number } | null>(null);
 
-  const handleItemTouchStart = (id: string, e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      itemTouchMapRef.current[id] = {
-        startX: e.touches[0].clientX,
-        startY: e.touches[0].clientY,
-        startTime: Date.now(),
-        moved: false,
-      };
-    }
+  const handleCardPointerDown = (e: React.PointerEvent) => {
+    pointerStartPosRef.current = {
+      x: e.clientX,
+      y: e.clientY,
+    };
   };
 
-  const handleItemTouchMove = (id: string, e: React.TouchEvent) => {
-    const item = itemTouchMapRef.current[id];
-    if (!item) return;
-    const dx = Math.abs(e.touches[0].clientX - item.startX);
-    const dy = Math.abs(e.touches[0].clientY - item.startY);
-    if (dx > 12 || dy > 12) {
-      item.moved = true;
-    }
-  };
+  const handleCardPointerUp = (id: string, e: React.PointerEvent) => {
+    if (!pointerStartPosRef.current) return;
+    const dx = Math.abs(e.clientX - pointerStartPosRef.current.x);
+    const dy = Math.abs(e.clientY - pointerStartPosRef.current.y);
+    pointerStartPosRef.current = null;
 
-  const handleItemTouchEnd = (id: string, e: React.TouchEvent) => {
-    const item = itemTouchMapRef.current[id];
-    delete itemTouchMapRef.current[id];
-    if (!item) return;
+    if (dx > 12 || dy > 12) return;
 
-    const touch = e.changedTouches[0];
-    const dx = Math.abs(touch.clientX - item.startX);
-    const dy = Math.abs(touch.clientY - item.startY);
-    const dt = Date.now() - item.startTime;
-
-    if (!item.moved && dx < 12 && dy < 12 && dt < 600) {
-      e.preventDefault();
-      playSFX("tap");
-      onSelect(id);
-    }
+    playSFX("tap");
+    try {
+      if (navigator.vibrate) navigator.vibrate(10);
+    } catch {}
+    onSelect(id);
   };
 
   // Circumference for circular SVG progress ring (radius = 34)
@@ -392,21 +374,15 @@ export default function VideoEndRecommendation({
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-2.5">
               {otherItems.map((item, idx) => (
-                <motion.button
+                <button
                   type="button"
                   key={item.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: Math.min(idx * 0.02, 0.12) }}
-                  whileHover={supportsHover ? { scale: 1.03 } : undefined}
-                  whileTap={{ scale: 0.96 }}
+                  onPointerDown={handleCardPointerDown}
+                  onPointerUp={(e) => handleCardPointerUp(item.id, e)}
                   onClick={() => {
                     playSFX("tap");
                     onSelect(item.id);
                   }}
-                  onTouchStart={(e) => handleItemTouchStart(item.id, e)}
-                  onTouchMove={(e) => handleItemTouchMove(item.id, e)}
-                  onTouchEnd={(e) => handleItemTouchEnd(item.id, e)}
                   style={{ touchAction: "manipulation" }}
                   className="group relative bg-white/10 hover:bg-white/15 active:bg-white/25 border border-white/15 hover:border-cyan-400/60 rounded-xl sm:rounded-2xl p-2 flex flex-col justify-between cursor-pointer transition-all shadow-md hover:shadow-cyan-500/20 text-left active:scale-95"
                 >
@@ -447,7 +423,7 @@ export default function VideoEndRecommendation({
                       {item.title}
                     </h4>
                   </div>
-                </motion.button>
+                </button>
               ))}
             </div>
           </div>
