@@ -849,7 +849,7 @@ export default function KaraokePlayer({
             <div className="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-2xl shrink-0 shadow-inner">
               {currentSong.emoji || "🎵"}
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1 overflow-hidden">
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/20 text-amber-300 truncate">
                   {isEnglishSong ? "English Nursery" : "Bài Hát Thiếu Nhi"}
@@ -857,8 +857,9 @@ export default function KaraokePlayer({
                 <span className="text-[11px] text-white/70">Karaoke Lời Nhạc</span>
               </div>
               <h2
-                className="text-white text-sm md:text-base font-bold truncate drop-shadow-md"
+                className="text-white text-xs sm:text-sm md:text-base font-bold truncate drop-shadow-md leading-tight mt-0.5"
                 style={{ fontFamily: "var(--font-heading)" }}
+                title={currentSong.title}
               >
                 {currentSong.title}
               </h2>
@@ -867,25 +868,6 @@ export default function KaraokePlayer({
 
           {/* Desktop Right Action Buttons */}
           <div className="flex items-center gap-2 shrink-0">
-            <motion.button
-              type="button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                playSFX("tap");
-                setShowQuickDrawer(!showQuickDrawer);
-              }}
-              className={`px-3 py-1.5 rounded-full border text-xs font-extrabold flex items-center gap-1.5 transition-all cursor-pointer ${
-                showQuickDrawer
-                  ? "bg-amber-400 text-slate-950 border-amber-300 shadow-md shadow-amber-500/30"
-                  : "bg-white/20 border-white/30 text-white hover:bg-white/30"
-              }`}
-            >
-              <span>🎈</span>
-              <span>Gợi Ý</span>
-            </motion.button>
-
             <motion.button
               type="button"
               whileHover={{ scale: 1.05 }}
@@ -1063,8 +1045,8 @@ export default function KaraokePlayer({
             )}
           </AnimatePresence>
 
-          {/* Floating Recommendation Quick Pill on Video Corner (Always visible when HUD is hidden) */}
-          {!showQuickDrawer && !isSongEnded && !isLocked && !showHUD && (
+          {/* Floating Recommendation Quick Pill on Video Bottom-Right Corner */}
+          {!showQuickDrawer && !isSongEnded && !isLocked && (
             <button
               type="button"
               onClick={(e) => {
@@ -1073,12 +1055,13 @@ export default function KaraokePlayer({
                 setShowQuickDrawer(true);
                 setShowHUD(false);
               }}
-              style={{ touchAction: "manipulation" }}
-              className="absolute top-3.5 right-3.5 z-25 px-3 py-1.5 rounded-full bg-slate-900/80 hover:bg-slate-900 active:bg-amber-400 text-amber-300 active:text-slate-950 font-black text-xs flex items-center gap-1.5 backdrop-blur-md border border-amber-400/40 shadow-xl cursor-pointer active:scale-90 transition-all select-none"
+              className={`absolute right-3 sm:right-5 z-35 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 active:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 shadow-[0_6px_25px_rgba(245,158,11,0.65)] border-2 border-amber-200/90 active:scale-95 transition-all select-none cursor-pointer backdrop-blur-md ${
+                showHUD ? "bottom-16 sm:bottom-20" : "bottom-3 sm:bottom-4"
+              }`}
               title="Mở danh sách bài hát gợi ý tiếp theo"
             >
-              <span className="text-sm">🎈</span>
-              <span className="tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
+              <span className="text-base sm:text-lg animate-bounce">🎈</span>
+              <span className="font-black tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
                 Gợi ý ({songRecommendations.length})
               </span>
             </button>
@@ -1124,25 +1107,6 @@ export default function KaraokePlayer({
                   </div>
 
                   <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                    {/* Prominent Gợi Ý Button on HUD */}
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        playSFX("pop");
-                        setShowQuickDrawer(true);
-                        setShowHUD(false);
-                      }}
-                      className="px-2.5 sm:px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 shadow-lg shadow-amber-500/40 border-2 border-amber-200 active:scale-90 transition-transform cursor-pointer"
-                      style={{ touchAction: "manipulation" }}
-                      title="Mở danh sách bài hát gợi ý tiếp theo"
-                    >
-                      <span className="text-sm sm:text-base animate-bounce">🎈</span>
-                      <span className="font-extrabold tracking-tight" style={{ fontFamily: "var(--font-heading)" }}>
-                        Gợi ý ({songRecommendations.length})
-                      </span>
-                    </button>
-
                     <button
                       type="button"
                       onClick={toggleLock}
