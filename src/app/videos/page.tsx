@@ -110,7 +110,7 @@ export interface EduFilterItem {
   target: string;
 }
 
-export const eduUnifiedFilters: EduFilterItem[] = [
+const eduUnifiedFilters: EduFilterItem[] = [
   { id: "all", name: "Tất cả", emoji: "🌟", count: educationalVideos.length, type: "all", target: "all" },
   { id: "safari", name: "Safari 4K", emoji: "🦁", count: educationalVideos.filter(v => v.category === "safari").length, type: "category", target: "safari" },
   { id: "ms-rachel", name: "Ms Rachel", emoji: "👧", count: educationalVideos.filter(v => v.channel === "Ms Rachel").length, type: "channel", target: "Ms Rachel" },

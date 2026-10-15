@@ -763,11 +763,9 @@ export default function SafeVideoModal({
         if (data.event === "onError") {
           console.warn("YouTube player onError received:", data.info);
           setPlaybackError("Video tạm thời không khả dụng");
-          if (isAutoPlayNext) {
-            setTimeout(() => {
-              handleNextVideoShortcut();
-            }, 3000);
-          }
+          setTimeout(() => {
+            handleNextVideoShortcut();
+          }, 2500);
           return;
         }
 
@@ -1399,6 +1397,38 @@ export default function SafeVideoModal({
                   </div>
                 </div>
               </motion.div>
+            </div>
+          )}
+
+          {/* Playback Error Fallback Overlay (Handles YouTube Error 101/150/Deleted) */}
+          {playbackError && (
+            <div className="absolute inset-0 z-40 bg-black/92 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center select-none">
+              <div className="w-16 h-16 rounded-full bg-amber-500/20 border-2 border-amber-400 text-amber-400 flex items-center justify-center text-3xl mb-3 animate-bounce">
+                📺
+              </div>
+              <h3 className="text-white text-base sm:text-lg font-black mb-1" style={{ fontFamily: "var(--font-heading)" }}>
+                Video tạm thời không khả dụng
+              </h3>
+              <p className="text-slate-300 text-xs sm:text-sm max-w-sm mb-4">
+                Chủ kênh đã giới hạn hoặc video thay đổi trên YouTube. Đang tự động chuyển video khác cho bé...
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleNextVideoShortcut}
+                  className="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-black text-xs sm:text-sm shadow-lg border-2 border-amber-200 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <SkipForward size={16} />
+                  <span>Xem video tiếp theo</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 active:scale-95 transition-all cursor-pointer"
+                >
+                  Đóng
+                </button>
+              </div>
             </div>
           )}
 

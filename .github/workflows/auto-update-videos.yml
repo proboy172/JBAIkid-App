@@ -2,8 +2,8 @@ name: Auto Update Educational Videos
 
 on:
   schedule:
-    # Chạy tự động vào 03:00 Chủ nhật hàng tuần (giờ UTC)
-    - cron: '0 3 * * 0'
+    # Chạy tự động hàng ngày lúc 02:00 UTC (09:00 sáng giờ VN)
+    - cron: '0 2 * * *'
   workflow_dispatch:
     # Cho phép bấm nút "Run workflow" trực tiếp trên GitHub bất cứ lúc nào
     inputs:
@@ -31,10 +31,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Educational Video Crawler
+      - name: Run Educational Video Crawler & Health Audit
         run: |
           MAX="${{ github.event.inputs.max_per_channel || '3' }}"
-          node scripts/auto-update-videos.mjs --max=$MAX
+          node scripts/auto-update-videos.mjs --max=$MAX --prune-dead
 
       - name: Verify Build
         run: npm run build

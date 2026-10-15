@@ -300,11 +300,13 @@ function parseRssFeed(xmlText) {
 async function main() {
   const args = process.argv.slice(2);
   const maxPerChannel = parseInt(args.find(a => a.startsWith('--max='))?.split('=')[1] || '5', 10);
+  const shouldPruneDead = args.includes('--prune-dead');
 
   console.log('====================================================');
   console.log('🚀 JBAIKID EDUCATIONAL VIDEO AUTO-CRAWLER PIPELINE');
   console.log(`🎯 Max new videos per channel: ${maxPerChannel}`);
   console.log('🛡️  Strict compliance: NO SHORTS, 100% EMBEDDABLE ONLY');
+  if (shouldPruneDead) console.log('🧹 Dead Video Audit: ENABLED');
   console.log('====================================================\n');
 
   if (!fs.existsSync(DATA_FILE)) {
@@ -312,7 +314,38 @@ async function main() {
     process.exit(1);
   }
 
-  const existingVideos = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+  let existingVideos = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+
+  if (shouldPruneDead) {
+    console.log(`🧹 Auditing ${existingVideos.length} existing videos for availability...`);
+    const aliveVideos = [];
+    let deadCount = 0;
+    const concurrency = 8;
+
+    for (let i = 0; i < existingVideos.length; i += concurrency) {
+      const batch = existingVideos.slice(i, i + concurrency);
+      const results = await Promise.all(batch.map(async (v) => {
+        try {
+          const res = await fetchText(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${v.youtubeId}&format=json`);
+          return { video: v, ok: res.statusCode === 200, status: res.statusCode };
+        } catch {
+          return { video: v, ok: true };
+        }
+      }));
+
+      for (const res of results) {
+        if (res.ok) {
+          aliveVideos.push(res.video);
+        } else {
+          console.log(`   ❌ Removed dead/blocked video: [${res.video.id}] ${res.video.title} (Status ${res.status})`);
+          deadCount++;
+        }
+      }
+    }
+    console.log(`✅ Audit complete: ${aliveVideos.length} active, ${deadCount} dead removed.\n`);
+    existingVideos = aliveVideos;
+  }
+
   const existingYtIds = new Set(existingVideos.map(v => v.youtubeId));
   const existingSlugs = new Set(existingVideos.map(v => v.id));
 
@@ -397,11 +430,11 @@ async function main() {
     }
   }
 
-  if (totalAdded > 0) {
+  if (totalAdded > 0 || (shouldPruneDead && existingVideos.length !== JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')).length)) {
     // Mark older videos isNew: false, prepend new videos to top of list
     const updatedLibrary = [
       ...newVideosBatch,
-      ...existingVideos.map(v => ({ ...v, isNew: false })),
+      ...existingVideos.map(v => ({ ...v, isNew: totalAdded > 0 ? false : v.isNew })),
     ];
 
     fs.writeFileSync(DATA_FILE, JSON.stringify(updatedLibrary, null, 2), 'utf8');

@@ -59,6 +59,7 @@ export default function KaraokePlayer({
   const [mobileTab, setMobileTab] = useState<"lyrics" | "recs">("lyrics");
   const [isSongEnded, setIsSongEnded] = useState(false);
   const [showQuickDrawer, setShowQuickDrawer] = useState(false);
+  const [playbackError, setPlaybackError] = useState<string | null>(null);
   const [isAutoPlayNext, setIsAutoPlayNext] = useState(true);
   const [iframeKey, setIframeKey] = useState(0);
   const [isLocked, setIsLocked] = useState(false);
@@ -738,12 +739,23 @@ export default function KaraokePlayer({
         }
         if (!data) return;
 
+        // Player Error handling (100, 101, 150, 2, 5)
+        if (data.event === "onError") {
+          console.warn("YouTube player onError received:", data.info);
+          setPlaybackError("Bài hát tạm thời không khả dụng");
+          setTimeout(() => {
+            handleNextSongShortcut();
+          }, 2500);
+          return;
+        }
+
         const isRecentUserToggle = Date.now() - lastUserPlayToggleTimeRef.current < 900;
 
         if (data.event === "onStateChange") {
           if (!isRecentUserToggle) {
             if (data.info === 1 || data.info === "1") {
               setIsPlaying(true);
+              setPlaybackError(null);
             } else if (data.info === 2 || data.info === "2") {
               setIsPlaying(false);
             }
@@ -1334,6 +1346,38 @@ export default function KaraokePlayer({
                   </div>
                 </div>
               </motion.div>
+            </div>
+          )}
+
+          {/* Playback Error Fallback Overlay (Handles YouTube Error 101/150/Deleted) */}
+          {playbackError && (
+            <div className="absolute inset-0 z-40 bg-black/92 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center select-none">
+              <div className="w-16 h-16 rounded-full bg-purple-500/20 border-2 border-purple-400 text-purple-400 flex items-center justify-center text-3xl mb-3 animate-bounce">
+                🎵
+              </div>
+              <h3 className="text-white text-base sm:text-lg font-black mb-1" style={{ fontFamily: "var(--font-heading)" }}>
+                Bài hát tạm thời không khả dụng
+              </h3>
+              <p className="text-slate-300 text-xs sm:text-sm max-w-sm mb-4">
+                Chủ kênh đã giới hạn hoặc bài hát thay đổi trên YouTube. Đang tự động chuyển bài hát khác cho bé...
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleNextSongShortcut}
+                  className="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-black text-xs sm:text-sm shadow-lg border-2 border-purple-300 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <SkipForward size={16} />
+                  <span>Nghe bài tiếp theo</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 active:scale-95 transition-all cursor-pointer"
+                >
+                  Đóng
+                </button>
+              </div>
             </div>
           )}
 
