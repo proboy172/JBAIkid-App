@@ -40,7 +40,7 @@ html {
   max-width: 100%;
   min-height: 100%;
   overflow-x: hidden;
-  overscroll-behavior-y: contain;
+  overscroll-behavior-y: auto;
   overscroll-behavior-x: none;
   -webkit-text-size-adjust: 100%;
   -webkit-overflow-scrolling: touch;
@@ -55,8 +55,8 @@ body {
   min-height: 100dvh;
   overflow-x: hidden;
   overscroll-behavior-x: none;
-  overscroll-behavior-y: contain;
-  touch-action: manipulation;
+  overscroll-behavior-y: auto;
+  touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
   position: relative;
 }
@@ -94,6 +94,12 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   touch-action: pan-x pan-y;
+  cursor: grab;
+  user-select: none;
+}
+
+.smooth-horizontal-scroll:active {
+  cursor: grabbing;
 }
 
 .smooth-horizontal-scroll::-webkit-scrollbar {

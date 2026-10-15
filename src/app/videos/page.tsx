@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback, Suspense, memo } from "react";
+import { useState, useMemo, useEffect, useCallback, Suspense, memo, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import BackButton from "@/components/layout/BackButton";
@@ -128,6 +128,75 @@ export const eduUnifiedFilters: EduFilterItem[] = [
   { id: "oxford-phonics", name: "Oxford Phonics", emoji: "📖", count: educationalVideos.filter(v => v.channel === "Oxford Phonics").length, type: "channel", target: "Oxford Phonics" },
   { id: "habits", name: "Thói quen tốt", emoji: "💖", count: educationalVideos.filter(v => v.category === "habits").length, type: "category", target: "habits" },
 ];
+
+// Reusable horizontal scroll container supporting 1-finger native touch on mobile/tablet & click-drag on desktop
+function ScrollableRow({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let hasMoved = false;
+
+    const onMouseDown = (e: MouseEvent) => {
+      if (e.button !== 0) return;
+      isDown = true;
+      hasMoved = false;
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      const x = e.pageX - el.offsetLeft;
+      const walk = (x - startX) * 1.4;
+      if (Math.abs(walk) > 4) {
+        hasMoved = true;
+      }
+      el.scrollLeft = scrollLeft - walk;
+    };
+
+    const onMouseUp = () => {
+      if (isDown && hasMoved) {
+        const preventClick = (clickEvent: MouseEvent) => {
+          clickEvent.stopPropagation();
+          clickEvent.preventDefault();
+        };
+        el.addEventListener("click", preventClick, { capture: true, once: true });
+      }
+      isDown = false;
+    };
+
+    const onMouseLeave = () => {
+      isDown = false;
+    };
+
+    el.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    el.addEventListener("mouseleave", onMouseLeave);
+
+    return () => {
+      el.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      el.removeEventListener("mouseleave", onMouseLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap smooth-horizontal-scroll ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
 
 function VideosContent() {
   const searchParams = useSearchParams();
@@ -466,7 +535,7 @@ function VideosContent() {
     filteredEduVideos.length + filteredSongsEn.length + filteredSongsVi.length;
 
   return (
-    <div className="min-h-dvh w-full max-w-full overflow-x-hidden flex flex-col bg-[#F8FAFC]">
+    <div className="min-h-dvh w-full max-w-full flex flex-col bg-[#F8FAFC]">
       {/* Active Educational Video Player Modal */}
       <AnimatePresence>
         {activeEduVideo && (
@@ -665,7 +734,7 @@ function VideosContent() {
       <div className="sticky top-0 z-20 bg-[#F8FAFC]/95 backdrop-blur-md pb-1.5 pt-1 border-b border-slate-200/50 shadow-xs">
         {/* Main Category Tabs - Compact, Single Horizontal Row (Never Wrap) */}
         <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10 mb-1.5">
-          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap smooth-horizontal-scroll">
+          <ScrollableRow className="sm:gap-2">
             {tabs.map((tab) => {
               const isSelected = activeTab === tab.id;
               return (
@@ -682,7 +751,6 @@ function VideosContent() {
                       ? `bg-gradient-to-r ${tab.bgGradient} text-white shadow-md ${tab.activeShadow} scale-102 border-transparent`
                       : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200/80 shadow-xs"
                   }`}
-                  style={{ touchAction: "manipulation" }}
                 >
                   <span className="text-base sm:text-lg drop-shadow-xs">{tab.emoji}</span>
                   <span className="text-xs sm:text-sm font-extrabold whitespace-nowrap" style={{ fontFamily: "var(--font-heading)" }}>
@@ -698,14 +766,14 @@ function VideosContent() {
                 </motion.button>
               );
             })}
-          </div>
+          </ScrollableRow>
         </div>
 
         {/* Sub-Filters Container - Compact, Single Horizontal Row */}
         <div className="px-3 sm:px-6 max-w-6xl mx-auto w-full relative z-10">
           {/* TAB: VIDEO BÉ HỌC Sub-filters */}
           {activeTab === "edu" && !searchQuery && (
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap smooth-horizontal-scroll">
+            <ScrollableRow>
               {/* Quick Shuffle Button */}
               <motion.button
                 whileTap={{ scale: 0.92 }}
@@ -715,7 +783,6 @@ function VideosContent() {
                     ? "bg-amber-500 text-white border-amber-600 shadow-xs animate-pulse"
                     : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-xs"
                 }`}
-                style={{ touchAction: "manipulation" }}
                 title="Đổi thứ tự ngẫu nhiên toàn bộ video"
               >
                 <Sparkles size={12} className={isShufflingEdu ? "animate-spin" : "text-amber-500"} />
@@ -741,7 +808,6 @@ function VideosContent() {
                         ? "bg-cyan-500 text-white border-cyan-500 shadow-xs shadow-cyan-500/30 scale-102"
                         : "bg-white text-slate-700 hover:bg-cyan-50/70 border-slate-200/90 shadow-xs"
                     }`}
-                    style={{ touchAction: "manipulation" }}
                   >
                     <span className="text-sm">{filter.emoji}</span>
                     <span>{filter.name}</span>
@@ -755,12 +821,12 @@ function VideosContent() {
                   </motion.button>
                 );
               })}
-            </div>
+            </ScrollableRow>
           )}
 
           {/* TAB: TẤT CẢ Sub-filters / Actions */}
           {activeTab === "all" && !searchQuery && (
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap smooth-horizontal-scroll">
+            <ScrollableRow>
               <motion.button
                 whileTap={{ scale: 0.94 }}
                 onClick={shuffleAllVideos}
@@ -769,7 +835,6 @@ function VideosContent() {
                     ? "bg-amber-500 text-white border-amber-600 shadow-xs animate-pulse"
                     : "bg-amber-50 text-amber-700 hover:bg-amber-100 border-amber-300 shadow-xs"
                 }`}
-                style={{ touchAction: "manipulation" }}
               >
                 <Sparkles size={12} className={isShuffling ? "animate-spin" : "text-amber-500"} />
                 <span>{isShuffling ? "Đang trộn..." : "🎲 Trộn ngẫu nhiên 534 video"}</span>
@@ -777,12 +842,12 @@ function VideosContent() {
               <span className="text-[11px] text-slate-500 font-medium whitespace-nowrap">
                 Tổng hợp Video Bé Học + Bài hát tiếng Anh & tiếng Việt
               </span>
-            </div>
+            </ScrollableRow>
           )}
 
           {/* TAB: HÁT TIẾNG ANH Sub-filters */}
           {activeTab === "sing_en" && !searchQuery && (
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap smooth-horizontal-scroll">
+            <ScrollableRow>
               {englishSongThemes.map((theme) => {
                 const isSelected = songEnTheme === theme.id;
                 return (
@@ -799,19 +864,18 @@ function VideosContent() {
                         ? "bg-indigo-600 text-white border-indigo-700 shadow-xs shadow-indigo-500/30 scale-102"
                         : "bg-white text-gray-700 hover:bg-indigo-50 border-gray-200 shadow-xs"
                     }`}
-                    style={{ touchAction: "manipulation" }}
                   >
                     <span className="text-sm">{theme.emoji}</span>
                     <span>{theme.label}</span>
                   </motion.button>
                 );
               })}
-            </div>
+            </ScrollableRow>
           )}
 
           {/* TAB: BÀI HÁT VIỆT Sub-filters */}
           {activeTab === "sing_vi" && !searchQuery && (
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 px-0.5 flex-nowrap smooth-horizontal-scroll">
+            <ScrollableRow>
               {vietnameseSongThemes.map((theme) => {
                 const isSelected = songViTheme === theme.id;
                 return (
@@ -828,14 +892,13 @@ function VideosContent() {
                         ? "bg-rose-500 text-white border-rose-600 shadow-xs shadow-rose-500/30 scale-102"
                         : "bg-white text-gray-700 hover:bg-rose-50 border-gray-200 shadow-xs"
                     }`}
-                    style={{ touchAction: "manipulation" }}
                   >
                     <span className="text-sm">{theme.emoji}</span>
                     <span>{theme.label}</span>
                   </motion.button>
                 );
               })}
-            </div>
+            </ScrollableRow>
           )}
         </div>
       </div>
@@ -1375,7 +1438,6 @@ const EduVideoCard = memo(function EduVideoCard({
           }}
           className="relative h-36 sm:h-40 rounded-2xl overflow-hidden cursor-pointer group-hover:scale-[1.01] active:scale-[0.98] transition-transform flex flex-col justify-between p-3 shadow-inner"
           style={{
-            touchAction: "manipulation",
             background: `linear-gradient(135deg, ${video.channelColor || "#0ea5e9"}dd, #0f172a)`
           }}
         >
@@ -1446,7 +1508,7 @@ const EduVideoCard = memo(function EduVideoCard({
             onSelect();
           }}
           className="font-bold text-xs sm:text-sm text-slate-800 mt-2.5 leading-snug line-clamp-2 cursor-pointer hover:text-cyan-600 active:text-cyan-700 transition-colors"
-          style={{ fontFamily: "var(--font-heading)", touchAction: "manipulation" }}
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           {video.title}
         </h3>
@@ -1475,7 +1537,6 @@ const EduVideoCard = memo(function EduVideoCard({
             onSelect();
           }}
           className="text-xs font-extrabold text-cyan-600 hover:text-cyan-700 shrink-0 flex items-center cursor-pointer active:scale-95 transition-transform"
-          style={{ touchAction: "manipulation" }}
         >
           <span>Học ngay ›</span>
         </button>
@@ -1504,7 +1565,7 @@ const SongVideoCard = memo(function SongVideoCard({
 
   return (
     <div
-      style={{ contentVisibility: "auto", containIntrinsicSize: "0 340px", touchAction: "manipulation" }}
+      style={{ contentVisibility: "auto", containIntrinsicSize: "0 340px" }}
       className="p-3 sm:p-4 flex flex-col justify-between hover:border-purple-300 transition-all group shadow-md hover:shadow-xl rounded-3xl relative overflow-hidden bg-white border border-slate-100"
     >
       <div>
@@ -1530,7 +1591,6 @@ const SongVideoCard = memo(function SongVideoCard({
                 onToggleFavorite();
               }}
               className="p-1 rounded-full text-gray-400 hover:text-red-500 transition-colors cursor-pointer active:scale-90"
-              style={{ touchAction: "manipulation" }}
               title="Lưu yêu thích"
             >
               <Heart
@@ -1550,7 +1610,6 @@ const SongVideoCard = memo(function SongVideoCard({
             onSelect();
           }}
           className="relative h-36 sm:h-40 rounded-2xl overflow-hidden cursor-pointer group-hover:scale-[1.01] active:scale-[0.98] transition-transform bg-slate-900 flex flex-col justify-between p-3 shadow-inner"
-          style={{ touchAction: "manipulation" }}
         >
           {thumbUrl ? (
             <img
