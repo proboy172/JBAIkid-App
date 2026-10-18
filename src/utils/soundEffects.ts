@@ -10,8 +10,9 @@ let bgmInterval: any = null;
 let isBgmRunning = false;
 let isBgmVideoSuppressed = false;
 let wasBgmRunningBeforeVideo = false;
+let isAudioUnlocked = false;
 
-function getAudioContext(): AudioContext | null {
+export function getAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
   if (!audioCtx) {
     const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
@@ -23,6 +24,41 @@ function getAudioContext(): AudioContext | null {
     audioCtx.resume().catch(() => {});
   }
   return audioCtx;
+}
+
+// Auto-unlock Safari WebKit AudioContext on first user interaction
+if (typeof window !== "undefined") {
+  const unlockAudioContext = () => {
+    if (isAudioUnlocked) return;
+    try {
+      const ctx = getAudioContext();
+      if (ctx) {
+        if (ctx.state === "suspended") {
+          ctx.resume().catch(() => {});
+        }
+        // Play an inaudible 1-sample buffer to satisfy Safari iOS WebKit audio policy
+        const buffer = ctx.createBuffer(1, 1, 22050);
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(ctx.destination);
+        source.start(0);
+        isAudioUnlocked = true;
+      }
+    } catch (e) {
+      // Ignore audio unlock errors
+    }
+
+    // Clean up event listeners after unlocking
+    window.removeEventListener("touchstart", unlockAudioContext, true);
+    window.removeEventListener("touchend", unlockAudioContext, true);
+    window.removeEventListener("pointerdown", unlockAudioContext, true);
+    window.removeEventListener("click", unlockAudioContext, true);
+  };
+
+  window.addEventListener("touchstart", unlockAudioContext, { capture: true, once: true, passive: true });
+  window.addEventListener("touchend", unlockAudioContext, { capture: true, once: true, passive: true });
+  window.addEventListener("pointerdown", unlockAudioContext, { capture: true, once: true, passive: true });
+  window.addEventListener("click", unlockAudioContext, { capture: true, once: true, passive: true });
 }
 
 export function playVoiceBeep(isStart: boolean) {

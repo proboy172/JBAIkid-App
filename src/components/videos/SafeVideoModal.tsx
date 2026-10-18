@@ -1192,7 +1192,7 @@ export default function SafeVideoModal({
       >
         {/* Video Player Box: Edge-to-Edge or Perfectly Constrained 16:9 Cinema Box */}
         <div
-          className={`relative overflow-hidden bg-black flex items-center justify-center transition-all duration-300 ${
+          className={`relative overflow-hidden bg-black flex items-center justify-center safari-rounded-fix transition-all duration-300 ${
             isFullMode
               ? videoScaleMode === "fill"
                 ? "w-full h-full rounded-none"

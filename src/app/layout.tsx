@@ -67,6 +67,11 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: "/app_icon.png",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "JBAIkid",
+  },
 };
 
 export const viewport: Viewport = {

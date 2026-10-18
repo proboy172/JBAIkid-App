@@ -679,3 +679,46 @@ body.eco-mode .animate-pulse {
 @media (min-width: 768px) {
   html { font-size: 20px; }
 }
+
+/* ===== SAFARI & WEBKIT OPTIMIZATIONS ===== */
+
+/* Fix WebKit Safari iframe/video corner overflow with border-radius */
+.safari-rounded-fix {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: -webkit-radial-gradient(white, black);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  isolation: isolate;
+}
+
+/* Ensure backdrop-filter works smoothly on iOS & macOS Safari */
+.backdrop-blur-none { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.backdrop-blur-sm   { -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.backdrop-blur      { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.backdrop-blur-md   { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.backdrop-blur-lg   { -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.backdrop-blur-xl   { -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); }
+.backdrop-blur-2xl  { -webkit-backdrop-filter: blur(40px); backdrop-filter: blur(40px); }
+.backdrop-blur-3xl  { -webkit-backdrop-filter: blur(64px); backdrop-filter: blur(64px); }
+
+/* Prevent iOS Safari from forcing auto-zoom when tapping inputs (triggers when font-size < 16px) */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Safari dynamic viewport height fallback */
+@supports (-webkit-touch-callout: none) {
+  .min-h-dvh {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Smooth touch manipulation without delay on iOS Safari */
+button, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
