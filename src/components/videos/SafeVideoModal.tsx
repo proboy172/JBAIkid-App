@@ -72,6 +72,10 @@ export default function SafeVideoModal({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMobileLandscape, setIsMobileLandscape] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [deviceType, setDeviceType] = useState<"phone" | "tablet" | "desktop">("desktop");
+  const [isLandscape, setIsLandscape] = useState(false);
+  const [isForceLandscape, setIsForceLandscape] = useState(false);
+  const [videoScaleMode, setVideoScaleMode] = useState<"fit" | "fill">("fit");
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [parentQuiz, setParentQuiz] = useState<{ num1: number; num2: number; ans: number; options: number[] } | null>(null);
@@ -104,7 +108,10 @@ export default function SafeVideoModal({
   const watchdogTimerRef = useRef<NodeJS.Timeout | null>(null);
   const hasPlaybackStartedRef = useRef<boolean>(false);
 
-  const isFullMode = isFullscreen || isMobileLandscape;
+  const isPhone = deviceType === "phone";
+  const isTablet = deviceType === "tablet";
+  const isEffectiveLandscape = isLandscape || (isPhone && isForceLandscape);
+  const isFullMode = isFullscreen || isEffectiveLandscape;
 
   // Detect hover capability
   useEffect(() => {
@@ -128,12 +135,27 @@ export default function SafeVideoModal({
       if (typeof window === "undefined") return;
       const w = window.innerWidth;
       const h = window.innerHeight;
+      const minDim = Math.min(w, h);
+      const maxDim = Math.max(w, h);
       const hasTouch = "ontouchstart" in window || (navigator && navigator.maxTouchPoints > 0);
-      setIsMobile(w < 1024 || (hasTouch && w < 1200));
 
-      const isLandscape = w > h;
-      const isMobileDevice = h <= 640 || w <= 1024 || hasTouch;
-      setIsMobileLandscape(isLandscape && isMobileDevice);
+      const phone = minDim < 550;
+      const tablet = minDim >= 550 && maxDim <= 1366 && hasTouch;
+      const desktop = !hasTouch && w >= 1024;
+
+      if (phone) setDeviceType("phone");
+      else if (tablet) setDeviceType("tablet");
+      else setDeviceType("desktop");
+
+      const landscape = w > h;
+      setIsLandscape(landscape);
+      setIsMobile(phone || tablet || w < 1024);
+      setIsMobileLandscape(landscape && (phone || tablet || h <= 640));
+
+      // If user physically turns device to landscape, exit force landscape mode
+      if (landscape) {
+        setIsForceLandscape(false);
+      }
     };
 
     handleResize();
@@ -169,6 +191,11 @@ export default function SafeVideoModal({
         (document as any).msFullscreenElement
       );
       setIsFullscreen(isDocFull);
+      if (!isDocFull && isLandscape) {
+        // Kept landscape if physical
+      } else if (!isDocFull) {
+        setIsForceLandscape(false);
+      }
     };
 
     document.addEventListener("fullscreenchange", onFullscreenChange);
@@ -182,10 +209,17 @@ export default function SafeVideoModal({
       document.removeEventListener("mozfullscreenchange", onFullscreenChange);
       document.removeEventListener("MSFullscreenChange", onFullscreenChange);
     };
-  }, []);
+  }, [isLandscape]);
 
-  // Toggle fullscreen mode with mobile landscape orientation lock support
+  // Toggle fullscreen mode with mobile landscape cinema support
   const toggleFullscreen = useCallback(async () => {
+    // If on phone in portrait mode, toggle CSS force landscape cinema mode directly for seamless experience!
+    if (deviceType === "phone" && !isLandscape) {
+      playSFX("tap");
+      setIsForceLandscape((prev) => !prev);
+      return;
+    }
+
     try {
       const isDocFull = !!(
         document.fullscreenElement ||
@@ -223,6 +257,7 @@ export default function SafeVideoModal({
           await (document as any).msExitFullscreen();
         }
         setIsFullscreen(false);
+        setIsForceLandscape(false);
 
         try {
           if (screen.orientation && "unlock" in screen.orientation) {
@@ -231,10 +266,14 @@ export default function SafeVideoModal({
         } catch {}
       }
     } catch {
-      // Fallback to CSS pseudo-fullscreen if native Fullscreen API is rejected (e.g. iOS Safari)
-      setIsFullscreen((prev) => !prev);
+      // Fallback
+      if (deviceType === "phone" && !isLandscape) {
+        setIsForceLandscape((prev) => !prev);
+      } else {
+        setIsFullscreen((prev) => !prev);
+      }
     }
-  }, [isFullscreen]);
+  }, [deviceType, isFullscreen, isLandscape]);
 
   // Sync state if video prop changes
   useEffect(() => {
@@ -711,6 +750,7 @@ export default function SafeVideoModal({
       }
     } catch {}
     setIsFullscreen(false);
+    setIsForceLandscape(false);
     onClose();
   };
 
@@ -901,11 +941,26 @@ export default function SafeVideoModal({
       exit={{ opacity: 0 }}
       className={`fixed inset-0 z-[1000] select-none bg-black overflow-hidden ${
         isFullMode
-          ? "flex items-center justify-center"
+          ? "flex items-center justify-center bg-black"
           : isMobile
           ? "flex flex-col bg-[#07090E]"
           : "flex items-center justify-center bg-black/95"
       }`}
+      style={
+        isForceLandscape && !isLandscape && isPhone
+          ? {
+              position: "fixed",
+              top: 0,
+              left: "100vw",
+              width: "100vh",
+              height: "100vw",
+              transform: "rotate(90deg)",
+              transformOrigin: "top left",
+              zIndex: 1000,
+              overflow: "hidden",
+            }
+          : undefined
+      }
     >
       {/* ----------------- DESKTOP TOP CONTROLS HEADER (Hidden in Full Mode & Mobile Portrait) ----------------- */}
       {!isFullMode && !isMobile && (
@@ -1039,23 +1094,109 @@ export default function SafeVideoModal({
         </div>
       )}
 
+      {/* ----------------- MOBILE PORTRAIT TOP HEADER (Native App Feel, Safe Area Inset) ----------------- */}
+      {!isFullMode && isMobile && (
+        <div
+          className="w-full shrink-0 flex items-center justify-between px-3 py-2 bg-gradient-to-b from-black/95 via-slate-950/90 to-slate-900/80 border-b border-white/10 z-30 select-none shadow-md"
+          style={{
+            paddingTop: "max(env(safe-area-inset-top, 8px), 8px)",
+            paddingLeft: "max(env(safe-area-inset-left, 12px), 12px)",
+            paddingRight: "max(env(safe-area-inset-right, 12px), 12px)",
+          }}
+        >
+          <div className="flex items-center gap-2.5 min-w-0 flex-1 mr-2">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 active:scale-90 text-white flex items-center justify-center border border-white/20 shadow-md cursor-pointer shrink-0 transition-transform"
+              title="Quay lại / Đóng video"
+            >
+              <ChevronDown size={22} className="text-white" />
+            </button>
+
+            <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-lg shrink-0 overflow-hidden shadow-inner">
+              {renderAvatar(currentVideo.channelAvatar, { alt: currentVideo.channel, sizeClass: "w-full h-full", textClass: "text-lg" })}
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 truncate max-w-[120px]">
+                  {currentVideo.channel}
+                </span>
+                <span className="text-[10px] text-white/60 truncate">
+                  {currentVideo.categoryNameVi}
+                </span>
+              </div>
+              <h2 className="text-white text-xs font-bold truncate mt-0.5" title={currentVideo.title}>
+                {currentVideo.title}
+              </h2>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1.5 shrink-0">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                playSFX("tap");
+                toggleFullscreen();
+              }}
+              className="px-2.5 py-1.5 rounded-full bg-gradient-to-r from-amber-400/20 to-orange-500/20 border border-amber-400/40 text-amber-300 font-bold text-xs flex items-center gap-1 active:scale-95 transition-transform cursor-pointer shadow-sm"
+              title="Phóng to rạp chiếu xoay ngang"
+            >
+              <Maximize2 size={13} />
+              <span className="text-[11px] font-bold">Rạp chiếu</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                playSFX("tap");
+                onToggleFavorite();
+              }}
+              className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors cursor-pointer ${
+                isFavorite
+                  ? "bg-red-500/30 border-red-400 text-red-400"
+                  : "bg-white/15 border-white/20 text-white/70"
+              }`}
+              title={isFavorite ? "Đã thích" : "Yêu thích"}
+            >
+              <Heart size={14} fill={isFavorite ? "#F87171" : "none"} />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* ----------------- MAIN VIDEO STAGE CONTAINER ----------------- */}
       <div
         className={`w-full transition-all duration-300 ${
           isFullMode
-            ? "fixed inset-0 h-full flex items-center justify-center p-0 m-0 z-10"
+            ? "fixed inset-0 h-full w-full flex items-center justify-center p-0 m-0 z-20 bg-black overflow-hidden"
             : isMobile
-            ? "w-full aspect-video bg-black relative shrink-0 z-10 shadow-2xl"
+            ? "w-full aspect-video bg-black relative shrink-0 z-10 shadow-2xl flex items-center justify-center overflow-hidden"
             : `flex-1 h-full flex flex-col lg:flex-row items-center justify-center pt-16 pb-4 px-4 gap-4 z-10 ${
                 showVocabPanel ? "max-w-7xl" : "max-w-6xl"
               }`
         }`}
+        style={
+          isFullMode
+            ? {
+                paddingLeft: "env(safe-area-inset-left, 0px)",
+                paddingRight: "env(safe-area-inset-right, 0px)",
+                paddingTop: "env(safe-area-inset-top, 0px)",
+                paddingBottom: "env(safe-area-inset-bottom, 0px)",
+              }
+            : undefined
+        }
       >
-        {/* Video Player Box: Edge-to-Edge on Mobile, Elegant Rounded Box on Desktop */}
+        {/* Video Player Box: Edge-to-Edge or Perfectly Constrained 16:9 Cinema Box */}
         <div
-          className={`relative overflow-hidden bg-black ${
+          className={`relative overflow-hidden bg-black flex items-center justify-center transition-all duration-300 ${
             isFullMode
-              ? "w-full h-full rounded-none"
+              ? videoScaleMode === "fill"
+                ? "w-full h-full rounded-none"
+                : "h-full aspect-video max-w-full max-h-full mx-auto rounded-none shadow-[0_0_80px_rgba(0,0,0,0.9)]"
               : isMobile
               ? "w-full h-full rounded-none"
               : showVocabPanel
@@ -1072,7 +1213,9 @@ export default function SafeVideoModal({
             sandbox="allow-scripts allow-same-origin allow-presentation"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+            className={`absolute inset-0 w-full h-full border-0 pointer-events-none transition-transform duration-300 origin-center ${
+              isFullMode && videoScaleMode === "fill" ? "scale-[1.25] sm:scale-[1.18]" : "scale-100"
+            }`}
             onLoad={() => {
               try {
                 iframeRef.current?.contentWindow?.postMessage(
@@ -1116,8 +1259,8 @@ export default function SafeVideoModal({
                 setShowQuickDrawer(true);
                 setShowHUD(false);
               }}
-              className={`absolute right-3 sm:right-5 z-35 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 active:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 shadow-[0_6px_25px_rgba(245,158,11,0.65)] border-2 border-amber-200/90 active:scale-95 transition-all select-none cursor-pointer backdrop-blur-md ${
-                showHUD ? "bottom-16 sm:bottom-20" : "bottom-3 sm:bottom-4"
+              className={`absolute right-2.5 sm:right-4 z-35 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 active:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-1.5 shadow-[0_6px_25px_rgba(245,158,11,0.65)] border-2 border-amber-200/90 active:scale-95 transition-all select-none cursor-pointer backdrop-blur-md ${
+                showHUD ? "bottom-14 sm:bottom-18" : "bottom-2.5 sm:bottom-4"
               }`}
               title="Mở danh sách video gợi ý tiếp theo"
             >
@@ -1170,7 +1313,13 @@ export default function SafeVideoModal({
                     handleCloseHUD();
                   }
                 }}
-                className="absolute inset-0 z-30 bg-black/55 backdrop-blur-[2px] flex flex-col justify-between p-2.5 sm:p-4 select-none pointer-events-auto cursor-pointer"
+                className="absolute inset-0 z-30 bg-black/60 backdrop-blur-[2px] flex flex-col justify-between p-2.5 sm:p-4 select-none pointer-events-auto cursor-pointer"
+                style={{
+                  paddingLeft: "max(env(safe-area-inset-left, 12px), 12px)",
+                  paddingRight: "max(env(safe-area-inset-right, 12px), 12px)",
+                  paddingTop: "max(env(safe-area-inset-top, 10px), 10px)",
+                  paddingBottom: "max(env(safe-area-inset-bottom, 10px), 10px)",
+                }}
               >
                 {/* Top Video Header Row */}
                 <div className="flex items-center justify-between w-full pointer-events-auto z-10 gap-2">
@@ -1178,11 +1327,11 @@ export default function SafeVideoModal({
                     <button
                       type="button"
                       onClick={handleClose}
-                      className="w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center border border-white/25 shadow-lg transition-transform cursor-pointer shrink-0"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center border border-white/25 shadow-lg transition-transform cursor-pointer shrink-0"
                       style={{ touchAction: "manipulation" }}
                       title="Đóng video"
                     >
-                      {isMobile && !isFullMode ? <ChevronDown size={22} /> : <X size={20} />}
+                      {isMobile && !isFullMode ? <ChevronDown size={20} /> : <X size={18} />}
                     </button>
 
                     <div className="min-w-0">
@@ -1196,6 +1345,53 @@ export default function SafeVideoModal({
                   </div>
 
                   <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                    {/* Fit vs Fill Mode Toggle Button (Visible in Fullscreen / Mobile Landscape) */}
+                    {isFullMode && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          playSFX("tap");
+                          setVideoScaleMode((prev) => (prev === "fit" ? "fill" : "fit"));
+                        }}
+                        className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full border text-[11px] sm:text-xs font-bold flex items-center gap-1 shadow-md transition-all active:scale-95 cursor-pointer ${
+                          videoScaleMode === "fill"
+                            ? "bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 border-amber-300 font-black shadow-amber-400/30"
+                            : "bg-black/60 hover:bg-black/80 text-white border-white/25"
+                        }`}
+                        title={videoScaleMode === "fit" ? "Chuyển sang xem Tràn viền màn hình" : "Chuyển sang xem Chuẩn 16:9"}
+                      >
+                        {videoScaleMode === "fill" ? (
+                          <>
+                            <Minimize2 size={13} strokeWidth={2.5} />
+                            <span>Chuẩn 16:9</span>
+                          </>
+                        ) : (
+                          <>
+                            <Maximize2 size={13} strokeWidth={2.5} />
+                            <span>Tràn viền</span>
+                          </>
+                        )}
+                      </button>
+                    )}
+
+                    {/* Rotate Back Button if in Force Landscape */}
+                    {isForceLandscape && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          playSFX("tap");
+                          setIsForceLandscape(false);
+                        }}
+                        className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/50 hover:bg-cyan-500/30 active:scale-90 text-[11px] sm:text-xs font-bold flex items-center gap-1 cursor-pointer transition-transform"
+                        title="Xoay lại màn hình dọc"
+                      >
+                        <RotateCcw size={13} />
+                        <span>Xoay dọc</span>
+                      </button>
+                    )}
+
                     {/* Screen Lock Toggle Button */}
                     <button
                       type="button"
@@ -1204,7 +1400,7 @@ export default function SafeVideoModal({
                       style={{ touchAction: "manipulation" }}
                       title="Khóa màn hình"
                     >
-                      <Lock size={16} />
+                      <Lock size={15} />
                     </button>
 
                     {/* Fullscreen Toggle Button */}
@@ -1225,15 +1421,15 @@ export default function SafeVideoModal({
                 </div>
 
                 {/* Center Big Controls Row: Prev, -10s, Giant Play/Pause, +10s, Next */}
-                <div className="flex items-center justify-center gap-3 sm:gap-6 my-auto pointer-events-auto z-10">
+                <div className="flex items-center justify-center gap-2.5 sm:gap-6 my-auto pointer-events-auto z-10">
                   <button
                     type="button"
                     onClick={handlePreviousVideo}
-                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
+                    className="w-10 h-10 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
                     style={{ touchAction: "manipulation" }}
                     title="Video trước"
                   >
-                    <SkipBack size={20} fill="white" />
+                    <SkipBack size={18} fill="white" />
                   </button>
 
                   <button
@@ -1242,11 +1438,11 @@ export default function SafeVideoModal({
                       e.stopPropagation();
                       handleSkipSeconds(-10);
                     }}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
+                    className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
                     style={{ touchAction: "manipulation" }}
                     title="Tua lùi 10s"
                   >
-                    <RotateCcw size={16} />
+                    <RotateCcw size={15} />
                     <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">-10s</span>
                   </button>
 
@@ -1254,7 +1450,7 @@ export default function SafeVideoModal({
                   <button
                     type="button"
                     onClick={togglePlayPause}
-                    className={`w-16 h-16 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-full flex items-center justify-center text-white border-4 border-white transition-all cursor-pointer ${
+                    className={`w-14 h-14 sm:w-20 sm:h-20 md:w-22 md:h-22 rounded-full flex items-center justify-center text-white border-4 border-white transition-all cursor-pointer ${
                       isPlaying
                         ? "bg-gradient-to-tr from-cyan-500 via-sky-400 to-blue-600 shadow-[0_0_35px_rgba(6,182,212,0.7)] active:scale-90"
                         : "bg-gradient-to-tr from-amber-400 via-orange-400 to-amber-500 shadow-[0_0_45px_rgba(251,191,36,0.85)] animate-pulse active:scale-90"
@@ -1263,9 +1459,9 @@ export default function SafeVideoModal({
                     title={isPlaying ? "Tạm dừng video" : "Tiếp tục phát video"}
                   >
                     {isPlaying ? (
-                      <Pause size={32} fill="white" />
+                      <Pause size={28} fill="white" />
                     ) : (
-                      <Play size={36} fill="white" className="ml-1" />
+                      <Play size={32} fill="white" className="ml-1" />
                     )}
                   </button>
 
@@ -1275,22 +1471,22 @@ export default function SafeVideoModal({
                       e.stopPropagation();
                       handleSkipSeconds(10);
                     }}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
+                    className="w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex flex-col items-center justify-center border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
                     style={{ touchAction: "manipulation" }}
                     title="Tua tới 10s"
                   >
-                    <RotateCw size={16} />
+                    <RotateCw size={15} />
                     <span className="text-[8px] sm:text-[9px] font-black leading-none mt-0.5">+10s</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleNextVideoShortcut}
-                    className="w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
+                    className="w-10 h-10 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/80 active:scale-90 text-white flex items-center justify-center shadow-xl border border-white/30 backdrop-blur-md cursor-pointer transition-transform"
                     style={{ touchAction: "manipulation" }}
                     title="Video tiếp"
                   >
-                    <SkipForward size={20} fill="white" />
+                    <SkipForward size={18} fill="white" />
                   </button>
                 </div>
 
@@ -1691,10 +1887,11 @@ export default function SafeVideoModal({
                 playSFX("tap");
                 toggleFullscreen();
               }}
-              className="px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 border border-white/20 bg-white/10 text-white shrink-0 active:scale-95"
+              className="px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 border border-amber-400/40 bg-gradient-to-r from-amber-400/20 to-orange-500/20 text-amber-300 shrink-0 active:scale-95 shadow-sm"
+              title="Phóng to rạp chiếu xoay ngang"
             >
               <Maximize2 size={13} />
-              <span>Toàn màn hình</span>
+              <span>🎬 Rạp chiếu</span>
             </button>
           </div>
 
