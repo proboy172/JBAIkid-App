@@ -140,6 +140,72 @@ const CHANNELS_CONFIG = [
     recommendedAge: "Mọi lứa tuổi",
     parentTip: "Cùng bé nhận diện tiếng kêu và tập tính của muôn loài động vật hoang dã ngoài đời thực.",
   },
+  {
+    channel: "Art for Kids Hub",
+    channelId: "UCoSAitETqcEeWnWBMO31xzA",
+    category: "art",
+    categoryNameVi: "Bé vẽ sáng tạo",
+    categoryEmoji: "🎨",
+    channelAvatar: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=100&q=80",
+    channelColor: "#E11D48",
+    recommendedAge: "3-5 tuổi",
+    parentTip: "Chuẩn bị sẵn giấy và bút màu cho bé vẽ từng nét cùng bố con Rob, rèn luyện sự khéo léo của đôi tay.",
+  },
+  {
+    channel: "Cosmic Kids Yoga",
+    channelId: "UC5uIZ2KOZZeQDQo_Gsi_qbQ",
+    category: "yoga",
+    categoryNameVi: "Yoga & Cảm xúc",
+    categoryEmoji: "🧘‍♀️",
+    channelAvatar: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=100&q=80",
+    channelColor: "#8B5CF6",
+    recommendedAge: "3-5 tuổi",
+    parentTip: "Trải thảm và cùng bé tập các tư thế yoga ngộ nghĩnh, học cách hít thở sâu để giữ bình tĩnh và vui vẻ.",
+  },
+  {
+    channel: "Storyline Online",
+    channelId: "UCYrsQFfYdzYVNsKS0gpH1mg",
+    category: "story",
+    categoryNameVi: "Đọc truyện nhí",
+    categoryEmoji: "📚",
+    channelAvatar: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=100&q=80",
+    channelColor: "#0284C7",
+    recommendedAge: "4-6 tuổi",
+    parentTip: "Lắng nghe nghệ sĩ diễn đọc truyện tranh kinh điển, giúp bé mở rộng vốn từ tiếng Anh và phát triển trí tưởng tượng.",
+  },
+  {
+    channel: "PBS KIDS",
+    channelId: "UCEk8T_HbKwM0PP9oQsGs9mw",
+    category: "lifeskills",
+    categoryNameVi: "Kỹ năng & Cư xử",
+    categoryEmoji: "🤝",
+    channelAvatar: "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?w=100&q=80",
+    channelColor: "#16A34A",
+    recommendedAge: "3-5 tuổi",
+    parentTip: "Trò chuyện cùng bé về bài học chia sẻ, lòng biết ơn và cách ứng xử tử tế với bạn bè xung quanh.",
+  },
+  {
+    channel: "Sesame Street",
+    channelId: "UCuEgW3r4ytXwd9UfQySv_Nw",
+    category: "habits",
+    categoryNameVi: "Thói quen tốt",
+    categoryEmoji: "🌟",
+    channelAvatar: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=100&q=80",
+    channelColor: "#EAB308",
+    recommendedAge: "0-3 tuổi",
+    parentTip: "Hát theo Elmo và các bạn để bé rèn luyện các thói quen tốt như đánh răng, rửa tay và đi ngủ đúng giờ.",
+  },
+  {
+    channel: "Nat Geo Kids",
+    channelId: "UCXVCgDuD_QCkI7gTKU7-tpg",
+    category: "world",
+    categoryNameVi: "Khám phá thế giới",
+    categoryEmoji: "🌍",
+    channelAvatar: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=100&q=80",
+    channelColor: "#F59E0B",
+    recommendedAge: "4-6 tuổi",
+    parentTip: "Khám phá thế giới động vật kỳ thú và môi trường tự nhiên sinh động cùng các nhà thám hiểm nhí National Geographic.",
+  },
 ];
 
 // Helper: HTTP GET request as text
@@ -186,7 +252,7 @@ function checkIsShortsUrl(videoId) {
 
 // Check oEmbed and duration
 async function validateVideo(videoId, title) {
-  // 1. Strict title check for Shorts/Teasers
+  // 1. Strict title check for Shorts/Teasers/Livestreams
   const titleLower = title.toLowerCase();
   if (
     titleLower.includes('#shorts') ||
@@ -194,9 +260,13 @@ async function validateVideo(videoId, title) {
     titleLower.includes('shorts') ||
     titleLower.includes('teaser') ||
     titleLower.includes('trailer') ||
-    titleLower.includes('preview')
+    titleLower.includes('preview') ||
+    titleLower.includes('🔴') ||
+    titleLower.includes('live!') ||
+    titleLower.includes('livestream') ||
+    titleLower.includes('trực tiếp')
   ) {
-    return { ok: false, reason: 'Shorts/Teaser tag detected in title' };
+    return { ok: false, reason: 'Shorts/Teaser/Livestream tag detected in title' };
   }
 
   // 2. Check if YouTube treats this as a Short URL
@@ -215,10 +285,20 @@ async function validateVideo(videoId, title) {
     return { ok: false, reason: `oEmbed network error: ${err.message}` };
   }
 
-  // 4. Fetch watch page to extract exact video duration
+  // 4. Fetch watch page to extract exact video duration and verify playability
   try {
     const watchRes = await fetchText(`https://www.youtube.com/watch?v=${videoId}`);
     const html = watchRes.body;
+
+    if (
+      html.includes('"status":"UNPLAYABLE"') ||
+      html.includes('"status":"ERROR"') ||
+      html.includes('"playableInEmbed":false') ||
+      html.includes('"status":"LOGIN_REQUIRED"') ||
+      html.includes('This video is unavailable')
+    ) {
+      return { ok: false, reason: 'Video is unplayable or embed disabled on YouTube' };
+    }
 
     let durationSec = 0;
     const durMatch = html.match(/"approxDurationMs":"(\d+)"/);

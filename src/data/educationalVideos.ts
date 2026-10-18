@@ -1,3 +1,5 @@
+import { isUnplayableVideo } from "@/utils/videoHealthManager";
+
 export interface VideoVocab {
   en: string;
   vi: string;
@@ -19,12 +21,31 @@ export interface EducationalVideo {
     | "Oxford Phonics"
     | "Wild Safari"
     | "SciShow Kids"
-    | "Gecko's Garage";
+    | "Gecko's Garage"
+    | "Art for Kids Hub"
+    | "Cosmic Kids Yoga"
+    | "Storyline Online"
+    | "PBS KIDS"
+    | "Sesame Street"
+    | "Nat Geo Kids";
   channelAvatar: string;
   channelColor: string;
   youtubeId: string;
   duration: string;
-  category: "speech" | "phonics" | "math" | "movement" | "world" | "habits" | "safari" | "vehicles" | "science";
+  category: 
+    | "speech" 
+    | "phonics" 
+    | "math" 
+    | "movement" 
+    | "world" 
+    | "habits" 
+    | "safari" 
+    | "vehicles" 
+    | "science"
+    | "art"
+    | "yoga"
+    | "story"
+    | "lifeskills";
   categoryNameVi: string;
   categoryEmoji: string;
   recommendedAge: "0-3 tuổi" | "3-5 tuổi" | "4-6 tuổi" | "Mọi lứa tuổi";
@@ -41,6 +62,54 @@ export const educationalChannels = [
     name: "Tất cả",
     emoji: "⭐",
     description: "Toàn bộ video giáo dục tuyển chọn",
+  },
+  {
+    id: "art-for-kids-hub",
+    channelName: "Art for Kids Hub",
+    name: "Art for Kids",
+    emoji: "🎨",
+    color: "#E11D48",
+    description: "Học vẽ từng bước trực quan, rèn luyện vận động tinh và tư duy sáng tạo",
+  },
+  {
+    id: "cosmic-kids-yoga",
+    channelName: "Cosmic Kids Yoga",
+    name: "Cosmic Yoga",
+    emoji: "🧘‍♀️",
+    color: "#8B5CF6",
+    description: "Yoga và chánh niệm nhí, thư giãn cảm xúc kết hợp phiêu lưu kỳ thú",
+  },
+  {
+    id: "storyline-online",
+    channelName: "Storyline Online",
+    name: "Storyline Online",
+    emoji: "📚",
+    color: "#0284C7",
+    description: "Đọc truyện thiếu nhi kinh điển quốc tế với giọng đọc truyền cảm",
+  },
+  {
+    id: "pbs-kids",
+    channelName: "PBS KIDS",
+    name: "PBS KIDS",
+    emoji: "🤝",
+    color: "#16A34A",
+    description: "Kỹ năng cảm xúc - xã hội (SEL), tình bạn và giải quyết tình huống",
+  },
+  {
+    id: "sesame-street",
+    channelName: "Sesame Street",
+    name: "Sesame Street",
+    emoji: "🌟",
+    color: "#EAB308",
+    description: "Kinh điển giáo dục mầm non, hình thành nhân cách và kỹ năng tự lập",
+  },
+  {
+    id: "nat-geo-kids",
+    channelName: "Nat Geo Kids",
+    name: "Nat Geo Kids",
+    emoji: "🌍",
+    color: "#F59E0B",
+    description: "Khám phá tự nhiên, đại dương và các loài động vật kỳ thú thế giới",
   },
   {
     id: "wild-safari",
@@ -134,6 +203,10 @@ export const educationalChannels = [
 
 export const educationalCategories = [
   { id: "all", name: "Tất cả chủ đề", emoji: "🌟" },
+  { id: "art", name: "Bé vẽ sáng tạo", emoji: "🎨" },
+  { id: "yoga", name: "Yoga & Cảm xúc", emoji: "🧘‍♀️" },
+  { id: "story", name: "Đọc truyện nhí", emoji: "📚" },
+  { id: "lifeskills", name: "Kỹ năng & Cư xử", emoji: "🤝" },
   { id: "safari", name: "Động vật 4K", emoji: "🦁" },
   { id: "speech", name: "Bé tập nói", emoji: "🗣️" },
   { id: "phonics", name: "Chữ cái ABC", emoji: "🔤" },
@@ -141,7 +214,7 @@ export const educationalCategories = [
   { id: "movement", name: "Nhảy múa vui", emoji: "🏃" },
   { id: "vehicles", name: "Xe & Cứu hộ", emoji: "🚗" },
   { id: "science", name: "Khoa học nhí", emoji: "🔬" },
-  { id: "world", name: "Khám phá", emoji: "🌍" },
+  { id: "world", name: "Khám phá thế giới", emoji: "🌍" },
   { id: "habits", name: "Thói quen tốt", emoji: "💖" },
 ];
 
@@ -154,7 +227,10 @@ export function getRecommendedVideos(
   count = 20,
   _randomMode = false
 ): EducationalVideo[] {
-  const others = educationalVideos.filter((v) => v.id !== currentVideo.id);
+  // Lọc bỏ video hiện tại và tất cả video không khả dụng
+  const others = educationalVideos.filter(
+    (v) => v.id !== currentVideo.id && !isUnplayableVideo(v.youtubeId)
+  );
 
   // Fisher-Yates shuffle helper
   const shuffle = <T>(arr: T[]): T[] => {

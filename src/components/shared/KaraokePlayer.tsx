@@ -24,6 +24,7 @@ import {
   Music,
 } from "lucide-react";
 import { Song, songsEn, songsVi, getRecommendedSongs } from "@/data/songs";
+import { markVideoAsUnplayable, isUnplayableVideo } from "@/utils/videoHealthManager";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX, pauseBGMForVideo, resumeBGMAfterVideo } from "@/utils/soundEffects";
 import { useSpeech } from "@/hooks/useSpeech";
@@ -719,6 +720,10 @@ export default function KaraokePlayer({
             JSON.stringify({ event: "command", func: "addEventListener", args: ["onStateChange"] }),
             "*"
           );
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({ event: "command", func: "addEventListener", args: ["onError"] }),
+            "*"
+          );
         }
       } catch {}
     };
@@ -742,10 +747,13 @@ export default function KaraokePlayer({
         // Player Error handling (100, 101, 150, 2, 5)
         if (data.event === "onError") {
           console.warn("YouTube player onError received:", data.info);
+          if (currentSong.youtubeId) {
+            markVideoAsUnplayable(currentSong.youtubeId, `Karaoke YouTube onError code ${data.info}`);
+          }
           setPlaybackError("Bài hát tạm thời không khả dụng");
           setTimeout(() => {
             handleNextSongShortcut();
-          }, 2500);
+          }, 1800);
           return;
         }
 

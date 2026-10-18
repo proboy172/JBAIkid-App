@@ -18,6 +18,7 @@ import {
 import { songsEn, songsVi, Song } from "@/data/songs";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX } from "@/utils/soundEffects";
+import { isUnplayableVideo, subscribeVideoHealth } from "@/utils/videoHealthManager";
 import {
   Search,
   Heart,
@@ -50,6 +51,12 @@ const allCombinedBaseItems: AllVideoItem[] = [
 // Deterministic round-robin interleave across channels for initial SSR render (with new videos prioritized first)
 function getInterleavedEduVideos(): EducationalVideo[] {
   const channelNames = [
+    "Storyline Online",
+    "Art for Kids Hub",
+    "Cosmic Kids Yoga",
+    "PBS KIDS",
+    "Sesame Street",
+    "Nat Geo Kids",
     "Danny Go!",
     "Wild Safari",
     "Ms Rachel",
@@ -112,6 +119,16 @@ export interface EduFilterItem {
 
 const eduUnifiedFilters: EduFilterItem[] = [
   { id: "all", name: "Tất cả", emoji: "🌟", count: educationalVideos.length, type: "all", target: "all" },
+  { id: "art", name: "Bé vẽ sáng tạo", emoji: "🎨", count: educationalVideos.filter(v => v.category === "art").length, type: "category", target: "art" },
+  { id: "art-for-kids", name: "Art for Kids", emoji: "🎨", count: educationalVideos.filter(v => v.channel === "Art for Kids Hub").length, type: "channel", target: "Art for Kids Hub" },
+  { id: "yoga", name: "Yoga & Cảm xúc", emoji: "🧘‍♀️", count: educationalVideos.filter(v => v.category === "yoga").length, type: "category", target: "yoga" },
+  { id: "cosmic-yoga", name: "Cosmic Yoga", emoji: "🧘‍♀️", count: educationalVideos.filter(v => v.channel === "Cosmic Kids Yoga").length, type: "channel", target: "Cosmic Kids Yoga" },
+  { id: "story", name: "Đọc truyện nhí", emoji: "📚", count: educationalVideos.filter(v => v.category === "story").length, type: "category", target: "story" },
+  { id: "storyline", name: "Storyline", emoji: "📚", count: educationalVideos.filter(v => v.channel === "Storyline Online").length, type: "channel", target: "Storyline Online" },
+  { id: "lifeskills", name: "Kỹ năng & Cư xử", emoji: "🤝", count: educationalVideos.filter(v => v.category === "lifeskills").length, type: "category", target: "lifeskills" },
+  { id: "pbs-kids", name: "PBS KIDS", emoji: "🤝", count: educationalVideos.filter(v => v.channel === "PBS KIDS").length, type: "channel", target: "PBS KIDS" },
+  { id: "sesame-street", name: "Sesame Street", emoji: "🌟", count: educationalVideos.filter(v => v.channel === "Sesame Street").length, type: "channel", target: "Sesame Street" },
+  { id: "nat-geo-kids", name: "Nat Geo Kids", emoji: "🌍", count: educationalVideos.filter(v => v.channel === "Nat Geo Kids").length, type: "channel", target: "Nat Geo Kids" },
   { id: "safari", name: "Safari 4K", emoji: "🦁", count: educationalVideos.filter(v => v.category === "safari").length, type: "category", target: "safari" },
   { id: "ms-rachel", name: "Ms Rachel", emoji: "👧", count: educationalVideos.filter(v => v.channel === "Ms Rachel").length, type: "channel", target: "Ms Rachel" },
   { id: "numberblocks", name: "Numberblocks", emoji: "🔢", count: educationalVideos.filter(v => v.channel === "Numberblocks").length, type: "channel", target: "Numberblocks" },
@@ -217,6 +234,14 @@ function VideosContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [isListeningVoice, setIsListeningVoice] = useState(false);
+  const [healthTick, setHealthTick] = useState(0);
+
+  // Subscribe to live video health updates (auto-healing on unplayable errors)
+  useEffect(() => {
+    return subscribeVideoHealth(() => {
+      setHealthTick((prev) => prev + 1);
+    });
+  }, []);
 
   const handleStartVoiceSearch = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -331,12 +356,20 @@ function VideosContent() {
 
   // Initial random shuffle on client mount so each session starts fresh & random with new videos prioritized at top
   useEffect(() => {
-    const newItems = allCombinedBaseItems.filter((it) => (it.item as any).isNew);
-    const oldItems = allCombinedBaseItems.filter((it) => !(it.item as any).isNew);
+    const newItems = allCombinedBaseItems.filter(
+      (it) => (it.item as any).isNew && !isUnplayableVideo((it.item as any).youtubeId)
+    );
+    const oldItems = allCombinedBaseItems.filter(
+      (it) => !(it.item as any).isNew && !isUnplayableVideo((it.item as any).youtubeId)
+    );
     setShuffledAllVideos([...shuffleArray(newItems), ...shuffleArray(oldItems)]);
 
-    setShuffledEduVideos(shuffleEduWithNewPrioritized(educationalVideos));
-  }, [shuffleArray, shuffleEduWithNewPrioritized]);
+    setShuffledEduVideos(
+      shuffleEduWithNewPrioritized(
+        educationalVideos.filter((v) => !isUnplayableVideo(v.youtubeId))
+      )
+    );
+  }, [shuffleArray, shuffleEduWithNewPrioritized, healthTick]);
 
   // Reset pagination when filter, search query or tab changes
   useEffect(() => {
@@ -452,6 +485,10 @@ function VideosContent() {
     const sourceList = selectedEduFilter === "all" ? shuffledEduVideos : educationalVideos;
 
     return sourceList.filter((vid) => {
+      // Exclude unplayable/broken YouTube videos
+      if (vid.youtubeId && isUnplayableVideo(vid.youtubeId)) {
+        return false;
+      }
       if (selectedEduFilter !== "all") {
         const item = eduUnifiedFilters.find((f) => f.id === selectedEduFilter);
         if (item) {
@@ -477,11 +514,14 @@ function VideosContent() {
       }
       return true;
     });
-  }, [shuffledEduVideos, selectedEduFilter, activeTab, favorites, searchQuery]);
+  }, [shuffledEduVideos, selectedEduFilter, activeTab, favorites, searchQuery, healthTick]);
 
   // Filtering English Songs
   const filteredSongsEn = useMemo(() => {
     return songsEn.filter((song) => {
+      if (song.youtubeId && isUnplayableVideo(song.youtubeId)) {
+        return false;
+      }
       if (activeTab === "favorites" && !favorites.includes(song.id)) {
         return false;
       }
@@ -504,11 +544,14 @@ function VideosContent() {
       }
       return true;
     });
-  }, [activeTab, favorites, songEnTheme, searchQuery]);
+  }, [activeTab, favorites, songEnTheme, searchQuery, healthTick]);
 
   // Filtering Vietnamese Songs
   const filteredSongsVi = useMemo(() => {
     return songsVi.filter((song) => {
+      if (song.youtubeId && isUnplayableVideo(song.youtubeId)) {
+        return false;
+      }
       if (activeTab === "favorites" && !favorites.includes(song.id)) {
         return false;
       }
@@ -528,7 +571,7 @@ function VideosContent() {
       }
       return true;
     });
-  }, [activeTab, favorites, songViTheme, searchQuery]);
+  }, [activeTab, favorites, songViTheme, searchQuery, healthTick]);
 
   // Total items matching in search mode
   const totalSearchResults =

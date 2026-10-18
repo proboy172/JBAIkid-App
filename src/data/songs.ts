@@ -33,6 +33,8 @@ export interface Song {
 import songsEnData from "./songs-en.json";
 import songsViData from "./songs-vi.json";
 
+import { isUnplayableVideo } from "@/utils/videoHealthManager";
+
 export const songsEn: Song[] = songsEnData as Song[];
 export const songsVi: Song[] = songsViData as Song[];
 
@@ -46,7 +48,9 @@ export function getRecommendedSongs(currentSong: Song, count = 16, randomMode = 
     return copy;
   };
 
-  const allOtherSongs = [...songsEn, ...songsVi].filter((s) => s.id !== currentSong.id);
+  const allOtherSongs = [...songsEn, ...songsVi].filter(
+    (s) => s.id !== currentSong.id && !isUnplayableVideo(s.youtubeId)
+  );
 
   if (randomMode) {
     return shuffle(allOtherSongs).slice(0, count);

@@ -26,6 +26,7 @@ import {
   ListVideo,
 } from "lucide-react";
 import { EducationalVideo, educationalVideos, getRecommendedVideos } from "@/data/educationalVideos";
+import { markVideoAsUnplayable, isUnplayableVideo } from "@/utils/videoHealthManager";
 import { useAppStore } from "@/stores/appStore";
 import { playSFX, pauseBGMForVideo, resumeBGMAfterVideo } from "@/utils/soundEffects";
 import { useSpeech } from "@/hooks/useSpeech";
@@ -100,6 +101,8 @@ export default function SafeVideoModal({
   const modalRef = useRef<HTMLDivElement | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const watchdogTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const hasPlaybackStartedRef = useRef<boolean>(false);
 
   const isFullMode = isFullscreen || isMobileLandscape;
 
@@ -245,7 +248,25 @@ export default function SafeVideoModal({
     setPlaybackError(null);
     setCurrentTime(0);
     setDuration(0);
+    hasPlaybackStartedRef.current = false;
     openTimeRef.current = Date.now();
+
+    // Watchdog: If after 8.5s the video never starts playing and has 0 current time, trigger auto-fallback
+    if (watchdogTimerRef.current) clearTimeout(watchdogTimerRef.current);
+    watchdogTimerRef.current = setTimeout(() => {
+      if (!hasPlaybackStartedRef.current && currentTimeRef.current === 0 && isPlayingRef.current) {
+        console.warn("Watchdog detected video failed to start playing:", video.youtubeId);
+        markVideoAsUnplayable(video.youtubeId, "Watchdog timeout (failed to start)");
+        setPlaybackError("Video tạm thời không khả dụng");
+        setTimeout(() => {
+          handleNextVideoShortcut();
+        }, 1800);
+      }
+    }, 8500);
+
+    return () => {
+      if (watchdogTimerRef.current) clearTimeout(watchdogTimerRef.current);
+    };
   }, [video]);
 
   // Auto pause background music when opening video, and resume when closing
@@ -603,9 +624,9 @@ export default function SafeVideoModal({
       }
     }
     const fallbackPool = randomMode
-      ? educationalVideos.filter((v) => v.id !== currentVideo.id)
+      ? educationalVideos.filter((v) => v.id !== currentVideo.id && !isUnplayableVideo(v.youtubeId))
       : educationalVideos.filter(
-          (v) => v.category === currentVideo.category && v.id !== currentVideo.id
+          (v) => v.category === currentVideo.category && v.id !== currentVideo.id && !isUnplayableVideo(v.youtubeId)
         );
     if (fallbackPool.length > 0) {
       const fallbackVid = fallbackPool[Math.floor(Math.random() * fallbackPool.length)];
@@ -616,10 +637,15 @@ export default function SafeVideoModal({
   const handleNextVideoShortcut = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     playSFX("tap");
+    const playableRecs = recommendations.filter((r) => {
+      const vid = educationalVideos.find((v) => v.id === r.id);
+      return vid ? !isUnplayableVideo(vid.youtubeId) : true;
+    });
+
     if (randomMode) {
       handleRandomSurprise();
-    } else if (recommendations.length > 0) {
-      handleSelectNextVideo(recommendations[0].id);
+    } else if (playableRecs.length > 0) {
+      handleSelectNextVideo(playableRecs[0].id);
     } else {
       handleRandomSurprise();
     }
@@ -628,7 +654,7 @@ export default function SafeVideoModal({
   const handleRandomSurprise = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     playSFX("pop");
-    const others = educationalVideos.filter((v) => v.id !== currentVideo.id);
+    const others = educationalVideos.filter((v) => v.id !== currentVideo.id && !isUnplayableVideo(v.youtubeId));
     if (others.length === 0) return;
     const randomVid = others[Math.floor(Math.random() * others.length)];
     setHistoryStack((prev) => [...prev, currentVideo.id]);
@@ -762,10 +788,11 @@ export default function SafeVideoModal({
         // Player Error handling (100, 101, 150, 2, 5)
         if (data.event === "onError") {
           console.warn("YouTube player onError received:", data.info);
+          markVideoAsUnplayable(currentVideo.youtubeId, `YouTube onError code ${data.info}`);
           setPlaybackError("Video tạm thời không khả dụng");
           setTimeout(() => {
             handleNextVideoShortcut();
-          }, 2500);
+          }, 1800);
           return;
         }
 
@@ -777,6 +804,8 @@ export default function SafeVideoModal({
             if (data.info === 1 || data.info === "1") {
               setIsPlaying(true);
               setPlaybackError(null);
+              hasPlaybackStartedRef.current = true;
+              if (watchdogTimerRef.current) clearTimeout(watchdogTimerRef.current);
             } else if (data.info === 2 || data.info === "2") {
               setIsPlaying(false);
             }
@@ -791,6 +820,8 @@ export default function SafeVideoModal({
             if (data.info.playerState === 1 || data.info.playerState === "1") {
               setIsPlaying(true);
               setPlaybackError(null);
+              hasPlaybackStartedRef.current = true;
+              if (watchdogTimerRef.current) clearTimeout(watchdogTimerRef.current);
             } else if (data.info.playerState === 2 || data.info.playerState === "2") {
               setIsPlaying(false);
             }
@@ -1404,14 +1435,18 @@ export default function SafeVideoModal({
           {playbackError && (
             <div className="absolute inset-0 z-40 bg-black/92 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center select-none">
               <div className="w-16 h-16 rounded-full bg-amber-500/20 border-2 border-amber-400 text-amber-400 flex items-center justify-center text-3xl mb-3 animate-bounce">
-                📺
+                🎈
               </div>
               <h3 className="text-white text-base sm:text-lg font-black mb-1" style={{ fontFamily: "var(--font-heading)" }}>
-                Video tạm thời không khả dụng
+                Video tạm thời được bảo trì
               </h3>
-              <p className="text-slate-300 text-xs sm:text-sm max-w-sm mb-4">
-                Chủ kênh đã giới hạn hoặc video thay đổi trên YouTube. Đang tự động chuyển video khác cho bé...
+              <p className="text-slate-300 text-xs sm:text-sm max-w-sm mb-3">
+                Chủ kênh đã giới hạn hoặc cập nhật trên YouTube. Đang tự động chuyển video hấp dẫn khác cho bé...
               </p>
+              {/* Animated Progress Bar */}
+              <div className="w-48 h-1.5 bg-white/20 rounded-full overflow-hidden mb-4">
+                <div className="h-full bg-gradient-to-r from-amber-400 to-orange-500 animate-[progress_1.8s_linear_forwards]" />
+              </div>
               <div className="flex items-center gap-3">
                 <button
                   type="button"
@@ -1419,7 +1454,7 @@ export default function SafeVideoModal({
                   className="px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-black text-xs sm:text-sm shadow-lg border-2 border-amber-200 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5"
                 >
                   <SkipForward size={16} />
-                  <span>Xem video tiếp theo</span>
+                  <span>Xem video tiếp theo ngay 🚀</span>
                 </button>
                 <button
                   type="button"
