@@ -1,5 +1,39 @@
 [
   {
+    "id": "cosmic-kids-yoga-kids-yoga-live-fun-yoga-adventur-358",
+    "title": "Kids Yoga LIVE 🌟 | Fun Yoga Adventures & Movement for Kids",
+    "channel": "Cosmic Kids Yoga",
+    "channelAvatar": "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=100&q=80",
+    "channelColor": "#8B5CF6",
+    "youtubeId": "rxiXRYl_Q9I",
+    "duration": "15:00",
+    "category": "yoga",
+    "categoryNameVi": "Yoga & Cảm xúc",
+    "categoryEmoji": "🧘‍♀️",
+    "recommendedAge": "3-5 tuổi",
+    "description": "Video học tập bổ ích từ kênh Cosmic Kids Yoga: Kids Yoga LIVE 🌟 | Fun Yoga Adventures & Movement for Kids",
+    "parentTip": "Trải thảm và cùng bé tập các tư thế yoga ngộ nghĩnh, học cách hít thở sâu để giữ bình tĩnh và vui vẻ.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
     "id": "storyline-the-rainbow-fish",
     "title": "The Rainbow Fish | Kể Chuyện Thiếu Nhi Đoạt Giải Quốc Tế",
     "channel": "Storyline Online",
@@ -36,7 +70,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "storyline-room-on-the-broom",
@@ -75,7 +109,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "storyline-the-three-little-pigs",
@@ -114,7 +148,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "storyline-the-king-of-kindergarten",
@@ -153,7 +187,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "storyline-library-lion",
@@ -192,7 +226,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "storyline-arnie-the-doughnut",
@@ -226,7 +260,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "cosmic-yoga-frozen-adventure",
@@ -260,7 +294,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "cosmic-yoga-safari-adventure",
@@ -294,7 +328,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "numberblocks-learn-how-to-tell-the-time-learn",
@@ -328,7 +362,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "numberblocks-captain-hex-beards-return-hallow",
@@ -362,7 +396,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "numberblocks-a-guide-to-fractions-learn-early",
@@ -396,7 +430,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "numberblocks-aliens-in-numberland-halloween-m",
@@ -430,7 +464,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "numberblocks-numberblock-ones-spooky-counting",
@@ -464,7 +498,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "alphablocks-the-halloween-theme-tune-hallowe",
@@ -498,7 +532,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "alphablocks-alphablocks---watch-whilst-you-e",
@@ -532,7 +566,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "alphablocks-100-spellings-for-kids-to-learn-",
@@ -566,7 +600,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "alphablocks-lets-learn-halloween-cvc-words-h",
@@ -600,7 +634,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "alphablocks-long-vowels-ou-oy-y-lesson-thirt",
@@ -634,7 +668,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "super-simple-top-20-halloween-songs-kids-song",
@@ -668,7 +702,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "geckos-garage-winter-bbq-at-the-garage-geckos-",
@@ -702,7 +736,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "geckos-garage-the-monster-trucks-song-geckos-g",
@@ -736,7 +770,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "geckos-garage-10-trucks-in-the-bed-geckos-gara",
@@ -770,7 +804,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "geckos-garage-the-garage-is-haunted-by-ghost-g",
@@ -804,7 +838,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "geckos-garage-trick-or-treat-treasure-hunt-gec",
@@ -838,7 +872,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "steve-maggie-magic-halloween-broomsticks-more",
@@ -872,7 +906,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "oxford-phonics-oxford-phonics-world-student-boo-218",
@@ -906,7 +940,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "oxford-phonics-oxford-phonics-world-student-boo-82",
@@ -940,7 +974,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "oxford-phonics-oxford-phonics-world-student-boo-368",
@@ -974,7 +1008,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "oxford-phonics-oxford-phonics-world-student-boo-174",
@@ -1008,7 +1042,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "oxford-phonics-oxford-phonics-world-student-boo-943",
@@ -1042,7 +1076,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "wild-safari-looking-for-the-red-wolf-learn-w",
@@ -1076,7 +1110,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "wild-safari-bison-learn-with-steve-backshall",
@@ -1110,7 +1144,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "wild-safari-learn-about-dinosaurs-dinosaur-f",
@@ -1144,7 +1178,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "wild-safari-beluga-learn-with-steve-backshal",
@@ -1178,7 +1212,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "wild-safari-learn-about-baby-animals-wildlif",
@@ -1212,7 +1246,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "art-for-kids-hub-how-to-draw-punch-the-monkey",
@@ -1246,7 +1280,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "art-for-kids-hub-how-to-draw-stitch-in-a-ghost-co",
@@ -1280,7 +1314,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "art-for-kids-hub-how-to-draw-stitch-in-a-pumpkin-",
@@ -1314,7 +1348,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "art-for-kids-hub-how-to-draw-a-vampire-kitten",
@@ -1348,7 +1382,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "art-for-kids-hub-how-to-draw-a-zombie-teddy-bear",
@@ -1382,7 +1416,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "cosmic-kids-yoga-kids-yoga-live-fun-yoga-adventur",
@@ -1416,7 +1450,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "cosmic-kids-yoga-kids-yoga-live-fun-yoga-adventur-23",
@@ -1450,7 +1484,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "cosmic-kids-yoga-kids-yoga-live-fun-yoga-adventur-502",
@@ -1484,7 +1518,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "cosmic-kids-yoga-kids-yoga-live-fun-yoga-adventur-562",
@@ -1518,7 +1552,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "cosmic-kids-yoga-kids-yoga-live-fun-yoga-adventur-732",
@@ -1552,7 +1586,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "pbs-kids-odd-squad-gaming-unit-scribbles-",
@@ -1586,7 +1620,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "pbs-kids-super-letter-race-full-gameplay-",
@@ -1620,7 +1654,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "pbs-kids-pbs-kids-games-odd-squad-gaming-",
@@ -1654,7 +1688,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "pbs-kids-pbs-kids-games-rosies-rules-rosi",
@@ -1688,7 +1722,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "pbs-kids-pbs-kids-games-odd-squad-gaming--46",
@@ -1722,7 +1756,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "sesame-street-whats-new-this-fall-from-sesame-",
@@ -1756,7 +1790,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "sesame-street-the-neighborhood-that-raised-you",
@@ -1790,7 +1824,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "sesame-street-support-the-soundtrack-of-childh",
@@ -1824,7 +1858,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "sesame-street-elmo-loses-his-laugh",
@@ -1858,7 +1892,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "sesame-street-sesame-street-celebrates-the-peo",
@@ -1892,7 +1926,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "nat-geo-kids-jack-hannas-passport-full-episod",
@@ -1926,7 +1960,7 @@
       }
     ],
     "isFeatured": true,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "nat-geo-kids-epic-animal-migrations-which-ani",
@@ -1960,7 +1994,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "nat-geo-kids-the-scariest-ancient-greek-monst",
@@ -1994,7 +2028,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "nat-geo-kids-unlikely-animal-friends-full-epi",
@@ -2028,7 +2062,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "nat-geo-kids-pigs-vs-cows-vs-goats-barnyard-s",
@@ -2062,7 +2096,7 @@
       }
     ],
     "isFeatured": false,
-    "isNew": true
+    "isNew": false
   },
   {
     "id": "numberblocks-struggling-with-math-start-here-",
