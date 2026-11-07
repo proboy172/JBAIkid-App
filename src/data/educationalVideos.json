@@ -1,5 +1,39 @@
 [
   {
+    "id": "nat-geo-kids-ad-prepare-for-lift-off-with-the",
+    "title": "AD | Prepare for lift-off with the National Geographic Light-Up Air Rockets 🚀 | Nat Geo Kids",
+    "channel": "Nat Geo Kids",
+    "channelAvatar": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=100&q=80",
+    "channelColor": "#F59E0B",
+    "youtubeId": "lT3AZws4JvE",
+    "duration": "15:00",
+    "category": "world",
+    "categoryNameVi": "Khám phá thế giới",
+    "categoryEmoji": "🌍",
+    "recommendedAge": "4-6 tuổi",
+    "description": "Video học tập bổ ích từ kênh Nat Geo Kids: AD | Prepare for lift-off with the National Geographic Light-Up Air Rockets 🚀 | Nat Geo Kids",
+    "parentTip": "Khám phá thế giới động vật kỳ thú và môi trường tự nhiên sinh động cùng các nhà thám hiểm nhí National Geographic.",
+    "keyVocab": [
+      {
+        "en": "Learn",
+        "vi": "Học tập",
+        "emoji": "📚"
+      },
+      {
+        "en": "Listen",
+        "vi": "Lắng nghe",
+        "emoji": "👂"
+      },
+      {
+        "en": "Happy",
+        "vi": "Vui vẻ",
+        "emoji": "😊"
+      }
+    ],
+    "isFeatured": true,
+    "isNew": true
+  },
+  {
     "id": "cosmic-kids-yoga-kids-yoga-live-fun-yoga-adventur-358",
     "title": "Kids Yoga LIVE 🌟 | Fun Yoga Adventures & Movement for Kids",
     "channel": "Cosmic Kids Yoga",
